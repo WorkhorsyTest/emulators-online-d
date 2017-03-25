@@ -1,3 +1,12 @@
 
 
 build
+cache/*
+db/*
+downloads/*
+images/*
+emulators/*
+server/build/
+server/dist/
+client/generated/*
+client/identify_games/*.exe
