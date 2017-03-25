@@ -16,53 +16,44 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package main
+import std.stdio;
+import std.file;
+import std.string;
+import std.outbuffer;
+import std.base64;
+import std.zlib;
+import std.process;
 
-import (
-	"fmt"
-	//"io"
-	"io/ioutil"
-	"os"
-	"os/exec"
-	//"strings"
-	"bytes"
-	"compress/zlib"
-	"encoding/base64"
-	"encoding/gob"
-)
 
-func CompressWith7zip(in_file string, out_file string) {
+void CompressWith7zip(string in_file, string out_file) {
 	// Get the command and arguments
-	command := "../../7za.exe"
-	args := []string {
+	const string[] command = [
+		"../../7za.exe",
 		"a",
 		"-t7z",
 		"-m0=lzma2",
 		"-mx=9",
-		fmt.Sprintf("%s", out_file),
-		fmt.Sprintf("%s", in_file),
-	}
+		"%s".format(out_file),
+		"%s".format(in_file),
+	];
 
 	// Run the command and wait for it to complete
-	cmd := exec.Command(command, args...)
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	err := cmd.Run()
-	if err != nil {
-		fmt.Printf("Failed to run command: %s\r\n", err)
+	auto pid = spawnProcess(command);
+	int status = wait(pid);
+	if (status != 0) {
+		stderr.writefln("Failed to run command: %s\r\n", "7za.exe");
 	}
 }
 
-func main() {
+int main() {
 	// Generate a file that will generate everything
-	out, _ := os.Create("client/generated/generated_files.go")
-	out.Write([]byte("package generated\r\n\r\n"))
+	auto output = std.stdio.File("client/generated/generated_files.d", "w");
+	output.write("package generated\r\n\r\n");
 
 	// Get a list of all the files to store
-	file_names := []string {
+	const string[] file_names = [
 		"unrar.exe",
 		"index.html",
-		"static/agplv3-155x51.png",
 		"static/default.css",
 		"static/emulators_online.js",
 		"static/favicon.ico",
@@ -81,7 +72,7 @@ func main() {
 		"client/identify_games/db_playstation2_official_jp.json",
 		"client/identify_games/db_playstation2_official_ko.json",
 		"client/identify_games/db_playstation2_official_us.json",
-		"client/identify_games/identify_games.exe",
+		//"client/identify_games/identify_games.exe",
 		"licenses/license_7zip",
 		"licenses/license_emulatos_online",
 		"licenses/license_identify_dreamcast_games",
@@ -89,86 +80,66 @@ func main() {
 		"licenses/license_iso9660",
 		"licenses/license_py_read_udf",
 		"licenses/license_unrar",
-	}
+	];
 
 	// Read the files into a map
-	file_map := make(map[string][]byte)
-	for _, file_name := range file_names {
+	byte[][string] file_map;
+	foreach (file_name ; file_names) {
 		// Read the file to a string
-		data, err := ioutil.ReadFile(file_name)
-		if err != nil {
-			panic(err)
-		}
+		byte[] data = cast(byte[]) std.file.read(file_name);
 
 		// Put the file string into the map
-		file_map[file_name] = data
+		file_map[file_name] = data;
 	}
 
 	// Convert the map to a gob
-	var gob_buffer bytes.Buffer
-	encoder := gob.NewEncoder(&gob_buffer)
-	err := encoder.Encode(file_map)
-	if err != nil {
-		panic(err)
-	}
+	auto gob_buffer = new OutBuffer();
+	gob_buffer.writef("%s", file_map);
 
 	// Write the gob to file
-	ioutil.WriteFile("client/generated/gob", gob_buffer.Bytes(), 0644)
-	gob_buffer.Reset()
+	std.file.write("client/generated/gob", gob_buffer.toBytes());
+	gob_buffer = null;
 
 	// Compress the gob to file
-	os.Chdir("client/generated")
-	CompressWith7zip("gob", "gob.7z")
-	os.Chdir("../..")
+	std.file.chdir("client/generated");
+	CompressWith7zip("gob", "gob.7z");
+	std.file.chdir("../..");
 
 	// Read the compressed gob from file
-	file_data, err := ioutil.ReadFile("client/generated/gob.7z")
-	if err != nil {
-		panic(err)
-	}
+	byte[] file_data = cast(byte[]) std.file.read("client/generated/gob.7z");
 
 	// Base64 the compressed gob
-	base64ed_data := base64.StdEncoding.EncodeToString(file_data)
+	byte[] base64ed_data = cast(byte[]) Base64.encode(file_data);
 
 	// Write the files generating function
-	out.Write([]byte("func GetCompressedFiles() string {\r\n"))
-	out.Write([]byte("    return \""))
-	out.Write([]byte(base64ed_data))
-	out.Write([]byte("\"\r\n"))
-	out.Write([]byte("}\r\n"))
+	output.write("string GetCompressedFiles() {\r\n");
+	output.write("    return \"");
+	output.write(base64ed_data);
+	output.write("\"\r\n");
+	output.write("}\r\n");
 
 	// Read 7zip into an array
-	file_data, err = ioutil.ReadFile("7za.exe")
-	if err != nil {
-		panic(err)
-	}
+	file_data = cast(byte[]) std.file.read("7za.exe");
 
 	// Convert the 7zip array to a gob
-	encoder = gob.NewEncoder(&gob_buffer)
-	err = encoder.Encode(file_data)
-	if err != nil {
-		panic(err)
-	}
+	gob_buffer = new OutBuffer();
+	gob_buffer.writef("%s", file_data);
 
 	// Compress the gob
-	var zlib_buffer bytes.Buffer
-	writer, err := zlib.NewWriterLevel(&zlib_buffer, zlib.BestCompression)
- 	if err != nil {
- 		panic(err)
- 	}
-	writer.Write(gob_buffer.Bytes())
-	writer.Close()
+	ubyte[] zlibed_data = std.zlib.compress(gob_buffer.toBytes(), 9);
 
 	// Base64 the compressed gob
-	base64ed_data = base64.StdEncoding.EncodeToString(zlib_buffer.Bytes())
+	base64ed_data = cast(byte[]) Base64.encode(zlibed_data);
 
 	// Write the 7zip generating function
-	out.Write([]byte("func GetCompressed7zip() string {\r\n"))
-	out.Write([]byte("    return \""))
-	out.Write([]byte(base64ed_data))
-	out.Write([]byte("\"\r\n"))
-	out.Write([]byte("}\r\n"))
+	output.write("string GetCompressed7zip() {\r\n");
+	output.write("    return \"");
+	output.write(base64ed_data);
+	output.write("\"\r\n");
+	output.write("}\r\n");
 
 	// Close the file
-	out.Close()
+	output.close();
+
+	return 0;
 }

@@ -6,9 +6,6 @@
 set -e
 
 function build {
-	mkdir build
-	cd build
-
 	# Make sure G++ is installed
 	if ! type g++ >/dev/null 2>&1; then
 		echo "G++ was not found. Please install G++ or MinGW." >&2
@@ -20,6 +17,13 @@ function build {
 		echo "DMD was not found. Please install DMD." >&2
 		return
 	fi
+
+	# Put everything inside the generated D file
+	echo "Generating files ..."
+	rdmd -g client/generate/generate_included_files.d
+
+	mkdir build
+	cd build
 
 	echo "Building uWebSockets ..."
 	g++ \
