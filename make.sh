@@ -21,7 +21,7 @@ function build {
 	# Put everything inside the generated D file
 	echo "Generating files ..."
 	rdmd -g client/generate/generate_included_files.d
-
+	'''
 	mkdir build
 	cd build
 
@@ -41,13 +41,14 @@ function build {
 	../uWebSockets/src/web_socket.cpp
 
 	echo "Building emulators-online ..."
-	dmd \
+	dmd -g \
 	../emulators_online_client.d ../uWebSockets/web_socket.d *.o \
 	-L-lstdc++ /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a
 	mv emulators_online_client ../emulators_online_client
 
 	cd ..
 	rm -f -rf build
+	'''
 }
 
 function clean {

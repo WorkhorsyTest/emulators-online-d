@@ -16,16 +16,21 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import std.conv;
 import std.stdio;
 import std.file;
 import std.string;
-import std.outbuffer;
 import std.base64;
 import std.zlib;
 import std.process;
+import std.array : appender;
+import cbor;
 
 
 void CompressWith7zip(string in_file, string out_file) {
+	import std.algorithm;
+	import std.array;
+
 	// Get the command and arguments
 	const string[] command = [
 		"../../7za.exe",
@@ -38,8 +43,14 @@ void CompressWith7zip(string in_file, string out_file) {
 	];
 
 	// Run the command and wait for it to complete
-	auto pid = spawnProcess(command);
-	int status = wait(pid);
+	auto pipes = pipeProcess(command, Redirect.stdout | Redirect.stderr);
+	int status = wait(pipes.pid);
+/*
+	string[] result_stdout = pipes.stdout.byLine.map!(l => l.idup).array();
+	string[] result_stderr = pipes.stderr.byLine.map!(l => l.idup).array();
+	stdout.writefln("!!! stdout:%s", result_stdout);
+	stdout.writefln("!!! stderr:%s", result_stderr);
+*/
 	if (status != 0) {
 		stderr.writefln("Failed to run command: %s\r\n", "7za.exe");
 	}
@@ -48,7 +59,7 @@ void CompressWith7zip(string in_file, string out_file) {
 int main() {
 	// Generate a file that will generate everything
 	auto output = std.stdio.File("client/generated/generated_files.d", "w");
-	output.write("package generated\r\n\r\n");
+	output.write("module Generated;\r\n\r\n");
 
 	// Get a list of all the files to store
 	const string[] file_names = [
@@ -82,34 +93,46 @@ int main() {
 		"licenses/license_unrar",
 	];
 
-	// Read the files into a map
+	// Read the files into an array
 	byte[][string] file_map;
 	foreach (file_name ; file_names) {
 		// Read the file to a string
 		byte[] data = cast(byte[]) std.file.read(file_name);
 
-		// Put the file string into the map
+		// Put the file string into the array
 		file_map[file_name] = data;
 	}
+	//stdout.writefln("!!!! file_map.length: %s", file_map.length);
+	//stdout.flush();
 
-	// Convert the map to a gob
-	auto gob_buffer = new OutBuffer();
-	gob_buffer.writef("%s", file_map);
+	// Convert the array to a blob
+	auto gob_buffer = appender!(ubyte[])();
+	encodeCbor(gob_buffer, file_map);
+	//stdout.writefln("!!!! gob_buffer.data.length: %s", gob_buffer.data.length);
+	//stdout.flush();
+/*
+	byte[][string] ass = decodeCborSingle!(byte[][string])(gob_buffer.data);
+	stdout.writefln("!!!! ass: %s", ass);
+	stdout.flush();
+*/
+	// Write the blob to file
+	std.file.write("client/generated/gob", gob_buffer.data);
+	//gob_buffer = null;
 
-	// Write the gob to file
-	std.file.write("client/generated/gob", gob_buffer.toBytes());
-	gob_buffer = null;
-
-	// Compress the gob to file
+	// Compress the blob to file
 	std.file.chdir("client/generated");
 	CompressWith7zip("gob", "gob.7z");
 	std.file.chdir("../..");
 
-	// Read the compressed gob from file
-	byte[] file_data = cast(byte[]) std.file.read("client/generated/gob.7z");
+	// Read the compressed blob from file
+	ubyte[] file_data = cast(ubyte[]) std.file.read("client/generated/gob.7z");
+	//stdout.writefln("!!!! file_data: %s", file_data);
+	//stdout.flush();
 
-	// Base64 the compressed gob
-	byte[] base64ed_data = cast(byte[]) Base64.encode(file_data);
+	// Base64 the compressed blob
+	ubyte[] base64ed_data = cast(ubyte[]) Base64.encode(file_data);
+	//stdout.writefln("!!!! base64ed_data.length: %s", base64ed_data.length);
+	//stdout.flush();
 
 	// Write the files generating function
 	output.write("string GetCompressedFiles() {\r\n");
@@ -119,17 +142,17 @@ int main() {
 	output.write("}\r\n");
 
 	// Read 7zip into an array
-	file_data = cast(byte[]) std.file.read("7za.exe");
+	file_data = cast(ubyte[]) std.file.read("7za.exe");
 
-	// Convert the 7zip array to a gob
-	gob_buffer = new OutBuffer();
-	gob_buffer.writef("%s", file_data);
+	// Convert the 7zip array to a blob
+	gob_buffer = appender!(ubyte[])();
+	encodeCbor(gob_buffer, file_data);
 
 	// Compress the gob
-	ubyte[] zlibed_data = std.zlib.compress(gob_buffer.toBytes(), 9);
+	ubyte[] zlibed_data = std.zlib.compress(gob_buffer.data, 9);
 
 	// Base64 the compressed gob
-	base64ed_data = cast(byte[]) Base64.encode(zlibed_data);
+	base64ed_data = cast(ubyte[]) Base64.encode(zlibed_data);
 
 	// Write the 7zip generating function
 	output.write("string GetCompressed7zip() {\r\n");
