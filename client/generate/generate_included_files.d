@@ -102,37 +102,25 @@ int main() {
 		// Put the file string into the array
 		file_map[file_name] = data;
 	}
-	//stdout.writefln("!!!! file_map.length: %s", file_map.length);
-	//stdout.flush();
 
 	// Convert the array to a blob
-	auto gob_buffer = appender!(ubyte[])();
-	encodeCbor(gob_buffer, file_map);
-	//stdout.writefln("!!!! gob_buffer.data.length: %s", gob_buffer.data.length);
-	//stdout.flush();
-/*
-	byte[][string] ass = decodeCborSingle!(byte[][string])(gob_buffer.data);
-	stdout.writefln("!!!! ass: %s", ass);
-	stdout.flush();
-*/
+	auto buffer = appender!(ubyte[])();
+	encodeCbor(buffer, file_map);
+
 	// Write the blob to file
-	std.file.write("client/generated/gob", gob_buffer.data);
-	//gob_buffer = null;
+	std.file.write("client/generated/blob", buffer.data);
+	//buffer = null;
 
 	// Compress the blob to file
 	std.file.chdir("client/generated");
-	CompressWith7zip("gob", "gob.7z");
+	CompressWith7zip("blob", "blob.7z");
 	std.file.chdir("../..");
 
 	// Read the compressed blob from file
-	ubyte[] file_data = cast(ubyte[]) std.file.read("client/generated/gob.7z");
-	//stdout.writefln("!!!! file_data: %s", file_data);
-	//stdout.flush();
+	ubyte[] file_data = cast(ubyte[]) std.file.read("client/generated/blob.7z");
 
 	// Base64 the compressed blob
 	ubyte[] base64ed_data = cast(ubyte[]) Base64.encode(file_data);
-	//stdout.writefln("!!!! base64ed_data.length: %s", base64ed_data.length);
-	//stdout.flush();
 
 	// Write the files generating function
 	output.write("string GetCompressedFiles() {\r\n");
@@ -145,13 +133,13 @@ int main() {
 	file_data = cast(ubyte[]) std.file.read("7za.exe");
 
 	// Convert the 7zip array to a blob
-	gob_buffer = appender!(ubyte[])();
-	encodeCbor(gob_buffer, file_data);
+	buffer = appender!(ubyte[])();
+	encodeCbor(buffer, file_data);
 
-	// Compress the gob
-	ubyte[] zlibed_data = std.zlib.compress(gob_buffer.data, 9);
+	// Compress the blob
+	ubyte[] zlibed_data = std.zlib.compress(buffer.data, 9);
 
-	// Base64 the compressed gob
+	// Base64 the compressed blob
 	base64ed_data = cast(ubyte[]) Base64.encode(zlibed_data);
 
 	// Write the 7zip generating function
