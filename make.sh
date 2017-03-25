@@ -6,29 +6,37 @@
 set -e
 
 function build {
+	rm -f -rf build
+	mkdir build
+	cd build
+
+	echo "Building uWebSockets ..."
 	g++ \
-	-std=c++11 -O3 -c -I src -static -fPIC \
-	uWebSockets/src/Extensions.cpp \
-	uWebSockets/src/Group.cpp \
-	uWebSockets/src/WebSocketImpl.cpp \
-	uWebSockets/src/Networking.cpp \
-	uWebSockets/src/Hub.cpp \
-	uWebSockets/src/Node.cpp \
-	uWebSockets/src/WebSocket.cpp \
-	uWebSockets/src/HTTPSocket.cpp \
-	uWebSockets/src/Socket.cpp \
-	uWebSockets/src/Epoll.cpp \
-	uWebSockets/src/web_socket.cpp
+	-std=c++11 -g -O3 -c -fPIC \
+	../uWebSockets/src/Extensions.cpp \
+	../uWebSockets/src/Group.cpp \
+	../uWebSockets/src/WebSocketImpl.cpp \
+	../uWebSockets/src/Networking.cpp \
+	../uWebSockets/src/Hub.cpp \
+	../uWebSockets/src/Node.cpp \
+	../uWebSockets/src/WebSocket.cpp \
+	../uWebSockets/src/HTTPSocket.cpp \
+	../uWebSockets/src/Socket.cpp \
+	../uWebSockets/src/Epoll.cpp \
+	../uWebSockets/src/web_socket.cpp
 
+	echo "Building emulators-online ..."
 	dmd \
-	main.d uWebSockets/web_socket.d *.o \
+	../emulators_online_client.d ../uWebSockets/web_socket.d *.o \
 	-L-lstdc++ /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a
+	mv emulators_online_client ../emulators_online_client
 
-	rm -f *.o
+	cd ..
+	rm -f -rf build
 }
 
 function clean {
-	rm -f main
+	rm -f emulators_online_client
 	rm -f *.o
 	rm -f *.a
 	rm -f *.so
