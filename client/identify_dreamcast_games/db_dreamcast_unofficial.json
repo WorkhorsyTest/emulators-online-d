@@ -1,0 +1,1395 @@
+{
+    "51081": {
+        "developer": "Sega AM2",
+        "genre": "Flight simulator",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Propeller Arena"
+    },
+    "CHERRY": {
+        "developer": "Ubisoft Montpellier",
+        "genre": "Platformer",
+        "publisher": "Ubisoft",
+        "release_date": "02000-02-29-0000",
+        "title": "Rayman 2: The Great Escape"
+    },
+    "DR001": {
+        "developer": "Duranik",
+        "genre": "SHMUP",
+        "publisher": "redspotgames",
+        "release_date": "",
+        "title": "Sturmwind"
+    },
+    "DR002": {
+        "developer": "S+F Productions",
+        "genre": "",
+        "publisher": "GOAT Store Publishing",
+        "release_date": "",
+        "title": "Inhabitants"
+    },
+    "DR003": {
+        "developer": "Mad Peet",
+        "genre": "Puzzle",
+        "publisher": "GOAT Store Publishing",
+        "release_date": "",
+        "title": "Irides: Master of Blocks"
+    },
+    "DR004": {
+        "developer": "HarmlessLion",
+        "genre": "",
+        "publisher": "GOAT Store Publishing",
+        "release_date": "",
+        "title": "Cool Herders"
+    },
+    "GM9999999": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-05-31-0000",
+        "title": "Street Fighter Alpha 3"
+    },
+    "GYPLIKSANG": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Half-Life - Blue Shift"
+    },
+    "MK0815": {
+        "developer": "Namco",
+        "genre": "Fighting",
+        "publisher": "Namco",
+        "release_date": "01999-09-09-0000",
+        "title": "SoulCalibur"
+    },
+    "MK1014": {
+        "developer": "NG.DEV.TEAM",
+        "genre": "SHMUP",
+        "publisher": "Success",
+        "release_date": "",
+        "title": "NEO XYX"
+    },
+    "MK5102151": {
+        "developer": "Argonaut Games",
+        "genre": "Action",
+        "publisher": "Crave",
+        "release_date": "02000-10-31-0000",
+        "title": "Red Dog: Superior Firepower"
+    },
+    "MK5103850": {
+        "developer": "Sega",
+        "genre": "Beat 'em up",
+        "publisher": "Sega",
+        "release_date": "01999-12-31-0000",
+        "title": "Zombie Revenge"
+    },
+    "MK5106450": {
+        "developer": "Sega",
+        "genre": "Vehicle simulation",
+        "publisher": "Sega",
+        "release_date": "02001-05-22-0000",
+        "title": "18 Wheeler: American Pro Trucker"
+    },
+    "MK5108350": {
+        "developer": "Silicon Dreams",
+        "genre": "Soccer",
+        "publisher": "Sega",
+        "release_date": "02000-06-30-0000",
+        "title": "Sega WorldWide Soccer 2000 Euro Edition"
+    },
+    "MK5112550": {
+        "developer": "Sega",
+        "genre": "Puzzle",
+        "publisher": "Sega",
+        "release_date": "02000-01-01-0000",
+        "title": "Planet Ring"
+    },
+    "MK51162": {
+        "developer": "Sega AM2",
+        "genre": "Flight simulator",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Propeller Arena"
+    },
+    "NGDT300P": {
+        "developer": "NG:DEV.TEAM",
+        "genre": "SHMUP",
+        "publisher": "NG:DEV.TEAM",
+        "release_date": "",
+        "title": "Last Hope: Pink Bullets"
+    },
+    "NGDT304DCCE": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "",
+        "release_date": "",
+        "title": "NEO XYX Collectors Edition"
+    },
+    "NGDT304DCLE": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "",
+        "release_date": "",
+        "title": "NEO XYX Limited Edition"
+    },
+    "NGDT304DCRE": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "Success",
+        "release_date": "",
+        "title": "NEO XYX"
+    },
+    "NGDTDC300": {
+        "developer": "NG:DEV.TEAM",
+        "genre": "SHMUP",
+        "publisher": "RedSpotGames",
+        "release_date": "",
+        "title": "Last Hope"
+    },
+    "RDC0001": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters '99: Millennium Battle (NEO4ALL RC4)"
+    },
+    "RDC0002": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Double Dragon (NEO4ALL RC3)"
+    },
+    "RDC0003": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Metal Slug (NEO4ALL RC4)"
+    },
+    "RDC0004": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Samurai Shodown (NEO4ALL RC3)"
+    },
+    "RDC0005": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Fighting Vipers 2 BETA"
+    },
+    "RDC0006": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Wars 4 Kiosk Demo"
+    },
+    "RDC0007": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Metal Slug 2 Overclocked Edition (NEO4ALL RC3)"
+    },
+    "RDC0008": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ghost Pilots (NEO4ALL RC3)"
+    },
+    "RDC0009": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Last Resort (NEO4ALL RC4)"
+    },
+    "RDC0010": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Top Hunter: Roddy & Cathy"
+    },
+    "RDC0011": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "LAN Dream Passport"
+    },
+    "RDC0012": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shock Troopers Overclocked Edition (AES4ALL Beta 4)"
+    },
+    "RDC0013": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sonic Adventure Limited Edition Beta (99 Minute CD-R Required)"
+    },
+    "RDC0014": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-05-31-0000",
+        "title": "Street Fighter Alpha 3"
+    },
+    "RDC0015": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Super Puzzle Fighter II X (English Translation)"
+    },
+    "RDC0016": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Super Street Fighter II X (English Translation)"
+    },
+    "RDC0017": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Super Street Fighter II X (English Translation with Blood on the Asphalt Remix)"
+    },
+    "RDC0018": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Street Fighter III: Third Strike Arcade Edition"
+    },
+    "RDC0019": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Street Fighter III: Double Impact"
+    },
+    "RDC0020": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Street Fighter III: Third Strike Offline Edition"
+    },
+    "RDC0021": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Street Fighter III: Third Strike"
+    },
+    "RDC0022": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Donald Duck: Goin' Quackers"
+    },
+    "RDC0023": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Savage Reign (NEO4ALL RC4)"
+    },
+    "RDC0024": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dreamcast VM Data Issue"
+    },
+    "RDC0025": {
+        "developer": "Project Soul",
+        "genre": "Fighting",
+        "publisher": "Namco",
+        "release_date": "01997-01-01-0000",
+        "title": "bleemcast! Soul Blade"
+    },
+    "RDC0026": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Super Baseball 2020 (NEO4ALL RC4)"
+    },
+    "RDC0027": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Aero Fighters 2 (NEO4ALL RC4)"
+    },
+    "RDC0028": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Metal Slug X Overclocked Edition (AES4ALL Beta 4) [Includes sound and no sound versions]"
+    },
+    "RDC0029": {
+        "developer": "Hitmaker",
+        "genre": "Sports",
+        "publisher": "Sega",
+        "release_date": "02001-08-10-0000",
+        "title": "Virtua Athlete 2000"
+    },
+    "RDC0030": {
+        "developer": "Psikyo",
+        "genre": "Action",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Gundam Side Story 0079: Rise from the Ashes"
+    },
+    "RDC0031": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters '94 (NEO4ALL RC4)"
+    },
+    "RDC0032": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "3 Count Bout (NEO4ALL RC4)"
+    },
+    "RDC0033": {
+        "developer": "DMA Design",
+        "genre": "Action-adventure",
+        "publisher": "Rockstar Games",
+        "release_date": "",
+        "title": "Grand Theft Auto 2"
+    },
+    "RDC0034": {
+        "developer": "Capcom",
+        "genre": "Arena/Fighting",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Power Stone"
+    },
+    "RDC0035": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "King of the Monsters 2 (NEO4ALL RC4)"
+    },
+    "RDC0036": {
+        "developer": "Spiral House",
+        "genre": "Action RPG",
+        "publisher": "Infogrames",
+        "release_date": "",
+        "title": "Silver"
+    },
+    "RDC0037": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Aero Fighters 3 (NEO4ALL RC4)"
+    },
+    "RDC0038": {
+        "developer": "AM1",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "The House of the Dead 2"
+    },
+    "RDC0039": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Hanagumi Taisen Columns II"
+    },
+    "RDC0040": {
+        "developer": "NG:DEV.TEAM",
+        "genre": "SHMUP",
+        "publisher": "NG:DEV.TEAM",
+        "release_date": "",
+        "title": "Last Hope: Pink Bullets"
+    },
+    "RDC0041": {
+        "developer": "Sims",
+        "genre": "Fishing",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Sega Bass Fishing"
+    },
+    "RDC0042": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Wind & Water: Puzzle Battles"
+    },
+    "RDC0043": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The Last Blade (NEO4ALL RC4)"
+    },
+    "RDC0044": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Fur Fighters (DEMO)"
+    },
+    "RDC0045": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Marvel vs. Capcom: Clash of Super Heroes"
+    },
+    "RDC0046": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Marvel vs. Capcom 2: New Age of Heroes"
+    },
+    "RDC0047": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "ADK World (NEO4ALL RC4)"
+    },
+    "RDC0048": {
+        "developer": "Wow Entertainment",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Sega Bass Fishing 2"
+    },
+    "RDC0049": {
+        "developer": "Wow Entertainment",
+        "genre": "Fishing",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Sega Marine Fishing"
+    },
+    "RDC0050": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Street Fighter III: Triple Threat"
+    },
+    "RDC0051": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Evolution: The World of Sacred Device"
+    },
+    "RDC0052": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Fatal Fury Special (NEO4ALL RC4)"
+    },
+    "RDC0053": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Fatal Fury 3 (NEO4ALL RC4)"
+    },
+    "RDC0054": {
+        "developer": "Sega",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "F355 Challenge: Passione Rossa"
+    },
+    "RDC0055": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Capcom vs. SNK 2: Millionaire Fighting 2001"
+    },
+    "RDC0056": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Power Stone 2"
+    },
+    "RDC0057": {
+        "developer": "Sega Rosso",
+        "genre": "Sports",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Cosmic Smash"
+    },
+    "RDC0058": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Dino Crisis"
+    },
+    "RDC0059": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Samurai Shodown II (NEO4ALL RC4)"
+    },
+    "RDC0060": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Neo Drift Out (NEO4ALL RC4)"
+    },
+    "RDC0061": {
+        "developer": "Scarab",
+        "genre": "Fighting",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Fighting Vipers 2"
+    },
+    "RDC0062": {
+        "developer": "Milestone Inc.",
+        "genre": "SHMUP",
+        "publisher": "Milestone Inc.",
+        "release_date": "",
+        "title": "Karous"
+    },
+    "RDC0063": {
+        "developer": "G.Rev",
+        "genre": "SHMUP",
+        "publisher": "G.Rev",
+        "release_date": "",
+        "title": "Under Defeat"
+    },
+    "RDC0064": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Record of Lodoss War"
+    },
+    "RDC0065": {
+        "developer": "Climax Entertainment",
+        "genre": "Roguelike/RPG",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Time Stalkers"
+    },
+    "RDC0066": {
+        "developer": "Crazy Games",
+        "genre": "Survival horror",
+        "publisher": "AIA",
+        "release_date": "",
+        "title": "Illbleed"
+    },
+    "RDC0067": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Magician Lord (NEO4ALL RC4)"
+    },
+    "RDC0068": {
+        "developer": "Atari Games (Midway)",
+        "genre": "Hack and slash/,/dungeon crawl",
+        "publisher": "Midway",
+        "release_date": "",
+        "title": "Gauntlet Legends"
+    },
+    "RDC0069": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Capcom vs. SNK: Millennium Fight 2000"
+    },
+    "RDC0070": {
+        "developer": "Takumi Corporation",
+        "genre": "SHMUP",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Mars Matrix"
+    },
+    "RDC0071": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Galaxy Fight (NEO4ALL RC4)"
+    },
+    "RDC0072": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Capcom vs. SNK Millennium Fight 2000 Pro"
+    },
+    "RDC0073": {
+        "developer": "Sting",
+        "genre": "Roguelike/RPG",
+        "publisher": "Ubisoft",
+        "release_date": "",
+        "title": "Evolution 2: Far Off Promise"
+    },
+    "RDC0074": {
+        "developer": "Namco",
+        "genre": "Fighting",
+        "publisher": "Namco",
+        "release_date": "01999-09-09-0000",
+        "title": "SoulCalibur"
+    },
+    "RDC0075": {
+        "developer": "UGA",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Rez"
+    },
+    "RDC0076": {
+        "developer": "Midway",
+        "genre": "Boxing",
+        "publisher": "Midway",
+        "release_date": "",
+        "title": "Ready 2 Rumble Boxing"
+    },
+    "RDC0077": {
+        "developer": "Acclaim",
+        "genre": "Action-adventure",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "Shadow Man"
+    },
+    "RDC0078": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters '95 (NEO4ALL RC4)"
+    },
+    "RDC0079": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Capcom Taisen Fan Disc"
+    },
+    "RDC0080": {
+        "developer": "Genki",
+        "genre": "Platformer",
+        "publisher": "Crave",
+        "release_date": "",
+        "title": "Super Magnetic Neo"
+    },
+    "RDC0081": {
+        "developer": "Birthday",
+        "genre": "Action role-playing",
+        "publisher": "Vatical Entertainment",
+        "release_date": "",
+        "title": "Elemental Gimmick Gear"
+    },
+    "RDC0082": {
+        "developer": "Psikyo",
+        "genre": "Shooter",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Cannon Spike"
+    },
+    "RDC0083": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters '96 (NEO4ALL RC4)"
+    },
+    "RDC0084": {
+        "developer": "Acclaim",
+        "genre": "Wrestling",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "ECW Anarchy Rulz"
+    },
+    "RDC0085": {
+        "developer": "SNK",
+        "genre": "SHMUP",
+        "publisher": "SNK",
+        "release_date": "",
+        "title": "Twinkle Star Sprites"
+    },
+    "RDC0086": {
+        "developer": "Acclaim",
+        "genre": "Party",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "South Park: Chef's Luv Shack"
+    },
+    "RDC0087": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters '97 (NEO4ALL RC4)"
+    },
+    "RDC0088": {
+        "developer": "Accolade",
+        "genre": "Action",
+        "publisher": "Infogrames",
+        "release_date": "",
+        "title": "Slave Zero"
+    },
+    "RDC0089": {
+        "developer": "Crytpic Allusion, LLC",
+        "genre": "",
+        "publisher": "GOAT Store Publishing",
+        "release_date": "",
+        "title": "Feet of Fury"
+    },
+    "RDC0090": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "JoJo's Bizarre Adventure for Matching Service"
+    },
+    "RDC0091": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sonic Adventure Limited Edition RETAIL 99min CDR Req."
+    },
+    "RDC0092": {
+        "developer": "Genki",
+        "genre": "Fighting",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Virtua Fighter 3tb"
+    },
+    "RDC0093": {
+        "developer": "Sega",
+        "genre": "Beat 'em up",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Dynamite Cop!"
+    },
+    "RDC0094": {
+        "developer": "Sega",
+        "genre": "Vehicle simulation",
+        "publisher": "Sega",
+        "release_date": "02001-05-22-0000",
+        "title": "18 Wheeler: American Pro Trucker"
+    },
+    "RDC0095": {
+        "developer": "Sega",
+        "genre": "Beat 'em up",
+        "publisher": "Sega",
+        "release_date": "01999-12-31-0000",
+        "title": "Zombie Revenge"
+    },
+    "RDC0096": {
+        "developer": "LucasArts",
+        "genre": "Racing",
+        "publisher": "LucasArts",
+        "release_date": "",
+        "title": "Star Wars: Episode I Racer"
+    },
+    "RDC0097": {
+        "developer": "Wow Entertainment",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Sega Tetris"
+    },
+    "RDC0098": {
+        "developer": "Crystal Dynamics",
+        "genre": "Action-adventure",
+        "publisher": "Eidos Interactive",
+        "release_date": "",
+        "title": "Legacy of Kain: Soul Reaver"
+    },
+    "RDC0099": {
+        "developer": "LucasArts",
+        "genre": "Beat 'em up",
+        "publisher": "LucasArts",
+        "release_date": "",
+        "title": "Star Wars Episode I: Jedi Power Battles"
+    },
+    "RDC0100": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Capcom vs. SNK Millennium Collection"
+    },
+    "RDC0101": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Vampire Chronicle For Matching Service (80 and 99 minute versions released)"
+    },
+    "RDC0102": {
+        "developer": "Yuke's",
+        "genre": "Wrestling",
+        "publisher": "THQ",
+        "release_date": "",
+        "title": "WWF Royal Rumble"
+    },
+    "RDC0103": {
+        "developer": "Hitmaker",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Crazy Taxi"
+    },
+    "RDC0104": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Resident Evil 2"
+    },
+    "RDC0105": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Omikron: The Nomad Soul (99 Minute Disc Required)"
+    },
+    "RDC0106": {
+        "developer": "Acclaim",
+        "genre": "Wrestling",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "WWF Attitude"
+    },
+    "RDC0107": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Planet Web v.3.0"
+    },
+    "RDC0108": {
+        "developer": "Hitmaker",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Crazy Taxi 2"
+    },
+    "RDC0109": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Resident Evil 3: Nemesis"
+    },
+    "RDC0110": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The Last Blade II (NEO4ALL RC4)"
+    },
+    "RDC0111": {
+        "developer": "Acclaim",
+        "genre": "Wrestling",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "ECW Hardcore Revolution"
+    },
+    "RDC0112": {
+        "developer": "Criterion Games",
+        "genre": "Racing",
+        "publisher": "Ubisoft",
+        "release_date": "",
+        "title": "Suzuki Alstare Extreme Racing"
+    },
+    "RDC0113": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Samurai Shodown IV: Amakusa's Revenge (NEO4ALL RC4)"
+    },
+    "RDC0114": {
+        "developer": "Sega AM2",
+        "genre": "First-person shooter",
+        "publisher": "Sega",
+        "release_date": "02001-06-04-0000",
+        "title": "Outtrigger"
+    },
+    "RDC0115": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Starlancer (99 Minute Disc Required)"
+    },
+    "RDC0116": {
+        "developer": "Treyarch",
+        "genre": "Action-adventure/,/beat 'em up",
+        "publisher": "Activision",
+        "release_date": "",
+        "title": "Spider-Man"
+    },
+    "RDC0117": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The king of Fighters '96 Collection (NEO4ALL RC4)"
+    },
+    "RDC0118": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters '98: The Slugfest (NEO4ALL RC4)"
+    },
+    "RDC0119": {
+        "developer": "Bottom Up",
+        "genre": "",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "Tee Off"
+    },
+    "RDC0120": {
+        "developer": "Hudson Soft",
+        "genre": "Party",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Bomberman Online"
+    },
+    "RDC0121": {
+        "developer": "Argonaut Games",
+        "genre": "Action",
+        "publisher": "Crave",
+        "release_date": "02000-10-31-0000",
+        "title": "Red Dog: Superior Firepower"
+    },
+    "RDC0122": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Spawn"
+    },
+    "RDC0123": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ball Breakers"
+    },
+    "RDC0124": {
+        "developer": "Genki",
+        "genre": "Racing",
+        "publisher": "Crave",
+        "release_date": "",
+        "title": "Tokyo Xtreme Racer"
+    },
+    "RDC0125": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Mutation Nation (NEO4ALL RC4)"
+    },
+    "RDC0126": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ragnagard (NEO4ALL RC4)"
+    },
+    "RDC0127": {
+        "developer": "UEP Systems",
+        "genre": "Snowboarding",
+        "publisher": "Sega",
+        "release_date": "01999-11-10-0000",
+        "title": "Rippin' Riders"
+    },
+    "RDC0128": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Resident Evil Code: Veronica"
+    },
+    "RDC0129": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Tech Romancer (99 Minute Disc Required)"
+    },
+    "RDC0130": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Army Men Sarge's Heroes"
+    },
+    "RDC0131": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Mobile Suit Gundam E.F.F. Vs. Zeon & DX"
+    },
+    "RDC0132": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dave Mirra Freestyle BMX (Beta)"
+    },
+    "RDC0133": {
+        "developer": "Taito Corporation",
+        "genre": "Fighting",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "Psychic Force 2012"
+    },
+    "RDC0134": {
+        "developer": "Jaleco Entertainment",
+        "genre": "SHMUP",
+        "publisher": "Jaleco Entertainment",
+        "release_date": "",
+        "title": "Ikaruga"
+    },
+    "RDC0135": {
+        "developer": "Genki",
+        "genre": "Driving",
+        "publisher": "Crave",
+        "release_date": "",
+        "title": "Tokyo Xtreme Racer 2"
+    },
+    "RDC0136": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dreamcast Middleware Conference Demo Disc Part 2"
+    },
+    "RDC0137": {
+        "developer": "Takumi Corporation",
+        "genre": "SHMUP",
+        "publisher": "Capcom",
+        "release_date": "",
+        "title": "Giga Wing 2"
+    },
+    "RDC0138": {
+        "developer": "Treyarch",
+        "genre": "Extreme sports",
+        "publisher": "Activision",
+        "release_date": "",
+        "title": "Tony Hawk's Pro Skater"
+    },
+    "RDC0139": {
+        "developer": "Sonic Team",
+        "genre": "Puzzle",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "ChuChu Rocket!"
+    },
+    "RDC0140": {
+        "developer": "Team Ninja",
+        "genre": "Fighting",
+        "publisher": "Tecmo",
+        "release_date": "",
+        "title": "Dead or Alive 2"
+    },
+    "RDC0141": {
+        "developer": "Treyarch",
+        "genre": "Extreme sports",
+        "publisher": "Activision",
+        "release_date": "",
+        "title": "Tony Hawk's Pro Skater 2"
+    },
+    "RDC0142": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Bomber Hehhe!"
+    },
+    "RDC0143": {
+        "developer": "Ecole",
+        "genre": "Rail shooter",
+        "publisher": "Sammy Studios",
+        "release_date": "",
+        "title": "Death Crimson OX"
+    },
+    "RDC0144": {
+        "developer": "Ecole",
+        "genre": "",
+        "publisher": "Ecole",
+        "release_date": "",
+        "title": "Death Crimson 2"
+    },
+    "RDC0145": {
+        "developer": "Sonic Team",
+        "genre": "Platformer",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Sonic Adventure"
+    },
+    "RDC0146": {
+        "developer": "Aspect",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Rent-A-Hero No. 1"
+    },
+    "RDC0147": {
+        "developer": "Rage Software",
+        "genre": "Run and Gun",
+        "publisher": "Infogrames",
+        "release_date": "",
+        "title": "Expendable"
+    },
+    "RDC0148": {
+        "developer": "Raster",
+        "genre": "First-person shooter",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Quake III Arena"
+    },
+    "RDC0149": {
+        "developer": "Luxoflux, Inc.",
+        "genre": "Action/,/Vehicular combat",
+        "publisher": "Activision",
+        "release_date": "",
+        "title": "Vigilante 8: 2nd Offense"
+    },
+    "RDC0150": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Fire Pro Wrestling D (English Translation)"
+    },
+    "RDC0151": {
+        "developer": "Sonic Team",
+        "genre": "Party",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Sonic Shuffle"
+    },
+    "RDC0152": {
+        "developer": "General Entertainment",
+        "genre": "Action",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Godzilla Generations"
+    },
+    "RDC0153": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shenmue Undub"
+    },
+    "RDC0154": {
+        "developer": "Appaloosa Interactive",
+        "genre": "Adventure",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Ecco the Dolphin: Defender of the Future"
+    },
+    "RDC0155": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ninja Master\u00e2\u20ac\u2122s (NEO4ALL RC4)"
+    },
+    "RDC101": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Vampire Chronicle For Matching Service"
+    },
+    "Rainbow...": {
+        "developer": "Pipe Dream Interactive",
+        "genre": "Tactical shooter",
+        "publisher": "Majesco Games",
+        "release_date": "",
+        "title": "Tom Clancy's Rainbow Six"
+    },
+    "T11010N": {
+        "developer": "Dynamix",
+        "genre": "",
+        "publisher": "Sierra Entertainment",
+        "release_date": "",
+        "title": "Maximum Pool"
+    },
+    "T11111N": {
+        "developer": "Sims",
+        "genre": "Fishing",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "Sega Bass Fishing"
+    },
+    "T12509N": {
+        "developer": "Climax Entertainment",
+        "genre": "Racing",
+        "publisher": "Interplay",
+        "release_date": "",
+        "title": "Super Runabout: San Francisco Edition"
+    },
+    "T15105D50": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "V-Rally 2: Expert Edition"
+    },
+    "T15111D.*.": {
+        "developer": "Pitbull Syndicate",
+        "genre": "Racing",
+        "publisher": "Infogrames",
+        "release_date": "",
+        "title": "Test Drive Le Mans"
+    },
+    "T1711N": {
+        "developer": "Sting",
+        "genre": "Roguelike/RPG",
+        "publisher": "Ubisoft",
+        "release_date": "",
+        "title": "Evolution 2: Far Off Promise"
+    },
+    "T17711D": {
+        "developer": "Xilam",
+        "genre": "",
+        "publisher": "Ubisoft",
+        "release_date": "",
+        "title": "Stupid Invaders"
+    },
+    "T17717D50": {
+        "developer": "Blue Planet Software",
+        "genre": "",
+        "publisher": "Crave",
+        "release_date": "",
+        "title": "The Next Tetris"
+    },
+    "T3001N": {
+        "developer": "Video System",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "",
+        "title": "F1 World Grand Prix"
+    },
+    "T40210D": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Tokyo Highway Challenge 2"
+    },
+    "T41401D50": {
+        "developer": "Toka",
+        "genre": "Beat 'em up",
+        "publisher": "Mindscape, Inc.",
+        "release_date": "",
+        "title": "Soul Fighter"
+    },
+    "T8102N": {
+        "developer": "Quantic Dream",
+        "genre": "Adventure",
+        "publisher": "Eidos Interactive",
+        "release_date": "",
+        "title": "Omikron: The Nomad Soul"
+    },
+    "T8104N": {
+        "developer": "Acclaim",
+        "genre": "Racing",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "Jeremy McGrath Supercross 2000"
+    },
+    "T8111D50": {
+        "developer": "Acclaim",
+        "genre": "Wrestling",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "ECW Hardcore Revolution"
+    },
+    "T8113D50": {
+        "developer": "Bizarre Creations",
+        "genre": "Third-person shooter",
+        "publisher": "Acclaim",
+        "release_date": "",
+        "title": "Fur Fighters"
+    },
+    "T8116D50": {
+        "developer": "Team Ninja",
+        "genre": "Fighting",
+        "publisher": "Tecmo",
+        "release_date": "",
+        "title": "Dead or Alive 2"
+    },
+    "T8117D50": {
+        "developer": "Broadsword Interactive",
+        "genre": "Racing",
+        "publisher": "LJN Ltd.",
+        "release_date": "",
+        "title": "Spirit of Speed 1937"
+    },
+    "T9504D": {
+        "developer": "Konami",
+        "genre": "Sports",
+        "publisher": "Konami",
+        "release_date": "",
+        "title": "ESPN International Track & Field"
+    },
+    "T9505N": {
+        "developer": "Konami",
+        "genre": "",
+        "publisher": "Konami",
+        "release_date": "",
+        "title": "ESPN NBA 2Night"
+    },
+    "T9706D50": {
+        "developer": "Kalisto Entertainment",
+        "genre": "Racing",
+        "publisher": "Midway Games",
+        "release_date": "",
+        "title": "4 Wheel Thunder"
+    },
+    "THALIA005": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Evolution: The World of Sacred Device"
+    }
+}

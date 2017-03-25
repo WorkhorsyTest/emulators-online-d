@@ -1,0 +1,1647 @@
+{
+    "AMRRE1": {
+        "developer": "Orion Games",
+        "genre": "Platformer",
+        "publisher": "Hucast Games",
+        "release_date": "",
+        "title": "Alice's Mom's Rescue"
+    },
+    "MK5100053": {
+        "developer": "Sonic Team",
+        "genre": "Platformer",
+        "publisher": "Sega",
+        "release_date": "01999-10-14-0000",
+        "title": "Sonic Adventure"
+    },
+    "MK5100150": {
+        "developer": "Genki",
+        "genre": "Fighting",
+        "publisher": "Sega",
+        "release_date": "01999-10-14-0000",
+        "title": "Virtua Fighter 3tb"
+    },
+    "MK5100153": {
+        "developer": "Genki",
+        "genre": "Fighting",
+        "publisher": "Sega",
+        "release_date": "01999-10-14-0000",
+        "title": "Virtua Fighter 3tb"
+    },
+    "MK5100250": {
+        "developer": "AM1",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "01999-01-01-0000",
+        "title": "The House of the Dead 2"
+    },
+    "MK5100453": {
+        "developer": "Visual Concepts",
+        "genre": "Basketball",
+        "publisher": "Sega",
+        "release_date": "01999-11-10-0000",
+        "title": "NBA 2K"
+    },
+    "MK5100605": {
+        "developer": "Sims",
+        "genre": "Fishing",
+        "publisher": "Sega",
+        "release_date": "01999-10-14-0000",
+        "title": "Sega Bass Fishing"
+    },
+    "MK5101050": {
+        "developer": "UEP Systems",
+        "genre": "Sports",
+        "publisher": "Sega",
+        "release_date": "01999-11-10-0000",
+        "title": "Snow Surfers"
+    },
+    "MK5101153": {
+        "developer": "Climax Entertainment",
+        "genre": "Roguelike/RPG",
+        "publisher": "Sega",
+        "release_date": "02000-11-10-0000",
+        "title": "Time Stalkers"
+    },
+    "MK5101350": {
+        "developer": "Sega",
+        "genre": "Beat 'em up",
+        "publisher": "Sega",
+        "release_date": "01999-10-14-0000",
+        "title": "Dynamite Cop!"
+    },
+    "MK5101950": {
+        "developer": "Sega AM3",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "01999-10-14-0000",
+        "title": "Sega Rally Championship 2"
+    },
+    "MK5102050": {
+        "developer": "No Cliche",
+        "genre": "Action",
+        "publisher": "Sega",
+        "release_date": "01999-10-14-0000",
+        "title": "Toy Commander"
+    },
+    "MK5102150": {
+        "developer": "Argonaut Games",
+        "genre": "Action",
+        "publisher": "Crave",
+        "release_date": "02000-01-01-0000",
+        "title": "Red Dog: Superior Firepower"
+    },
+    "MK5102250": {
+        "developer": "Bizarre Creations",
+        "genre": "Racing",
+        "publisher": "Interplay",
+        "release_date": "02000-11-03-0000",
+        "title": "MSR: Metropolis Street Racer"
+    },
+    "MK5102589": {
+        "developer": "Black Box",
+        "genre": "Hockey",
+        "publisher": "Sega",
+        "release_date": "02000-07-07-0000",
+        "title": "NHL 2K"
+    },
+    "MK5102850": {
+        "developer": "Sega",
+        "genre": "Soccer",
+        "publisher": "Sega",
+        "release_date": "02000-02-29-0000",
+        "title": "Virtua Striker 2 Ver. 2000.1"
+    },
+    "MK5103150": {
+        "developer": "Sega",
+        "genre": "Soccer",
+        "publisher": "Sega",
+        "release_date": "01999-12-01-0000",
+        "title": "Sega WorldWide Soccer 2000"
+    },
+    "MK5103350": {
+        "developer": "Appaloosa Interactive",
+        "genre": "Adventure",
+        "publisher": "Sega",
+        "release_date": "02000-06-16-0000",
+        "title": "Ecco the Dolphin: Defender of the Future"
+    },
+    "MK5103550": {
+        "developer": "Hitmaker",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-02-25-0000",
+        "title": "Crazy Taxi"
+    },
+    "MK5103750": {
+        "developer": "Amusement Vision",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02001-05-11-0000",
+        "title": "Daytona USA 2001"
+    },
+    "MK5103850": {
+        "developer": "Silicon Dreams",
+        "genre": "Soccer",
+        "publisher": "Sega",
+        "release_date": "02000-06-30-0000",
+        "title": "Sega WorldWide Soccer 2000 Euro Edition"
+    },
+    "MK5104050": {
+        "developer": "CRI",
+        "genre": "Racing",
+        "publisher": "ASC Games",
+        "release_date": "01999-09-09-0000",
+        "title": "Buggy Heat"
+    },
+    "MK5104150": {
+        "developer": "Amuze",
+        "genre": "Action/Adventure",
+        "publisher": "Sega",
+        "release_date": "02001-11-16-0000",
+        "title": "Headhunter"
+    },
+    "MK5104550": {
+        "developer": "AM1",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "01999-01-01-0000",
+        "title": "The House of the Dead 2 with Gun"
+    },
+    "MK5104950": {
+        "developer": "Sonic Team",
+        "genre": "Puzzle",
+        "publisher": "Sega",
+        "release_date": "02000-01-01-0000",
+        "title": "ChuChu Rocket!"
+    },
+    "MK5105050": {
+        "developer": "ATLUS",
+        "genre": "First-person slasher",
+        "publisher": "ATLUS",
+        "release_date": "02000-01-01-0000",
+        "title": "Maken X"
+    },
+    "MK5105150": {
+        "developer": "UGA",
+        "genre": "Music",
+        "publisher": "Sega",
+        "release_date": "02000-10-06-0000",
+        "title": "Space Channel 5"
+    },
+    "MK5105250": {
+        "developer": "Overworks",
+        "genre": "Role-playing video",
+        "publisher": "Sega",
+        "release_date": "02001-04-27-0000",
+        "title": "Skies of Arcadia"
+    },
+    "MK5105350": {
+        "developer": "TOSE",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-12-01-0000",
+        "title": "Sega GT"
+    },
+    "MK5105450": {
+        "developer": "Hitmaker",
+        "genre": "Tennis",
+        "publisher": "Sega",
+        "release_date": "02000-09-08-0000",
+        "title": "Virtua Tennis"
+    },
+    "MK5105850": {
+        "developer": "Smilebit",
+        "genre": "Platformer",
+        "publisher": "Sega",
+        "release_date": "02000-11-24-0000",
+        "title": "Jet Set Radio"
+    },
+    "MK5105950": {
+        "developer": "Sega AM2",
+        "genre": "Role-playing",
+        "publisher": "Sega",
+        "release_date": "02000-11-06-0000",
+        "title": "Shenmue"
+    },
+    "MK5106050": {
+        "developer": "Sonic Team",
+        "genre": "Party",
+        "publisher": "Sega",
+        "release_date": "02001-03-09-0000",
+        "title": "Sonic Shuffle"
+    },
+    "MK5106150": {
+        "developer": "Raster",
+        "genre": "First-person shooter",
+        "publisher": "Sega",
+        "release_date": "02000-01-01-0000",
+        "title": "Quake III Arena"
+    },
+    "MK5108150": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sega Extreme Sports"
+    },
+    "MK5109250": {
+        "developer": "Sonic Team",
+        "genre": "Music",
+        "publisher": "Sega",
+        "release_date": "02000-12-08-0000",
+        "title": "Samba de Amigo"
+    },
+    "MK5109450": {
+        "developer": "Hitmaker",
+        "genre": "Sports",
+        "publisher": "Sega",
+        "release_date": "02000-01-01-0000",
+        "title": "Virtua Athlete 2k"
+    },
+    "MK5109505": {
+        "developer": "Silicon Dreams",
+        "genre": "Soccer",
+        "publisher": "Sega",
+        "release_date": "02000-12-08-0000",
+        "title": "UEFA Dream Soccer"
+    },
+    "MK5110050": {
+        "developer": "Sonic Team",
+        "genre": "MMORPG",
+        "publisher": "Sega",
+        "release_date": "02001-02-23-0000",
+        "title": "Phantasy Star Online"
+    },
+    "MK5110250": {
+        "developer": "Sega AM2",
+        "genre": "First-person shooter",
+        "publisher": "Sega",
+        "release_date": "02001-08-03-0000",
+        "title": "OutTrigger: International Counter Terrorism Special Force"
+    },
+    "MK5111450": {
+        "developer": "Visual Concepts",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-11-30-0000",
+        "title": "Floigan Bros. Episode 1"
+    },
+    "MK5111750": {
+        "developer": "Sonic Team",
+        "genre": "Platformer",
+        "publisher": "Sega",
+        "release_date": "02001-06-23-0000",
+        "title": "Sonic Adventure 2"
+    },
+    "MK5113650": {
+        "developer": "Hitmaker",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02001-07-06-0000",
+        "title": "Crazy Taxi 2"
+    },
+    "MK5114864": {
+        "developer": "Sega",
+        "genre": "Puzzle",
+        "publisher": "Sega",
+        "release_date": "02000-01-01-0000",
+        "title": "Planet Ring"
+    },
+    "MK5114950": {
+        "developer": "No Cliche",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-12-22-0000",
+        "title": "Toy Racer"
+    },
+    "MK5115450": {
+        "developer": "Scarab",
+        "genre": "Fighting",
+        "publisher": "Sega",
+        "release_date": "02001-01-01-0000",
+        "title": "Fighting Vipers 2"
+    },
+    "MK5116050": {
+        "developer": "Hitmaker",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "02001-05-25-0000",
+        "title": "Confidential Mission"
+    },
+    "MK5117850": {
+        "developer": "Visual Concepts",
+        "genre": "Basketball",
+        "publisher": "Sega",
+        "release_date": "02002-03-08-0000",
+        "title": "NBA 2K2"
+    },
+    "MK5118450": {
+        "developer": "Sega AM2",
+        "genre": "Role-playing video game",
+        "publisher": "Sega",
+        "release_date": "02001-11-23-0000",
+        "title": "Shenmue II"
+    },
+    "MK5118650": {
+        "developer": "Hitmaker",
+        "genre": "Tennis",
+        "publisher": "Sega",
+        "release_date": "02001-11-23-0000",
+        "title": "Virtua Tennis 2"
+    },
+    "MK5119050": {
+        "developer": "Smilebit",
+        "genre": "Sports",
+        "publisher": "Sega",
+        "release_date": "02001-10-25-0000",
+        "title": "90 Minutes: Sega Championship Football"
+    },
+    "MK5119250": {
+        "developer": "UGA",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "02002-01-11-0000",
+        "title": "Rez"
+    },
+    "MK5119350": {
+        "developer": "Sonic Team",
+        "genre": "MMORPG",
+        "publisher": "Sega",
+        "release_date": "02002-03-01-0000",
+        "title": "Phantasy Star Online Ver. 2"
+    },
+    "MK5404050": {
+        "developer": "CRI",
+        "genre": "Racing",
+        "publisher": "ASC Games",
+        "release_date": "01999-06-08-0000",
+        "title": "Buggy Heat"
+    },
+    "MK820038605": {
+        "developer": "LucasArts",
+        "genre": "Racing",
+        "publisher": "LucasArts",
+        "release_date": "02000-08-04-0000",
+        "title": "Star Wars: Episode I Racer"
+    },
+    "MK8320001": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "DreamOn Volume 2"
+    },
+    "MK8330002": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "DreamOn Volume 1"
+    },
+    "MK9520081": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Metropolis Street Racer Opel Challenge"
+    },
+    "NGDT303DCCE": {
+        "developer": "NG.DEV.TEAM",
+        "genre": "SHMUP",
+        "publisher": "NG.DEV.TEAM",
+        "release_date": "02012-06-21-0000",
+        "title": "GunLord Collectors Edition"
+    },
+    "NGDT303DCLE": {
+        "developer": "NG.DEV.TEAM",
+        "genre": "SHMUP",
+        "publisher": "NG.DEV.TEAM",
+        "release_date": "02012-06-21-0000",
+        "title": "GunLord Limited Edition"
+    },
+    "NGDT303DCRE": {
+        "developer": "NG:DEV.TEAM",
+        "genre": "Run 'n gun",
+        "publisher": "NG:DEV.TEAM",
+        "release_date": "02012-06-21-0000",
+        "title": "GunLord"
+    },
+    "RDXLEJP": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "KTX Software",
+        "release_date": "02014-01-27-0000",
+        "title": "Redux: Dark Matters Limited Edition"
+    },
+    "RDXREJP": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "KTX Software",
+        "release_date": "",
+        "title": "Redux: Dark Matters"
+    },
+    "RRRRDX": {
+        "developer": "Senile Team",
+        "genre": "Racing",
+        "publisher": "redspotgames",
+        "release_date": "02009-11-04-0000",
+        "title": "Rush Rush Rally Racing"
+    },
+    "RRRRRE": {
+        "developer": "Senile Team",
+        "genre": "Racing",
+        "publisher": "redspotgames",
+        "release_date": "02009-11-04-0000",
+        "title": "Rush Rush Rally Racing"
+    },
+    "STWDDC": {
+        "developer": "Duranik",
+        "genre": "SHMUP",
+        "publisher": "redspotgames",
+        "release_date": "02013-04-24-0000",
+        "title": "Sturmwind"
+    },
+    "T10001D50": {
+        "developer": "Darkblack",
+        "genre": "Extreme sports",
+        "publisher": "THQ",
+        "release_date": "02000-09-24-0000",
+        "title": "MTV Sports: Skateboarding featuring Andy MacDonald"
+    },
+    "T10003D50": {
+        "developer": "Yuke's",
+        "genre": "Wrestling",
+        "publisher": "THQ",
+        "release_date": "02000-09-22-0000",
+        "title": "WWF Royal Rumble"
+    },
+    "T10005D05": {
+        "developer": "Heavy Iron Studios",
+        "genre": "Survival horror",
+        "publisher": "THQ",
+        "release_date": "02001-06-22-0000",
+        "title": "Evil Dead: Hail to the King"
+    },
+    "T12501D61": {
+        "developer": "BioWare",
+        "genre": "Third-person shooter",
+        "publisher": "Interplay",
+        "release_date": "02000-01-01-0000",
+        "title": "MDK 2"
+    },
+    "T12502D61": {
+        "developer": "Runecraft",
+        "genre": "Gambling/simulation",
+        "publisher": "Interplay",
+        "release_date": "02000-06-16-0000",
+        "title": "Caesars Palace 2000: Millennium Gold Edition"
+    },
+    "T12503D61": {
+        "developer": "Treyarch",
+        "genre": "Hack and slash",
+        "publisher": "Interplay",
+        "release_date": "02000-06-22-0000",
+        "title": "Dragon's Blood"
+    },
+    "T13001D58": {
+        "developer": "Climax Entertainment",
+        "genre": "Survival horror",
+        "publisher": "Activision",
+        "release_date": "01999-10-14-0000 October 14, 1999",
+        "title": "Blue Stinger"
+    },
+    "T13002D71": {
+        "developer": "Luxoflux, Inc.",
+        "genre": "Vehicular combat",
+        "publisher": "Activision",
+        "release_date": "02000-02-18-0000",
+        "title": "Vigilante 8: 2nd Offense"
+    },
+    "T13003D05": {
+        "developer": "Traveller's Tales",
+        "genre": "Action",
+        "publisher": "Activision",
+        "release_date": "02000-11-17-0000",
+        "title": "Disney/Pixar Toy Story 2: Buzz Lightyear to the Rescue!"
+    },
+    "T13005D05": {
+        "developer": "Traveller's Tales",
+        "genre": "Platformer",
+        "publisher": "Activision",
+        "release_date": "02001-02-09-0000",
+        "title": "Disney/Pixar Buzz Lightyear of Star Command"
+    },
+    "T13008D05": {
+        "developer": "Treyarch",
+        "genre": "Extreme sports",
+        "publisher": "Activision",
+        "release_date": "02000-12-15-0000",
+        "title": "Tony Hawk's Pro Skater 2"
+    },
+    "T13010D05": {
+        "developer": "Luxoflux, Inc.",
+        "genre": "Vehicular combat",
+        "publisher": "LucasArts",
+        "release_date": "02000-12-15-0000",
+        "title": "Star Wars: Demolition"
+    },
+    "T13011D05": {
+        "developer": "Treyarch",
+        "genre": "Beat 'em up",
+        "publisher": "Activision",
+        "release_date": "02001-06-29-0000",
+        "title": "Spider-Man"
+    },
+    "T1401D50": {
+        "developer": "Namco",
+        "genre": "Fighting",
+        "publisher": "Namco",
+        "release_date": "01999-12-01-0000",
+        "title": "SoulCalibur"
+    },
+    "T15101D05": {
+        "developer": "Rage Software",
+        "genre": "Action",
+        "publisher": "Infogrames",
+        "release_date": "01999-10-14-0000",
+        "title": "Millenium Soldier: Expendable"
+    },
+    "T15101D50": {
+        "developer": "Rage Software",
+        "genre": "Action",
+        "publisher": "Infogrames",
+        "release_date": "01999-10-14-0000",
+        "title": "Millenium Soldier: Expendable"
+    },
+    "T15102D50": {
+        "developer": "",
+        "genre": "Soccer",
+        "publisher": "",
+        "release_date": "",
+        "title": "UEFA Striker"
+    },
+    "T15103D61": {
+        "developer": "General Entertainment",
+        "genre": "Racing",
+        "publisher": "Infogrames",
+        "release_date": "01999-09-09-0000",
+        "title": "Pen Pen"
+    },
+    "T15104D59": {
+        "developer": "Accolade",
+        "genre": "Action",
+        "publisher": "Infogrames",
+        "release_date": "01999-01-01-0000",
+        "title": "Slave Zero"
+    },
+    "T15105D05": {
+        "developer": "Eden Studios",
+        "genre": "Racing",
+        "publisher": "Infogrames",
+        "release_date": "02000-05-01-0000",
+        "title": "V-Rally 2: Expert Edition"
+    },
+    "T15106D05": {
+        "developer": "Infogrames",
+        "genre": "Racing",
+        "publisher": "Infogrames",
+        "release_date": "02000-06-30-0000",
+        "title": "Wacky Races"
+    },
+    "T15108D50": {
+        "developer": "Melbourne House",
+        "genre": "Racing",
+        "publisher": "Infogrames",
+        "release_date": "02000-11-17-0000",
+        "title": "Looney Tunes: Space Race"
+    },
+    "T15109D91": {
+        "developer": "Spiral House",
+        "genre": "Action RPG",
+        "publisher": "Infogrames",
+        "release_date": "02000-06-23-0000",
+        "title": "Silver"
+    },
+    "T15111D91": {
+        "developer": "Pitbull Syndicate",
+        "genre": "Racing",
+        "publisher": "Infogrames",
+        "release_date": "02000-11-17-0000",
+        "title": "Le Mans 24 Hours"
+    },
+    "T15112D05": {
+        "developer": "Darkworks",
+        "genre": "Survival horror",
+        "publisher": "Infogrames",
+        "release_date": "02001-06-22-0000",
+        "title": "Alone in the Dark: The New Nightmare"
+    },
+    "T15113D50": {
+        "developer": "Secret Level",
+        "genre": "First-person shooter",
+        "publisher": "Infogrames",
+        "release_date": "02001-06-29-0000",
+        "title": "Unreal Tournament"
+    },
+    "T17702D50": {
+        "developer": "Ubisoft Montreal",
+        "genre": "Racing",
+        "publisher": "Ubisoft",
+        "release_date": "01999-01-01-0000",
+        "title": "Speed Devils"
+    },
+    "T17703D05": {
+        "developer": "Criterion Games",
+        "genre": "Racing",
+        "publisher": "Ubisoft",
+        "release_date": "01999-11-10-0000",
+        "title": "Suzuki Alstare Extreme Racing"
+    },
+    "T17704D09": {
+        "developer": "Criterion Games",
+        "genre": "Shooter",
+        "publisher": "Ubisoft",
+        "release_date": "02000-09-22-0000",
+        "title": "Deep Fighter"
+    },
+    "T17704D61": {
+        "developer": "Criterion Games",
+        "genre": "Shooter",
+        "publisher": "Ubisoft",
+        "release_date": "02000-09-22-0000",
+        "title": "Deep Fighter"
+    },
+    "T17705SD50": {
+        "developer": "Sting",
+        "genre": "Role Playing",
+        "publisher": "Ubisoft",
+        "release_date": "02000-01-01-0000",
+        "title": "Evolution: The World of Sacred Device"
+    },
+    "T17706D50": {
+        "developer": "Ubisoft",
+        "genre": "Racing",
+        "publisher": "Ubisoft",
+        "release_date": "02001-02-02-0000",
+        "title": "F1 Racing Championship"
+    },
+    "T17707D50": {
+        "developer": "Ubisoft Montpellier",
+        "genre": "Platform",
+        "publisher": "Ubisoft",
+        "release_date": "02000-01-01-0000",
+        "title": "Rayman 2: The Great Escape"
+    },
+    "T17708D": {
+        "developer": "Blue Sphere Games",
+        "genre": "Driving",
+        "publisher": "Ubisoft",
+        "release_date": "02000-11-30-0000",
+        "title": "Taxi 2"
+    },
+    "T17710D50": {
+        "developer": "Capcom",
+        "genre": "Racing",
+        "publisher": "Capcom",
+        "release_date": "02000-12-15-0000",
+        "title": "Pod 2 Multiplayer Online"
+    },
+    "T17711D71": {
+        "developer": "Xilam",
+        "genre": "Adventure",
+        "publisher": "Ubisoft",
+        "release_date": "02001-05-18-0000",
+        "title": "Stupid Invaders"
+    },
+    "T17713D50": {
+        "developer": "Ubisoft Montreal",
+        "genre": "Racing",
+        "publisher": "Ubisoft",
+        "release_date": "02001-02-02-0000",
+        "title": "Speed Devils: Online Racing"
+    },
+    "T17714D05": {
+        "developer": "Ubisoft Montreal",
+        "genre": "Platformer",
+        "publisher": "Ubisoft",
+        "release_date": "02000-12-15-0000",
+        "title": "Disney's Donald Duck: Quack Attack"
+    },
+    "T17715D05": {
+        "developer": "Game Arts",
+        "genre": "Role-playing",
+        "publisher": "Ubisoft",
+        "release_date": "02001-02-23-0000",
+        "title": "Grandia II"
+    },
+    "T17716D91": {
+        "developer": "Ubisoft",
+        "genre": "Adventure",
+        "publisher": "Ubisoft",
+        "release_date": "02002-02-08-0000",
+        "title": "Dragon Riders: Chronicles of Pern"
+    },
+    "T17718D84": {
+        "developer": "Disney Interactive Studios",
+        "genre": "Adventure",
+        "publisher": "Ubisoft",
+        "release_date": "02000-11-24-0000",
+        "title": "Disney's Dinosaur"
+    },
+    "T17721D50": {
+        "developer": "CRI",
+        "genre": "Surfing",
+        "publisher": "Crave",
+        "release_date": "02000-01-01-0000",
+        "title": "Surf Rocket Racers"
+    },
+    "T17722D50": {
+        "developer": "UDS",
+        "genre": "Racing",
+        "publisher": "Infogrames",
+        "release_date": "02001-01-19-0000",
+        "title": "SnoCross Championship Racing"
+    },
+    "T17723D50": {
+        "developer": "Digital Anvil",
+        "genre": "Space simulator",
+        "publisher": "Crave",
+        "release_date": "02001-03-30-0000",
+        "title": "StarLancer"
+    },
+    "T17724D50": {
+        "developer": "Genki",
+        "genre": "Racing",
+        "publisher": "Crave",
+        "release_date": "02000-12-22-0000",
+        "title": "Tokyo Highway Challenge 2"
+    },
+    "T17726D50": {
+        "developer": "Runecraft",
+        "genre": "First-person shooter",
+        "publisher": "Crave",
+        "release_date": "02001-01-01-0000",
+        "title": "Soldier of Fortune"
+    },
+    "T22901D05": {
+        "developer": "UEP Systems",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-07-07-0000",
+        "title": "Roadsters"
+    },
+    "T22902D50": {
+        "developer": "X-Ray Interactive",
+        "genre": "Action-adventure",
+        "publisher": "Titus Software",
+        "release_date": "02000-12-08-0000",
+        "title": "Kao the Kangaroo"
+    },
+    "T22903D50": {
+        "developer": "Player 1",
+        "genre": "Racing",
+        "publisher": "Titus Software",
+        "release_date": "02001-05-18-0000",
+        "title": "Exhibition of Speed"
+    },
+    "T22904D": {
+        "developer": "Team 17",
+        "genre": "Racing",
+        "publisher": "EON Digital Entertainment",
+        "release_date": "02001-06-08-0000",
+        "title": "Stunt GP"
+    },
+    "T3001D50": {
+        "developer": "Video System",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-01-01-0000",
+        "title": "F1 World Grand Prix"
+    },
+    "T3002D50": {
+        "developer": "Video System",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-12-02-0000",
+        "title": "F1 World Grand Prix II"
+    },
+    "T30701D": {
+        "developer": "Cunning Developments",
+        "genre": "Compilation",
+        "publisher": "Empire Interactive",
+        "release_date": "02001-06-08-0000",
+        "title": "Pro Pinball Trilogy"
+    },
+    "T36801D64": {
+        "developer": "Capcom",
+        "genre": "Arena",
+        "publisher": "Capcom",
+        "release_date": "01999-01-01-0000",
+        "title": "Power Stone"
+    },
+    "T36802D05": {
+        "developer": "Core Design, Ltd.",
+        "genre": "Beat 'em up",
+        "publisher": "Eidos",
+        "release_date": "02000-01-01-0000",
+        "title": "Fighting Force 2"
+    },
+    "T36803D05": {
+        "developer": "Crystal Dynamics",
+        "genre": "Action-adventure",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-01-01-0000",
+        "title": "Legacy of Kain: Soul Reaver"
+    },
+    "T36804D05": {
+        "developer": "Core Design, Ltd.",
+        "genre": "Action-adventure",
+        "publisher": "Eidos Interactive",
+        "release_date": "01999-01-01-0000",
+        "title": "Tomb Raider: The Last Revelation"
+    },
+    "T36805D09": {
+        "developer": "Quantic Dream",
+        "genre": "Adventure",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-01-01-0000",
+        "title": "The Nomad Soul"
+    },
+    "T36806D05": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "02000-05-26-0000",
+        "title": "Resident Evil Code: Veronica"
+    },
+    "T36807D05": {
+        "developer": "ASCII Entertainment",
+        "genre": "Hack and slash",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-01-01-0000",
+        "title": "Sword of the Berserk: Guts' Rage"
+    },
+    "T36808D05": {
+        "developer": "Attention to Detail",
+        "genre": "Sports",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-08-01-0000",
+        "title": "Sydney 2000"
+    },
+    "T36809D50": {
+        "developer": "Crystal Dynamics",
+        "genre": "Racing",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-01-01-0000",
+        "title": "Walt Disney World Quest: Magical Racing Tour"
+    },
+    "T36810D50": {
+        "developer": "Mucky Foot Productions",
+        "genre": "Action-adventure",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-10-06-0000",
+        "title": "Urban Chaos"
+    },
+    "T36811D": {
+        "developer": "Hothouse Creations",
+        "genre": "Game show",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-09-29-0000",
+        "title": "Who Wants to Be a Millionaire?"
+    },
+    "T36812D61": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-08-24-0000",
+        "title": "Power Stone 2"
+    },
+    "T36813D05": {
+        "developer": "Crystal Dynamics",
+        "genre": "Platformer",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-12-20-0000",
+        "title": "Disney's 102 Dalmatians: Puppies to the Rescue"
+    },
+    "T36814D05": {
+        "developer": "Blitz Games",
+        "genre": "Platform",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-11-24-0000",
+        "title": "Chicken Run"
+    },
+    "T36815D05": {
+        "developer": "Core Design",
+        "genre": "Action-adventure",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-12-15-0000",
+        "title": "Tomb Raider Chronicles"
+    },
+    "T36816D05": {
+        "developer": "Capcom",
+        "genre": "Action",
+        "publisher": "Capcom",
+        "release_date": "02001-01-19-0000",
+        "title": "Spawn: In the Demon's Hand"
+    },
+    "T40201D50": {
+        "developer": "Genki",
+        "genre": "Racing",
+        "publisher": "Genki",
+        "release_date": "01999-09-09-0000",
+        "title": "Tokyo Highway Challenge"
+    },
+    "T40202D50": {
+        "developer": "CRI",
+        "genre": "Flight simulator",
+        "publisher": "Crave Entertainment",
+        "release_date": "01999-01-01-0000",
+        "title": "AeroWings"
+    },
+    "T40203D50": {
+        "developer": "Anchor",
+        "genre": "Fighting",
+        "publisher": "Crave",
+        "release_date": "02000-01-01-0000",
+        "title": "Ultimate Fighting Championship"
+    },
+    "T40204D50": {
+        "developer": "Treyarch",
+        "genre": "Extreme sports",
+        "publisher": "Activision",
+        "release_date": "02000-06-29-0000",
+        "title": "Tony Hawk's Skateboarding"
+    },
+    "T40206D50": {
+        "developer": "Genki",
+        "genre": "Platformer",
+        "publisher": "Crave",
+        "release_date": "02000-08-04-0000",
+        "title": "Super Magnetic Neo"
+    },
+    "T40207D50": {
+        "developer": "VCC Entertainment",
+        "genre": "Racing",
+        "publisher": "Crave Entertainment",
+        "release_date": "02000-01-01-0000",
+        "title": "MagForce Racing"
+    },
+    "T40209D50": {
+        "developer": "CRI",
+        "genre": "Flight simulator",
+        "publisher": "Crave Entertainment",
+        "release_date": "02000-01-01-0000",
+        "title": "AeroWings 2: Air Strike"
+    },
+    "T40501D64": {
+        "developer": "DMA Design",
+        "genre": "Action",
+        "publisher": "Rockstar Games",
+        "release_date": "02000-01-01-0000",
+        "title": "Wild Metal"
+    },
+    "T40502D61": {
+        "developer": "DMA Design",
+        "genre": "Action-adventure",
+        "publisher": "Rockstar Games",
+        "release_date": "02000-07-28-0000",
+        "title": "Grand Theft Auto 2"
+    },
+    "T40502D93": {
+        "developer": "DMA Design",
+        "genre": "Action-adventure",
+        "publisher": "Rockstar Games",
+        "release_date": "02000-07-28-0000",
+        "title": "Grand Theft Auto 2"
+    },
+    "T40503D64": {
+        "developer": "Illusion Softworks",
+        "genre": "Tactical shooter",
+        "publisher": "TalonSoft",
+        "release_date": "02000-01-01-0000",
+        "title": "Hidden & Dangerous"
+    },
+    "T40504D50": {
+        "developer": "Crystal Dynamics",
+        "genre": "Puzzle",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-03-31-0000",
+        "title": "Wetrix+"
+    },
+    "T40504D64": {
+        "developer": "Crystal Dynamics",
+        "genre": "Puzzle",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-03-31-0000",
+        "title": "Wetrix+"
+    },
+    "T40505D50": {
+        "developer": "Tremor Entertainment",
+        "genre": "Business simulation",
+        "publisher": "Gathering",
+        "release_date": "02000-06-30-0000",
+        "title": "Railroad Tycoon II"
+    },
+    "T40506D50": {
+        "developer": "Tremor Entertainment",
+        "genre": "First-person shooter",
+        "publisher": "Take-Two Interactive",
+        "release_date": "02001-01-19-0000",
+        "title": "KISS: Psycho Circus: The Nightmare Child"
+    },
+    "T40508D": {
+        "developer": "Lost Toys",
+        "genre": "Action",
+        "publisher": "Take-Two Interactive",
+        "release_date": "02000-11-24-0000",
+        "title": "Moho"
+    },
+    "T40508D50": {
+        "developer": "Lost Toys",
+        "genre": "Action",
+        "publisher": "Take-Two Interactive",
+        "release_date": "02000-11-24-0000",
+        "title": "Moho"
+    },
+    "T40509D50": {
+        "developer": "East Point Software",
+        "genre": "Racing",
+        "publisher": "Take-Two Interactive",
+        "release_date": "02000-12-22-0000",
+        "title": "Aqua GT"
+    },
+    "T40601D79": {
+        "developer": "Team17",
+        "genre": "Arena",
+        "publisher": "Hasbro Interactive",
+        "release_date": "01999-11-30-0000",
+        "title": "Worms Armageddon"
+    },
+    "T40701D50": {
+        "developer": "Rage Software",
+        "genre": "Shooter",
+        "publisher": "Interplay",
+        "release_date": "01999-10-14-0000 October 14, 1999",
+        "title": "Incoming"
+    },
+    "T41401D61": {
+        "developer": "Toka",
+        "genre": "Beat 'em up",
+        "publisher": "Mindscape, Inc.",
+        "release_date": "01999-01-01-0000",
+        "title": "Soul Fighter"
+    },
+    "T41402D50": {
+        "developer": "Krome Studios",
+        "genre": "Surfing",
+        "publisher": "Mattel",
+        "release_date": "02001-08-10-0000",
+        "title": "Championship Surfer"
+    },
+    "T44901D50": {
+        "developer": "Jaleco Entertainment",
+        "genre": "Survival horror",
+        "publisher": "Jaleco Entertainment",
+        "release_date": "02001-07-05-0000",
+        "title": "Carrier"
+    },
+    "T44902D50": {
+        "developer": "Sims",
+        "genre": "Rail shooter",
+        "publisher": "Xicat Interactive",
+        "release_date": "02001-06-29-0000",
+        "title": "Charge 'n Blast"
+    },
+    "T44903D50": {
+        "developer": "Bimboosoft",
+        "genre": "Simulation",
+        "publisher": "Xicat Interactive",
+        "release_date": "02001-06-29-0000",
+        "title": "Coaster Works"
+    },
+    "T44904D50": {
+        "developer": "Marionette",
+        "genre": "Flight simulator",
+        "publisher": "Xicat Interactive",
+        "release_date": "02001-06-29-0000",
+        "title": "Iron Aces"
+    },
+    "T45001D05": {
+        "developer": "Pipe Dream Interactive",
+        "genre": "Tactical shooter",
+        "publisher": "Majesco Games",
+        "release_date": "02001-02-02-0000",
+        "title": "Tom Clancy's Rainbow Six"
+    },
+    "T45002D61": {
+        "developer": "Pipe Dream Interactive",
+        "genre": "Tactical shooter",
+        "publisher": "Red Storm Entertainment",
+        "release_date": "02000-01-01-0000",
+        "title": "Tom Clancy's Rainbow Six: Rogue Spear"
+    },
+    "T45004D50": {
+        "developer": "Runecraft",
+        "genre": "Tactical shooter",
+        "publisher": "Ripcord Games",
+        "release_date": "02000-01-01-0000",
+        "title": "Spec Ops II: Omega Squad"
+    },
+    "T45005D50": {
+        "developer": "Sting",
+        "genre": "Roguelike/RPG",
+        "publisher": "Ubisoft",
+        "release_date": "02001-11-23-0000",
+        "title": "Evolution 2: Far Off Promise"
+    },
+    "T45006D50": {
+        "developer": "Ubisoft",
+        "genre": "Racing",
+        "publisher": "Ubisoft",
+        "release_date": "01999-03-11-0000",
+        "title": "Racing Simulation 2: On-line Monaco Grand Prix"
+    },
+    "T45401D50": {
+        "developer": "Smoking Guns Production",
+        "genre": "Soccer Management Simulation",
+        "publisher": "AAA",
+        "release_date": "02001-05-11-0000",
+        "title": "Giant Killers"
+    },
+    "T46601D50": {
+        "developer": "Psikyo",
+        "genre": "Multi-directional shooter",
+        "publisher": "Capcom",
+        "release_date": "02002-05-03-0000",
+        "title": "Cannon Spike"
+    },
+    "T46602D50": {
+        "developer": "Capcom",
+        "genre": "Arena",
+        "publisher": "Capcom",
+        "release_date": "02002-04-12-0000",
+        "title": "Heavy Metal: Geomatrix"
+    },
+    "T46603D71": {
+        "developer": "MASA Group",
+        "genre": "Real time strategy",
+        "publisher": "Ubisoft",
+        "release_date": "02002-04-12-0000",
+        "title": "Conflict Zone"
+    },
+    "T46604D50": {
+        "developer": "Titanium Studios",
+        "genre": "Extreme sports",
+        "publisher": "Crave",
+        "release_date": "02002-11-05-0000",
+        "title": "Freestyle Scooter"
+    },
+    "T46605D71": {
+        "developer": "In Utero",
+        "genre": "Platformer",
+        "publisher": "BigBen Interactive",
+        "release_date": "02002-04-12-0000",
+        "title": "Evil Twin: Cyprien's Chronicles"
+    },
+    "T46605D80": {
+        "developer": "In Utero",
+        "genre": "Platformer",
+        "publisher": "BigBen Interactive",
+        "release_date": "02002-04-12-0000",
+        "title": "Evil Twin: Cyprien's Chronicles"
+    },
+    "T7001D": {
+        "developer": "Awesome Developments",
+        "genre": "Pool",
+        "publisher": "Virgin Interactive",
+        "release_date": "02000-01-01-0000",
+        "title": "Jimmy White's 2: Cueball"
+    },
+    "T7002D61": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-06-23-0000",
+        "title": "Marvel vs. Capcom: Clash of Super Heroes"
+    },
+    "T7003D50": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-08-25-0000",
+        "title": "Plasma Sword: Nightmare of Bilstein"
+    },
+    "T7004D50": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "02000-04-24-0000",
+        "title": "Resident Evil 2"
+    },
+    "T7004D61": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "02000-04-24-0000",
+        "title": "Resident Evil 2"
+    },
+    "T7005D50": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-09-29-0000",
+        "title": "Street Fighter Alpha 3"
+    },
+    "T7006D50": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-09-15-0000",
+        "title": "Street Fighter III: Double Impact"
+    },
+    "T7007D50": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-01-01-0000",
+        "title": "JoJo's Bizarre Adventure"
+    },
+    "T7008D50": {
+        "developer": "Capcom",
+        "genre": "SHMUP",
+        "publisher": "Capcom",
+        "release_date": "02000-10-20-0000",
+        "title": "Giga Wing"
+    },
+    "T7009D50": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-07-07-0000",
+        "title": "Tech Romancer"
+    },
+    "T7010D50": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-06-16-0000",
+        "title": "Marvel vs. Capcom 2: New Age of Heroes"
+    },
+    "T7011D50": {
+        "developer": "Treasure",
+        "genre": "SHMUP",
+        "publisher": "Conspiracy Entertainment",
+        "release_date": "02000-10-20-0000",
+        "title": "Bangai-O"
+    },
+    "T7012D09": {
+        "developer": "Neverland",
+        "genre": "Role playing",
+        "publisher": "Conspiracy Entertainment",
+        "release_date": "02000-12-15-0000",
+        "title": "Record of Lodoss War"
+    },
+    "T7012D97": {
+        "developer": "Neverland",
+        "genre": "Role playing",
+        "publisher": "Conspiracy Entertainment",
+        "release_date": "02000-12-15-0000",
+        "title": "Record of Lodoss War"
+    },
+    "T7013D50": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-01-01-0000",
+        "title": "Street Fighter III: 3rd Strike"
+    },
+    "T7014D50": {
+        "developer": "Climax Entertainment",
+        "genre": "Racing",
+        "publisher": "Interplay",
+        "release_date": "02001-12-08-0000",
+        "title": "Super Runabout: The Golden State"
+    },
+    "T7015D": {
+        "developer": "Virgin Interactive",
+        "genre": "Rugby",
+        "publisher": "Virgin Interactive",
+        "release_date": "02001-03-02-0000",
+        "title": "European Super League"
+    },
+    "T7016D50": {
+        "developer": "Team17",
+        "genre": "Arena",
+        "publisher": "Titus Interactive",
+        "release_date": "02001-04-27-0000",
+        "title": "Worms World Party"
+    },
+    "T7017D50": {
+        "developer": "Psikyo",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-12-15-0000",
+        "title": "Capcom vs. SNK"
+    },
+    "T7018D50": {
+        "developer": "Psikyo",
+        "genre": "SHMUP",
+        "publisher": "Capcom",
+        "release_date": "02001-02-02-0000",
+        "title": "Gunbird 2"
+    },
+    "T7019D05": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "02000-12-22-0000",
+        "title": "Dino Crisis"
+    },
+    "T7020D50": {
+        "developer": "Namco",
+        "genre": "Puzzle",
+        "publisher": "Namco",
+        "release_date": "02000-01-01-0000",
+        "title": "Mr. Driller"
+    },
+    "T7021D56": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "02000-12-21-0000",
+        "title": "Resident Evil 3: Nemesis"
+    },
+    "T7022D50": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02001-04-13-0000",
+        "title": "Project Justice: Rival Schools 2"
+    },
+    "T8101D05": {
+        "developer": "Criterion Games",
+        "genre": "Extreme sports",
+        "publisher": "Acclaim",
+        "release_date": "01999-01-01-0000",
+        "title": "TrickStyle"
+    },
+    "T8102D05": {
+        "developer": "Acclaim",
+        "genre": "Football",
+        "publisher": "Acclaim",
+        "release_date": "Unreleased",
+        "title": "NFL Quarterback Club 2000"
+    },
+    "T8103D50": {
+        "developer": "Acclaim",
+        "genre": "Wrestling",
+        "publisher": "Acclaim",
+        "release_date": "01999-01-01-0000",
+        "title": "WWF Attitude"
+    },
+    "T8104D05": {
+        "developer": "Acclaim",
+        "genre": "Action-adventure",
+        "publisher": "Acclaim",
+        "release_date": "01999-01-01-0000",
+        "title": "Shadow Man"
+    },
+    "T8106D05": {
+        "developer": "Taito Corporation",
+        "genre": "Fighting",
+        "publisher": "Acclaim",
+        "release_date": "01999-01-01-0000",
+        "title": "Psychic Force 2012"
+    },
+    "T8107D05": {
+        "developer": "Titanium Studios",
+        "genre": "Racing",
+        "publisher": "Crave",
+        "release_date": "02000-01-01-0000",
+        "title": "Re-Volt"
+    },
+    "T8108D05": {
+        "developer": "Bottom Up",
+        "genre": "Golf",
+        "publisher": "Acclaim",
+        "release_date": "02000-01-12-0000",
+        "title": "Tee Off"
+    },
+    "T8109D05": {
+        "developer": "Taito Corporation",
+        "genre": "Puzzle",
+        "publisher": "Acclaim",
+        "release_date": "02000-06-09-0000",
+        "title": "Bust-A-Move 4"
+    },
+    "T8109D50": {
+        "developer": "Taito Corporation",
+        "genre": "Puzzle",
+        "publisher": "Acclaim",
+        "release_date": "02000-06-09-0000",
+        "title": "Bust-A-Move 4"
+    },
+    "T8110D05": {
+        "developer": "Clockwork Games",
+        "genre": "Racing",
+        "publisher": "Acclaim",
+        "release_date": "02001-03-09-0000",
+        "title": "Vanishing Point"
+    },
+    "T8112D05": {
+        "developer": "Tantalus Interactive",
+        "genre": "Racing",
+        "publisher": "Acclaim",
+        "release_date": "02000-07-07-0000",
+        "title": "South Park Rally"
+    },
+    "T8113D05": {
+        "developer": "Bizarre Creations",
+        "genre": "Third-person shooter",
+        "publisher": "Acclaim",
+        "release_date": "02000-06-23-0000",
+        "title": "Fur Fighters"
+    },
+    "T8114D05": {
+        "developer": "Acclaim",
+        "genre": "Racing",
+        "publisher": "Acclaim",
+        "release_date": "02000-09-08-0000",
+        "title": "Jeremy McGrath SuperCross 2000"
+    },
+    "T8116D05": {
+        "developer": "Team Ninja",
+        "genre": "Fighting",
+        "publisher": "Tecmo",
+        "release_date": "02000-07-14-0000",
+        "title": "Dead or Alive 2"
+    },
+    "T8117D59": {
+        "developer": "Broadsword Interactive",
+        "genre": "Racing",
+        "publisher": "LJN Ltd.",
+        "release_date": "02000-06-09-0000",
+        "title": "Spirit of Speed 1937"
+    },
+    "T8118D05": {
+        "developer": "Sega",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-10-20-0000",
+        "title": "F355 Challenge: Passione Rossa"
+    },
+    "T8119D59": {
+        "developer": "Acclaim",
+        "genre": "Wrestling",
+        "publisher": "Acclaim",
+        "release_date": "02001-02-09-0000",
+        "title": "ECW Anarchy Rulz"
+    },
+    "T8120D59": {
+        "developer": "Z-Axis, Ltd.",
+        "genre": "Extreme sports",
+        "publisher": "Acclaim",
+        "release_date": "02000-12-08-0000",
+        "title": "Dave Mirra Freestyle BMX"
+    },
+    "T8121D05": {
+        "developer": "Attention to Detail",
+        "genre": "Racing",
+        "publisher": "Acclaim",
+        "release_date": "02001-03-09-0000",
+        "title": "Ducati World"
+    },
+    "T9501D76": {
+        "developer": "Konami Computer Entertainment Yokohama",
+        "genre": "Flight simulator",
+        "publisher": "Konami",
+        "release_date": "02000-02-18-0000",
+        "title": "Deadly Skies"
+    },
+    "T9502D50": {
+        "developer": "Kalisto",
+        "genre": "Survival horror",
+        "publisher": "Konami",
+        "release_date": "02000-01-01-0000",
+        "title": "Nightmare Creatures II"
+    },
+    "T9502D76": {
+        "developer": "Kalisto",
+        "genre": "Survival horror",
+        "publisher": "Konami",
+        "release_date": "02000-01-01-0000",
+        "title": "Nightmare Creatures II"
+    },
+    "T9503D76": {
+        "developer": "Artificial Mind and Movement",
+        "genre": "Platformer",
+        "publisher": "Konami",
+        "release_date": "02000-12-15-0000",
+        "title": "The Grinch"
+    },
+    "T9504D50": {
+        "developer": "Konami",
+        "genre": "Sports",
+        "publisher": "Konami",
+        "release_date": "02000-01-01-0000",
+        "title": "ESPN International Track & Field"
+    },
+    "T9505D76": {
+        "developer": "Konami",
+        "genre": "Rail shooter",
+        "publisher": "Konami",
+        "release_date": "02000-11-06-0000",
+        "title": "Silent Scope"
+    },
+    "T9701D61": {
+        "developer": "Eurocom",
+        "genre": "Fighting",
+        "publisher": "Midway",
+        "release_date": "01999-01-01-0000",
+        "title": "Mortal Kombat Gold"
+    },
+    "T9702D61": {
+        "developer": "Eurocom",
+        "genre": "Racing",
+        "publisher": "Midway",
+        "release_date": "01999-10-24-0000",
+        "title": "Hydro Thunder"
+    },
+    "T9703D50": {
+        "developer": "Avalanche Software",
+        "genre": "Football",
+        "publisher": "Midway",
+        "release_date": "01999-01-01-0000",
+        "title": "NFL Blitz 2000"
+    },
+    "T9704D51": {
+        "developer": "Midway",
+        "genre": "Boxing",
+        "publisher": "Midway",
+        "release_date": "01999-01-01-0000",
+        "title": "Ready 2 Rumble Boxing"
+    },
+    "T9705D50": {
+        "developer": "Avalanche Software",
+        "genre": "Basketball",
+        "publisher": "Midway",
+        "release_date": "01999-11-30-0000",
+        "title": "NBA Showtime: NBA on NBC"
+    },
+    "T9706D61": {
+        "developer": "Sega",
+        "genre": "Vehicle simulation",
+        "publisher": "Sega",
+        "release_date": "02001-06-01-0000",
+        "title": "18 Wheeler: American Pro Trucker"
+    },
+    "T9707D51": {
+        "developer": "Atari Games (Midway)",
+        "genre": "Hack and slash",
+        "publisher": "Midway",
+        "release_date": "02000-07-21-0000",
+        "title": "Gauntlet Legends"
+    },
+    "T9708D61": {
+        "developer": "Saffire",
+        "genre": "Action Shooter",
+        "publisher": "Midway Games",
+        "release_date": "02000-11-17-0000",
+        "title": "Army Men: Sarge's Heroes"
+    },
+    "T9709D61": {
+        "developer": "Midway",
+        "genre": "Racing",
+        "publisher": "Midway",
+        "release_date": "02000-01-01-0000",
+        "title": "San Francisco Rush 2049"
+    },
+    "T9710D50": {
+        "developer": "Digital Eclipse",
+        "genre": "compilation",
+        "publisher": "Midway",
+        "release_date": "02000-07-28-0000",
+        "title": "Midway's Greatest Arcade Hits Volume 1"
+    },
+    "T9711D50": {
+        "developer": "Midway",
+        "genre": "Boxing",
+        "publisher": "Midway",
+        "release_date": "02000-03-10-0000",
+        "title": "Ready 2 Rumble Boxing: Round 2"
+    },
+    "T9713D61": {
+        "developer": "Eurocom",
+        "genre": "Basketball",
+        "publisher": "Midway",
+        "release_date": "02001-04-13-0000",
+        "title": "NBA Hoopz"
+    },
+    "TGBREJP": {
+        "developer": "Hucast Games",
+        "genre": "SHMUP",
+        "publisher": "Hucast Games",
+        "release_date": "",
+        "title": "Ghost Blade"
+    }
+}

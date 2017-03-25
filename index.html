@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Emulators Online - HTML based frontend for video game console emulators</title>
+		<script src="static/jquery-3.2.0.min.js"></script>
+		<script src="static/emulators_online.js"></script>
+		<script src="static/file_uploader.js"></script>
+		<script src="static/input.js"></script>
+		<script src="static/web_socket.js"></script>
+		<script src="static/pako.min.js"></script>
+		<link type="text/css" href="static/default.css" media="screen" rel="Stylesheet" />
+		<link rel="shortcut icon" href="static/favicon.ico" />
+	</head>
+	<body>
+		<div id="search_header" class="header">
+			<a id="menu_index" class="menu menu_selected" href="#index" onclick="show_menu('index')">Main</a>
+			&nbsp;&nbsp;&nbsp;
+			<a id="menu_configure" class="menu menu_not_selected" href="#configure" onclick="show_menu('configure')">Configure</a>
+			&nbsp;&nbsp;&nbsp;
+			<a id="menu_faq" class="menu menu_not_selected" href="#faq" onclick="show_menu('faq')">FAQ</a>
+			&nbsp;&nbsp;&nbsp;
+			<a id="menu_about" class="menu menu_not_selected" href="#about" onclick="show_menu('about')">About</a>
+			&nbsp;&nbsp;&nbsp;
+			<a id="menu_games" class="menu menu_not_selected" href="#games" onclick="show_menu('games')">Games</a>
+			<br />
+			<span id="search_box">Search: <input id="search_text" type="text" /></span>
+
+			<span id="error_header" class="header" style="display: none;">
+				Run the
+				<a href="https://github.com/workhorsy/emulators-online/releases/download/Alpha/emulators_online_client.exe">emulators_online_client.exe</a>
+				client to play games.
+			</span>
+		</div>
+
+		<div id="content_index" class="content">
+			Main menu
+		</div>
+
+		<div id="content_games" class="content" style="display: none;">
+			<div id="game_dialogs"></div>
+
+			<div id="game_selector" style="overflow: auto;"></div>
+
+			<div id="empty_game_db" style="display: none;">
+				<p>
+				There are no games. You can load them on the configure page.
+				</p>
+			</div>
+		</div>
+
+		<div id="content_configure" class="content" style="display: none;">
+			<div id="generic_progress" style="font-size: 400%"></div>
+
+			<div id="config_buttons_demul" style="display: none">
+				<h1>Configure Dreamcast Controls</h1>
+
+				<table>
+					<tr><td>Up</td><td><input type="button" value="Not Assigned" id="btn_up_demul" /></td></tr>
+					<tr><td>Down</td><td><input type="button" value="Not Assigned" id="btn_down_demul" /></td></tr>
+					<tr><td>Left</td><td><input type="button" value="Not Assigned" id="btn_left_demul" /></td></tr>
+					<tr><td>Right</td><td><input type="button" value="Not Assigned" id="btn_right_demul" /></td></tr>
+					<tr><td>Start</td><td><input type="button" value="Not Assigned" id="btn_start_demul" /></td></tr>
+					<tr><td>A</td><td><input type="button" value="Not Assigned" id="btn_a_demul" /></td></tr>
+					<tr><td>B</td><td><input type="button" value="Not Assigned" id="btn_b_demul" /></td></tr>
+					<tr><td>X</td><td><input type="button" value="Not Assigned" id="btn_x_demul" /></td></tr>
+					<tr><td>Y</td><td><input type="button" value="Not Assigned" id="btn_y_demul" /></td></tr>
+					<tr><td>L Trigger</td><td><input type="button" value="Not Assigned" id="btn_l_trigger_demul" /></td></tr>
+					<tr><td>R Trigger</td><td><input type="button" value="Not Assigned" id="btn_r_trigger_demul" /></td></tr>
+					<tr><td>Left Stick Up</td><td><input type="button" value="Not Assigned" id="btn_left_stick_up_demul" /></td></tr>
+					<tr><td>Left Stick Down</td><td><input type="button" value="Not Assigned" id="btn_left_stick_down_demul" /></td></tr>
+					<tr><td>Left Stick Left</td><td><input type="button" value="Not Assigned" id="btn_left_stick_left_demul" /></td></tr>
+					<tr><td>Left Stick Right</td><td><input type="button" value="Not Assigned" id="btn_left_stick_right_demul" /></td></tr>
+					<tr><td>Right Stick Up</td><td><input type="button" value="Not Assigned" id="btn_right_stick_up_demul" /></td></tr>
+					<tr><td>Right Stick Down</td><td><input type="button" value="Not Assigned" id="btn_right_stick_down_demul" /></td></tr>
+					<tr><td>Right Stick Left</td><td><input type="button" value="Not Assigned" id="btn_right_stick_left_demul" /></td></tr>
+					<tr><td>Right Stick Right</td><td><input type="button" value="Not Assigned" id="btn_right_stick_right_demul" /></td></tr>
+				</table>
+
+				<input type="button" value="Done" id="btn_done_button_config_demul" />
+			</div>
+
+			<div id="config_buttons_pcsx2" style="display: none">
+				<h1>Configure Playstation 2 Controls</h1>
+
+				<table>
+					<tr><td>Up</td><td><input type="button" value="Not Assigned" id="btn_up_pcsx2" /></td></tr>
+					<tr><td>Down</td><td><input type="button" value="Not Assigned" id="btn_down_pcsx2" /></td></tr>
+					<tr><td>Left</td><td><input type="button" value="Not Assigned" id="btn_left_pcsx2" /></td></tr>
+					<tr><td>Right</td><td><input type="button" value="Not Assigned" id="btn_right_pcsx2" /></td></tr>
+					<tr><td>Start</td><td><input type="button" value="Not Assigned" id="btn_start_pcsx2" /></td></tr>
+					<tr><td>Select</td><td><input type="button" value="Not Assigned" id="btn_select_pcsx2" /></td></tr>
+					<tr><td>X</td><td><input type="button" value="Not Assigned" id="btn_cross_pcsx2" /></td></tr>
+					<tr><td>Square</td><td><input type="button" value="Not Assigned" id="btn_square_pcsx2" /></td></tr>
+					<tr><td>Circle</td><td><input type="button" value="Not Assigned" id="btn_circle_pcsx2" /></td></tr>
+					<tr><td>Triangle</td><td><input type="button" value="Not Assigned" id="btn_triangle_pcsx2" /></td></tr>
+					<tr><td>L 1</td><td><input type="button" value="Not Assigned" id="btn_l1_pcsx2" /></td></tr>
+					<tr><td>L 2</td><td><input type="button" value="Not Assigned" id="btn_l2_pcsx2" /></td></tr>
+					<tr><td>L 3</td><td><input type="button" value="Not Assigned" id="btn_l3_pcsx2" /></td></tr>
+					<tr><td>R 1</td><td><input type="button" value="Not Assigned" id="btn_r1_pcsx2" /></td></tr>
+					<tr><td>R 2</td><td><input type="button" value="Not Assigned" id="btn_r2_pcsx2" /></td></tr>
+					<tr><td>R 3</td><td><input type="button" value="Not Assigned" id="btn_r3_pcsx2" /></td></tr>
+					<tr><td>Left Stick Up</td><td><input type="button" value="Not Assigned" id="btn_left_stick_up_pcsx2" /></td></tr>
+					<tr><td>Left Stick Down</td><td><input type="button" value="Not Assigned" id="btn_left_stick_down_pcsx2" /></td></tr>
+					<tr><td>Left Stick Left</td><td><input type="button" value="Not Assigned" id="btn_left_stick_left_pcsx2" /></td></tr>
+					<tr><td>Left Stick Right</td><td><input type="button" value="Not Assigned" id="btn_left_stick_right_pcsx2" /></td></tr>
+					<tr><td>Right Stick Up</td><td><input type="button" value="Not Assigned" id="btn_right_stick_up_pcsx2" /></td></tr>
+					<tr><td>Right Stick Down</td><td><input type="button" value="Not Assigned" id="btn_right_stick_down_pcsx2" /></td></tr>
+					<tr><td>Right Stick Left</td><td><input type="button" value="Not Assigned" id="btn_right_stick_left_pcsx2" /></td></tr>
+					<tr><td>Right Stick Right</td><td><input type="button" value="Not Assigned" id="btn_right_stick_right_pcsx2" /></td></tr>
+				</table>
+
+				<input type="button" value="Done" id="btn_done_button_config_pcsx2" />
+			</div>
+
+			<div id="install_client" class="config_table">
+				<h1>Run client to configure emulators</h1>
+				<p>
+					The client will allow the website to install and run emulators, as well as search your game collection.
+				</p>
+				<p>
+					Run
+					<a href="https://github.com/workhorsy/emulators-online/releases/download/Alpha/emulators_online_client.exe">emulators_online_client.exe</a>
+					to begin.
+				</p>
+				<p>
+					The client is fully open source. You can build it yourself if desired.
+					Fore more details see <a href="https://github.com/workhorsy/emulators-online">https://github.com/workhorsy/emulators-online</a>.
+				</p>
+			</div>
+
+			<div id="config_programs" style="display: none;">
+				<h1>Install and Configure Programs</h1>
+
+				<div id="navigation">
+					<ul>
+						<li id="tab_settings" class="selected"><a href="#" onclick="show_navigation('settings')">Settings</a></li>
+						<li id="tab_dreamcast" class="not_selected"><a href="#" onclick="show_navigation('dreamcast')">Dreamcast</a></li>
+						<li id="tab_playstation2" class="not_selected"><a href="#" onclick="show_navigation('playstation2')">Playstation 2</a></li>
+					</ul>
+				</div>
+
+				<div id="table_settings" class="config_table">
+					<h2>User ID</h2>
+					<p>
+						<input id="text_user_id" type="text" size="25" disabled />
+					</p>
+
+					<h2>Clear Game Database</h2>
+					<p>
+						<input id="btn_clear_game_db" type="button" value="Clear Game Database" />
+					</p>
+				</div>
+
+				<div id="table_dreamcast" class="config_table" style="display: none">
+					<h2>Demul</h2>
+					<p>
+					A Sega Dreamcast emulator.
+					</p>
+
+					<div id="demul_requirements_installed">
+						<h2>Install</h2>
+						<p>
+							<input id="btn_install_demul" type="button" value="Loading ..." disabled />
+						</p>
+
+						<h2>DirectX Version</h2>
+						<p>
+							<select id="select_directx_version" disabled>
+							  <option value="10">10</option>
+							  <option value="11">11</option>
+							  <option value="12">12</option>
+							</select>
+						</p>
+
+						<h2>Configure buttons</h2>
+						<p>
+							<input id="btn_controls_demul" type="button" value="Buttons" disabled />
+						</p>
+
+						<h2>Game folder</h2>
+						<p>
+							<input id="btn_dc_folder" type="button" value="Select a folder to search for games" disabled />
+						</p>
+
+						<h2>BIOS</h2>
+						<p>
+							<input type="file" id="btn_bios_demul_dc" name="btn_bios_demul_dc" disabled>Dreamcast BIOS (dc.zip)</input>
+							<br />
+							<input type="file" id="btn_bios_demul_aw" name="btn_bios_demul_aw" disabled>Atomiswave BIOS (awbios.zip)</input>
+							<br />
+							<input type="file" id="btn_bios_demul_naomi" name="btn_bios_demul_naomi" disabled>Naomi BIOS (naomi.zip)</input>
+							<br />
+							<input type="file" id="btn_bios_demul_naomi2" name="btn_bios_demul_naomi2" disabled>Naomi 2 BIOS (naomi2.zip)</input>
+						</p>
+					</div>
+					<p id="demul_directx_end_user_runtime_not_installed">
+						The DirectX End-User Runtime must be installed before Demul can be run:
+						<a target="_blank" href="http://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe">
+							http://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
+						</a>
+					</p>
+					<p id="demul_vcpp_2010_redist_not_installed">
+						The Visual C++ 2010 X86 Redistributable Package must be installed before Demul can be run:
+						<a target="_blank" href="http://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe">
+							http://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe
+						</a>
+					</p>
+				</div>
+
+				<div id="table_playstation2" class="config_table" style="display: none">
+					<h2>PCSX2</h2>
+					<p>
+						A Sony Playstation 2 emulator.
+					</p>
+
+					<div id="playstation2_requirements_installed">
+						<h2>Install</h2>
+						<p>
+							<input id="btn_install_pcsx2" type="button" value="Loading ..." disabled />
+						</p>
+
+						<h2>Configure buttons</h2>
+						<p>
+							<span style="color: red;">FIXME: Add button configuration.</span>
+						</p>
+
+						<h2>Game folder</h2>
+						<p>
+							<input id="btn_ps2_folder" type="button" value="Select a folder to search for games" disabled />
+						</p>
+
+						<h2>BIOS</h2>
+						<p>
+							<input type="file" id="btn_bios_pcsx2_us" name="btn_bios_pcsx2_us" disabled>PS2 BIOS USA (SCPH10000.bin)</input>
+							<br />
+							<input type="file" id="btn_bios_pcsx2_jp" name="btn_bios_pcsx2_jp" disabled>PS2 BIOS Japan (SCPH3004R.bin)</input>
+							<br />
+							<input type="file" id="btn_bios_pcsx2_eu" name="btn_bios_pcsx2_eu" disabled>PS2 BIOS Europe (SCPH39001.bin)</input>
+						</p>
+					</div>
+					<p id="playstation2_vcpp_2013_redist_not_installed">
+						The Visual C++ 2013 X86 Redistributable Package must be installed before PCSX2 can be run:
+						<a target="_blank" href="http://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe">
+							http://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="content_about" class="content" style="display: none;">
+			<div>
+				<p>
+					Emulators Online in a HTML based front end for video game console emulators.<br />
+					<a href="licenses/license_emulatos_online">Emulators Online AGPL License</a><br />
+					<a href="https://github.com/workhorsy/emulators-online">https://github.com/workhorsy/emulators-online</a>
+				</p>
+				<p>
+					jQuery is a library that simplifies cross-browser scripting.<br />
+					<a href="licenses/license_jquery">jQuery MIT License</a><br />
+					<a href="http://jquery.org">http://jquery.org</a>
+				</p>
+				<p>
+					Pako is a high speed zlib port to javascript.<br />
+					<a href="licenses/license_pako">Pako MIT License</a><br />
+					<a href="https://github.com/nodeca/pako">https://github.com/nodeca/pako</a>
+				</p>
+				<p>
+					7-Zip(7za.exe) is used to compress/uncompress 7z and Zip files.<br />
+					<a href="licenses/license_7zip">7-Zip LGPL License</a><br />
+					<a href="http://www.7-zip.org">http://www.7-zip.org</a>
+				</p>
+				<p>
+					UnRAR(unrar.exe) is used to uncompress rar files.<br />
+					<a href="licenses/license_unrar">UnRAR Custom License</a><br />
+					<a href="http://www.rarlab.com/rar_add.htm">http://www.rarlab.com/rar_add.htm</a>
+				</p>
+				<p>
+					Identify Dreamcast Games is used to find game name, genre, developer, publisher, and release dates.<br />
+					<a href="licenses/license_identify_dreamcast_games">Identify Dreamcast Games MIT License</a><br />
+					<a href="https://github.com/workhorsy/identify_dreamcast_games">https://github.com/workhorsy/identify_dreamcast_games</a>
+				</p>
+				<p>
+					Identify Playstation 2 Games is used to find game name, genre, developer, publisher, and release dates.<br />
+					<a href="licenses/license_identify_playstation2_games">Identify Playstation 2 Games MIT License</a><br />
+					<a href="https://github.com/workhorsy/identify_playstation2_games">https://github.com/workhorsy/identify_playstation2_games</a>
+				</p>
+				<p>
+					iso9660.py is used to read CD ISO files.<br />
+					<a href="licenses/license_iso9660">iso9660.py BSD License</a><br />
+					<a href="https://github.com/barneygale/iso9660">https://github.com/barneygale/iso9660</a>
+				</p>
+				<p>
+					PyReadUDF is used to read DVD ISO files.<br />
+					<a href="licenses/license_py_read_udf">PyReadUDF MIT License</a><br />
+					<a href="https://github.com/workhorsy/py-read-udf">https://github.com/workhorsy/py-read-udf</a>
+				</p>
+			</div>
+		</div>
+
+		<div id="content_faq" class="content" style="display: none;">
+			<div>
+				<p>
+				<span class="question">Q.</span> What does this website do?<br />
+				<span class="answer">A.</span> It is a frontend for
+				<a href="http://en.wikipedia.org/wiki/Video_game_console_emulator">video game console emulators</a>.
+				It lets you manage, search for, and play games on you computer.
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> Can I help?<br />
+				<span class="answer">A.</span> Please do! You can file bugs and make pull requests on GitHub.<br />
+				<a href="http://github.com/workhorsy/emulators-online">http://github.com/workhorsy/emulators-online</a>
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> What OSes does this run on?<br />
+				<span class="answer">A.</span> Many emulators run only on Windows. So Windows 7, 8, and 8.1 for now.
+				I plan on adding Linux support too.
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> Why don't the emulators run in the browser?<br />
+				<span class="answer">A.</span> Unfortunately the technology to do this properly, does not exist.
+				<a href="http://emscripten.org">Emscripten</a> is too slow,
+				because it is single threaded, and does not support
+				<a href="http://en.wikipedia.org/wiki/Automatic_vectorization">auto vectorization</a> (SIMD). Java and Flash
+				are insecure, slow, and being abandoned as browser plugins
+				(<a href="http://en.wikipedia.org/wiki/NPAPI">NPAPI</a>). Plus, we would have to
+				port PCSX2 and Dolphin. Which would be impractical, because of the speed of their development.
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> What web browsers are supported?<br />
+				<span class="answer">A.</span> Firefox, Chrome, and Opera are tested regularly. Others may happen to work. When
+				the website runs, it checks for features, and will tell you if some are missing.
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> Can I put this on my own web server?<br />
+				<span class="answer">A.</span> Yes. As long as you comply with the <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL V3 License</a>.
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> Can I run this on my own machine when offline?<br />
+				<span class="answer">A.</span> Yes. Run the
+				<a href="https://github.com/workhorsy/emulators-online/releases/download/Alpha/emulators_online_client.exe">emulators_online_client.exe</a>
+				client and visit <a href="http://localhost:9090">http://localhost:9090</a> in a web browser.
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> Why does my game show up, but not have an image?<br />
+				<span class="answer">A.</span> All title screen images are taken from screen captures. You can contribute images at github:<br />
+				<a href="http://github.com/workhorsy/images_nintendo">http://github.com/workhorsy/images_nintendo</a><br />
+				<a href="http://github.com/workhorsy/images_sega">http://github.com/workhorsy/images_sega</a><br />
+				<a href="http://github.com/workhorsy/images_sony">http://github.com/workhorsy/images_sony</a>
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> Why do I need to run an exe? Can't you do it all in JavaScript?<br />
+				<span class="answer">A.</span> Unfortunately, there is no way for a website to run and install emulators on your computer.
+				If you are concerned by security, you can audit the source code, and build the exe yourself. The website and exe
+				communicate via a
+				<a href="http://en.wikipedia.org/wiki/WebSocket">WebSocket</a>.
+				</p>
+
+				<hr />
+
+				<p>
+				<span class="question">Q.</span> Can you host games on the web server?<br />
+				<span class="answer">A.</span> No. That would violate copyright. Plus it would require a very large amount of bandwidth, to
+				host games for consoles such as Dreamcast, Playstation 2, and GameCube. However I have been
+				experimenting with using <a href="http://webrtc.org">WebRTC</a> to have browsers directly share games between each other in
+				a peer-to-peer style.
+				</p>
+			</div>
+		</div>
+
+		<br style="clear: both"/>
+
+		<div id="output"></div>
+
+		<div id="notification_footer" style="display: none;">
+		</div>
+
+		<footer>
+			<p>Copyright &copy; 2015-2017 Matthew Brennan Jones</p>
+			<p><a href="https://github.com/workhorsy/emulators-online">https://github.com/workhorsy/emulators-online</a></p>
+			<p></p>
+			<p>
+				This software is Licensed under
+				<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL Version 3</a>.
+			</p>
+		</footer>
+	</body>
+	<script>
+	jQuery(function($) {
+		main();
+	});
+	</script>
+</html>

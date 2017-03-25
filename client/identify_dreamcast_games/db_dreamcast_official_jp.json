@@ -1,0 +1,4524 @@
+{
+    "AMRRE1": {
+        "developer": "Orion Games",
+        "genre": "Platformer",
+        "publisher": "Hucast Games",
+        "release_date": "",
+        "title": "Alice's Mom's Rescue"
+    },
+    "DX15CEJP": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "",
+        "release_date": "",
+        "title": "DUX 1.5 Collectors Edition"
+    },
+    "DX15LEJP": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "",
+        "release_date": "",
+        "title": "DUX 1.5 Limited Edition"
+    },
+    "DX15REJP": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "",
+        "release_date": "",
+        "title": "DUX 1.5"
+    },
+    "DXJC1": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "",
+        "release_date": "",
+        "title": "DUX 1.5"
+    },
+    "HDR0001": {
+        "developer": "Sonic Team",
+        "genre": "Platformer",
+        "publisher": "Sega",
+        "release_date": "01998-12-23-0000",
+        "title": "Sonic Adventure"
+    },
+    "HDR0002": {
+        "developer": "Genki",
+        "genre": "Fighting",
+        "publisher": "Sega",
+        "release_date": "01998-11-27-0000 November 27, 1998",
+        "title": "Virtua Fighter 3tb"
+    },
+    "HDR0003": {
+        "developer": "Climax Entertainment",
+        "genre": "Survival horror",
+        "publisher": "Activision",
+        "release_date": "01999-03-25-0000",
+        "title": "Blue Stinger"
+    },
+    "HDR0004": {
+        "developer": "General Entertainment",
+        "genre": "Action",
+        "publisher": "Sega",
+        "release_date": "01998-11-27-0000 November 27, 1998",
+        "title": "Godzilla Generations"
+    },
+    "HDR0005": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Giant Gram: All-Japan Pro Wrestling 2"
+    },
+    "HDR0006": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-10-19-0000",
+        "title": "Netto Golf"
+    },
+    "HDR0007": {
+        "developer": "AM1",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "01999-03-25-0000",
+        "title": "The House of the Dead 2"
+    },
+    "HDR0009": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Climax Landers"
+    },
+    "HDR0010": {
+        "developer": "Sega AM3",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "01999-01-28-0000",
+        "title": "Sega Rally Championship 2"
+    },
+    "HDR0011": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The House of the Dead 2 with Gun"
+    },
+    "HDR0012": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Get Bass with Fishing Controller"
+    },
+    "HDR0013": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Super Speed Racing"
+    },
+    "HDR0014": {
+        "developer": "Compile",
+        "genre": "Puzzle",
+        "publisher": "Sega",
+        "release_date": "01999-03-04-0000",
+        "title": "Puyo Puyo 4"
+    },
+    "HDR0015": {
+        "developer": "AM7",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-09-23-0000",
+        "title": "Atsumare! GuruGuru Onsen"
+    },
+    "HDR0016": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shenmue: Isshou Yokosuka"
+    },
+    "HDR0019": {
+        "developer": "West One",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-07-29-0000",
+        "title": "Akihabara Dennou Kumi Peta Pies!"
+    },
+    "HDR0020": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dynamite Deka 2"
+    },
+    "HDR0021": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-07-08-0000",
+        "title": "Chou-Hatsumei Boy Kanipan: Bousou Robot no Nazo!?"
+    },
+    "HDR0022": {
+        "developer": "Smilebit",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-08-05-0000",
+        "title": "Pro Yakyuu Team o Tsukurou!"
+    },
+    "HDR0023": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Get Bass"
+    },
+    "HDR0024": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-03-20-0000",
+        "title": "Yukawa Moto Senmu no Okatara Ikushi"
+    },
+    "HDR0026": {
+        "developer": "Sega",
+        "genre": "Beat 'em up",
+        "publisher": "Sega",
+        "release_date": "01999-11-25-0000",
+        "title": "Zombie Revenge"
+    },
+    "HDR0027": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-12-23-0000",
+        "title": "Pro Yakyuu Team de Asobou"
+    },
+    "HDR0028": {
+        "developer": "Smilebit",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-09-30-0000",
+        "title": "J.League Pro Soccer Club o Tsukurou!"
+    },
+    "HDR0029": {
+        "developer": "UGA",
+        "genre": "Music",
+        "publisher": "Sega",
+        "release_date": "01999-12-16-0000",
+        "title": "Space Channel 5"
+    },
+    "HDR0031": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shenmue: Isshou Yokosuka Limited Edition"
+    },
+    "HDR0033": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-09-30-0000",
+        "title": "Grauen no Torikago Kapitel 1: Keiyaku"
+    },
+    "HDR0034": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-11-25-0000",
+        "title": "Grauen no Torikago Kapitel 2: Torikago"
+    },
+    "HDR0035": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-01-27-0000",
+        "title": "Grauen no Torikago Kapitel 3: Kansei"
+    },
+    "HDR0036": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Grauen no Torikago Kapitel 4: Kaikou"
+    },
+    "HDR0037": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-05-25-0000",
+        "title": "Grauen no Torikago Kapitel 5: Shoukuzai"
+    },
+    "HDR0038": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-07-27-0000",
+        "title": "Grauen no Torikago Kapitel 6: Senritsu"
+    },
+    "HDR0039": {
+        "developer": "Sonic Team",
+        "genre": "Puzzle",
+        "publisher": "Sega",
+        "release_date": "01999-11-11-0000",
+        "title": "ChuChu Rocket!"
+    },
+    "HDR0040": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dennou Senki Virtual On: Oratorio Tangram"
+    },
+    "HDR00401": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dennou Senki Virtual On: Oratorio Tangram"
+    },
+    "HDR0042": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "DreamFlyer"
+    },
+    "HDR0043": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sonic Adventure International"
+    },
+    "HDR0044": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Roommania #203"
+    },
+    "HDR0045": {
+        "developer": "Sega",
+        "genre": "Soccer",
+        "publisher": "Sega",
+        "release_date": "01999-12-02-0000",
+        "title": "Virtua Striker 2 Ver. 2000.1"
+    },
+    "HDR0046": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen Hanagumi Taisen Columns 2"
+    },
+    "HDR00461": {
+        "developer": "Tenky",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-01-06-0000",
+        "title": "Hanagumi Taisen Columns 2"
+    },
+    "HDR0047": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Godzilla Generations Maximum Impact"
+    },
+    "HDR0048": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "ChuChu Rocket! with Controller"
+    },
+    "HDR0050": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-12-23-0000",
+        "title": "Gakkyuou Yamazaki: Yamazaki Oukoku Oofun Araso"
+    },
+    "HDR0051": {
+        "developer": "Midway",
+        "genre": "Boxing",
+        "publisher": "Midway",
+        "release_date": "02000-01-13-0000",
+        "title": "Ready 2 Rumble Boxing"
+    },
+    "HDR0052": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Totsugeki! Teketeke!! Toy Ranger"
+    },
+    "HDR0053": {
+        "developer": "Hitmaker",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-01-27-0000",
+        "title": "Crazy Taxi"
+    },
+    "HDR0054": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sega GT Homologation Special"
+    },
+    "HDR0055": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-11-25-0000",
+        "title": "Hello Kitty: Lovely Fruit Park"
+    },
+    "HDR0057": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-02-24-0000",
+        "title": "Ogami Ichiro Funtouki: Sakura Taisen Kayou Show - Benitokage Yori"
+    },
+    "HDR0058": {
+        "developer": "Visual Concepts",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "Unreleased",
+        "title": "NFL 2K"
+    },
+    "HDR0061": {
+        "developer": "Sega AM2",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "02000-03-02-0000",
+        "title": "Virtua Cop 2"
+    },
+    "HDR0063": {
+        "developer": "Sonic Team",
+        "genre": "Music",
+        "publisher": "Sega",
+        "release_date": "02000-04-27-0000",
+        "title": "Samba de Amigo"
+    },
+    "HDR0064": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-04-27-0000",
+        "title": "Kiteretsu Shounen's Gangagan"
+    },
+    "HDR0065": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-04-13-0000",
+        "title": "Hello Kitty no Onnaru Mail"
+    },
+    "HDR0066": {
+        "developer": "SystemSoft",
+        "genre": "Turn-based strategy",
+        "publisher": "Sega",
+        "release_date": "02000-06-22-0000",
+        "title": "Advanced Daisenryaku: Europe no Arashi - Doitsu Dengeki Sakusen"
+    },
+    "HDR0067": {
+        "developer": "Smilebit",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "02000-03-30-0000",
+        "title": "The Typing of the Dead"
+    },
+    "HDR0068": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Kiteretsu Shounen's Gangagan with  Microphone"
+    },
+    "HDR0069": {
+        "developer": "Visual Concepts",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-03-23-0000",
+        "title": "NBA 2K"
+    },
+    "HDR0070": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-03-30-0000",
+        "title": "Hello Kitty no Magical Block"
+    },
+    "HDR0071": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-03-30-0000",
+        "title": "Get!! Colonies"
+    },
+    "HDR0072": {
+        "developer": "M2",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-05-25-0000",
+        "title": "Sakura Taisen"
+    },
+    "HDR0073": {
+        "developer": "Wow Entertainment",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-11-23-0000",
+        "title": "Sega Tetris"
+    },
+    "HDR0074": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Rent A Hero No. 1"
+    },
+    "HDR0075": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-12-07-0000",
+        "title": "Blue Submarine No. 6: Saigetsu Fumahito- Time and Tide"
+    },
+    "HDR0076": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Eternal Arcadia"
+    },
+    "HDR0078": {
+        "developer": "Smilebit",
+        "genre": "Platformer",
+        "publisher": "Sega",
+        "release_date": "02000-06-29-0000",
+        "title": "Jet Set Radio"
+    },
+    "HDR0079": {
+        "developer": "Chime",
+        "genre": "Platform",
+        "publisher": "Sega",
+        "release_date": "02000-10-19-0000",
+        "title": "Napple Tale: Arsia in Daydream"
+    },
+    "HDR0080": {
+        "developer": "Sega",
+        "genre": "Vehicle simulation/,/action",
+        "publisher": "Sega",
+        "release_date": "02000-10-12-0000",
+        "title": "18 Wheeler: American Pro Trucker"
+    },
+    "HDR00801": {
+        "developer": "Sega",
+        "genre": "Vehicle simulation/,/action",
+        "publisher": "Sega",
+        "release_date": "02000-10-12-0000",
+        "title": "18 Wheeler: American Pro Trucker"
+    },
+    "HDR0081": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Virtua Athlete 2K"
+    },
+    "HDR0082": {
+        "developer": "Overworks",
+        "genre": "",
+        "publisher": "Overworks",
+        "release_date": "02000-09-21-0000",
+        "title": "Sakura Taisen 2"
+    },
+    "HDR0083": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Segagaga Limited Edition"
+    },
+    "HDR0084": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-07-27-0000",
+        "title": "Derby Tsuku: Derby Uma o Tsukurou!"
+    },
+    "HDR0085": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The Typing of the Dead with Keyboard"
+    },
+    "HDR0089": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen Limited Edition"
+    },
+    "HDR0090": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-08-10-0000",
+        "title": "Hello Kitty no Waku Waku Quiz"
+    },
+    "HDR0091": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Pro Yakyuu Team de Asobou Net!"
+    },
+    "HDR0092": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Motto Pro Yakyuu Team o Tsukurou!"
+    },
+    "HDR0100": {
+        "developer": "Sega",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-08-03-0000",
+        "title": "F355 Challenge: Passione Rossa"
+    },
+    "HDR0101": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Giant Gram 2000: All-Japan Pro Wrestling 3"
+    },
+    "HDR0102": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-09-28-0000",
+        "title": "Love Hina: Totsuzen no Engeji Happening"
+    },
+    "HDR0103": {
+        "developer": "Appaloosa Interactive",
+        "genre": "Adventure",
+        "publisher": "Sega",
+        "release_date": "02001-01-25-0000",
+        "title": "Ecco the Dolphin: Defender of the Future"
+    },
+    "HDR0104": {
+        "developer": "Wow Entertainment",
+        "genre": "Fishing",
+        "publisher": "Sega",
+        "release_date": "02000-12-17-0000",
+        "title": "Sega Marine Fishing"
+    },
+    "HDR0105": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-11-30-0000",
+        "title": "Quiz Aammegami-Sama Tatakau Tsubasa to Tomoni"
+    },
+    "HDR0106": {
+        "developer": "Amusement Vision",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02001-12-21-0000",
+        "title": "Daytona USA 2001"
+    },
+    "HDR0108": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen 2 Limited Edition"
+    },
+    "HDR0109": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Eternal Arcadia Limited Edition"
+    },
+    "HDR0112": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Love Hina: Totsuzen no Engeji Happening Limited Edition"
+    },
+    "HDR0113": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sega Professional Tennis: Power Smash"
+    },
+    "HDR0114": {
+        "developer": "Imagination Science",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-11-09-0000",
+        "title": "Dream Studio"
+    },
+    "HDR0115": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Card Captor Sakura: Tomoyo no Video Daisakusen"
+    },
+    "HDR0116": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-06-28-0000",
+        "title": "Magic: The Gathering"
+    },
+    "HDR0118": {
+        "developer": "Sega AM2",
+        "genre": "First-person shooter",
+        "publisher": "Sega",
+        "release_date": "02001-08-02-0000",
+        "title": "OutTrigger"
+    },
+    "HDR0119": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Eternal Arcadia @barai Version"
+    },
+    "HDR0120": {
+        "developer": "AM7",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-09-23-0000",
+        "title": "Atsumare! GuruGuru Onsen"
+    },
+    "HDR0121": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-10-31-0000",
+        "title": "Atsumare! GuruGuru Onsen BB"
+    },
+    "HDR0123": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Quiz Aammegami-Sama Tatakau Tsubasa to Tomoni Limited Edition"
+    },
+    "HDR0124": {
+        "developer": "Smilebit",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-02-08-0000",
+        "title": "Hundred Swords"
+    },
+    "HDR0125": {
+        "developer": "Sonic Team",
+        "genre": "Party",
+        "publisher": "Sega",
+        "release_date": "02000-12-21-0000",
+        "title": "Sonic Shuffle"
+    },
+    "HDR0126": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-12-21-0000",
+        "title": "Soccer Tsuku Tokudai Gou J.League Pro Soccer Club o Tsukurou!"
+    },
+    "HDR0127": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Hundred Swords @barai Version"
+    },
+    "HDR0128": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "De La Jet Set Radio"
+    },
+    "HDR0129": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Phantasy Star Online Limited Edition"
+    },
+    "HDR0131": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Samba de Amigo Ver. 2000"
+    },
+    "HDR0132": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Card Captor Sakura: Tomoyo no Video Daisakusen Limited Edition"
+    },
+    "HDR0133": {
+        "developer": "Scarab",
+        "genre": "Fighting",
+        "publisher": "Sega",
+        "release_date": "02001-01-18-0000",
+        "title": "Fighting Vipers 2"
+    },
+    "HDR01331": {
+        "developer": "Scarab",
+        "genre": "Fighting",
+        "publisher": "Sega",
+        "release_date": "02001-01-18-0000",
+        "title": "Fighting Vipers 2"
+    },
+    "HDR0136": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen: Kinematron Hanagumi Mail"
+    },
+    "HDR0139": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-03-29-0000",
+        "title": "Love Hina: Smile Again"
+    },
+    "HDR0140": {
+        "developer": "UGA",
+        "genre": "Music",
+        "publisher": "Sega",
+        "release_date": "01999-12-16-0000",
+        "title": "Space Channel 5"
+    },
+    "HDR0141": {
+        "developer": "Visual Concepts",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "Unreleased",
+        "title": "NFL 2K"
+    },
+    "HDR0142": {
+        "developer": "Sonic Team",
+        "genre": "Action-RPG/,/Massively multiplayer online role-playing game",
+        "publisher": "Sega",
+        "release_date": "02000-12-21-0000",
+        "title": "Phantasy Star Online"
+    },
+    "HDR0144": {
+        "developer": "Visual Concepts",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "Unreleased",
+        "title": "NFL 2K1"
+    },
+    "HDR0146": {
+        "developer": "",
+        "genre": "Sports",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sega Extreme Sports"
+    },
+    "HDR0147": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen 3: Paris wa Moeteiru ka Music Box Limited Edition"
+    },
+    "HDR0148": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen 3: Paris wa Moeteiru ka VMS Limited Edition"
+    },
+    "HDR0149": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Le Mans 24 Hours"
+    },
+    "HDR0150": {
+        "developer": "Visual Concepts",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-03-29-0000",
+        "title": "NBA 2K1"
+    },
+    "HDR0151": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Segagaga Limited Edition"
+    },
+    "HDR0152": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen 3: Paris wa Moeteiru ka"
+    },
+    "HDR0153": {
+        "developer": "Wow Entertainment",
+        "genre": "Sports",
+        "publisher": "Agetec, Inc.",
+        "release_date": "Unreleased",
+        "title": "Sports Jam"
+    },
+    "HDR0154": {
+        "developer": "Smilebit",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02002-02-07-0000",
+        "title": "J.League Spectacle Soccer"
+    },
+    "HDR0156": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "US Shenmue"
+    },
+    "HDR0157": {
+        "developer": "Visual Concepts",
+        "genre": "Baseball",
+        "publisher": "Sega",
+        "release_date": "02001-03-22-0000",
+        "title": "World Series Baseball 2K1"
+    },
+    "HDR0158": {
+        "developer": "SystemSoft",
+        "genre": "Turn-based strategy",
+        "publisher": "Sega",
+        "release_date": "02001-04-26-0000",
+        "title": "Advanced Daisenryaku 2001"
+    },
+    "HDR0159": {
+        "developer": "Hitmaker",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02001-05-31-0000",
+        "title": "Crazy Taxi 2"
+    },
+    "HDR0160": {
+        "developer": "Hitmaker",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "02001-06-14-0000",
+        "title": "Confidential Mission"
+    },
+    "HDR01601": {
+        "developer": "Hitmaker",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "02001-06-14-0000",
+        "title": "Confidential Mission"
+    },
+    "HDR0163": {
+        "developer": "Sonic Team",
+        "genre": "MMORPG",
+        "publisher": "Sega",
+        "release_date": "02001-06-07-0000",
+        "title": "Phantasy Star Online Ver. 2"
+    },
+    "HDR0164": {
+        "developer": "Sega AM2",
+        "genre": "Role-playing video game",
+        "publisher": "Sega",
+        "release_date": "02001-09-26-0000",
+        "title": "Shenmue II"
+    },
+    "HDR0165": {
+        "developer": "Sonic Team",
+        "genre": "Platformer",
+        "publisher": "Sega",
+        "release_date": "02001-06-23-0000",
+        "title": "Sonic Adventure 2"
+    },
+    "HDR0167": {
+        "developer": "Smilebit",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-08-09-0000",
+        "title": "Derby Tsuku 2"
+    },
+    "HDR0168": {
+        "developer": "AM7",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-08-09-0000",
+        "title": "Guruguru Onsen 2"
+    },
+    "HDR0169": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Get Bass 2"
+    },
+    "HDR0171": {
+        "developer": "Sega",
+        "genre": "Role-playing video",
+        "publisher": "Sega",
+        "release_date": "02001-03-29-0000",
+        "title": "Segagaga"
+    },
+    "HDR0172": {
+        "developer": "Wow Entertainment",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-10-25-0000",
+        "title": "Candy Stripe"
+    },
+    "HDR0173": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Pro Yakyuu Team o Tsukurou! & Asobou!"
+    },
+    "HDR0174": {
+        "developer": "Sonic Team",
+        "genre": "Platformer",
+        "publisher": "Sega",
+        "release_date": "02001-06-23-0000",
+        "title": "Sonic Adventure 2"
+    },
+    "HDR0175": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Candy Stripe Limited Edition"
+    },
+    "HDR0176": {
+        "developer": "Sega Rosso",
+        "genre": "Sports",
+        "publisher": "Sega",
+        "release_date": "02001-09-13-0000",
+        "title": "Cosmic Smash"
+    },
+    "HDR0177": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Power Smash 2"
+    },
+    "HDR0178": {
+        "developer": "UGA",
+        "genre": "Rail shooter",
+        "publisher": "Sega",
+        "release_date": "02001-11-22-0000",
+        "title": "Rez"
+    },
+    "HDR0179": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shenmue II Limited Edition"
+    },
+    "HDR0183": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-12-13-0000",
+        "title": "Soccer Tsuku Tokudai Gou 2: J.League Pro Soccer Club o Tsukurou!"
+    },
+    "HDR0184": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen Online: Teito no Yuugana Hibi"
+    },
+    "HDR0185": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen Online: Paris no Nagai Hibi"
+    },
+    "HDR0186": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "De La Jet Set Radio"
+    },
+    "HDR0187": {
+        "developer": "Neverland",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02002-02-07-0000",
+        "title": "Fushigi no Dungeon: Furai no Shiren Gaiden: Jokenji Asuka Kenzan!"
+    },
+    "HDR0188": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen Online: Teito no Yuugana Hibi Limited Edition"
+    },
+    "HDR0189": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen Online: Paris no Nagai Hibi Limited Edition"
+    },
+    "HDR0190": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Space Channel 5 Part 2"
+    },
+    "HDR0191": {
+        "developer": "RED Entertainment",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02002-03-21-0000",
+        "title": "Sakura Taisen 4"
+    },
+    "HDR0192": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen Memorial Pack"
+    },
+    "HDR0193": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen 2 Memorial Pack"
+    },
+    "HDR0194": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen 3: Paris wa Moeteiru ka Memorial Pack"
+    },
+    "HDR0195": {
+        "developer": "AM7",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02002-03-14-0000",
+        "title": "Guruguru Onsen 3"
+    },
+    "HDR0196": {
+        "developer": "Visual Concepts",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "Unreleased",
+        "title": "NFL 2K2"
+    },
+    "HDR0197": {
+        "developer": "Visual Concepts",
+        "genre": "Basketball",
+        "publisher": "Sega",
+        "release_date": "02002-05-23-0000",
+        "title": "NBA 2K2"
+    },
+    "HDR0198": {
+        "developer": "Visual Concepts",
+        "genre": "Baseball",
+        "publisher": "Sega",
+        "release_date": "02002-04-18-0000",
+        "title": "World Series Baseball 2K2"
+    },
+    "HDR0199": {
+        "developer": "Treyarch",
+        "genre": "Hockey",
+        "publisher": "Sega",
+        "release_date": "02002-07-11-0000",
+        "title": "NHL 2K2"
+    },
+    "HDR0200": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Space Channel 5 Part 2 Limited Edition"
+    },
+    "HDR0201": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen Complete Box"
+    },
+    "HDR0202": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sakura Taisen 4 Limited Edition"
+    },
+    "HDR0210": {
+        "developer": "Chime",
+        "genre": "Platform",
+        "publisher": "Sega",
+        "release_date": "02000-10-19-0000",
+        "title": "Napple Tale: Arsia in Daydream"
+    },
+    "HDR0211": {
+        "developer": "Sega AM2",
+        "genre": "Role-playing video game",
+        "publisher": "Sega",
+        "release_date": "02001-09-26-0000",
+        "title": "Shenmue II"
+    },
+    "HDR0212": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "De La Jet Set Radio"
+    },
+    "HDR0213": {
+        "developer": "Hitmaker",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02001-05-31-0000",
+        "title": "Crazy Taxi 2"
+    },
+    "HDR0214": {
+        "developer": "Sega",
+        "genre": "Role-playing video game",
+        "publisher": "Sega",
+        "release_date": "02001-03-29-0000",
+        "title": "Segagaga"
+    },
+    "HDR0216": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Puyo Puyo Fever"
+    },
+    "HDR0217": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Puyo Puyo Fever"
+    },
+    "MK6107055": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dream Passport"
+    },
+    "MK6107123": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Frame Gride Test Operation Disc"
+    },
+    "MK6107179": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "What's Shenmue"
+    },
+    "MK6107370": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Berserk Millennium Falcon Wasurebano No Akira - Trial Version"
+    },
+    "MK6107958": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Power Smash SAMPLE"
+    },
+    "MK6108057": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sonic Adventure 2 The Trial"
+    },
+    "MK67301633": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Extra Cawaii!"
+    },
+    "PIO05202": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Angel Wish Limited Edition"
+    },
+    "RDXLEJP": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "",
+        "release_date": "",
+        "title": "Redux: Dark Matters Limited Edition"
+    },
+    "RDXREJP": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "KTX Software",
+        "release_date": "Unreleased",
+        "title": "Redux: Dark Matters"
+    },
+    "STWDDC": {
+        "developer": "Duranik",
+        "genre": "SHMUP",
+        "publisher": "redspotgames",
+        "release_date": "02013-04-24-0000",
+        "title": "Sturmwind"
+    },
+    "T10301M": {
+        "developer": "Takara",
+        "genre": "",
+        "publisher": "Takara",
+        "release_date": "02000-06-22-0000",
+        "title": "Jinsei Game for Dreamcast"
+    },
+    "T1101M": {
+        "developer": "Taito Corporation",
+        "genre": "Fighting",
+        "publisher": "Acclaim",
+        "release_date": "01999-03-04-0000",
+        "title": "Psychic Force 2012"
+    },
+    "T1102M": {
+        "developer": "Taito Corporation",
+        "genre": "",
+        "publisher": "Taito Corporation",
+        "release_date": "02000-01-20-0000",
+        "title": "Densha de Go! 2"
+    },
+    "T1201M": {
+        "developer": "Capcom",
+        "genre": "Arena/Fighting",
+        "publisher": "Capcom",
+        "release_date": "01999-02-25-0000",
+        "title": "Power Stone"
+    },
+    "T1202M": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "01999-03-25-0000",
+        "title": "Marvel vs. Capcom: Clash of Super Heroes"
+    },
+    "T1203M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Street Fighter Zero 3: Saikyooryuu Doujou"
+    },
+    "T1204M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Star Gladiator 2: Nightmare of Blisten"
+    },
+    "T1205M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Jojo no Kimyouna Bouken: Miraihe no Isan"
+    },
+    "T1206M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Choukousenki Kikaioh"
+    },
+    "T1207M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Biohazard Code: Veronica"
+    },
+    "T1208M": {
+        "developer": "Capcom",
+        "genre": "SHMUP",
+        "publisher": "Capcom",
+        "release_date": "01999-11-11-0000",
+        "title": "Giga Wing"
+    },
+    "T1209M": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-06-29-0000",
+        "title": "Street Fighter III: 3rd Strike"
+    },
+    "T1210M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Biohazard Code: Veronica Limited Edition"
+    },
+    "T1211M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Street Fighter III: W Impact"
+    },
+    "T1212M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-06-28-0000",
+        "title": "Gaia Master Kessen!: Seikiou Densetsu"
+    },
+    "T1213M": {
+        "developer": "Psikyo",
+        "genre": "SHMUP",
+        "publisher": "Capcom",
+        "release_date": "02000-03-09-0000",
+        "title": "Gunbird 2"
+    },
+    "T1214M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Biohazard 2"
+    },
+    "T1215M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Marvel vs. Capcom 2: New Age of Heroes"
+    },
+    "T1216M": {
+        "developer": "Capcom",
+        "genre": "Action",
+        "publisher": "Capcom",
+        "release_date": "02000-08-10-0000",
+        "title": "Spawn: In the Demon's Hand"
+    },
+    "T1217M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Capcom vs. SNK: Millennium Fight 2000"
+    },
+    "T1218M": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02000-04-27-0000",
+        "title": "Power Stone 2"
+    },
+    "T1219M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Gunspike"
+    },
+    "T1220M": {
+        "developer": "Capcom",
+        "genre": "Survival horror",
+        "publisher": "Capcom",
+        "release_date": "02000-09-06-0000",
+        "title": "Dino Crisis"
+    },
+    "T1221M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Moero! Justice Gakuen"
+    },
+    "T1222M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Biohazard 3: Last Escape"
+    },
+    "T1223M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02000-10-10-0000",
+        "title": "El Dorado Gate Volume 1"
+    },
+    "T1224M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02000-12-12-0000",
+        "title": "El Dorado Gate Volume 2"
+    },
+    "T1225M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-02-02-0000",
+        "title": "El Dorado Gate Volume 3"
+    },
+    "T1226M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-04-12-0000",
+        "title": "El Dorado Gate Volume 4"
+    },
+    "T1227M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-06-06-0000",
+        "title": "El Dorado Gate Volume 5"
+    },
+    "T1228M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-08-08-0000",
+        "title": "El Dorado Gate Volume 6"
+    },
+    "T1229M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-10-10-0000",
+        "title": "El Dorado Gate Volume 7"
+    },
+    "T1230M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Street Fighter Zero 3: Saikyooryuu Doujou for Matching Service"
+    },
+    "T1231M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Jojo no Kimyouna Bouken: Miraihe no Isan for Matching Service"
+    },
+    "T1232M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Choukousenki Kikaioh for Matching Service"
+    },
+    "T1233M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Tomb Raider 4: The Last Revelation"
+    },
+    "T1234M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02000-10-09-0000",
+        "title": "Netto de Tennis"
+    },
+    "T1235M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Vampire Chronicle for Matching Service"
+    },
+    "T1236M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Super Street Fighter II X: Grand Master Challenge for Matching Service"
+    },
+    "T1237M": {
+        "developer": "Attention to Detail",
+        "genre": "Sports",
+        "publisher": "Eidos Interactive",
+        "release_date": "02000-10-26-0000",
+        "title": "Sydney 2000"
+    },
+    "T1238M": {
+        "developer": "Takumi Corporation",
+        "genre": "SHMUP",
+        "publisher": "Capcom",
+        "release_date": "02000-11-09-0000",
+        "title": "Mars Matrix"
+    },
+    "T1239M": {
+        "developer": "Takumi Corporation",
+        "genre": "SHMUP",
+        "publisher": "Capcom",
+        "release_date": "02001-01-18-0000",
+        "title": "Giga Wing 2"
+    },
+    "T1240M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Biohazard Code: Veronica Complete"
+    },
+    "T1241M": {
+        "developer": "Anchor",
+        "genre": "Fighting",
+        "publisher": "Crave",
+        "release_date": "02001-01-25-0000",
+        "title": "Ultimate Fighting Championship"
+    },
+    "T1243M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-05-24-0000",
+        "title": "Bounty Hunter Sara: Holy Mountain no Teiou"
+    },
+    "T1246M": {
+        "developer": "Capcom",
+        "genre": "Arena",
+        "publisher": "Capcom",
+        "release_date": "02001-07-12-0000",
+        "title": "Heavy Metal: Geomatrix"
+    },
+    "T1247M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Capcom vs. SNK: Millennium Fight 2000 Pro"
+    },
+    "T1248M": {
+        "developer": "Psikyo",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-06-28-0000",
+        "title": "Taisen Net Gimmick: Capcom & Psikyo All Stars"
+    },
+    "T1249M": {
+        "developer": "Capcom",
+        "genre": "Fighting",
+        "publisher": "Capcom",
+        "release_date": "02001-09-13-0000",
+        "title": "Capcom vs. SNK 2: Millionaire Fighting 2001"
+    },
+    "T1250M": {
+        "developer": "Capcom",
+        "genre": "",
+        "publisher": "Capcom",
+        "release_date": "02001-07-05-0000",
+        "title": "Super Puzzle Fighter II X for Matching Service"
+    },
+    "T1301M": {
+        "developer": "SAS Sakata",
+        "genre": "",
+        "publisher": "Data East",
+        "release_date": "01999-10-28-0000",
+        "title": "Revive... Sosei"
+    },
+    "T13301M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Kidou Senshi Gundam Gaiden: Premium Disc - Gundam 20th Anniversary Edition"
+    },
+    "T13302M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Kidou Senshi Gundam Gaiden: Colony no Ochichita Chide..."
+    },
+    "T13303M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Kidou Senshi Gundam Gaiden: Special Version"
+    },
+    "T13304M": {
+        "developer": "Bandai",
+        "genre": "",
+        "publisher": "Bandai",
+        "release_date": "02001-06-28-0000",
+        "title": "Gundam Battle Online"
+    },
+    "T13305M": {
+        "developer": "Bandai",
+        "genre": "",
+        "publisher": "Bandai",
+        "release_date": "02000-06-29-0000",
+        "title": "Kidou Senshi Gundam: Giren no Yabou- Zeon no Keifu"
+    },
+    "T13306M": {
+        "developer": "Bandai",
+        "genre": "",
+        "publisher": "Bandai",
+        "release_date": "02002-04-11-0000",
+        "title": "Kidou Senshi Gundam: Renpou vs. Zeon DX"
+    },
+    "T1401M": {
+        "developer": "Namco",
+        "genre": "Fighting",
+        "publisher": "Namco",
+        "release_date": "01999-08-05-0000",
+        "title": "SoulCalibur"
+    },
+    "T1402M": {
+        "developer": "Namco",
+        "genre": "",
+        "publisher": "Namco",
+        "release_date": "02000-06-29-0000",
+        "title": "Mr. Driller"
+    },
+    "T14301M": {
+        "developer": "SegaSoft",
+        "genre": "",
+        "publisher": "Hudson",
+        "release_date": "01999-03-18-0000",
+        "title": "Kita e. White Illumination"
+    },
+    "T14302M": {
+        "developer": "Birthday",
+        "genre": "Action role-playing",
+        "publisher": "Vatical Entertainment",
+        "release_date": "01999-05-27-0000",
+        "title": "Elemental Gimmick Gear"
+    },
+    "T14303M": {
+        "developer": "Hudson",
+        "genre": "",
+        "publisher": "Hudson",
+        "release_date": "01999-11-11-0000",
+        "title": "Super Producers"
+    },
+    "T14304M": {
+        "developer": "Hudson",
+        "genre": "",
+        "publisher": "Hudson",
+        "release_date": "02000-08-24-0000",
+        "title": "Rune Jade"
+    },
+    "T14305M": {
+        "developer": "Hudson",
+        "genre": "",
+        "publisher": "Hudson",
+        "release_date": "01999-07-22-0000",
+        "title": "Denpa Shounen-teki Kenshou Seikatsu: Nasubi no Heya"
+    },
+    "T14306M": {
+        "developer": "Hudson",
+        "genre": "",
+        "publisher": "Hudson",
+        "release_date": "01999-08-05-0000",
+        "title": "Kita e. Photo Memories"
+    },
+    "T14307M": {
+        "developer": "Hudson Soft",
+        "genre": "",
+        "publisher": "Hudson",
+        "release_date": "02001-09-27-0000",
+        "title": "Typing of the Date"
+    },
+    "T14401M": {
+        "developer": "ATLUS",
+        "genre": "First-person slasher",
+        "publisher": "ATLUS",
+        "release_date": "01999-11-25-0000",
+        "title": "Maken X"
+    },
+    "T14402M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "DeSpiria"
+    },
+    "T15001M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Incoming: Ginrui Saishuu Kessen"
+    },
+    "T15002M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Redline Racer"
+    },
+    "T15003M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Seitai Heiki Expendable"
+    },
+    "T15006M": {
+        "developer": "Rage Software",
+        "genre": "",
+        "publisher": "Imagineer",
+        "release_date": "02000-04-06-0000",
+        "title": "Super Euro Soccer 2000"
+    },
+    "T16601M": {
+        "developer": "Altron",
+        "genre": "",
+        "publisher": "Altron",
+        "release_date": "01999-07-22-0000",
+        "title": "Shin Honkaku Hanafuda"
+    },
+    "T16603M": {
+        "developer": "Altron",
+        "genre": "Puzzle",
+        "publisher": "Altron",
+        "release_date": "02001-06-21-0000",
+        "title": "Cleopatra Fortune"
+    },
+    "T16801M": {
+        "developer": "Athena",
+        "genre": "",
+        "publisher": "Athena",
+        "release_date": "02000-03-30-0000",
+        "title": "Pro Mahjong Kiwame D"
+    },
+    "T17001M": {
+        "developer": "General Entertainment",
+        "genre": "Racing",
+        "publisher": "Infogrames",
+        "release_date": "01998-11-27-0000",
+        "title": "Pen Pen TriIcelon"
+    },
+    "T17701M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Monaco Grand Prix Racing Simulation 2"
+    },
+    "T17702M": {
+        "developer": "Ubisoft Montreal",
+        "genre": "Racing",
+        "publisher": "Ubisoft",
+        "release_date": "01999-11-18-0000",
+        "title": "Speed Devils"
+    },
+    "T17703M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Rayman: Kaizokufune Kara no Dasshutsu!"
+    },
+    "T18701M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Nippon Pro Mahjong Renmei Kounin: Tetsuman Menkyo Minnaten"
+    },
+    "T18702M": {
+        "developer": "Spiel",
+        "genre": "",
+        "publisher": "Naxat Soft",
+        "release_date": "02001-06-21-0000",
+        "title": "Miss Moonlight"
+    },
+    "T18703M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Nippon Pro Mahjong Renmei Kounin: Tetsuman Menkyo Minnaten"
+    },
+    "T18704M": {
+        "developer": "Naxat Soft",
+        "genre": "",
+        "publisher": "Naxat Soft",
+        "release_date": "02001-12-20-0000",
+        "title": "Yoshia no Oka de Nekoronde..."
+    },
+    "T18705M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "After... Limited Edition"
+    },
+    "T18706M": {
+        "developer": "Pione Soft",
+        "genre": "Visual novel/,/Eroge",
+        "publisher": "Pione Soft",
+        "release_date": "02004-02-26-0000",
+        "title": "After..."
+    },
+    "T18707M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Orange Pocket Limited Edition"
+    },
+    "T18708M": {
+        "developer": "Elf",
+        "genre": "",
+        "publisher": "Pione Soft",
+        "release_date": "02004-04-28-0000",
+        "title": "Orange Pocket"
+    },
+    "T18709M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Patisserie Nanyanko Limited Edition"
+    },
+    "T18710M": {
+        "developer": "HuneX",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02004-09-22-0000",
+        "title": "Patisserie Nanyanko"
+    },
+    "T18712M": {
+        "developer": "Pione Soft",
+        "genre": "",
+        "publisher": "Pione Soft",
+        "release_date": "02005-02-24-0000",
+        "title": "Angel Wish"
+    },
+    "T18802M": {
+        "developer": "MaxBet",
+        "genre": "",
+        "publisher": "MaxBet",
+        "release_date": "02000-09-28-0000",
+        "title": "Jissen Pachi-Slot Hisshouhou!@VPACHI Kingdom"
+    },
+    "T18804M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Fire ProWrestling D Limited Edition"
+    },
+    "T18805M": {
+        "developer": "S-Neo",
+        "genre": "",
+        "publisher": "Spike",
+        "release_date": "02001-03-01-0000",
+        "title": "Fire ProWrestling D"
+    },
+    "T19501M": {
+        "developer": "Datam Polystar",
+        "genre": "",
+        "publisher": "Datam Polystar",
+        "release_date": "02000-06-08-0000",
+        "title": "Pocke-Kano: Yumi - Shuzika - Fumio"
+    },
+    "T19502M": {
+        "developer": "Fupac",
+        "genre": "",
+        "publisher": "Datam Polystar",
+        "release_date": "02000-06-29-0000",
+        "title": "Roommate Novel: Sato Yuka"
+    },
+    "T19503M": {
+        "developer": "Fupac",
+        "genre": "",
+        "publisher": "Datam Polystar",
+        "release_date": "02001-04-26-0000",
+        "title": "Happy Lesson"
+    },
+    "T19504M": {
+        "developer": "Fupac",
+        "genre": "",
+        "publisher": "Fupac",
+        "release_date": "02000-09-28-0000",
+        "title": "Happy Lesson: First Lesson"
+    },
+    "T19505M": {
+        "developer": "Datam Polystar",
+        "genre": "",
+        "publisher": "Datam Polystar",
+        "release_date": "02001-07-05-0000",
+        "title": "Inoue Ryoko: Roommate"
+    },
+    "T19506M": {
+        "developer": "Datam Polystar",
+        "genre": "",
+        "publisher": "Datam Polystar",
+        "release_date": "02001-11-08-0000",
+        "title": "Inoue Ryoko: Last Scene"
+    },
+    "T19508M": {
+        "developer": "Fupac",
+        "genre": "",
+        "publisher": "Datam Polystar",
+        "release_date": "02002-11-21-0000",
+        "title": "Roommate Asami: Okusama wa Joshikousei Director's Edition"
+    },
+    "T19701M": {
+        "developer": "h.a.n.d. inc.",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02000-02-17-0000",
+        "title": "Treasure Strike"
+    },
+    "T19702M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02000-06-29-0000",
+        "title": "Memories Off Complete"
+    },
+    "T19703M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02000-12-21-0000",
+        "title": "Never7: The End of Infinity"
+    },
+    "T19703M1": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Never7"
+    },
+    "T19704M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02001-04-19-0000",
+        "title": "Close to: Inori no Oka"
+    },
+    "T19705M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Yume no Tsubasa: Fate of Heart Limited Edition"
+    },
+    "T19706M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02001-07-26-0000",
+        "title": "Yume no Tsubasa: Fate of Heart"
+    },
+    "T19706M1": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02001-07-26-0000",
+        "title": "Yume no Tsubasa: Fate of Heart"
+    },
+    "T19707M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02001-09-27-0000",
+        "title": "Memories Off 2nd"
+    },
+    "T19708M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Memories Off 2nd Limited Edition"
+    },
+    "T19710M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02001-10-25-0000",
+        "title": "Tentama: 1st Sunnyside"
+    },
+    "T19710M1": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02001-10-25-0000",
+        "title": "Tentama: 1st Sunnyside"
+    },
+    "T19711M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Prism Heart Limited Edition"
+    },
+    "T19712M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02001-11-29-0000",
+        "title": "Prism Heart"
+    },
+    "T19713M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02002-02-28-0000",
+        "title": "Milky Season"
+    },
+    "T19714M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02002-04-25-0000",
+        "title": "My Merry May"
+    },
+    "T19716M": {
+        "developer": "Kid",
+        "genre": "Science fiction/,/bishojo/,/romance/visual novel",
+        "publisher": "Kid",
+        "release_date": "02002-08-29-0000",
+        "title": "Ever 17: The Out of Infinity"
+    },
+    "T19717M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02002-09-26-0000",
+        "title": "Boku to Bokura no Natsu"
+    },
+    "T19718M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Omoide ni Kawaru-Kimi: Memories Off"
+    },
+    "T19719M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02003-07-10-0000",
+        "title": "My Merry Maybe"
+    },
+    "T19720M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02003-08-07-0000",
+        "title": "Erde: Nezu no Izuki no Shita de"
+    },
+    "T19721M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02003-08-07-0000",
+        "title": "Iris"
+    },
+    "T19722M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Iris Limited Edition"
+    },
+    "T19723M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ever 17: The Out of Infinity Premium Edition"
+    },
+    "T19723M1": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ever 17: The Out of Infinity Premium Edition"
+    },
+    "T19724M": {
+        "developer": "Alpha Unit",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02004-06-17-0000",
+        "title": "Pizzicato Polka: Suisei Genya"
+    },
+    "T19725M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02004-10-28-0000",
+        "title": "Suigetsu Mayoi-Gokoro"
+    },
+    "T20101M": {
+        "developer": "Flight-Plan",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "01999-09-30-0000",
+        "title": "Black/Matrix AD"
+    },
+    "T20103M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02000-11-16-0000",
+        "title": "Mercurius Pretty: End of the Century"
+    },
+    "T20104M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02000-07-27-0000",
+        "title": "Sentimental Graffiti 2"
+    },
+    "T20105M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02000-09-14-0000",
+        "title": "Kanon"
+    },
+    "T20106M": {
+        "developer": "Sims",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02001-03-22-0000",
+        "title": "Harusame Youbi"
+    },
+    "T20107M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02001-04-12-0000",
+        "title": "Angel Present"
+    },
+    "T20108M": {
+        "developer": "Cocktail Soft",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02001-04-05-0000",
+        "title": "Canvas"
+    },
+    "T20109M": {
+        "developer": "Cocktail Soft",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02001-06-21-0000",
+        "title": "Pia Carrot e Youkoso!! 2.5"
+    },
+    "T20110M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Pia Carrot e Youkoso!! 3 Limited Edition"
+    },
+    "T20111M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02001-08-23-0000",
+        "title": "Canaria: Kono Omoi o Uta ni Nosete"
+    },
+    "T20112M": {
+        "developer": "Key",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02001-09-20-0000",
+        "title": "Air"
+    },
+    "T20113M": {
+        "developer": "Fairy Tale",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02002-06-27-0000",
+        "title": "Dousoukai 2: Again & Refrain"
+    },
+    "T20114M": {
+        "developer": "HuneX",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02002-03-07-0000",
+        "title": "Mizuiro"
+    },
+    "T20115M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Mizuiro Limited Edition"
+    },
+    "T20116M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02002-07-25-0000",
+        "title": "Elysion"
+    },
+    "T20117M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Interlude Limited Edition"
+    },
+    "T20119M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Pandora no Yume Limited Edition"
+    },
+    "T20120M": {
+        "developer": "HuneX",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02002-09-12-0000",
+        "title": "Pandora no Yume"
+    },
+    "T20121M": {
+        "developer": "Stack",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-02-06-0000",
+        "title": "Pia Carrot e Youkoso!! 2"
+    },
+    "T20122M": {
+        "developer": "Alpha Unit",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-03-27-0000",
+        "title": "Pia Carrot e Youkoso!! 3"
+    },
+    "T20123M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-06-26-0000",
+        "title": "Shirotsume Kusa Hanashi: Episode of the Clovers"
+    },
+    "T20124M": {
+        "developer": "S-Neo",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-06-26-0000",
+        "title": "Majo no Ochakai"
+    },
+    "T20125M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shirotsume Kusa Hanashi: Episode of the Clovers Limited Edition"
+    },
+    "T20126M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Majo no Ochakai Limited Edition"
+    },
+    "T20127M": {
+        "developer": "LongShot",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-03-13-0000",
+        "title": "Interlude"
+    },
+    "T20127M1": {
+        "developer": "LongShot",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-03-13-0000",
+        "title": "Interlude"
+    },
+    "T20128M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-12-25-0000",
+        "title": "Sentimental Graffiti: Yakusoku"
+    },
+    "T20130M": {
+        "developer": "S-Neo",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-08-07-0000",
+        "title": "Aikagi"
+    },
+    "T20131M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Aikagi Limited Edition"
+    },
+    "T20132M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-09-25-0000",
+        "title": "Snow"
+    },
+    "T20133M": {
+        "developer": "S-Neo",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02004-01-29-0000",
+        "title": "Tamakyuu"
+    },
+    "T20401M": {
+        "developer": "Sega",
+        "genre": "SHMUP",
+        "publisher": "Sega",
+        "release_date": "02001-09-06-0000",
+        "title": "Zero Gunner 2"
+    },
+    "T20401M1": {
+        "developer": "Sega",
+        "genre": "SHMUP",
+        "publisher": "Sega",
+        "release_date": "02001-09-06-0000",
+        "title": "Zero Gunner 2"
+    },
+    "T20501M": {
+        "developer": "Media Entertainment",
+        "genre": "",
+        "publisher": "Media Entertainment",
+        "release_date": "02001-07-26-0000",
+        "title": "Pachi-Slot Teiou: Dream Slot - Heiwa SP"
+    },
+    "T20502M": {
+        "developer": "Media Entertainment",
+        "genre": "",
+        "publisher": "Media Entertainment",
+        "release_date": "02001-09-27-0000",
+        "title": "Pachi-Slot Teiou: Dream Slot Olympia SP"
+    },
+    "T20601M": {
+        "developer": "ALU",
+        "genre": "",
+        "publisher": "Banpresto",
+        "release_date": "02000-07-27-0000",
+        "title": "Tokusatsu Bouken Katsugeki Super Hero Retsuden"
+    },
+    "T20602M": {
+        "developer": "Banpresto",
+        "genre": "Tactical role-playing game",
+        "publisher": "Banpresto",
+        "release_date": "02001-08-30-0000",
+        "title": "Super Robot Taisen Alpha"
+    },
+    "T20801M": {
+        "developer": "Bullet Proof Software",
+        "genre": "",
+        "publisher": "Bullet Proof Software",
+        "release_date": "01998-12-23-0000",
+        "title": "Tetris 4D"
+    },
+    "T2101M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Berserk: Millennium Falcon Hen Wasurebana no Shou"
+    },
+    "T2102M": {
+        "developer": "ASCII Entertainment",
+        "genre": "Tank combat/simulation",
+        "publisher": "Shangri-La",
+        "release_date": "01999-12-22-0000",
+        "title": "Panzer Front"
+    },
+    "T2106M": {
+        "developer": "Lovedelic",
+        "genre": "Adventure",
+        "publisher": "ASCII Entertainment",
+        "release_date": "02000-11-02-0000",
+        "title": "L.O.L.: Lack of Love"
+    },
+    "T21501M": {
+        "developer": "Shoeisha",
+        "genre": "",
+        "publisher": "Shoeisha",
+        "release_date": "02001-02-22-0000",
+        "title": "Macross M3"
+    },
+    "T21502M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Macross M3 Limited Edition"
+    },
+    "T22001M": {
+        "developer": "Arc System Works",
+        "genre": "",
+        "publisher": "Arc System Works",
+        "release_date": "01999-11-11-0000",
+        "title": "Tanaka Torahiko no Uru Toraryuu Shogi"
+    },
+    "T22002M": {
+        "developer": "Arc System Works",
+        "genre": "",
+        "publisher": "Arc System Works",
+        "release_date": "02000-08-24-0000",
+        "title": "Prismaticallization"
+    },
+    "T2201M": {
+        "developer": "Micronet",
+        "genre": "",
+        "publisher": "Micronet",
+        "release_date": "01999-07-29-0000",
+        "title": "Marionette Handler"
+    },
+    "T2202M": {
+        "developer": "Micronet",
+        "genre": "",
+        "publisher": "Micronet",
+        "release_date": "02000-10-26-0000",
+        "title": "Nippon Pro Mahjong Renmei Dankurai Nintei: Heisei Mahjong-Shou"
+    },
+    "T2203M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Nippon Pro Mahjong Renmei Dankurai Nintei: Heisei Mahjong-Shou with Microphone"
+    },
+    "T2204M": {
+        "developer": "Micronet",
+        "genre": "",
+        "publisher": "Micronet",
+        "release_date": "02000-11-09-0000",
+        "title": "Marionette Handler 2"
+    },
+    "T22101M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Super Runabout"
+    },
+    "T22102M": {
+        "developer": "Climax Entertainment",
+        "genre": "Racing",
+        "publisher": "Interplay",
+        "release_date": "02000-05-25-0000",
+        "title": "Super Runabout: San Francisco Edition"
+    },
+    "T23201M": {
+        "developer": "Ecole",
+        "genre": "Rail shooter",
+        "publisher": "Ecole",
+        "release_date": "01999-11-25-0000",
+        "title": "Death Crimson 2"
+    },
+    "T23202M": {
+        "developer": "Ecole",
+        "genre": "Rail shooter",
+        "publisher": "Sammy Studios",
+        "release_date": "02001-05-10-0000",
+        "title": "Death Crimson OX"
+    },
+    "T23203M": {
+        "developer": "Ecole",
+        "genre": "",
+        "publisher": "Ecole",
+        "release_date": "02002-12-26-0000",
+        "title": "Musapey's Choco Marker"
+    },
+    "T23204M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Blue Sky Blue Limited Edition"
+    },
+    "T23205M": {
+        "developer": "Flight-Plan",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "02003-06-26-0000",
+        "title": "Blue Sky Blue"
+    },
+    "T23206M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Utau * Tumbling Dice Limited Edition"
+    },
+    "T23207M": {
+        "developer": "Ecole",
+        "genre": "",
+        "publisher": "Reindeer",
+        "release_date": "02004-06-24-0000",
+        "title": "Utau * Tumbling Dice"
+    },
+    "T2401M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Guilty Gear X Limited Edition"
+    },
+    "T2402M": {
+        "developer": "Arc System Works",
+        "genre": "2D weapon based fighting",
+        "publisher": "Sammy Studios",
+        "release_date": "02000-12-14-0000",
+        "title": "Guilty Gear X"
+    },
+    "T2402M1": {
+        "developer": "Arc System Works",
+        "genre": "2D weapon based fighting",
+        "publisher": "Sammy Studios",
+        "release_date": "02000-12-14-0000",
+        "title": "Guilty Gear X"
+    },
+    "T2501M": {
+        "developer": "Santa Entertainment",
+        "genre": "",
+        "publisher": "Nippon Computer System",
+        "release_date": "01999-11-03-0000",
+        "title": "Langrisser Millennium"
+    },
+    "T27801M": {
+        "developer": "Media Works",
+        "genre": "",
+        "publisher": "Media Works",
+        "release_date": "01999-12-22-0000",
+        "title": "Yukyu Gensokyoku 3: Perpetual Blue"
+    },
+    "T27802M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sister Princess Premium Edition"
+    },
+    "T27901M": {
+        "developer": "ESP Software",
+        "genre": "",
+        "publisher": "ESP Software",
+        "release_date": "01999-08-26-0000",
+        "title": "Kidou Senkan Nadesico: Nadesico the Mission"
+    },
+    "T27901M1": {
+        "developer": "ESP Software",
+        "genre": "",
+        "publisher": "ESP Software",
+        "release_date": "01999-08-26-0000",
+        "title": "Kidou Senkan Nadesico: Nadesico the Mission"
+    },
+    "T27902M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ring"
+    },
+    "T27903M": {
+        "developer": "Neverland",
+        "genre": "Action role-playing game",
+        "publisher": "Conspiracy Entertainment",
+        "release_date": "02000-06-29-0000",
+        "title": "Record of Lodoss War: Advent of Cardice"
+    },
+    "T28202M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shin Nippon Pro Wrestling: Toukon Retsuden 4"
+    },
+    "T29101M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Triggerheart Exelica Limited Edition"
+    },
+    "T29102M": {
+        "developer": "Warashi",
+        "genre": "SHMUP",
+        "publisher": "Warashi",
+        "release_date": "02007-02-22-0000",
+        "title": "Triggerheart Exelica"
+    },
+    "T29703M1": {
+        "developer": "Neverland",
+        "genre": "Action role-playing game",
+        "publisher": "Conspiracy Entertainment",
+        "release_date": "02000-06-29-0000",
+        "title": "Record of Lodoss War: Advent of Cardice"
+    },
+    "T30001M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "D2 Shock"
+    },
+    "T30002M": {
+        "developer": "WARP",
+        "genre": "Audio game/,/Adventure/,/Sound novel",
+        "publisher": "WARP",
+        "release_date": "01999-03-11-0000",
+        "title": "Real Sound: Kaze no Regret"
+    },
+    "T30003M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "D no Shokutaku 2 (Hope)"
+    },
+    "T30004M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "D no Shokutaku 2 (Bliss)"
+    },
+    "T30005M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "D no Shokutaku 2 (Eclipse)"
+    },
+    "T30006M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "D no Shokutaku 2"
+    },
+    "T3001M": {
+        "developer": "Video System",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "01999-11-25-0000",
+        "title": "F1 World Grand Prix"
+    },
+    "T3002M": {
+        "developer": "Video System",
+        "genre": "Racing",
+        "publisher": "Sega",
+        "release_date": "02000-11-22-0000",
+        "title": "F1 World Grand Prix II"
+    },
+    "T30801M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shutoko Battle"
+    },
+    "T30802M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Super Magnetic NiuNiu"
+    },
+    "T30803M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shutoko Battle 2"
+    },
+    "T3101M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters Dream Match 1999"
+    },
+    "T3102M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters '99 Evolution"
+    },
+    "T3103M": {
+        "developer": "SNK",
+        "genre": "SHMUP",
+        "publisher": "SNK",
+        "release_date": "02000-03-23-0000",
+        "title": "Twinkle Star Sprites"
+    },
+    "T3105M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters Dream Match 1999"
+    },
+    "T3106M": {
+        "developer": "SNK",
+        "genre": "Music",
+        "publisher": "SNK",
+        "release_date": "02000-08-10-0000",
+        "title": "Cool Cool Toon"
+    },
+    "T3107M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Bakumatsu Rouman Dai Ni Maku: Gekka no Kenshi Final Edition"
+    },
+    "T3108M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Garou: Mark of the Wolves"
+    },
+    "T3109M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "The King of Fighters '99 Evolution - SNK Best"
+    },
+    "T32801M": {
+        "developer": "Waka Mfg",
+        "genre": "",
+        "publisher": "Waka Mfg",
+        "release_date": "01999-12-09-0000",
+        "title": "O-to-i-re: Dreamcast Sequencer"
+    },
+    "T34101M": {
+        "developer": "Aki Corporation",
+        "genre": "Life Simulation",
+        "publisher": "Aki Corporation",
+        "release_date": "02000-06-15-0000",
+        "title": "Animastar"
+    },
+    "T34201M": {
+        "developer": "From Software",
+        "genre": "Mecha/,/Fighting game",
+        "publisher": "From Software",
+        "release_date": "01999-07-15-0000",
+        "title": "Frame Gride"
+    },
+    "T35101M": {
+        "developer": "Gainax",
+        "genre": "",
+        "publisher": "Gainax",
+        "release_date": "02001-04-19-0000",
+        "title": "Shinseiki Evangelion: Typing E-Keikaku"
+    },
+    "T35102M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shinseiki Evangelion: Typing Hokan Keikaku"
+    },
+    "T35401M": {
+        "developer": "Fortyfive",
+        "genre": "",
+        "publisher": "Fortyfive",
+        "release_date": "01998-11-27-0000 November 27, 1998",
+        "title": "July"
+    },
+    "T35402M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Tokyo Bus Annai"
+    },
+    "T35403M": {
+        "developer": "Fortyfive",
+        "genre": "",
+        "publisher": "Fortyfive",
+        "release_date": "02000-05-11-0000",
+        "title": "Communication Logic Battle Daisessen"
+    },
+    "T35404M": {
+        "developer": "Fortyfive",
+        "genre": "",
+        "publisher": "Fortyfive",
+        "release_date": "02000-12-21-0000",
+        "title": "Tokyo Bus Annai: Bijin Bug Guide Tenjou Pack"
+    },
+    "T35405M": {
+        "developer": "Fortyfive",
+        "genre": "",
+        "publisher": "Fortyfive",
+        "release_date": "02002-02-28-0000",
+        "title": "Weakness Hero Torauman"
+    },
+    "T3601M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dead or Alive 2 Limited Edition"
+    },
+    "T3602M": {
+        "developer": "Team Ninja",
+        "genre": "Fighting",
+        "publisher": "Tecmo",
+        "release_date": "02000-09-28-0000",
+        "title": "Dead or Alive 2"
+    },
+    "T36501M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Vigilante 8: 2nd Battle"
+    },
+    "T36701M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Kuon no Kizuna: Sairinsho"
+    },
+    "T36702M": {
+        "developer": "O-TWO",
+        "genre": "",
+        "publisher": "Fog",
+        "release_date": "02002-01-17-0000",
+        "title": "Missing Parts: The Tantei Stories"
+    },
+    "T36703M": {
+        "developer": "O-TWO",
+        "genre": "",
+        "publisher": "Fog",
+        "release_date": "02002-10-24-0000",
+        "title": "Missing Parts 2: The Tantei Stories"
+    },
+    "T36704M": {
+        "developer": "Fog",
+        "genre": "",
+        "publisher": "Fog",
+        "release_date": "02003-07-31-0000",
+        "title": "Missing Parts 3"
+    },
+    "T36901M": {
+        "developer": "UEP Systems",
+        "genre": "Sports",
+        "publisher": "Sega",
+        "release_date": "01999-08-29-0000",
+        "title": "Cool Boarders Burrrn"
+    },
+    "T36902M": {
+        "developer": "UEP Systems",
+        "genre": "Sports",
+        "publisher": "Sega",
+        "release_date": "01999-08-29-0000",
+        "title": "Cool Boarders Burrrn"
+    },
+    "T37001M": {
+        "developer": "Shouei",
+        "genre": "",
+        "publisher": "Shouei",
+        "release_date": "01999-04-08-0000",
+        "title": "Digital Keiba Shinbun My Track Man"
+    },
+    "T37901M": {
+        "developer": "Takuyo",
+        "genre": "",
+        "publisher": "Takuyo",
+        "release_date": "01999-10-07-0000",
+        "title": "Plus Plum"
+    },
+    "T37903M": {
+        "developer": "Takuyo",
+        "genre": "",
+        "publisher": "Takuyo",
+        "release_date": "02000-07-27-0000",
+        "title": "Netto de Para"
+    },
+    "T37904M": {
+        "developer": "Takuyo",
+        "genre": "",
+        "publisher": "Takuyo",
+        "release_date": "02001-07-26-0000",
+        "title": "Fragrance Tale"
+    },
+    "T37907M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Yuki Katari Limited Edition"
+    },
+    "T37908M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "For Symphony: With All One's Heart"
+    },
+    "T37909M": {
+        "developer": "Takuyo",
+        "genre": "",
+        "publisher": "Takuyo",
+        "release_date": "02002-12-26-0000",
+        "title": "Yuki Katari"
+    },
+    "T37910M": {
+        "developer": "Takuyo",
+        "genre": "Otome game/,/Visual novel",
+        "publisher": "Takuyo",
+        "release_date": "02003-03-06-0000",
+        "title": "Kaitou Apricot"
+    },
+    "T37911M": {
+        "developer": "Takuyo",
+        "genre": "",
+        "publisher": "Takuyo",
+        "release_date": "02003-10-23-0000",
+        "title": "Sweet Season"
+    },
+    "T37912M": {
+        "developer": "Takuyo",
+        "genre": "",
+        "publisher": "Takuyo",
+        "release_date": "02004-04-28-0000",
+        "title": "Cherry Blossom"
+    },
+    "T37913M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Cherry Blossom Limited Edition"
+    },
+    "T38301M": {
+        "developer": "Aquaplus",
+        "genre": "",
+        "publisher": "Aquaplus",
+        "release_date": "02001-08-09-0000",
+        "title": "Comic Party"
+    },
+    "T38302M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Comic Party Limited Edition"
+    },
+    "T38701M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shinkisekai Evolution"
+    },
+    "T38702M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Bakuretsu Muteki Bangaioh"
+    },
+    "T38703M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shinkisekai Evolution 2"
+    },
+    "T38704M": {
+        "developer": "ESP Software",
+        "genre": "",
+        "publisher": "ESP Software",
+        "release_date": "01999-12-16-0000",
+        "title": "Ouka Houshin"
+    },
+    "T38706M": {
+        "developer": "Jaleco Entertainment",
+        "genre": "SHMUP",
+        "publisher": "Jaleco Entertainment",
+        "release_date": "02002-09-05-0000",
+        "title": "Ikaruga"
+    },
+    "T38801M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "NEC Interchannel",
+        "release_date": "01999-01-14-0000",
+        "title": "Sengoku Turb"
+    },
+    "T38802M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Seventh Cross"
+    },
+    "T38804M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Espion-Age-Nts"
+    },
+    "T38805M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sengoku Turb F.I.D"
+    },
+    "T39001M": {
+        "developer": "Pulse Interactive",
+        "genre": "",
+        "publisher": "Pulse Entertainment",
+        "release_date": "02000-01-27-0000",
+        "title": "Undercover AD2025 Kei"
+    },
+    "T39101M": {
+        "developer": "Random House",
+        "genre": "",
+        "publisher": "Random House",
+        "release_date": "01999-04-15-0000",
+        "title": "Morita no Saikyou Shogi"
+    },
+    "T39102M": {
+        "developer": "Random House",
+        "genre": "",
+        "publisher": "Random House",
+        "release_date": "01999-04-15-0000",
+        "title": "Morita no Saikyou Reversi"
+    },
+    "T39201M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Toyota Doricatch Series - Gaia"
+    },
+    "T39202M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Toyota Doricatch Series - Land Cruiser 100/Cygnus"
+    },
+    "T39205M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Toyota Doricatch Series - Celica"
+    },
+    "T39206M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Toyota Doricatch Series - FunCargo"
+    },
+    "T39209M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Toyota Doricatch Series - Estima"
+    },
+    "T39214M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Toyota Digital Catalog - Celsior"
+    },
+    "T39401M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Seaman with Microphone and VMU"
+    },
+    "T39402M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Seaman with Microphone"
+    },
+    "T39403M": {
+        "developer": "Sega",
+        "genre": "Simulation",
+        "publisher": "Sega",
+        "release_date": "01999-12-16-0000",
+        "title": "Christmas Seaman"
+    },
+    "T39404M": {
+        "developer": "Sega",
+        "genre": "Simulation",
+        "publisher": "Sega",
+        "release_date": "01999-12-16-0000",
+        "title": "Christmas Seaman"
+    },
+    "T39405M": {
+        "developer": "Vivarium",
+        "genre": "",
+        "publisher": "Vivarium",
+        "release_date": "02000-08-10-0000",
+        "title": "Seaman: Kindan no Pet 2001"
+    },
+    "T39501M": {
+        "developer": "Mebius",
+        "genre": "",
+        "publisher": "Mebius",
+        "release_date": "01999-04-22-0000",
+        "title": "Web Mystery: Yochi Yume o Kenru Neko"
+    },
+    "T39601M": {
+        "developer": "Panther Software",
+        "genre": "",
+        "publisher": "Panther Software",
+        "release_date": "01999-11-03-0000",
+        "title": "Aoi Hagane no Kihei: Space Griffon"
+    },
+    "T39701M": {
+        "developer": "NEC Interchannel",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "01999-07-22-0000",
+        "title": "Sekai Fushigi Hakken! Troya"
+    },
+    "T39801M": {
+        "developer": "NetVillage",
+        "genre": "",
+        "publisher": "NetVillage",
+        "release_date": "01999-11-18-0000",
+        "title": "Kitaihei Gold"
+    },
+    "T39802M": {
+        "developer": "NetVillage",
+        "genre": "",
+        "publisher": "NetVillage",
+        "release_date": "02001-03-22-0000",
+        "title": "Eve Zero: The Ark of the Matter"
+    },
+    "T40001M": {
+        "developer": "Hudson",
+        "genre": "",
+        "publisher": "Vision Games",
+        "release_date": "02000-08-24-0000",
+        "title": "Rune Caster"
+    },
+    "T40101M": {
+        "developer": "Shangri-La",
+        "genre": "",
+        "publisher": "Shangri-La",
+        "release_date": "01999-10-21-0000",
+        "title": "Yume Uma Ken '99 Internet"
+    },
+    "T40801M": {
+        "developer": "Isao",
+        "genre": "",
+        "publisher": "Isao",
+        "release_date": "01999-11-25-0000",
+        "title": "Dengen Tenshi Taisen Mahjong: Shangri-La"
+    },
+    "T40802M": {
+        "developer": "Marvelous",
+        "genre": "",
+        "publisher": "Marvelous",
+        "release_date": "02000-04-20-0000",
+        "title": "Sakura Momoko Gekijou: Kojikoji"
+    },
+    "T40803M": {
+        "developer": "Isao",
+        "genre": "",
+        "publisher": "Isao",
+        "release_date": "01999-11-25-0000",
+        "title": "Dengen Tenshi Taisen Mahjong: Shangri-La"
+    },
+    "T40901M": {
+        "developer": "Bottom Up",
+        "genre": "",
+        "publisher": "Bottom Up",
+        "release_date": "01999-12-09-0000",
+        "title": "Golf Shiyouyo"
+    },
+    "T40902M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Jet Coaster Dream"
+    },
+    "T40903M": {
+        "developer": "SoftMax",
+        "genre": "",
+        "publisher": "SoftMax",
+        "release_date": "02000-06-01-0000",
+        "title": "Golf Shiyouyo Kouryaku Pack"
+    },
+    "T40904M": {
+        "developer": "SoftMax",
+        "genre": "",
+        "publisher": "SoftMax",
+        "release_date": "02000-08-03-0000",
+        "title": "Golf Shiyouyo Adventure Hen"
+    },
+    "T41001M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Neppachi: 10 Ren Chande Las Vegas Ryokou"
+    },
+    "T41002M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Neppachi: 10 Ren Chande Las Vegas Ryokou Limited Edition"
+    },
+    "T41003M": {
+        "developer": "Falcon",
+        "genre": "",
+        "publisher": "Daikoku",
+        "release_date": "02000-07-06-0000",
+        "title": "Neppachi II@VPACHI: CR Harenchi Gauken"
+    },
+    "T41004M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Neppachi III@VPACHI: CR do Konjou Gale 2 - CR do Konjou Gale H"
+    },
+    "T41005M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Neppachi IV@VPACHI: CR Aa! Hana no Ouendan 3"
+    },
+    "T41006M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Neppachi V@VPACHI: CR Monster House"
+    },
+    "T41007M": {
+        "developer": "Falcon",
+        "genre": "",
+        "publisher": "Daikoku",
+        "release_date": "02001-02-15-0000",
+        "title": "Neppachi VI@VPACHI"
+    },
+    "T41101M": {
+        "developer": "Atelier-Sai",
+        "genre": "",
+        "publisher": "Atelier-Sai",
+        "release_date": "01999-12-02-0000",
+        "title": "Sunrise Eiyuutan"
+    },
+    "T41201M": {
+        "developer": "Bimboosoft",
+        "genre": "",
+        "publisher": "Bimboosoft",
+        "release_date": "02000-11-02-0000",
+        "title": "Jet Coaster Dream 2"
+    },
+    "T41202M": {
+        "developer": "Bimboosoft",
+        "genre": "",
+        "publisher": "Bimboosoft",
+        "release_date": "02001-09-20-0000",
+        "title": "Boku no Tennis Jinsei"
+    },
+    "T41501M": {
+        "developer": "Caramel Pot",
+        "genre": "",
+        "publisher": "Caramel Pot",
+        "release_date": "02000-02-24-0000",
+        "title": "Golem no Maigo"
+    },
+    "T41801M": {
+        "developer": "Sega Toys",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02000-05-02-0000",
+        "title": "BikkuriMan 2000 Viva! Festival!"
+    },
+    "T41802M": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega Toys",
+        "release_date": "02001-01-25-0000",
+        "title": "Boku, Doraemon"
+    },
+    "T42201M": {
+        "developer": "Winky Soft",
+        "genre": "",
+        "publisher": "Winky Soft",
+        "release_date": "02000-09-28-0000",
+        "title": "Seirai Hata RayBlade"
+    },
+    "T42301M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Puzzle Bobble 4"
+    },
+    "T42401M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Lake Masters PRO for Dreamcast Plus!"
+    },
+    "T42501M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "JRA PAT for Dreamcast"
+    },
+    "T42802M": {
+        "developer": "Kobi",
+        "genre": "",
+        "publisher": "Kobi",
+        "release_date": "02001-08-02-0000",
+        "title": "Kaen Seibo: The Virgin on Megiddo"
+    },
+    "T42903M": {
+        "developer": "Fujicom",
+        "genre": "",
+        "publisher": "Fujicom",
+        "release_date": "02002-01-10-0000",
+        "title": "Bomber Hehhe"
+    },
+    "T42904M": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Fujicom",
+        "release_date": "02002-01-24-0000",
+        "title": "Boko Yume no Tatsujin"
+    },
+    "T43301M": {
+        "developer": "Real Vision",
+        "genre": "Racing",
+        "publisher": "Real Vision",
+        "release_date": "02000-07-27-0000",
+        "title": "Zusar Vasar"
+    },
+    "T43401M": {
+        "developer": "Visit",
+        "genre": "",
+        "publisher": "Visit",
+        "release_date": "02000-08-31-0000",
+        "title": "Onsei Ninshiki Mahjong: Jarman"
+    },
+    "T43403M": {
+        "developer": "Visit",
+        "genre": "",
+        "publisher": "Visit",
+        "release_date": "02001-02-01-0000",
+        "title": "The Shinri Game"
+    },
+    "T43501M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Imperial no Taka: Fighter of Zero"
+    },
+    "T43801M": {
+        "developer": "Studio Wonder Effect",
+        "genre": "",
+        "publisher": "Studio Wonder Effect",
+        "release_date": "02001-03-15-0000",
+        "title": "Battle Beaster"
+    },
+    "T43903M": {
+        "developer": "Omiya Soft",
+        "genre": "Board game/,/Collectible card game",
+        "publisher": "Media Factory",
+        "release_date": "02001-07-12-0000",
+        "title": "Culdcept II"
+    },
+    "T43903M1": {
+        "developer": "Omiya Soft",
+        "genre": "Board game/,/Collectible card game",
+        "publisher": "Media Factory",
+        "release_date": "02001-07-12-0000",
+        "title": "Culdcept II"
+    },
+    "T4401M": {
+        "developer": "Sims",
+        "genre": "",
+        "publisher": "Sims",
+        "release_date": "01999-09-23-0000",
+        "title": "Maboroshi Tsukiyo"
+    },
+    "T4402M": {
+        "developer": "Sims",
+        "genre": "Rail shooter",
+        "publisher": "Xicat Interactive",
+        "release_date": "02000-12-07-0000",
+        "title": "Charge 'n Blast"
+    },
+    "T44401M": {
+        "developer": "Abel Software",
+        "genre": "",
+        "publisher": "Abel Software",
+        "release_date": "02000-12-21-0000",
+        "title": "Tantei Shinshi Dash!"
+    },
+    "T44403M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Tantei Shinshi Dash! Limited Edition"
+    },
+    "T44404M": {
+        "developer": "Kid",
+        "genre": "",
+        "publisher": "Kid",
+        "release_date": "02001-05-31-0000",
+        "title": "Exodus Guilty Neos"
+    },
+    "T44405M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Card of Destiny: Hikari to Yami no Tougoumono Limited Edition"
+    },
+    "T44406M": {
+        "developer": "Abel Software",
+        "genre": "",
+        "publisher": "Abel Software",
+        "release_date": "02002-03-28-0000",
+        "title": "Card of Destiny: Hikari to Yami no Tougoumono"
+    },
+    "T44501M": {
+        "developer": "SoftMax",
+        "genre": "",
+        "publisher": "SoftMax",
+        "release_date": "02001-01-25-0000",
+        "title": "Golf Shiyouyo 2: Aratanaru Chousen"
+    },
+    "T44502M": {
+        "developer": "SoftMax",
+        "genre": "",
+        "publisher": "SoftMax",
+        "release_date": "02001-02-22-0000",
+        "title": "Nishikaze no Kyoushikyouku"
+    },
+    "T44601M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dejiko no Maibura"
+    },
+    "T44701M": {
+        "developer": "Kool Kizz",
+        "genre": "",
+        "publisher": "Kool Kizz",
+        "release_date": "02001-11-15-0000",
+        "title": "Marie to Elie Atelier"
+    },
+    "T44702M": {
+        "developer": "Kool Kizz",
+        "genre": "",
+        "publisher": "Kool Kizz",
+        "release_date": "02002-03-28-0000",
+        "title": "Nakoruru: Anohito Kara no Okurimono"
+    },
+    "T44801M": {
+        "developer": "GeneX",
+        "genre": "",
+        "publisher": "NineLives",
+        "release_date": "02001-07-19-0000",
+        "title": "Princess Maker Collection"
+    },
+    "T44801M1": {
+        "developer": "GeneX",
+        "genre": "",
+        "publisher": "NineLives",
+        "release_date": "02001-07-19-0000",
+        "title": "Princess Maker Collection"
+    },
+    "T4502M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Grandia II Limited Edition"
+    },
+    "T4503M": {
+        "developer": "Game Arts",
+        "genre": "Role-playing",
+        "publisher": "Ubisoft",
+        "release_date": "02000-08-03-0000",
+        "title": "Grandia II"
+    },
+    "T4503M1": {
+        "developer": "Game Arts",
+        "genre": "Role-playing",
+        "publisher": "Ubisoft",
+        "release_date": "02000-08-03-0000",
+        "title": "Grandia II"
+    },
+    "T45101M": {
+        "developer": "Yuke's",
+        "genre": "Wrestling",
+        "publisher": "THQ",
+        "release_date": "02001-04-26-0000",
+        "title": "WWF Royal Rumble"
+    },
+    "T45501M": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-04-05-0000",
+        "title": "Es"
+    },
+    "T45601M": {
+        "developer": "Crazy Games",
+        "genre": "Survival horror",
+        "publisher": "AIA",
+        "release_date": "02001-03-29-0000",
+        "title": "Illbleed"
+    },
+    "T45701M": {
+        "developer": "Atmark",
+        "genre": "",
+        "publisher": "Atmark",
+        "release_date": "02001-05-24-0000",
+        "title": "Net Versus Mahjong"
+    },
+    "T45702M": {
+        "developer": "Atmark",
+        "genre": "",
+        "publisher": "Atmark",
+        "release_date": "02001-05-24-0000",
+        "title": "Net Versus Shogi"
+    },
+    "T45703M": {
+        "developer": "Atmark",
+        "genre": "",
+        "publisher": "Atmark",
+        "release_date": "02001-05-24-0000",
+        "title": "Net Versus Igo"
+    },
+    "T45704M": {
+        "developer": "Atmark",
+        "genre": "",
+        "publisher": "Atmark",
+        "release_date": "02001-05-24-0000",
+        "title": "Net Versus Hanafuda"
+    },
+    "T45705M": {
+        "developer": "Atmark",
+        "genre": "",
+        "publisher": "Atmark",
+        "release_date": "02001-05-24-0000",
+        "title": "Net Versus Renju Gomoku Narabe"
+    },
+    "T45706M": {
+        "developer": "Atmark",
+        "genre": "",
+        "publisher": "Atmark",
+        "release_date": "02001-05-24-0000",
+        "title": "Net Versus Chess"
+    },
+    "T45707M": {
+        "developer": "Atmark",
+        "genre": "",
+        "publisher": "Atmark",
+        "release_date": "02001-05-24-0000",
+        "title": "Net Versus Reversi"
+    },
+    "T45801M": {
+        "developer": "Hack Berry",
+        "genre": "",
+        "publisher": "Hack Berry",
+        "release_date": "02001-08-02-0000",
+        "title": "CR Hissatsu Shigotonin Pachitte Chonmage @ VPACHI"
+    },
+    "T46101M": {
+        "developer": "Sega",
+        "genre": "",
+        "publisher": "Sega",
+        "release_date": "02001-07-26-0000",
+        "title": "Himitsu: Tadagaita Natsu"
+    },
+    "T46201M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Run=Dim as BlackSoul"
+    },
+    "T46202M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Run=Dim as BlackSoul Limited Edition"
+    },
+    "T46301M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "DiGiCharat Fantasy Limited Edition"
+    },
+    "T46302M": {
+        "developer": "West One",
+        "genre": "",
+        "publisher": "Broccoli",
+        "release_date": "02001-09-06-0000",
+        "title": "DiGiCharat Fantasy"
+    },
+    "T46303": {
+        "developer": "West One",
+        "genre": "",
+        "publisher": "Broccoli",
+        "release_date": "02002-04-18-0000",
+        "title": "Shinseiki Evangelion: Ayanami Rei Ikusei Keikaku"
+    },
+    "T46304M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "First Kiss * Monogatari 2 Limited Edition"
+    },
+    "T46305M": {
+        "developer": "M2",
+        "genre": "Visual novel",
+        "publisher": "Broccoli",
+        "release_date": "02002-08-08-0000",
+        "title": "First Kiss * Monogatari 2"
+    },
+    "T46501M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "D+Vine [Luv]"
+    },
+    "T46502M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "D+Vine [Luv]"
+    },
+    "T46503M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "21-TwoOne-"
+    },
+    "T46504M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "21-TwoOne- Limited Edition"
+    },
+    "T46505M": {
+        "developer": "Princess Soft",
+        "genre": "",
+        "publisher": "Princess Soft",
+        "release_date": "02002-02-28-0000",
+        "title": "Nijyuei"
+    },
+    "T46506M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Metal Wolf Limited Edition"
+    },
+    "T46507M": {
+        "developer": "Princess Soft",
+        "genre": "",
+        "publisher": "Princess Soft",
+        "release_date": "02002-06-27-0000",
+        "title": "Metal Wolf"
+    },
+    "T46508M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Suika Limited Edition"
+    },
+    "T46509M": {
+        "developer": "Princess Soft",
+        "genre": "",
+        "publisher": "Princess Soft",
+        "release_date": "02002-07-18-0000",
+        "title": "Suika"
+    },
+    "T46510M": {
+        "developer": "Oaks Soft",
+        "genre": "",
+        "publisher": "Princess Soft",
+        "release_date": "02002-10-24-0000",
+        "title": "Mei * Puru"
+    },
+    "T46512M": {
+        "developer": "Princess Soft",
+        "genre": "",
+        "publisher": "Princess Soft",
+        "release_date": "02003-02-27-0000",
+        "title": "Happy Breeding"
+    },
+    "T46513M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Cafe Little Wish: Mahou no Recipe"
+    },
+    "T46514M": {
+        "developer": "Princess Soft",
+        "genre": "",
+        "publisher": "Princess Soft",
+        "release_date": "02003-07-17-0000",
+        "title": "Ma-Gi: Marginal"
+    },
+    "T46515M": {
+        "developer": "Princess Soft",
+        "genre": "",
+        "publisher": "Princess Soft",
+        "release_date": "02003-12-25-0000",
+        "title": "Moekan"
+    },
+    "T46516M": {
+        "developer": "Princess Soft",
+        "genre": "",
+        "publisher": "Princess Soft",
+        "release_date": "02004-03-25-0000",
+        "title": "Tenohirao, Taiyouni"
+    },
+    "T46701M": {
+        "developer": "G.Rev",
+        "genre": "",
+        "publisher": "G.Rev",
+        "release_date": "02002-01-31-0000",
+        "title": "Doki Doki Idol Star Seeker Remix"
+    },
+    "T46702M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Border Down Limited Edition"
+    },
+    "T46703M": {
+        "developer": "G. Rev",
+        "genre": "SHMUP",
+        "publisher": "G. Rev",
+        "release_date": "02003-09-25-0000",
+        "title": "Border Down"
+    },
+    "T46704M": {
+        "developer": "",
+        "genre": "SHMUP",
+        "publisher": "",
+        "release_date": "",
+        "title": "Under Defeat Limited Edition"
+    },
+    "T46705M": {
+        "developer": "G.Rev",
+        "genre": "SHMUP",
+        "publisher": "G.Rev",
+        "release_date": "02006-03-23-0000",
+        "title": "Under Defeat"
+    },
+    "T46901M": {
+        "developer": "Studio e-go",
+        "genre": "",
+        "publisher": "Studio e-go",
+        "release_date": "02002-07-11-0000",
+        "title": "Castle Fantasia: Seima Taisen"
+    },
+    "T46902M": {
+        "developer": "Studio e-go",
+        "genre": "",
+        "publisher": "Shinbyou Planning",
+        "release_date": "02004-01-29-0000",
+        "title": "Izumo"
+    },
+    "T47101M": {
+        "developer": "Atypical Alchemists Associate",
+        "genre": "",
+        "publisher": "Atypical Alchemists Associate",
+        "release_date": "02002-09-26-0000",
+        "title": "Kimi ga Nozomu Eien"
+    },
+    "T47102M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Kimi ga Nozomu Eien Limited Edition"
+    },
+    "T47103M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Wind -a breath of heart- Limited Edition"
+    },
+    "T47104M": {
+        "developer": "Koei",
+        "genre": "",
+        "publisher": "Koei",
+        "release_date": "02003-01-30-0000",
+        "title": "Wind -a breath of heart-"
+    },
+    "T47105M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Princess Holiday: Korogaru Ringo Tei Senya Ichiya Limited Edition"
+    },
+    "T47106M": {
+        "developer": "Alchemist",
+        "genre": "",
+        "publisher": "Atypical Alchemists Associate",
+        "release_date": "02003-05-29-0000",
+        "title": "Princess Holiday: Korogaru Ringo Tei Senya Ichiya"
+    },
+    "T47107M": {
+        "developer": "Alchemist",
+        "genre": "",
+        "publisher": "Alchemist",
+        "release_date": "02003-12-25-0000",
+        "title": "Chocolat: Maid Cafe Curio"
+    },
+    "T47108M": {
+        "developer": "Koei",
+        "genre": "",
+        "publisher": "Koei",
+        "release_date": "02003-01-30-0000",
+        "title": "Wind -a breath of heart-"
+    },
+    "T47109M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Tsuki wa Higashi ni Ha wa Nishi na: Operation Sanctuary"
+    },
+    "T47110M": {
+        "developer": "Alchemist",
+        "genre": "action, adventure",
+        "publisher": "Alchemist",
+        "release_date": "02004-10-28-0000",
+        "title": "Baldr Force EXE"
+    },
+    "T47301M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Bakumatsu Rouman Dai Ni Maku: Gekka no Kenshi Final Edition"
+    },
+    "T47302M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Garou: Mark of the Wolves - SNK Best"
+    },
+    "T47303M": {
+        "developer": "SNK",
+        "genre": "Fighting",
+        "publisher": "Playmore",
+        "release_date": "02002-08-08-0000",
+        "title": "The King of Fighters 2000"
+    },
+    "T47304M": {
+        "developer": "SNK",
+        "genre": "Fighting",
+        "publisher": "Playmore",
+        "release_date": "02002-12-26-0000",
+        "title": "The King of Fighters 2001"
+    },
+    "T47305M": {
+        "developer": "SNK",
+        "genre": "Fighting",
+        "publisher": "Playmore",
+        "release_date": "02003-06-19-0000",
+        "title": "The King of Fighters 2002"
+    },
+    "T47305M1": {
+        "developer": "SNK",
+        "genre": "Fighting",
+        "publisher": "Playmore",
+        "release_date": "02003-06-19-0000",
+        "title": "The King of Fighters 2002"
+    },
+    "T47401M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Simple 2000 Series Vol. 1: The Renai Adventure: Bitter Sweet Fools"
+    },
+    "T47402M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Simple 2000 Series Vol. 3: The Renai Simulation 2: Fureai"
+    },
+    "T47403M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Simple 2000 Series Vol. 4: The Renai Adventure: Okaeri!!"
+    },
+    "T47404M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Simple 2000 Series Vol. 2: The Renai Simulation: Natsuiro Celebration"
+    },
+    "T47501M": {
+        "developer": "Milk Soft",
+        "genre": "Visual novel/,/Eroge",
+        "publisher": "Kyarara",
+        "release_date": "02004-04-15-0000",
+        "title": "Kaze no Uta"
+    },
+    "T47601M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Renai Chu! Happy Perfect Limited Edition"
+    },
+    "T47602M": {
+        "developer": "Fupac",
+        "genre": "Erotic",
+        "publisher": "GNSoftware",
+        "release_date": "02003-11-27-0000",
+        "title": "Renai Chu! Happy Perfect"
+    },
+    "T47602M1": {
+        "developer": "Fupac",
+        "genre": "Erotic",
+        "publisher": "GNSoftware",
+        "release_date": "02003-11-27-0000",
+        "title": "Renai Chu! Happy Perfect"
+    },
+    "T47701M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Shikigami no Shiro II Limited Edition"
+    },
+    "T47702M": {
+        "developer": "Alfa System",
+        "genre": "SHMUP",
+        "publisher": "Alfa System",
+        "release_date": "02004-03-25-0000",
+        "title": "Shikigami no Shiro II"
+    },
+    "T47801M": {
+        "developer": "MileStone Inc.",
+        "genre": "SHMUP",
+        "publisher": "MileStone Inc.",
+        "release_date": "02004-12-16-0000",
+        "title": "Chaos Field"
+    },
+    "T47802M": {
+        "developer": "Milestone Inc.",
+        "genre": "SHMUP",
+        "publisher": "Milestone Inc.",
+        "release_date": "02006-02-16-0000",
+        "title": "Radirgy"
+    },
+    "T47803M": {
+        "developer": "Milestone Inc.",
+        "genre": "SHMUP",
+        "publisher": "Milestone Inc.",
+        "release_date": "02007-03-08-0000",
+        "title": "Karous"
+    },
+    "T47901M": {
+        "developer": "Triangle Service",
+        "genre": "SHMUP",
+        "publisher": "Triangle Service",
+        "release_date": "02005-04-07-0000",
+        "title": "Trizeal"
+    },
+    "T5201M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Marionette Company Limited Edition"
+    },
+    "T5202M": {
+        "developer": "Micro Cabin",
+        "genre": "",
+        "publisher": "Micro Cabin",
+        "release_date": "01999-10-07-0000",
+        "title": "Marionette Company"
+    },
+    "T5203M": {
+        "developer": "Micro Cabin",
+        "genre": "",
+        "publisher": "Micro Cabin",
+        "release_date": "02000-05-18-0000",
+        "title": "Marionette Company 2 Chu!"
+    },
+    "T5204M": {
+        "developer": "Micro Cabin",
+        "genre": "",
+        "publisher": "Micro Cabin",
+        "release_date": "02002-05-16-0000",
+        "title": "Tako no Marine"
+    },
+    "T5205M": {
+        "developer": "Micro Cabin",
+        "genre": "",
+        "publisher": "Micro Cabin",
+        "release_date": "02001-10-04-0000",
+        "title": "Pachinko no Dendou: CR Nanashi"
+    },
+    "T5301M": {
+        "developer": "Riverhillsoft",
+        "genre": "",
+        "publisher": "Riverhillsoft",
+        "release_date": "01999-07-15-0000",
+        "title": "World Neverland Plus: Orurudo Oukoku Monogatari"
+    },
+    "T5302M": {
+        "developer": "River Hill Software",
+        "genre": "",
+        "publisher": "River Hill Software",
+        "release_date": "01999-12-02-0000",
+        "title": "Vermilion Desert"
+    },
+    "T5303M": {
+        "developer": "Riverhillsoft",
+        "genre": "",
+        "publisher": "Riverhillsoft",
+        "release_date": "02000-03-30-0000",
+        "title": "World Neverland 2 Plus"
+    },
+    "T5701M": {
+        "developer": "Jaleco Entertainment",
+        "genre": "Survival horror",
+        "publisher": "Jaleco Entertainment",
+        "release_date": "02000-02-24-0000",
+        "title": "Carrier"
+    },
+    "T5702M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Idol Janshi o Tsukucchaou Limited Edition"
+    },
+    "T5703M": {
+        "developer": "Jaleco Entertainment",
+        "genre": "",
+        "publisher": "Jaleco Entertainment",
+        "release_date": "01999-09-23-0000",
+        "title": "Idol Janshi o Tsukucchaou"
+    },
+    "T5801M": {
+        "developer": "Visco",
+        "genre": "",
+        "publisher": "Visco",
+        "release_date": "02000-12-21-0000",
+        "title": "BassRush Dream"
+    },
+    "T6601M": {
+        "developer": "Compile",
+        "genre": "",
+        "publisher": "Compile",
+        "release_date": "01999-12-16-0000",
+        "title": "Puyo Puyo Da!"
+    },
+    "T6801M": {
+        "developer": "CRI",
+        "genre": "Racing",
+        "publisher": "ASC Games",
+        "release_date": "01999-06-08-0000",
+        "title": "Buggy Heat"
+    },
+    "T6802M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Aero Dancing featuring Blue Impulse"
+    },
+    "T6803M": {
+        "developer": "CRI",
+        "genre": "",
+        "publisher": "CRI",
+        "release_date": "02000-01-20-0000",
+        "title": "Aero Dancing: Torodoki Taichou no Himitsu Disc"
+    },
+    "T6804M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Aero Dancing F"
+    },
+    "T6805M": {
+        "developer": "CRI",
+        "genre": "",
+        "publisher": "CRI",
+        "release_date": "02000-11-16-0000",
+        "title": "Aero Dancing F: Todoroki Tsubasa no Hatsu Hikou"
+    },
+    "T6806M": {
+        "developer": "CRI",
+        "genre": "",
+        "publisher": "CRI",
+        "release_date": "02001-03-22-0000",
+        "title": "Power Jet Racing 2001"
+    },
+    "T6807M": {
+        "developer": "CRI",
+        "genre": "",
+        "publisher": "CRI",
+        "release_date": "02001-02-15-0000",
+        "title": "Aero Dancing i"
+    },
+    "T6808M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Aero Dancing F"
+    },
+    "T6809M": {
+        "developer": "CRI",
+        "genre": "",
+        "publisher": "CRI",
+        "release_date": "02001-08-23-0000",
+        "title": "Aero Dancing i: Jikai Sakuma de Machite Masen"
+    },
+    "T7601M": {
+        "developer": "Koei",
+        "genre": "",
+        "publisher": "Koei",
+        "release_date": "01999-03-04-0000",
+        "title": "Mahjong Taikai II Special"
+    },
+    "T7602M": {
+        "developer": "Koei",
+        "genre": "",
+        "publisher": "Koei",
+        "release_date": "01999-03-25-0000",
+        "title": "Nobunaga no Yabou: Shouseiroku with Power-Up Kit"
+    },
+    "T7603M": {
+        "developer": "Koei",
+        "genre": "",
+        "publisher": "Koei",
+        "release_date": "01999-03-25-0000",
+        "title": "San Goku Shi VI"
+    },
+    "T7604M": {
+        "developer": "Koei",
+        "genre": "",
+        "publisher": "Koei",
+        "release_date": "02000-01-20-0000",
+        "title": "Nanatsu no Hikan: Senritsu no Bishou"
+    },
+    "T7605M": {
+        "developer": "Koei",
+        "genre": "Grand strategy/wargame/Historical simulation/Turn-based/strategy RPG",
+        "publisher": "Koei",
+        "release_date": "01999-12-16-0000",
+        "title": "Nobunaga no Yabou: Reppuuden"
+    },
+    "T7606M": {
+        "developer": "Koei",
+        "genre": "",
+        "publisher": "Koei",
+        "release_date": "02000-03-30-0000",
+        "title": "Winning Post 4 Program 2000"
+    },
+    "T7607M": {
+        "developer": "Koei",
+        "genre": "",
+        "publisher": "Koei",
+        "release_date": "02000-04-06-0000",
+        "title": "San Goku Shi VI with Power-Up Kit"
+    },
+    "T8101M": {
+        "developer": "Titanium Studios",
+        "genre": "Racing",
+        "publisher": "Crave",
+        "release_date": "02000-07-13-0000",
+        "title": "Re-Volt"
+    },
+    "T8102M": {
+        "developer": "Broadsword Interactive",
+        "genre": "Racing",
+        "publisher": "LJN Ltd.",
+        "release_date": "02001-04-05-0000",
+        "title": "Spirit of Speed 1937"
+    },
+    "T9101M": {
+        "developer": "Victor Interactive Software",
+        "genre": "",
+        "publisher": "Victor Interactive Software",
+        "release_date": "02000-08-10-0000",
+        "title": "Doguu Senki: Haou"
+    },
+    "T9102M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sorcerian: Shichisei Mahou no Shito Limited Edition"
+    },
+    "T9103M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Sorcerian: Shichisei Mahou no Shito"
+    },
+    "T9104M": {
+        "developer": "Victor Interactive Software",
+        "genre": "",
+        "publisher": "Victor Interactive Software",
+        "release_date": "02000-11-09-0000",
+        "title": "Tricolore Crise"
+    },
+    "T9105M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Fish Eyes Wild"
+    },
+    "T9501M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Pop'n Music"
+    },
+    "T9502M": {
+        "developer": "Konami Computer Entertainment Studios",
+        "genre": "Flight simulator",
+        "publisher": "Konami",
+        "release_date": "01999-07-29-0000",
+        "title": "Airforce Delta"
+    },
+    "T9503M": {
+        "developer": "Konami",
+        "genre": "",
+        "publisher": "Konami",
+        "release_date": "01999-07-08-0000",
+        "title": "Eisei Meijin III: Game Creator Yoshimura Nobuhiro no Zunou"
+    },
+    "T9504M": {
+        "developer": "Konami",
+        "genre": "",
+        "publisher": "Konami",
+        "release_date": "01999-09-02-0000",
+        "title": "Dancing Blade Katteni Momotenshi"
+    },
+    "T9505M": {
+        "developer": "Konami",
+        "genre": "",
+        "publisher": "Konami",
+        "release_date": "01999-09-30-0000",
+        "title": "Dancing Blade Katteni Momotenshi II: Tears of Eden"
+    },
+    "T9506M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dance Dance Revolution 2nd Mix: Dreamcast Edtion"
+    },
+    "T9507M": {
+        "developer": "TOSE",
+        "genre": "",
+        "publisher": "Konami",
+        "release_date": "02000-03-30-0000",
+        "title": "Jikkyou Powerful Pro Yakyuu Dreamcast Edition"
+    },
+    "T9508M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Dance Dance Revolution Club Version Dreamcast Edition"
+    },
+    "T9510M": {
+        "developer": "Konami Computer Entertainment Studios",
+        "genre": "Flight simulator",
+        "publisher": "Konami",
+        "release_date": "01999-07-29-0000",
+        "title": "Airforce Delta"
+    },
+    "T9511M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ganbare Nippon! Olympic 2000"
+    },
+    "T9513M": {
+        "developer": "Konami",
+        "genre": "Rail shooter",
+        "publisher": "Konami",
+        "release_date": "02000-10-12-0000",
+        "title": "Silent Scope"
+    },
+    "T9590M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Pop'n Music 2"
+    },
+    "T9591M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Pop'n Music 3 Append Disc"
+    },
+    "T9592M": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Pop'n Music 4 Append Disc"
+    },
+    "T9901M": {
+        "developer": "Success",
+        "genre": "",
+        "publisher": "Success",
+        "release_date": "02000-01-20-0000",
+        "title": "Rainbow Cotton"
+    },
+    "T9902M": {
+        "developer": "Success",
+        "genre": "",
+        "publisher": "Success",
+        "release_date": "02000-03-16-0000",
+        "title": "Shanghai Dynasty"
+    },
+    "T9904M": {
+        "developer": "LittleWing",
+        "genre": "",
+        "publisher": "Success",
+        "release_date": "02000-10-26-0000",
+        "title": "Neo Golden Logres"
+    },
+    "T9905M": {
+        "developer": "Vridge",
+        "genre": "",
+        "publisher": "Success",
+        "release_date": "02001-04-26-0000",
+        "title": "Konohana: True Report"
+    },
+    "T9906M": {
+        "developer": "Success",
+        "genre": "",
+        "publisher": "Success",
+        "release_date": "02002-11-28-0000",
+        "title": "Konohana 2: Todoke Kanai Requiem"
+    },
+    "T9907M": {
+        "developer": "Skonec",
+        "genre": "SHMUP",
+        "publisher": "Success",
+        "release_date": "02004-02-26-0000",
+        "title": "Psyvariar 2: The Will to Fabricate"
+    },
+    "TGBREJP": {
+        "developer": "",
+        "genre": "",
+        "publisher": "",
+        "release_date": "",
+        "title": "Ghost Blade"
+    }
+}
