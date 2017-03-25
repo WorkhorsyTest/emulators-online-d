@@ -32,9 +32,10 @@ ubyte[] ToCompressed(ubyte[] blob, CompressionType compression_type) {
 			import std.array;
 			import std.process;
 			import std.string;
+			import std.path;
 
-			string blob_file = std.file.tempDir() ~ "blob";
-			string zip_file = std.file.tempDir() ~ "blob.7z";
+			string blob_file = [std.file.tempDir(), "blob"].join(std.path.dirSeparator);
+			string zip_file = [std.file.tempDir(), "blob.7z"].join(std.path.dirSeparator);
 /*
 			stdout.writefln("blob_file; %s", blob_file);
 			stdout.writefln("zip_file; %s", zip_file);
