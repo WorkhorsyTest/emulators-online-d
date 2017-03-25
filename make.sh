@@ -6,9 +6,20 @@
 set -e
 
 function build {
-	rm -f -rf build
 	mkdir build
 	cd build
+
+	# Make sure G++ is installed
+	if ! type g++ >/dev/null 2>&1; then
+		echo "G++ was not found. Please install G++ or MinGW." >&2
+		return
+	fi
+
+	# Make sure DMD is installed
+	if ! type dmd >/dev/null 2>&1; then
+		echo "DMD was not found. Please install DMD." >&2
+		return
+	fi
 
 	echo "Building uWebSockets ..."
 	g++ \
@@ -41,6 +52,7 @@ function clean {
 	rm -f *.a
 	rm -f *.so
 	rm -f *.dylib
+	rm -f -rf build
 }
 
 # If there are no arguments, print the correct usage
