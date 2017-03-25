@@ -19,6 +19,12 @@
 import std.stdio;
 import std.file;
 
+version (linux) {
+	immutable string Exe7Zip = "7za";
+}
+version (Windows) {
+	immutable string Exe7Zip = "7za.exe";
+}
 
 enum CompressionType {
 	Zlib,
@@ -46,7 +52,7 @@ ubyte[] ToCompressed(ubyte[] blob, CompressionType compression_type) {
 
 			// Get the command and arguments
 			const string[] command = [
-				"7za.exe",
+				Exe7Zip,
 				"a",
 				"-t7z",
 				"-m0=lzma2",
@@ -65,7 +71,7 @@ ubyte[] ToCompressed(ubyte[] blob, CompressionType compression_type) {
 			stdout.writefln("!!! stderr:%s", result_stderr);
 		*/
 			if (status != 0) {
-				stderr.writefln("Failed to run command: %s\r\n", "7za.exe");
+				stderr.writefln("Failed to run command: %s\r\n", Exe7Zip);
 			}
 
 			// Read the compressed blob from file
@@ -160,7 +166,7 @@ int main() {
 	output.write("}\r\n");
 
 	// Read 7zip into an array
-	ubyte[] file_data = cast(ubyte[]) std.file.read("7za.exe");
+	ubyte[] file_data = cast(ubyte[]) std.file.read(Exe7Zip);
 
 	// Convert the 7zip array to a blob
 	base64ed_data = ToCompressedBase64(file_data, CompressionType.Zlib);
