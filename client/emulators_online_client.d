@@ -30,9 +30,9 @@ class LongRunningTask {
 }
 
 // db is accessed like db[console][game][binary_name]
-map[string]map[string]map[string]object db;
-map[string]map[string]int64 file_modify_dates;
-map[string]LongRunningTask long_running_tasks;
+object[string][string][string] db;
+long[string][string] file_modify_dates;
+LongRunningTask[string] long_running_tasks;
 helpers.Demul demul;
 helpers.PCSX2 pcsx2;
 
@@ -146,7 +146,7 @@ object[string] FromBase64Json(string message) {
 	}
 
 	// Unjson the message
-	err = json.Unmarshal(buffer, &retval)
+	err = json.Unmarshal(buffer, &retval);
 	if (err != null) {
 		return null;
 	}
@@ -171,8 +171,8 @@ string ToBase64Json(T)(T thing) {
 	return b64ed_and_jsoned_data;
 }
 
-map[string]map[string]map[string]object FromCompressedBase64Json(string message) {
-	map[string]map[string]map[string]object retval;
+object[string][string][string] FromCompressedBase64Json(string message) {
+	object[string][string][string] retval;
 
 	// Unbase64 the message
 	string unbase64ed_message = base64.StdEncoding.DecodeString(message);
@@ -222,14 +222,14 @@ string ToCompressedBase64Json(T)(T thing) {
 }
 
 void getDB() {
-	object[string] message = {
+	object[string] message = [
 		"action" : "get_db",
 		"value" : db,
-	};
+	];
 	WebSocketSend(message);
 }
 
-void setDB(map[string]map[string]map[string]object console_data) {
+void setDB(object[string][string][string] console_data) {
 	// Just return if we are running any long running tasks
 	if (long_running_tasks.length > 0) {
 		return;
@@ -259,25 +259,25 @@ void setDB(map[string]map[string]map[string]object console_data) {
 	// Loading blank game database
 	} else {
 		// Re Initialize the globals
-		db = new map[string]map[string]map[string]object;
-		file_modify_dates = map[string]map[string]long;
+		db = {};//FIXME: new object[string][string][string];
+		file_modify_dates = {};//FIXME: long[string][string];
 
 		foreach (console ; consoles) {
-			db[console] = new map[string]map[string]object;
-			file_modify_dates[console] = map[string]long;
+			db[console] = {};//FIXME: new object[string][string];
+			file_modify_dates[console] = {};//FIXME: long[string];
 		}
 	}
 }
 
 void getDirectXVersion() {
-	object[string] message = {
+	object[string] message = [
 		"action" : "get_directx_version",
 		"value" : helpers.GetDirectXVersion(),
-	};
+	];
 	WebSocketSend(message);
 }
 
-void setBios(map[string]object data) {
+void setBios(object[string] data) {
 	string console = cast(string) data["console"];
 	string type_name = cast(string) data["type"];
 	string value = cast(string) data["value"];
@@ -292,7 +292,7 @@ void setBios(map[string]object data) {
 
 		// Convert the base64 data to BIOS and write to file
 		string file_name = filepath.Join("emulators/pcsx2/bios/", data_type);
-		f, err := os.Create(file_name);
+		f = os.Create(file_name);
 		if (err != null) {
 			throw new Exception("Failed to save BIOS file: %s".format(err));
 		}
@@ -305,7 +305,7 @@ void setBios(map[string]object data) {
 
 		// If the default BIOS, write the name to file
 		if (is_default) {
-			err = ioutil.WriteFile("emulators/pcsx2/bios/default_bios", []byte(data_type), 0644);
+			err = ioutil.WriteFile("emulators/pcsx2/bios/default_bios", data_type, std.conv.octal!(644));
 			if (err != null) {
 				throw new Exception(err);
 			}
@@ -367,188 +367,185 @@ void setButtonMap(object[string] data)  {
 	}
 }
 
-func getButtonMap(data map[string]object) {
-	var value map[string]string
-	console := data["console"].(string)
+void getButtonMap(object[string] data) {
+	string[string] value;
+	string console = cast(string) data["console"];
 
-	final switch console {
+	final switch (console) {
 		case "dreamcast":
-			value = demul.GetButtonMap()
+			value = demul.GetButtonMap();
 			break;
 		case "playstation2":
-			value = pcsx2.GetButtonMap()
+			value = pcsx2.GetButtonMap();
 			break;
 	}
 
-	message := map[string]object {
+	object[string] message = [
 		"action" : "get_button_map",
 		"value" : value,
 		"console" : console,
-	}
-	WebSocketSend(&message)
+	];
+	WebSocketSend(&message);
 }
 
 
-func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done chan bool, data map[string]object) error {
-	directory_name := data["directory_name"].(string)
-	console := data["console"].(string)
+void taskGetGameInfo(LongRunningTask /*FIXME:chan*/ channel_task_progress, bool /*FIXME:chan*/ channel_is_done, object[string] data) {
+	string directory_name = cast(string) data["directory_name"];
+	string console = cast(string) data["console"];
 
 	// Add the thread to the list of long running tasks
-	a_task := LongRunningTask {
-		fmt.Sprintf("Searching for %s games", console),
-		0,
-	}
-	channel_task_progress <- a_task
+	LongRunningTask a_task = {
+		"Searching for %s games".format(console),
+		0
+	};
+	//FIXME: channel_task_progress <- a_task;
 
 	// Get the path for this console
-	var path_prefix string
-	final switch console {
+	string path_prefix;
+	final switch (console) {
 		case "dreamcast":
-			path_prefix = "images/Sega/Dreamcast"
+			path_prefix = "images/Sega/Dreamcast";
 			break;
 		case "playstation2":
-			path_prefix = "images/Sony/Playstation2"
+			path_prefix = "images/Sony/Playstation2";
 			break;
 	}
 
 	// Get the total number of files
-	total_files := 0.0
-	filepath.Walk(directory_name, func(path string, _ os.FileInfo, _ error) error {
-		total_files += 1.0
-		return null
-	})
+	float total_files = 0.0f;
+	filepath.Walk(directory_name, function(string path, os.FileInfo _file_info) {
+		total_files += 1.0f;
+		return null;
+	});
 
 	// Walk through all the directories
-	done_files := 0.0
-	filepath.Walk(directory_name, func(file string, _ os.FileInfo, _ error) error {
+	float done_files = 0.0f;
+	filepath.Walk(directory_name, function(string file, os.FileInfo _file_info) {
 		// Get the full path
-		entry := file
-		entry, _ = filepath.Abs(entry)
-		entry = strings.Replace(entry, "\\", "/", -1)
+		string entry = file;
+		entry = filepath.Abs(entry);
+		entry = strings.Replace(entry, "\\", "/", -1);
 
 		// Get the percentage of the progress looping through files
-		percentage := (done_files / total_files) * 100.0
-		a_task.percentage = percentage
-		channel_task_progress <- a_task
-		done_files += 1.0
+		float percentage = (done_files / total_files) * 100.0f;
+		a_task.percentage = percentage;
+		//FIXME: channel_task_progress <- a_task;
+		done_files += 1.0f;
 
 		// Skip if the the entry is not a file
-		if ! helpers.IsFile(entry) {
-			return null
+		if (! helpers.IsFile(entry)) {
+			return null;
 		}
 
 		// Skip if the game file has not been modified
-		var old_modify_date int64 = 0
-		if val, ok := file_modify_dates[console][entry]; ok {
-			old_modify_date = val
+		long old_modify_date = 0;
+		if ((entry in file_modify_dates[console]) != null) {
+			old_modify_date = file_modify_dates[console][entry];
 		}
-		finfo, err := os.Stat(entry)
+		auto finfo = os.Stat(entry);
 		if (err != null) {
-			return null
+			return null;
 		}
-		modify_date := finfo.ModTime().UnixNano()
-		if modify_date == old_modify_date {
-			return null
+		auto modify_date = finfo.ModTime().UnixNano();
+		if (modify_date == old_modify_date) {
+			return null;
 		} else {
-			file_modify_dates[console][entry] = modify_date
+			file_modify_dates[console][entry] = modify_date;
 		}
 
 		// Get the game info
-		var info map[string]object
-		var cmd *exec.Cmd
-		if console == "dreamcast" {
-			cmd = exec.Command("client/identify_games/identify_games.exe", console, entry)
-		} else if console == "playstation2" {
-			cmd = exec.Command("client/identify_games/identify_games.exe", console, entry)
+		object[string] info;
+		exec.Cmd cmd;
+		if (console == "dreamcast") {
+			cmd = exec.Command("client/identify_games/identify_games.exe", console, entry);
+		} else if (console == "playstation2") {
+			cmd = exec.Command("client/identify_games/identify_games.exe", console, entry);
 		} else {
-			panic(fmt.Sprintf("Unexpected console: %s", console))
+			throw new Exception("Unexpected console: %s".format(console));
 		}
 
 		// Run the command and get the info for this game
-		var out bytes.Buffer
-		cmd.Stdout = &out
-		err = cmd.Run()
+		bytes.Buffer out_buffer;
+		cmd.Stdout = &out_buffer;
+		err = cmd.Run();
 		if (err != null) {
-			fmt.Printf("Failed to get game info for file: %s\r\n", entry)
-			return null
+			fmt.Printf("Failed to get game info for file: %s\r\n", entry);
+			return null;
 		}
-		out_bytes := out.Bytes()
-		if len(out_bytes) > 0 {
-			err := json.Unmarshal(out_bytes, &info)
+		byte[] out_bytes = out_buffer.Bytes();
+		if (out_bytes.length > 0) {
+			err = json.Unmarshal(out_bytes, &info);
 			if (err != null) {
-				fmt.Printf("Failed to convert json to map: %s\r\n%s\r\n", err, string(out_bytes))
-				return null
+				fmt.Printf("Failed to convert json to map: %s\r\n%s\r\n", err, string(out_bytes));
+				return null;
 			}
 		} else {
-			return null
+			return null;
 		}
 		if (err != null) {
-			fmt.Printf("Failed to find info for game \"%s\"\r\n%s\r\n", entry, err)
-			return null
+			fmt.Printf("Failed to find info for game \"%s\"\r\n%s\r\n", entry, err);
+			return null;
 		}
-		fmt.Printf("getting game info: %s\r\n", info["title"].(string))
-		info["file"] = entry
+		fmt.Printf("getting game info: %s\r\n", cast(string) info["title"]);
+		info["file"] = entry;
 
 		// Save the info in the db
-		if info != null {
-			title := info["title"].(string)
-			clean_title := helpers.SanitizeFileName(title)
+		if (info != null) {
+			string title = cast(string) info["title"];
+			string clean_title = helpers.SanitizeFileName(title);
 
 			// Initialize the db for this console if needed
-			if _, ok := db[console]; !ok {
-				db[console] = make(map[string]map[string]object)
+			if ((console in db) == null) {
+				db[console] = {};//FIXME: make(map[string]map[string]object);
 			}
 
-			db[console][title] = map[string]object {
-				"path" : CleanPath(fmt.Sprintf("%s/%s/", path_prefix, clean_title)),
-				"binary" : AbsPath(info["file"].(string)),
+			db[console][title] = [
+				"path" : CleanPath("%s/%s/".format(path_prefix, clean_title)),
+				"binary" : AbsPath(cast(string) info["file"]),
 				"bios" : "",
-				"images" : []string{},
+				"images" : [],
 				"developer" : "",
 				"publisher" : "",
-				"genre" : "",
+				"genre" : ""
+			];
+
+			if (("developer" in info) != null) {
+				db[console][title]["developer"] = info["developer"];
 			}
 
-			if val, ok := info["developer"]; ok {
-				db[console][title]["developer"] = val
+			if (("publisher" in info) != null) {
+				db[console][title]["publisher"] = info["publisher"];
 			}
 
-			if val, ok := info["publisher"]; ok {
-				db[console][title]["publisher"] = val
-			}
-
-			if val, ok := info["genre"]; ok {
-				db[console][title]["genre"] = val
+			if (("genre" in info) != null) {
+				db[console][title]["genre"] = info["genre"];
 			}
 
 			// Get the images
-			image_dir := fmt.Sprintf("%s/%s/", path_prefix, title)
-			expected_images := []string{"title_big.png", "title_small.png"}
-			for _, img := range expected_images {
-				if ! helpers.IsDir(image_dir) {
-					image_file := fmt.Sprintf("%s%s", image_dir, img)
-					if helpers.IsFile(image_file) {
-						images := db[console][title]["images"].([]string)
-						images = append(images, image_file)
-						db[console][title]["images"] = images
+			string image_dir = "%s/%s/".format(path_prefix, title);
+			string[] expected_images = ["title_big.png", "title_small.png"];
+			foreach (img ; expected_images) {
+				if (! helpers.IsDir(image_dir)) {
+					string image_file = "%s%s".format(image_dir, img);
+					if (helpers.IsFile(image_file)) {
+						string[] images = cast(string[]) db[console][title]["images"];
+						images ~= image_file;
+						db[console][title]["images"] = images;
 					}
 				}
 			}
 		}
-		return null
-	})
+		return null;
+	});
 
 	// Send the updated game db to the browser
-	value, err := ToCompressedBase64Json(db)
-	if (err != null) {
-		panic(err)
-	}
+	string value = ToCompressedBase64Json(db);
 
-	message := map[string]object {
+	object[string] message = [
 		"action" : "set_db",
 		"value" : value,
-	}
-	WebSocketSend(&message)
+	];
+	WebSocketSend(&message);
 /*
 	// Write the db cache file
 	f, err := os.Create(fmt.Sprintf("cache/game_db_%s.json", console))
@@ -566,27 +563,27 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 */
 
 	// Write the modify dates cache file
-	f, err := os.Create(fmt.Sprintf("cache/file_modify_dates_%s.json", console))
-	defer f.Close()
+	auto f = os.Create(fmt.Sprintf("cache/file_modify_dates_%s.json", console));
+	// FIXME: defer f.Close();
 	if (err != null) {
-		fmt.Printf("Failed to open file modify dates file: %s\r\n", err)
-		return err
+		fmt.Printf("Failed to open file modify dates file: %s\r\n", err);
+		return err;
 	}
-	jsoned_data, err := json.MarshalIndent(file_modify_dates[console], "", "\t")
+	string jsoned_data = json.MarshalIndent(file_modify_dates[console], "", "\t");
 	if (err != null) {
-		fmt.Printf("Failed to convert file_modify_dates to json: %s\r\n", err)
-		return err
+		fmt.Printf("Failed to convert file_modify_dates to json: %s\r\n", err);
+		return err;
 	}
-	f.Write(jsoned_data)
+	f.Write(jsoned_data);
 
-	fmt.Printf("Done getting games from directory.\r\n")
+	fmt.Printf("Done getting games from directory.\r\n");
 
-	a_task.percentage = 100.0
-	channel_task_progress <- a_task
+	a_task.percentage = 100.0f;
+	// FIXME: channel_task_progress <- a_task;
 
 	// Signal that we are done
-	channel_is_done <- true
-	return null
+	// FIXME: channel_is_done <- true;
+	return null;
 }
 
 func taskSetGameDirectory(data map[string]object) {
@@ -1036,7 +1033,7 @@ func uncompress7Zip() {
 	debug.FreeOSMemory()
 
 	// Copy the file_data to an exe
-	err = ioutil.WriteFile("7za.exe", file_data, 0644)
+	err = ioutil.WriteFile("7za.exe", file_data, std.conv.octal!(644))
 	if (err != null) {
 		panic(err)
 	}
@@ -1108,7 +1105,7 @@ func useAppDataForStaticFiles() {
 	debug.FreeOSMemory()
 
 	// Write the gob to file
-	err = ioutil.WriteFile("gob.7z", zlibed_data, 0644)
+	err = ioutil.WriteFile("gob.7z", zlibed_data, std.conv.octal!(644))
 	if (err != null) {
 		panic(err)
 	}
@@ -1139,7 +1136,7 @@ func useAppDataForStaticFiles() {
 	// We need a way to quickly check if the files in the exe are different
     for file_name, data := range file_map {
 		//if ! helpers.IsFile(file_name) {
-			err := ioutil.WriteFile(file_name, data, 0644)
+			err := ioutil.WriteFile(file_name, data, std.conv.octal!(644))
 			if (err != null) {
 				panic(err)
 			}
