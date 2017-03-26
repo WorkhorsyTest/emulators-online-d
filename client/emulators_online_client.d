@@ -16,401 +16,371 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package main
+
+import std.stdio;
+import core.thread;
+import WebSocket;
 
 
-import (
-	"io"
-	"fmt"
-	"strings"
-	//"time"
-	//"runtime"
-	"runtime/debug"
-	"io/ioutil"
-	"path/filepath"
-	"os"
-	"errors"
-	"os/exec"
-	"compress/zlib"
-	"encoding/base64"
-	"encoding/json"
-	"encoding/gob"
-	"bytes"
-	"strconv"
-	//"net/url"
+bool g_websocket_needs_restart;
 
-	"net/http"
-	"golang.org/x/net/websocket"
-
-	"./helpers"
-	"./win32"
-	"./generated"
-)
-
-var g_ws *websocket.Conn
-
-var g_websocket_needs_restart bool
-
-type LongRunningTask struct {
-	name string
-	percentage float64
+class LongRunningTask {
+	string name;
+	float percentage;
 }
 
 // db is accessed like db[console][game][binary_name]
-var db map[string]map[string]map[string]interface{}
-var file_modify_dates map[string]map[string]int64
-var long_running_tasks map[string]LongRunningTask
-var demul *helpers.Demul
-var pcsx2 *helpers.PCSX2
+map[string]map[string]map[string]object db;
+map[string]map[string]int64 file_modify_dates;
+map[string]LongRunningTask long_running_tasks;
+helpers.Demul demul;
+helpers.PCSX2 pcsx2;
 
-var consoles []string
+string[] consoles;
 
-func CleanPath(file_path string) string {
+string CleanPath(string file_path) {
 	// Fix the backward slashes from Windows
-	new_path := strings.Replace(file_path, "\\", "/", -1)
+	string new_path = file_path.replace("\\", "/", -1);
 
 	// Strip off the Disc number
-	if strings.Contains(new_path, " [Disc") {
-		new_path = strings.Split(new_path, " [Disc")[0]
+	if (new_path.contains(" [Disc")) {
+		new_path = new_path.split(" [Disc")[0];
 	}
 
 	// Make sure it ends with a slash
-	if ! strings.HasSuffix(new_path, "/") {
-		new_path += "/"
+	if (! new_path.HasSuffix("/")) {
+		new_path += "/";
 	}
 
-	return new_path
+	return new_path;
 }
 
-func AbsPath(file_path string) string {
-	file_path, _ = filepath.Abs(file_path)
-	file_path = strings.Replace(file_path, "\\", "/", -1)
-	return file_path
+string AbsPath(string file_path) {
+	string file_path = filepath.Abs(file_path);
+	file_path = file_path.Replace("\\", "/", -1);
+	return file_path;
 }
 
-func WebSocketSend(thing interface{}) error {
+void WebSocketSend(T)(T thing) {
 	//fmt.Printf("<<< out %v\r\n", thing)
 
 	// Convert the object to base64ed json
-	message, err := ToBase64Json(thing)
-	if err != nil {
-		fmt.Printf("Failed to encode websocket message: %s\r\n", err)
-		return err
+	string message;
+	try {
+		message = ToBase64Json(thing);
+	} catch (Throwable err) {
+		throw new Exception("Failed to encode websocket message: %s".format(err));
 	}
 	//fmt.Printf("message: %s\r\n", message)
 
 	// Get the header
-	whole_message := fmt.Sprintf("%d:%s", len(message), message)
+	string whole_message = "%d:%s".format(message.length, message);
 	//fmt.Printf("whole_message: %s\r\n", whole_message)
 
 	// Write the message
-	buffer := []byte(whole_message)
-	write_len, err := g_ws.Write(buffer)
-	if err != nil {
-		g_websocket_needs_restart = true
-		fmt.Printf("Failed to write websocket message: %s\r\n", err)
-		return err
+	byte[] buffer = cast(byte[]) whole_message;
+	int write_len = g_ws.Write(buffer);
+	if (err != null) {
+		g_websocket_needs_restart = true;
+		throw new Exception("Failed to write websocket message: %s".format(err));
 	}
-	if write_len != len(buffer) {
-		return errors.New("Whole buffer was not written to websocket\r\n")
+	if (write_len != buffer.length) {
+		throw new Exception("Whole buffer was not written to websocket");
 	}
 	//fmt.Printf("write_len: %d\r\n", write_len)
-
-	return nil
 }
 
-func WebSocketRecieve() (map[string]interface{}, error) {
+object[string] WebSocketRecieve() {
 	//fmt.Printf("WebSocketRecieve ???????????????????????????????????\r\n")
-	buffer := make([]byte, 20)
+	byte[] buffer = new byte[20];
 
 	// Read the message header
-	read_len, err := g_ws.Read(buffer)
-	if err != nil {
-		fmt.Printf("Failed to read websocket message: %s\r\n", err)
-		return nil, err
+	int read_len = g_ws.Read(buffer);
+	if (err != null) {
+		throw new Exception("Failed to read websocket message: %s".format(err));
 	}
 	//fmt.Printf("read_len: %d\r\n", read_len)
 
 	// Get the message length
-	message := string(buffer[0 : read_len])
-	chunks := strings.Split(message, ":")
-	message_length64, _ := strconv.ParseInt(chunks[0], 10, 0)
-	message_length := int(message_length64)
-	message = chunks[1]
-	message_length -= len(message)
+	string message = buffer[0 .. read_len];
+	string[] chunks = message.split(":");
+	long message_length64 = to!long(chunks[0]);
+	int message_length = cast(int) message_length64;
+	string message = chunks[1];
+	message_length -= message.length;
 
 	// Read the rest of the message
-	for {
-		buffer = make([]byte, message_length)
-		read_len, err = g_ws.Read(buffer)
-		if err != nil {
-			fmt.Printf("Failed to read websocket message: %s\r\n", err)
-			return nil, err
+	while (true) {
+		buffer = new byte[message_length];
+		read_len = g_ws.Read(buffer);
+		if (err != null) {
+			throw new Exception("Failed to read websocket message: %s".format(err));
 		}
-		message += string(buffer[0 : read_len])
-		message_length -= read_len
-		if message_length < 1 {
-			break
+		message ~= buffer[0 .. read_len];
+		message_length -= read_len;
+		if (message_length < 1) {
+			break;
 		}
 	}
 
 	// Convert the message from base64 and json
-	thing, err := FromBase64Json(message)
-	if err != nil {
-		fmt.Printf("Failed to decode websocket message: %s\r\n", err)
+	string thing = FromBase64Json(message);
+	if (err != null) {
+		throw new Exception("Failed to decode websocket message: %s".format(err));
 		//fmt.Printf("message: %s\r\n", message)
 		//decoded_message, err := base64.StdEncoding.DecodeString(message)
 		//fmt.Printf("decoded_message: %s\r\n", decoded_message)
-		return nil, err
 	}
 
 	//fmt.Printf("thing: %s\r\n", thing)
-	return thing, nil
+	return null;
 }
 
-func FromBase64Json(message string) (map[string]interface{}, error) {
-	var retval map[string]interface{}
+object[string] FromBase64Json(string message) {
+	object[string] retval;
 
 	// Unbase64 the message
-	buffer, err := base64.StdEncoding.DecodeString(message)
-	if err != nil {
-		return nil, err
+	string buffer = base64.StdEncoding.DecodeString(message);
+	if (err != null) {
+		return null;
 	}
 
 	// Unjson the message
 	err = json.Unmarshal(buffer, &retval)
-	if err != nil {
-		return nil, err
+	if (err != null) {
+		return null;
 	}
 
-	return retval, nil
+	return null;
 }
 
-func ToBase64Json(thing interface{}) (string, error) {
+string ToBase64Json(T)(T thing) {
 	// Convert the object to json
-	jsoned_data, err := json.MarshalIndent(thing, "", "\t")
-	if err != nil {
-		return "", err
+	jsoned_data = json.MarshalIndent(thing, "", "\t");
+	if (err != null) {
+		return "";
 	}
 
 	// Convert the jsoned object to base64
-	b64ed_data := base64.StdEncoding.EncodeToString(jsoned_data)
-	if err != nil {
-		return "", err
+	string b64ed_data = base64.StdEncoding.EncodeToString(jsoned_data);
+	if (err != null) {
+		return "";
 	}
-	b64ed_and_jsoned_data := string(b64ed_data)
+	string b64ed_and_jsoned_data = b64ed_data;
 
-	return b64ed_and_jsoned_data, err
+	return b64ed_and_jsoned_data;
 }
 
-func FromCompressedBase64Json(message string) (map[string]map[string]map[string]interface{}, error) {
-	var retval map[string]map[string]map[string]interface{}
+map[string]map[string]map[string]object FromCompressedBase64Json(string message) {
+	map[string]map[string]map[string]object retval;
 
 	// Unbase64 the message
-	unbase64ed_message, err := base64.StdEncoding.DecodeString(message)
-	if err != nil {
-		return nil, err
+	string unbase64ed_message = base64.StdEncoding.DecodeString(message);
+	if (err != null) {
+		return null;
 	}
 
 	// Uncompress the message
-	zlibed_buffer := bytes.NewBuffer([]byte(unbase64ed_message))
-	var uncompressed_buffer bytes.Buffer
-	reader, err := zlib.NewReader(zlibed_buffer)
-	if err != nil {
-		panic(err)
+	byte[] zlibed_buffer = new byte[unbase64ed_message];
+	byte[] uncompressed_buffer;
+	string reader = zlib.NewReader(zlibed_buffer);
+	if (err != null) {
+		throw new Exception(err);
 	}
-	io.Copy(&uncompressed_buffer, reader)
+	io.Copy(&uncompressed_buffer, reader);
 
 	// Unjson the message
-	err = json.Unmarshal(uncompressed_buffer.Bytes(), &retval)
-	if err != nil {
-		return nil, err
+	err = json.Unmarshal(uncompressed_buffer.Bytes(), &retval);
+	if (err != null) {
+		return null;
 	}
 
-	return retval, nil
+	return retval;
 }
 
-func ToCompressedBase64Json(thing interface{}) (string, error) {
+string ToCompressedBase64Json(T)(T thing) {
 	// Convert the object to json
-	jsoned_data, err := json.MarshalIndent(thing, "", "\t")
-	if err != nil {
-		return "", err
+	string jsoned_data = json.MarshalIndent(thing, "", "\t");
+	if (err != null) {
+		return "";
 	}
 
 	// Compress the jsoned object
-	var out_buffer bytes.Buffer
-	writer := zlib.NewWriter(&out_buffer)
-	writer.Write([]byte(jsoned_data))
-	writer.Close()
+	byte[] out_buffer;
+	auto writer = zlib.NewWriter(&out_buffer);
+	writer.Write(jsoned_data);
+	writer.Close();
 
 	// Convert the compressed object to base64
-	b64ed_data := base64.StdEncoding.EncodeToString(out_buffer.Bytes())
-	if err != nil {
-		return "", err
+	byte[] b64ed_data = base64.StdEncoding.EncodeToString(out_buffer.Bytes());
+	if (err != null) {
+		return "";
 	}
-	b64ed_and_jsoned_data := string(b64ed_data)
+	string b64ed_and_jsoned_data = b64ed_data;
 
-	return b64ed_and_jsoned_data, err
+	return b64ed_and_jsoned_data;
 }
 
-func getDB() {
-	message := map[string]interface{} {
+void getDB() {
+	object[string] message = {
 		"action" : "get_db",
 		"value" : db,
-	}
-	WebSocketSend(message)
+	};
+	WebSocketSend(message);
 }
 
-func setDB(console_data map[string]map[string]map[string]interface{}) {
+void setDB(map[string]map[string]map[string]object console_data) {
 	// Just return if we are running any long running tasks
-	if len(long_running_tasks) > 0 {
-		return
+	if (long_running_tasks.length > 0) {
+		return;
 	}
 
 	// Loading existing game database
-	if console_data != nil {
+	if (console_data != null) {
 		// Load the game database
-		db = console_data
+		db = console_data;
 
-		for _, console := range consoles {
+		foreach (console ; consoles) {
 			// Get the names of all the games
-			keys := []string{}
-			for k := range db[console] {
-				keys = append(keys, k)
+			string[] keys;
+			foreach (k ; db[console]) {
+				keys ~= k;
 			}
 
 			// Remove any games if there is no game file
-			for _, name := range keys {
-				data := db[console][name]
-				binary := data["binary"].(string)
-				if ! helpers.IsFile(binary) {
-					delete(db[console], name)
+			foreach (name ; keys) {
+				auto data = db[console][name];
+				auto binary = cast(string) data["binary"];
+				if (! helpers.IsFile(binary)) {
+					delete(db[console], name);
 				}
 			}
 		}
 	// Loading blank game database
 	} else {
 		// Re Initialize the globals
-		db = make(map[string]map[string]map[string]interface{})
-		file_modify_dates = map[string]map[string]int64{}
+		db = new map[string]map[string]map[string]object;
+		file_modify_dates = map[string]map[string]long;
 
-		for _, console := range consoles {
-			db[console] = make(map[string]map[string]interface{})
-			file_modify_dates[console] = map[string]int64{}
+		foreach (console ; consoles) {
+			db[console] = new map[string]map[string]object;
+			file_modify_dates[console] = map[string]long;
 		}
 	}
 }
 
-func getDirectXVersion() {
-	message := map[string]interface{} {
+void getDirectXVersion() {
+	object[string] message = {
 		"action" : "get_directx_version",
 		"value" : helpers.GetDirectXVersion(),
-	}
-	WebSocketSend(message)
+	};
+	WebSocketSend(message);
 }
 
-func setBios(data map[string]interface{}) (error) {
-	console := data["console"].(string)
-	type_name := data["type"].(string)
-	value := data["value"].(string)
-	is_default := data["is_default"].(bool)
-	data_type := data["type"].(string)
+void setBios(map[string]object data) {
+	string console = cast(string) data["console"];
+	string type_name = cast(string) data["type"];
+	string value = cast(string) data["value"];
+	bool is_default = cast(bool) data["is_default"];
+	string data_type = cast(string) data["type"];
 
-	if console == "playstation2" {
+	if (console == "playstation2") {
 		// Make the BIOS dir if missing
-		if ! helpers.IsDir("emulators/pcsx2/bios") {
-			os.Mkdir("emulators/pcsx2/bios", os.ModeDir)
+		if (! helpers.IsDir("emulators/pcsx2/bios")) {
+			os.Mkdir("emulators/pcsx2/bios", os.ModeDir);
 		}
 
 		// Convert the base64 data to BIOS and write to file
-		file_name := filepath.Join("emulators/pcsx2/bios/", data_type)
-		f, err := os.Create(file_name)
-		if err != nil {
-			fmt.Printf("Failed to save BIOS file: %s\r\n", err)
-			return err
+		string file_name = filepath.Join("emulators/pcsx2/bios/", data_type);
+		f, err := os.Create(file_name);
+		if (err != null) {
+			throw new Exception("Failed to save BIOS file: %s".format(err));
 		}
-		b642_data, err := base64.StdEncoding.DecodeString(value)
-		if err != nil {
-			fmt.Printf("Failed to un base64 BIOS file: %s\r\n", err)
-			return err
+		string b642_data = base64.StdEncoding.DecodeString(value);
+		if (err != null) {
+			throw new Exception("Failed to un base64 BIOS file: %s\r\n".format(err));
 		}
-		f.Write(b642_data)
-		f.Close()
+		f.Write(b642_data);
+		f.Close();
 
 		// If the default BIOS, write the name to file
-		if is_default {
-			err := ioutil.WriteFile("emulators/pcsx2/bios/default_bios", []byte(data_type), 0644)
-			if err != nil {
-				panic(err)
+		if (is_default) {
+			err = ioutil.WriteFile("emulators/pcsx2/bios/default_bios", []byte(data_type), 0644);
+			if (err != null) {
+				throw new Exception(err);
 			}
 		}
-	} else if console == "dreamcast" {
+	} else if (console == "dreamcast") {
 		// Make the BIOS dir if missing
-		if ! helpers.IsDir("emulators/Demul/roms") {
-			os.Mkdir("emulators/Demul/roms", os.ModeDir)
+		if (! helpers.IsDir("emulators/Demul/roms")) {
+			os.Mkdir("emulators/Demul/roms", os.ModeDir);
 		}
 
 		// Get the BIOS file name
-		var file_name string
-		switch type_name {
+		string file_name;
+		final switch (type_name) {
 			case "awbios.zip":
-				file_name = "emulators/Demul/roms/awbios.zip"
+				file_name = "emulators/Demul/roms/awbios.zip";
+				break;
 			case "dc.zip":
-				file_name = "emulators/Demul/roms/dc.zip"
+				file_name = "emulators/Demul/roms/dc.zip";
+				break;
 			case "naomi.zip":
-				file_name = "emulators/Demul/roms/naomi.zip"
+				file_name = "emulators/Demul/roms/naomi.zip";
+				break;
 			case "naomi2.zip":
-				file_name = "emulators/Demul/roms/naomi2.zip"
+				file_name = "emulators/Demul/roms/naomi2.zip";
+				break;
 		}
 
 		// Convert the base64 data to BIOS and write to file
-		f, err := os.Create(file_name)
-		if err != nil {
-			fmt.Printf("Failed to save BIOS file: %s\r\n", err)
-			return err
+		File f = os.Create(file_name);
+		if (err != null) {
+			throw new Exception("Failed to save BIOS file: %s\r\n".format(err));
 		}
-		b642_data, err := base64.StdEncoding.DecodeString(value)
-		if err != nil {
-			fmt.Printf("Failed to un base64 BIOS file: %s\r\n", err)
-			return err
+		string b642_data = base64.StdEncoding.DecodeString(value);
+		if (err != null) {
+			throw new Exception("Failed to un base64 BIOS file: %s\r\n".format(err));
 		}
-		f.Write(b642_data)
-		f.Close()
+		f.Write(b642_data);
+		f.Close();
 	}
 
-	return nil
+	return null;
 }
 
-func setButtonMap(data map[string]interface{})  {
+void setButtonMap(object[string] data)  {
 	// Convert the map[string]interface to map[string]string
-	button_map := make(map[string]string)
-	value := data["value"].(map[string]interface{})
-	for key, value := range value {
-		button_map[key] = value.(string)
+	string[string] button_map;
+	object[string] value = cast(object[string]) data["value"];
+	foreach(key, value ; value) {
+		button_map[key] = cast(string) value;
 	}
 
-	switch data["console"].(string) {
+	final switch (cast(string) data["console"]) {
 		case "dreamcast":
-			demul.SetButtonMap(button_map)
-
+			demul.SetButtonMap(button_map);
+			break;
 		case "playstation2":
-			pcsx2.SetButtonMap(button_map)
+			pcsx2.SetButtonMap(button_map);
+			break;
 	}
 }
 
-func getButtonMap(data map[string]interface{}) {
+func getButtonMap(data map[string]object) {
 	var value map[string]string
 	console := data["console"].(string)
 
-	switch console {
+	final switch console {
 		case "dreamcast":
 			value = demul.GetButtonMap()
-
+			break;
 		case "playstation2":
 			value = pcsx2.GetButtonMap()
+			break;
 	}
 
-	message := map[string]interface{} {
+	message := map[string]object {
 		"action" : "get_button_map",
 		"value" : value,
 		"console" : console,
@@ -419,7 +389,7 @@ func getButtonMap(data map[string]interface{}) {
 }
 
 
-func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done chan bool, data map[string]interface{}) error {
+func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done chan bool, data map[string]object) error {
 	directory_name := data["directory_name"].(string)
 	console := data["console"].(string)
 
@@ -432,18 +402,20 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 
 	// Get the path for this console
 	var path_prefix string
-	switch console {
+	final switch console {
 		case "dreamcast":
 			path_prefix = "images/Sega/Dreamcast"
+			break;
 		case "playstation2":
 			path_prefix = "images/Sony/Playstation2"
+			break;
 	}
 
 	// Get the total number of files
 	total_files := 0.0
 	filepath.Walk(directory_name, func(path string, _ os.FileInfo, _ error) error {
 		total_files += 1.0
-		return nil
+		return null
 	})
 
 	// Walk through all the directories
@@ -462,7 +434,7 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 
 		// Skip if the the entry is not a file
 		if ! helpers.IsFile(entry) {
-			return nil
+			return null
 		}
 
 		// Skip if the game file has not been modified
@@ -471,18 +443,18 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 			old_modify_date = val
 		}
 		finfo, err := os.Stat(entry)
-		if err != nil {
-			return nil
+		if (err != null) {
+			return null
 		}
 		modify_date := finfo.ModTime().UnixNano()
 		if modify_date == old_modify_date {
-			return nil
+			return null
 		} else {
 			file_modify_dates[console][entry] = modify_date
 		}
 
 		// Get the game info
-		var info map[string]interface{}
+		var info map[string]object
 		var cmd *exec.Cmd
 		if console == "dreamcast" {
 			cmd = exec.Command("client/identify_games/identify_games.exe", console, entry)
@@ -496,38 +468,38 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 		var out bytes.Buffer
 		cmd.Stdout = &out
 		err = cmd.Run()
-		if err != nil {
+		if (err != null) {
 			fmt.Printf("Failed to get game info for file: %s\r\n", entry)
-			return nil
+			return null
 		}
 		out_bytes := out.Bytes()
 		if len(out_bytes) > 0 {
 			err := json.Unmarshal(out_bytes, &info)
-			if err != nil {
+			if (err != null) {
 				fmt.Printf("Failed to convert json to map: %s\r\n%s\r\n", err, string(out_bytes))
-				return nil
+				return null
 			}
 		} else {
-			return nil
+			return null
 		}
-		if err != nil {
+		if (err != null) {
 			fmt.Printf("Failed to find info for game \"%s\"\r\n%s\r\n", entry, err)
-			return nil
+			return null
 		}
 		fmt.Printf("getting game info: %s\r\n", info["title"].(string))
 		info["file"] = entry
 
 		// Save the info in the db
-		if info != nil {
+		if info != null {
 			title := info["title"].(string)
 			clean_title := helpers.SanitizeFileName(title)
 
 			// Initialize the db for this console if needed
 			if _, ok := db[console]; !ok {
-				db[console] = make(map[string]map[string]interface{})
+				db[console] = make(map[string]map[string]object)
 			}
 
-			db[console][title] = map[string]interface{} {
+			db[console][title] = map[string]object {
 				"path" : CleanPath(fmt.Sprintf("%s/%s/", path_prefix, clean_title)),
 				"binary" : AbsPath(info["file"].(string)),
 				"bios" : "",
@@ -563,16 +535,16 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 				}
 			}
 		}
-		return nil
+		return null
 	})
 
 	// Send the updated game db to the browser
 	value, err := ToCompressedBase64Json(db)
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 
-	message := map[string]interface{} {
+	message := map[string]object {
 		"action" : "set_db",
 		"value" : value,
 	}
@@ -581,12 +553,12 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 	// Write the db cache file
 	f, err := os.Create(fmt.Sprintf("cache/game_db_%s.json", console))
 	defer f.Close()
-	if err != nil {
+	if (err != null) {
 		fmt.Printf("Failed to open cache file: %s\r\n", err)
 		return err
 	}
 	jsoned_data, err := json.MarshalIndent(db[console], "", "\t")
-	if err != nil {
+	if (err != null) {
 		fmt.Printf("Failed to convert db to json: %s\r\n", err)
 		return err
 	}
@@ -596,12 +568,12 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 	// Write the modify dates cache file
 	f, err := os.Create(fmt.Sprintf("cache/file_modify_dates_%s.json", console))
 	defer f.Close()
-	if err != nil {
+	if (err != null) {
 		fmt.Printf("Failed to open file modify dates file: %s\r\n", err)
 		return err
 	}
 	jsoned_data, err := json.MarshalIndent(file_modify_dates[console], "", "\t")
-	if err != nil {
+	if (err != null) {
 		fmt.Printf("Failed to convert file_modify_dates to json: %s\r\n", err)
 		return err
 	}
@@ -614,10 +586,10 @@ func taskGetGameInfo(channel_task_progress chan LongRunningTask, channel_is_done
 
 	// Signal that we are done
 	channel_is_done <- true
-	return nil
+	return null
 }
 
-func taskSetGameDirectory(data map[string]interface{}) {
+func taskSetGameDirectory(data map[string]object) {
 	// Just return if there is already a long running "Searching for dreamcast games" task
 	name := fmt.Sprintf("Searching for %s games", data["console"].(string))
 	if _, ok := long_running_tasks[name]; ok {
@@ -653,7 +625,7 @@ func taskSetGameDirectory(data map[string]interface{}) {
 				}
 
 				// Send the websocket the new map of long running tasks
-				message := map[string]interface{} {
+				message := map[string]object {
 					"action" : "long_running_tasks",
 					"value" : shit,
 				}
@@ -671,27 +643,28 @@ func saveMemoryCardCB(memory_card []byte) {
 	fmt.Printf("FIXME: Memory card needs saving. length %v\r\n", out_buffer.Len())
 }
 
-func playGame(data map[string]interface{}) {
+func playGame(data map[string]object) {
 	console := data["console"].(string)
 	path := data["path"].(string)
 	binary := data["binary"].(string)
 	//bios := data["bios"].(string)
 
-	switch console {
+	final switch console {
 		case "dreamcast":
 			demul.Run(path, binary, saveMemoryCardCB)
 			//self.log("playing")
 			fmt.Printf("Running Demul ...\r\n")
-
+			break;
 		case "playstation2":
 			pcsx2.Run(path, binary)
 			//self.log("playing")
 			fmt.Printf("Running PCSX2 ...\r\n")
+			break;
 	}
 }
 
 func progressCB(name string, progress float64) {
-	message := map[string]interface{} {
+	message := map[string]object {
 		"action" : "progress",
 		"value" : progress,
 		"name" : name,
@@ -699,7 +672,7 @@ func progressCB(name string, progress float64) {
 	WebSocketSend(&message)
 }
 
-func downloadFile(data map[string]interface{}) {
+func downloadFile(data map[string]object) {
 	// Get all the info we need
 	file_name := data["file"].(string)
 	url := data["url"].(string)
@@ -709,11 +682,11 @@ func downloadFile(data map[string]interface{}) {
 
 	// Download the file header
 	client := &http.Client{}
-	req, _ := http.NewRequest("GET", url, nil)
+	req, _ := http.NewRequest("GET", url, null)
 	req.Header.Set("Referer", referer)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36")
 	resp, err := client.Do(req)
-	if err != nil {
+	if (err != null) {
 		fmt.Printf("Download failed: %s\r\n", err)
 		return
 	}
@@ -727,7 +700,7 @@ func downloadFile(data map[string]interface{}) {
 	// Create the out file
 	buffer := make([]byte, 32 * 1024)
 	out, err := os.Create(filepath.Join(directory, file_name))
-	if err != nil {
+	if (err != null) {
 		fmt.Printf("Failed to create output file: %s\r\n", err)
 		return
 	}
@@ -741,7 +714,7 @@ func downloadFile(data map[string]interface{}) {
 	for {
 		// Read the next chunk
 		read_len, err := resp.Body.Read(buffer)
-		if err != nil {
+		if (err != null) {
 			if err.Error() == "EOF" {
 				EOF = true
 			} else {
@@ -752,7 +725,7 @@ func downloadFile(data map[string]interface{}) {
 
 		// Write the next chunk to file
 		write_len, err := out.Write(buffer[0 : read_len])
-		if err != nil {
+		if (err != null) {
 			fmt.Printf("Writing chunk to file failed: %s\r\n", err)
 			return
 		}
@@ -775,32 +748,34 @@ func downloadFile(data map[string]interface{}) {
 	}
 }
 
-func install(data map[string]interface{}) {
+func install(data map[string]object) {
 	dir := data["dir"].(string)
 	file := data["file"].(string)
 
 	// Start uncompressing
-	message := map[string]interface{}{
+	message := map[string]object{
 		"action" : "uncompress",
 		"is_start" : true,
 		"name" : file,
 	}
 	WebSocketSend(&message)
 
-	switch file {
-	case "demul0582.rar":
-		os.Mkdir("emulators/Demul", os.ModeDir)
-		helpers.Uncompress(filepath.Join(dir, "demul0582.rar"), "emulators/Demul")
-	case "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z":
-		helpers.Uncompress(filepath.Join(dir, "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z"), "emulators")
-		err := os.Rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2")
-		if err != nil {
-			panic(err)
-		}
+	final switch file {
+		case "demul0582.rar":
+			os.Mkdir("emulators/Demul", os.ModeDir)
+			helpers.Uncompress(filepath.Join(dir, "demul0582.rar"), "emulators/Demul")
+			break;
+		case "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z":
+			helpers.Uncompress(filepath.Join(dir, "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z"), "emulators")
+			err := os.Rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2")
+			if (err != null) {
+				panic(err)
+			}
+			break;
 	}
 
 	// End uncompressing
-	message = map[string]interface{}{
+	message = map[string]object{
 		"action" : "uncompress",
 		"is_start" : false,
 		"name" : file,
@@ -809,19 +784,21 @@ func install(data map[string]interface{}) {
 }
 
 // FIXME: Update to kill the process first
-func uninstall(data map[string]interface{}) {
-	switch data["program"].(string) {
+func uninstall(data map[string]object) {
+	final switch data["program"].(string) {
 		case "Demul":
 			os.RemoveAll("emulators/Demul")
+			break;
 		case "PCSX2":
 			os.RemoveAll("emulators/pcsx2")
+			break;
 	}
 }
 
-func isInstalled(data map[string]interface{}) {
+func isInstalled(data map[string]object) {
 	program := data["program"].(string)
 
-	switch program {
+	final switch program {
 	case "DirectX End User Runtime":
 		// Paths on Windows 8.1 X86_32 and X86_64
 		check_64_dx10, _ := filepath.Glob("C:/Windows/SysWOW64/d3dx10_*.dll")
@@ -830,50 +807,56 @@ func isInstalled(data map[string]interface{}) {
 		check_32_dx11, _ := filepath.Glob("C:/Windows/System32/d3dx11_*.dll")
 		exist := (len(check_64_dx10) > 0 && len(check_64_dx11) > 0) ||
 				(len(check_32_dx10) > 0 && len(check_32_dx11) > 0)
-		message := map[string]interface{} {
+		message := map[string]object {
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "DirectX End User Runtime",
 		}
 		WebSocketSend(&message)
+		break;
 	case "Visual C++ 2010 redist": // msvcr100.dll
 		// Paths on Windows 8.1 X86_32 and X86_64
 		exist := helpers.PathExists("C:/Windows/SysWOW64/msvcr100.dll") ||
 				helpers.PathExists("C:/Windows/System32/msvcr100.dll")
-		message := map[string]interface{} {
+		message := map[string]object {
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "Visual C++ 2010 redist",
 		}
 		WebSocketSend(&message)
+		break;
 	case "Visual C++ 2013 redist": // msvcr120.dll
 		// Paths on Windows 8.1 X86_32 and X86_64
 		exist := helpers.PathExists("C:/Windows/SysWOW64/msvcr120.dll") ||
 				helpers.PathExists("C:/Windows/System32/msvcr120.dll")
-		message := map[string]interface{} {
+		message := map[string]object {
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "Visual C++ 2013 redist",
 		}
 		WebSocketSend(&message)
+		break;
 	case "Demul":
 		exist := helpers.PathExists("emulators/Demul/demul.exe")
-		message := map[string]interface{} {
+		message := map[string]object {
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "Demul",
 		}
 		WebSocketSend(&message)
+		break;
 	case "PCSX2":
 		exist := helpers.PathExists("emulators/pcsx2/pcsx2.exe")
-		message := map[string]interface{} {
+		message := map[string]object {
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "PCSX2",
 		}
 		WebSocketSend(&message)
+		break;
 	default:
 		fmt.Printf("Unknown program to check if installed: %s\r\n", program)
+		break;
 	}
 }
 
@@ -889,7 +872,7 @@ func webSocketCB(ws *websocket.Conn) {
 	for ! g_websocket_needs_restart {
 		// Read the message
 		message_map, err := WebSocketRecieve()
-		if err != nil {
+		if (err != null) {
 			fmt.Printf("Failed to get websocket message: %s\r\n", err)
 			return
 		}
@@ -928,13 +911,13 @@ func webSocketCB(ws *websocket.Conn) {
 			getDB()
 
 		} else if message_map["action"] == "set_db" {
-			var value map[string]map[string]map[string]interface{} = nil
-			var err error = nil
+			var value map[string]map[string]map[string]object = null
+			var err error = null
 
-			if message_map["value"] != nil {
+			if message_map["value"] != null {
 				str_value :=  message_map["value"].(string)
 				value, err = FromCompressedBase64Json(str_value)
-				if err != nil {
+				if (err != null) {
 					panic(err)
 				}
 
@@ -989,9 +972,9 @@ func webSocketCB(ws *websocket.Conn) {
 			// FIXME: How do we pass the string to display?
 			browse_info := win32.BROWSEINFO {
 				hwnd,
-				nil, //desktop_pidl,
-				nil,
-				nil, // "Select a folder search for games"
+				null, //desktop_pidl,
+				null,
+				null, // "Select a folder search for games"
 				0,
 				0,
 				0,
@@ -1024,7 +1007,7 @@ func uncompress7Zip() {
 	// Un Base64 the compressed gob
 	zlibed_data, err := base64.StdEncoding.DecodeString(blob)
 	blob = ""
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 	zlibed_buffer := bytes.NewBuffer([]byte(zlibed_data))
@@ -1034,7 +1017,7 @@ func uncompress7Zip() {
 	// Un compress the gob
 	var gob_buffer bytes.Buffer
 	reader, err := zlib.NewReader(zlibed_buffer)
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 	io.Copy(&gob_buffer, reader)
@@ -1046,7 +1029,7 @@ func uncompress7Zip() {
 	var file_data []byte
 	decoder := gob.NewDecoder(&gob_buffer)
 	err = decoder.Decode(&file_data)
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 	gob_buffer.Reset()
@@ -1054,7 +1037,7 @@ func uncompress7Zip() {
 
 	// Copy the file_data to an exe
 	err = ioutil.WriteFile("7za.exe", file_data, 0644)
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 	debug.FreeOSMemory()
@@ -1074,7 +1057,7 @@ func UncompressWith7zip(in_file string) {
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	err := cmd.Run()
-	if err != nil {
+	if (err != null) {
 		fmt.Printf("Failed to run command: %s\r\n", err)
 	}
 }
@@ -1119,14 +1102,14 @@ func useAppDataForStaticFiles() {
 	// Un Base64 the compressed gob map
 	zlibed_data, err := base64.StdEncoding.DecodeString(blob)
 	blob = ""
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 	debug.FreeOSMemory()
 
 	// Write the gob to file
 	err = ioutil.WriteFile("gob.7z", zlibed_data, 0644)
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 
@@ -1135,7 +1118,7 @@ func useAppDataForStaticFiles() {
 
 	// Read the gob from file
 	file_data, err := ioutil.ReadFile("gob")
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 	debug.FreeOSMemory()
@@ -1145,7 +1128,7 @@ func useAppDataForStaticFiles() {
 	buffer := bytes.NewBuffer([]byte(file_data))
 	decoder := gob.NewDecoder(buffer)
 	err = decoder.Decode(&file_map)
-	if err != nil {
+	if (err != null) {
 		panic(err)
 	}
 	buffer.Reset()
@@ -1157,7 +1140,7 @@ func useAppDataForStaticFiles() {
     for file_name, data := range file_map {
 		//if ! helpers.IsFile(file_name) {
 			err := ioutil.WriteFile(file_name, data, 0644)
-			if err != nil {
+			if (err != null) {
 				panic(err)
 			}
 		//}
@@ -1177,12 +1160,12 @@ func loadFileModifyDates() {
 		file_name := fmt.Sprintf("cache/file_modify_dates_%s.json", console)
 		if helpers.IsFile(file_name) {
 			file_data, err := ioutil.ReadFile(file_name)
-			if err != nil {
+			if (err != null) {
 				panic(err)
 			}
 			console_dates := file_modify_dates[console]
 			err = json.Unmarshal(file_data, &console_dates)
-			if err != nil {
+			if (err != null) {
 				panic(err)
 			}
 
@@ -1214,12 +1197,12 @@ func main() {
 	}
 
 	// Initialize the globals
-	db = make(map[string]map[string]map[string]interface{})
+	db = make(map[string]map[string]map[string]object)
 	file_modify_dates = map[string]map[string]int64{}
 	long_running_tasks = map[string]LongRunningTask{}
 
 	for _, console := range consoles {
-		db[console] = make(map[string]map[string]interface{})
+		db[console] = make(map[string]map[string]object)
 		file_modify_dates[console] = map[string]int64{}
 	}
 
@@ -1231,7 +1214,7 @@ func main() {
 	var err error
 	if len(os.Args) >= 2 {
 		ws_port, err = strconv.ParseInt(os.Args[1], 10, 0)
-		if err != nil {
+		if (err != null) {
 			panic(err)
 		}
 	}
@@ -1252,8 +1235,8 @@ func main() {
 	http.Handle("/ws", websocket.Handler(webSocketCB))
 	http.HandleFunc("/", httpCB)
 	fmt.Printf("Server running at: http://%s\r\n",  server_address)
-	err = http.ListenAndServe(server_address, nil)
-	if err != nil {
+	err = http.ListenAndServe(server_address, null)
+	if (err != null) {
 		panic(err)
 	}
 }
