@@ -21,6 +21,7 @@ function build {
 	# Put everything inside the generated D file
 	echo "Generating files ..."
 	rdmd -g client/generate/generate_included_files.d
+
 <<"COMMENT"
 	mkdir build
 	cd build
@@ -41,27 +42,25 @@ function build {
 	../uWebSockets/src/web_socket.cpp
 	cd ..
 COMMENT
+
 	# Remove the exes
 	rm -f emulators_online_client.exe
 	rm -f emulators_online_client
 	#rm -f client/identify_games/identify_games.exe
 
 	# Build the client exe
-	echo "Building emulators_online_client.exe ..."
+	echo "Building emulators_online_client ..."
 	dmd -g \
 	client/emulators_online_client.d \
-	../uWebSockets/web_socket.d build/*.o \
-	-L-lstdc++ /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a
-	mv emulators_online_client ../emulators_online_client
-
-	'''
-	dmd -g \
-	../emulators_online_client.d ../uWebSockets/web_socket.d *.o \
-	-L-lstdc++ /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a
-	mv emulators_online_client ../emulators_online_client
-	'''
+	../uWebSockets/web_socket.d \
+	build/*.o \
+	-L-lstdc++ /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a \
+	-of=client/emulators_online_client
 
 	#rm -f -rf build
+
+	echo "Running ..."
+	./client/emulators_online_client 9090 local
 }
 
 function clean {

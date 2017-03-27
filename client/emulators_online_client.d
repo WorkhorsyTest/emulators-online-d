@@ -18,9 +18,9 @@
 
 
 import std.stdio;
+import std.conv;
 import core.thread;
 import WebSocket;
-
 
 bool g_websocket_needs_restart;
 
@@ -30,14 +30,15 @@ class LongRunningTask {
 }
 
 // db is accessed like db[console][game][binary_name]
-object[string][string][string] db;
+string[string][string][string] db;
 long[string][string] file_modify_dates;
 LongRunningTask[string] long_running_tasks;
-helpers.Demul demul;
-helpers.PCSX2 pcsx2;
+//helpers.Demul demul;
+//helpers.PCSX2 pcsx2;
 
 string[] consoles;
 
+/*
 string CleanPath(string file_path) {
 	// Fix the backward slashes from Windows
 	string new_path = file_path.replace("\\", "/", -1);
@@ -389,7 +390,7 @@ void getButtonMap(object[string] data) {
 }
 
 
-void taskGetGameInfo(LongRunningTask /*FIXME:chan*/ channel_task_progress, bool /*FIXME:chan*/ channel_is_done, object[string] data) {
+void taskGetGameInfo(LongRunningTask chan channel_task_progress, bool chan channel_is_done, object[string] data) {
 	string directory_name = cast(string) data["directory_name"];
 	string console = cast(string) data["console"];
 
@@ -546,21 +547,20 @@ void taskGetGameInfo(LongRunningTask /*FIXME:chan*/ channel_task_progress, bool 
 		"value" : value,
 	];
 	WebSocketSend(&message);
-/*
-	// Write the db cache file
-	f, err := os.Create(fmt.Sprintf("cache/game_db_%s.json", console))
-	defer f.Close()
-	if (err != null) {
-		fmt.Printf("Failed to open cache file: %s\r\n", err)
-		return err
-	}
-	jsoned_data, err := json.MarshalIndent(db[console], "", "\t")
-	if (err != null) {
-		fmt.Printf("Failed to convert db to json: %s\r\n", err)
-		return err
-	}
-	f.Write(jsoned_data)
-*/
+
+	//// Write the db cache file
+	//f, err := os.Create(fmt.Sprintf("cache/game_db_%s.json", console))
+	//defer f.Close()
+	//if (err != null) {
+	//	fmt.Printf("Failed to open cache file: %s\r\n", err)
+	//	return err
+	//}
+	//jsoned_data, err := json.MarshalIndent(db[console], "", "\t")
+	//if (err != null) {
+	//	fmt.Printf("Failed to convert db to json: %s\r\n", err)
+	//	return err
+	//}
+	//f.Write(jsoned_data)
 
 	// Write the modify dates cache file
 	auto f = os.Create(fmt.Sprintf("cache/file_modify_dates_%s.json", console));
@@ -585,7 +585,7 @@ void taskGetGameInfo(LongRunningTask /*FIXME:chan*/ channel_task_progress, bool 
 	// FIXME: channel_is_done <- true;
 	return null;
 }
-/* FIXME:
+
 void taskSetGameDirectory(object[string] data) {
 	// Just return if there is already a long running "Searching for dreamcast games" task
 	string name = "Searching for %s games".format(cast(string) data["console"]);
@@ -630,7 +630,7 @@ void taskSetGameDirectory(object[string] data) {
 		}
 	}
 }
-*/
+
 void saveMemoryCardCB(byte[] memory_card) {
 	byte[] out_buffer;
 	auto writer = zlib.NewWriter(&out_buffer);
@@ -669,7 +669,6 @@ void progressCB(string name, float progress) {
 	WebSocketSend(&message);
 }
 
-/* FIXME:
 void downloadFile(object[string] data) {
 	// Get all the info we need
 	string file_name = cast(string) data["file"];
@@ -745,7 +744,7 @@ void downloadFile(object[string] data) {
 		}
 	}
 }
-*/
+
 void install(object[string] data) {
 	string dir = data["dir"];
 	string file = data["file"];
@@ -991,7 +990,7 @@ void webSocketCB(websocket.Conn* ws) {
 	g_websocket_needs_restart = false;
 	http.Handle("/ws", websocket.Handler(webSocketCB));
 }
-/*
+
 func uncompress7Zip() {
 	// Just return if 7zip already exists
 	if helpers.IsFile("7za.exe") {
@@ -1059,7 +1058,7 @@ func UncompressWith7zip(in_file string) {
 		fmt.Printf("Failed to run command: %s\r\n", err)
 	}
 }
-*/
+
 void useAppDataForStaticFiles() {
 	// Make the AppData/Local/emulators-online directory
 	string app_data = filepath.Join(os.Getenv("USERPROFILE"), "AppData", "Local", "emulators-online");
@@ -1228,4 +1227,43 @@ void main() {
 	if (err != null) {
 		panic(err);
 	}
+}
+*/
+
+
+int main(string[] args) {
+	// Set what game consoles to support
+	const string[] consoles = [
+		"dreamcast",
+		"playstation2",
+	];
+
+	// If "local" use the static files in the current directory
+	if (args.length >= 3 || args[2] == "local") {
+		// Make 7za.exe
+		//uncompress7Zip();
+	// If not use the static files in AppData
+	} else {
+		//useAppDataForStaticFiles();
+	}
+
+	// Get the websocket port from the args
+	int ws_port = 9090;
+	if (args.length >= 2) {
+		ws_port = args[1].to!int;
+	}
+
+	WebSocket.start(ws_port, function(string message) {
+		stdout.writefln("message:\"%s\"", message);
+	});
+
+	Thread.sleep(10.seconds);
+	while (true) {
+		string message = "12345";
+		//stdout.writefln(message);
+		WebSocket.write(message);
+		Thread.sleep(2.seconds);
+	}
+
+	return 0;
 }
