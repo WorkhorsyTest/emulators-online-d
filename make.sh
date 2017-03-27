@@ -37,10 +37,10 @@ function build {
 	echo "Building emulators_online_client ..."
 	cd client
 	dub build
-	cd ..
 
 	echo "Running ..."
-	./client/emulators_online_client 9090 local
+	./emulators_online_client
+	cd ..
 }
 
 function clean {

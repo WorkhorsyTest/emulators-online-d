@@ -21,6 +21,7 @@ import std.stdio;
 import std.conv;
 import std.string;
 import core.thread;
+import vibe.vibe;
 import compress;
 import Generated;
 
@@ -1199,8 +1200,12 @@ void main() {
 }
 */
 
-/*
-int main(string[] args) {
+// http://vibed.org/blog/posts/a-scalable-chat-room-service-in-d
+
+int main() {
+	// FIXME: Vibe breaks when we pass our args in. So just hard code them for now.
+	string[] args = ["emulators_online_client", "9090", "local"];
+
 	// Set what game consoles to support
 	const string[] consoles = [
 		"dreamcast",
@@ -1217,51 +1222,30 @@ int main(string[] args) {
 	}
 
 	// Get the websocket port from the args
-	int ws_port = 9090;
+	ushort ws_port = 9090;
 	if (args.length >= 2) {
-		ws_port = args[1].to!int;
+		ws_port = args[1].to!ushort;
 	}
 
 	// Get the DirectX Version
 	//helpers.StartBackgroundSearchForDirectXVersion();
 
-	string server_address = "127.0.0.1:%s".format(ws_port);
-	stdout.writefln("Server running at: http://%s", server_address);
-	WebSocket.start(ws_port, function(string message) {
-		stdout.writefln("message:\"%s\"", message);
-	});
-
-	Thread.sleep(10.seconds);
-	while (true) {
-		string message = "12345";
-		//stdout.writefln(message);
-		WebSocket.write(message);
-		Thread.sleep(2.seconds);
-	}
-
-	return 0;
-}
-*/
-
-import vibe.vibe;
-import std.stdio;
-
-// http://vibed.org/blog/posts/a-scalable-chat-room-service-in-d
-
-void main(string[] args) {
-	auto router = new URLRouter;
+	auto router = new URLRouter();
 	router.get("/", staticRedirect("/index.html"));
 	router.get("/index.html", &handleHTTP);
 	router.get("/ws", handleWebSockets(&handleWebSocket));
 
-	auto settings = new HTTPServerSettings;
-	settings.port = 8080;
+	auto settings = new HTTPServerSettings();
+	settings.port = ws_port;
 	settings.bindAddresses = ["::1", "127.0.0.1"];
 	listenHTTP(settings, router);
 
-	logInfo("Please open http://127.0.0.1:8080/ in your browser.");
-	logInfo("Please open ws://127.0.0.1:8080/ws in your browser.");
+	string server_address = "127.0.0.1:%s".format(ws_port);
+	stdout.writefln("Server running at: http://%s", server_address);
+	stdout.writefln("WebSocket running at: ws://%s/ws", server_address);
 	runApplication();
+
+	return 0;
 }
 
 void handleHTTP(HTTPServerRequest req, HTTPServerResponse res) {
