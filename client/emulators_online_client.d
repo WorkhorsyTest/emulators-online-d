@@ -585,21 +585,21 @@ void taskGetGameInfo(LongRunningTask /*FIXME:chan*/ channel_task_progress, bool 
 	// FIXME: channel_is_done <- true;
 	return null;
 }
-
-func taskSetGameDirectory(data map[string]object) {
+/* FIXME:
+void taskSetGameDirectory(object[string] data) {
 	// Just return if there is already a long running "Searching for dreamcast games" task
-	name := fmt.Sprintf("Searching for %s games", data["console"].(string))
-	if _, ok := long_running_tasks[name]; ok {
-		return
+	string name = "Searching for %s games".format(cast(string) data["console"]);
+	if (name in long_running_tasks) {
+		return;
 	}
 
 	// Run a goroutine that will look through all the games and get their info
-	channel_task_progress := make(chan LongRunningTask)
-	channel_is_done := make(chan bool)
-	go taskGetGameInfo(channel_task_progress, channel_is_done, data)
+	//channel_task_progress := make(chan LongRunningTask)
+	//channel_is_done := make(chan bool)
+	//go taskGetGameInfo(channel_task_progress, channel_is_done, data)
 
 	// Wait for the goroutine to send its info and exit
-	for {
+	while (true) {
 		select {
 			case is_done := <-channel_is_done:
 				if is_done {
@@ -630,69 +630,70 @@ func taskSetGameDirectory(data map[string]object) {
 		}
 	}
 }
-
-func saveMemoryCardCB(memory_card []byte) {
-	var out_buffer bytes.Buffer
-	writer := zlib.NewWriter(&out_buffer)
-	writer.Write([]byte(memory_card))
-	writer.Close()
+*/
+void saveMemoryCardCB(byte[] memory_card) {
+	byte[] out_buffer;
+	auto writer = zlib.NewWriter(&out_buffer);
+	writer.Write(memory_card);
+	writer.Close();
 	// FIXME: Send the memory card to the server
-	fmt.Printf("FIXME: Memory card needs saving. length %v\r\n", out_buffer.Len())
+	fmt.Printf("FIXME: Memory card needs saving. length %v\r\n", out_buffer.Len());
 }
 
-func playGame(data map[string]object) {
-	console := data["console"].(string)
-	path := data["path"].(string)
-	binary := data["binary"].(string)
-	//bios := data["bios"].(string)
+void playGame(object[string] data) {
+	string console = cast(string) data["console"];
+	string path = cast(string) data["path"];
+	string binary = cast(string) data["binary"];
+	//string bios = cast(string) data["bios"];
 
-	final switch console {
+	final switch (console) {
 		case "dreamcast":
-			demul.Run(path, binary, saveMemoryCardCB)
-			//self.log("playing")
-			fmt.Printf("Running Demul ...\r\n")
+			demul.Run(path, binary, saveMemoryCardCB);
+			//self.log("playing");
+			fmt.Printf("Running Demul ...\r\n");
 			break;
 		case "playstation2":
-			pcsx2.Run(path, binary)
-			//self.log("playing")
-			fmt.Printf("Running PCSX2 ...\r\n")
+			pcsx2.Run(path, binary);
+			//self.log("playing");
+			fmt.Printf("Running PCSX2 ...\r\n");
 			break;
 	}
 }
 
-func progressCB(name string, progress float64) {
-	message := map[string]object {
+void progressCB(string name, float progress) {
+	object[string] message = [
 		"action" : "progress",
 		"value" : progress,
 		"name" : name,
-	}
-	WebSocketSend(&message)
+	];
+	WebSocketSend(&message);
 }
 
-func downloadFile(data map[string]object) {
+/* FIXME:
+void downloadFile(object[string] data) {
 	// Get all the info we need
-	file_name := data["file"].(string)
-	url := data["url"].(string)
-	directory := data["dir"].(string)
-	name := data["name"].(string)
-	referer := data["referer"].(string)
+	string file_name = cast(string) data["file"];
+	string url = cast(string) data["url"];
+	string directory = cast(string) data["dir"];
+	string name = cast(string) data["name"];
+	string referer = cast(string) data["referer"];
 
 	// Download the file header
-	client := &http.Client{}
-	req, _ := http.NewRequest("GET", url, null)
-	req.Header.Set("Referer", referer)
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36")
-	resp, err := client.Do(req)
+	auto client = new http.Client();
+	auto req = http.NewRequest("GET", url, null);
+	req.Header.Set("Referer", referer);
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
+	auto resp = client.Do(req);
 	if (err != null) {
-		fmt.Printf("Download failed: %s\r\n", err)
-		return
+		fmt.Printf("Download failed: %s\r\n", err);
+		return;
 	}
-	if resp.StatusCode != 200 {
-		fmt.Printf("Download failed with response code: %s\r\n", resp.Status)
-		return
+	if (resp.StatusCode != 200) {
+		fmt.Printf("Download failed with response code: %s\r\n", resp.Status);
+		return;
 	}
-	content_length := float64(resp.ContentLength)
-	total_length := 0.0
+	float content_length = cast(float) resp.ContentLength;
+	total_length = 0.0f;
 
 	// Create the out file
 	buffer := make([]byte, 32 * 1024)
@@ -744,230 +745,230 @@ func downloadFile(data map[string]object) {
 		}
 	}
 }
-
-func install(data map[string]object) {
-	dir := data["dir"].(string)
-	file := data["file"].(string)
+*/
+void install(object[string] data) {
+	string dir = data["dir"];
+	string file = data["file"];
 
 	// Start uncompressing
-	message := map[string]object{
+	object[string] message = [
 		"action" : "uncompress",
 		"is_start" : true,
 		"name" : file,
-	}
-	WebSocketSend(&message)
+	];
+	WebSocketSend(&message);
 
-	final switch file {
+	final switch (file) {
 		case "demul0582.rar":
-			os.Mkdir("emulators/Demul", os.ModeDir)
-			helpers.Uncompress(filepath.Join(dir, "demul0582.rar"), "emulators/Demul")
+			os.Mkdir("emulators/Demul", os.ModeDir);
+			helpers.Uncompress(filepath.Join(dir, "demul0582.rar"), "emulators/Demul");
 			break;
 		case "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z":
-			helpers.Uncompress(filepath.Join(dir, "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z"), "emulators")
-			err := os.Rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2")
+			helpers.Uncompress(filepath.Join(dir, "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z"), "emulators");
+			err = os.Rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2");
 			if (err != null) {
-				panic(err)
+				throw err;
 			}
 			break;
 	}
 
 	// End uncompressing
-	message = map[string]object{
+	object[string] message = [
 		"action" : "uncompress",
 		"is_start" : false,
 		"name" : file,
-	}
-	WebSocketSend(&message)
+	];
+	WebSocketSend(&message);
 }
 
 // FIXME: Update to kill the process first
-func uninstall(data map[string]object) {
-	final switch data["program"].(string) {
+void uninstall(object[string] data) {
+	final switch (cast(string) data["program"]) {
 		case "Demul":
-			os.RemoveAll("emulators/Demul")
+			os.RemoveAll("emulators/Demul");
 			break;
 		case "PCSX2":
-			os.RemoveAll("emulators/pcsx2")
+			os.RemoveAll("emulators/pcsx2");
 			break;
 	}
 }
 
-func isInstalled(data map[string]object) {
-	program := data["program"].(string)
+void isInstalled(object[string] data) {
+	string program = cast(string) data["program"];
 
-	final switch program {
+	final switch (program) {
 	case "DirectX End User Runtime":
 		// Paths on Windows 8.1 X86_32 and X86_64
-		check_64_dx10, _ := filepath.Glob("C:/Windows/SysWOW64/d3dx10_*.dll")
-		check_64_dx11, _ := filepath.Glob("C:/Windows/SysWOW64/d3dx11_*.dll")
-		check_32_dx10, _ := filepath.Glob("C:/Windows/System32/d3dx10_*.dll")
-		check_32_dx11, _ := filepath.Glob("C:/Windows/System32/d3dx11_*.dll")
-		exist := (len(check_64_dx10) > 0 && len(check_64_dx11) > 0) ||
-				(len(check_32_dx10) > 0 && len(check_32_dx11) > 0)
-		message := map[string]object {
+		check_64_dx10 = filepath.Glob("C:/Windows/SysWOW64/d3dx10_*.dll");
+		check_64_dx11 = filepath.Glob("C:/Windows/SysWOW64/d3dx11_*.dll");
+		check_32_dx10 = filepath.Glob("C:/Windows/System32/d3dx10_*.dll");
+		check_32_dx11 = filepath.Glob("C:/Windows/System32/d3dx11_*.dll");
+		bool exist = (check_64_dx10.length > 0 && check_64_dx11.length > 0) ||
+				(check_32_dx10.length > 0 && check_32_dx11.length > 0);
+		object[string] message = [
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "DirectX End User Runtime",
-		}
-		WebSocketSend(&message)
+		];
+		WebSocketSend(&message);
 		break;
 	case "Visual C++ 2010 redist": // msvcr100.dll
 		// Paths on Windows 8.1 X86_32 and X86_64
-		exist := helpers.PathExists("C:/Windows/SysWOW64/msvcr100.dll") ||
-				helpers.PathExists("C:/Windows/System32/msvcr100.dll")
-		message := map[string]object {
+		bool exist = helpers.PathExists("C:/Windows/SysWOW64/msvcr100.dll") ||
+				helpers.PathExists("C:/Windows/System32/msvcr100.dll");
+		object[string] message = [
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "Visual C++ 2010 redist",
-		}
-		WebSocketSend(&message)
+		];
+		WebSocketSend(&message);
 		break;
 	case "Visual C++ 2013 redist": // msvcr120.dll
 		// Paths on Windows 8.1 X86_32 and X86_64
-		exist := helpers.PathExists("C:/Windows/SysWOW64/msvcr120.dll") ||
-				helpers.PathExists("C:/Windows/System32/msvcr120.dll")
-		message := map[string]object {
+		bool exist = helpers.PathExists("C:/Windows/SysWOW64/msvcr120.dll") ||
+				helpers.PathExists("C:/Windows/System32/msvcr120.dll");
+		object[string] message = [
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "Visual C++ 2013 redist",
-		}
-		WebSocketSend(&message)
+		];
+		WebSocketSend(&message);
 		break;
 	case "Demul":
-		exist := helpers.PathExists("emulators/Demul/demul.exe")
-		message := map[string]object {
+		bool exist = helpers.PathExists("emulators/Demul/demul.exe");
+		object[string] message = [
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "Demul",
-		}
-		WebSocketSend(&message)
+		];
+		WebSocketSend(&message);
 		break;
 	case "PCSX2":
-		exist := helpers.PathExists("emulators/pcsx2/pcsx2.exe")
-		message := map[string]object {
+		bool exist = helpers.PathExists("emulators/pcsx2/pcsx2.exe");
+		object[string] message = [
 			"action" : "is_installed",
 			"value" : exist,
 			"name" : "PCSX2",
-		}
-		WebSocketSend(&message)
+		];
+		WebSocketSend(&message);
 		break;
 	default:
-		fmt.Printf("Unknown program to check if installed: %s\r\n", program)
+		fmt.Printf("Unknown program to check if installed: %s\r\n", program);
 		break;
 	}
 }
 
-func httpCB(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, r.URL.Path[1:])
+void httpCB(http.ResponseWriter w, http.Request* r) {
+	http.ServeFile(w, r, r.URL.Path[1 .. $]);
 }
 
-func webSocketCB(ws *websocket.Conn) {
-	//fmt.Printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!webSocketCB\r\n")
-	g_websocket_needs_restart = false
-	g_ws = ws
+void webSocketCB(websocket.Conn* ws) {
+	//fmt.Printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!webSocketCB\r\n");
+	g_websocket_needs_restart = false;
+	g_ws = ws;
 
-	for ! g_websocket_needs_restart {
+	while (! g_websocket_needs_restart) {
 		// Read the message
-		message_map, err := WebSocketRecieve()
+		auto message_map = WebSocketRecieve();
 		if (err != null) {
-			fmt.Printf("Failed to get websocket message: %s\r\n", err)
-			return
+			fmt.Printf("Failed to get websocket message: %s\r\n", err);
+			return;
 		}
 
-		fmt.Printf("!!! action: %s\r\n", message_map["action"])
+		fmt.Printf("!!! action: %s\r\n", message_map["action"]);
 
 		// Client wants to play a game
-		if message_map["action"] == "play" {
-			playGame(message_map)
+		if (message_map["action"] == "play") {
+			playGame(message_map);
 
 		// Client wants to download a file
-		} else if message_map["action"] == "download" {
-			downloadFile(message_map)
+		} else if (message_map["action"] == "download") {
+			downloadFile(message_map);
 
 		// Client wants to know if a file is installed
-		} else if message_map["action"] == "is_installed" {
-			isInstalled(message_map)
+		} else if (message_map["action"] == "is_installed") {
+			isInstalled(message_map);
 
 		// Client wants to install a program
-		} else if message_map["action"] == "install" {
-			install(message_map)
+		} else if (message_map["action"] == "install") {
+			install(message_map);
 
-		} else if message_map["action"] == "uninstall" {
-			uninstall(message_map)
+		} else if (message_map["action"] == "uninstall") {
+			uninstall(message_map);
 
-		} else if message_map["action"] == "set_button_map" {
-			setButtonMap(message_map)
+		} else if (message_map["action"] == "set_button_map") {
+			setButtonMap(message_map);
 
-		} else if message_map["action"] == "get_button_map" {
-			getButtonMap(message_map)
+		} else if (message_map["action"] == "get_button_map") {
+			getButtonMap(message_map);
 
-		} else if message_map["action"] == "set_bios" {
-			setBios(message_map)
+		} else if (message_map["action"] == "set_bios") {
+			setBios(message_map);
 
-		} else if message_map["action"] == "get_db" {
-			getDB()
+		} else if (message_map["action"] == "get_db") {
+			getDB();
 
-		} else if message_map["action"] == "set_db" {
-			var value map[string]map[string]map[string]object = null
-			var err error = null
+		} else if (message_map["action"] == "set_db") {
+			object[string][string][string] value = null;
+			//var err error = null;
 
-			if message_map["value"] != null {
-				str_value :=  message_map["value"].(string)
-				value, err = FromCompressedBase64Json(str_value)
+			if (message_map["value"] != null) {
+				str_value =  cast(string) message_map["value"];
+				value, err = FromCompressedBase64Json(str_value);
 				if (err != null) {
-					panic(err)
+					panic(err);
 				}
 
-				setDB(value)
+				setDB(value);
 			} else {
-				setDB(value)
+				setDB(value);
 			}
 
-		} else if message_map["action"] == "get_directx_version" {
-			getDirectXVersion()
+		} else if (message_map["action"] == "get_directx_version") {
+			getDirectXVersion();
 
-		} else if message_map["action"] == "set_game_directory" {
+		} else if (message_map["action"] == "set_game_directory") {
 			// First try checking if the browser is the foreground window
-			hwnd := win32.GetForegroundWindow()
-			text := win32.GetWindowText(hwnd)
+			hwnd = win32.GetForegroundWindow();
+			text = win32.GetWindowText(hwnd);
 
 			// If the focused window is not a known browser, find them manually
-			if len(text)==0 ||
+			if (text.length == 0 ||
 				! strings.Contains(text, " - Mozilla Firefox") &&
 				! strings.Contains(text, " - Google Chrome") &&
 				! strings.Contains(text, " - Opera") &&
 				! strings.Contains(text, " ‎- Microsoft Edge") && // NOTE: The "-" is actually "â€Ž-" for some reason
-				! strings.Contains(text, " - Internet Explorer") {
+				! strings.Contains(text, " - Internet Explorer")) {
 				// If not, find any Firefox window
-				hwnd, text = win32.FindWindowWithTitleText(" - Mozilla Firefox")
-				if hwnd < 1 || len(text)==0 {
+				hwnd, text = win32.FindWindowWithTitleText(" - Mozilla Firefox");
+				if (hwnd < 1 || len(text)==0) {
 					// If not, find any Chrome window
-					hwnd, text = win32.FindWindowWithTitleText(" - Google Chrome")
-					if hwnd < 1 || len(text)==0 {
+					hwnd, text = win32.FindWindowWithTitleText(" - Google Chrome");
+					if (hwnd < 1 || len(text)==0) {
 						// If not, find any Opera window
-						hwnd, text = win32.FindWindowWithTitleText(" - Opera")
-						if hwnd < 1 || len(text)==0 {
+						hwnd, text = win32.FindWindowWithTitleText(" - Opera");
+						if (hwnd < 1 || len(text)==0) {
 							// If not, find any Microsoft Edge window
-							hwnd, text = win32.FindWindowWithTitleText(" ‎- Microsoft Edge") // NOTE: The "-" is actually "â€Ž-" for some reason
-							if hwnd < 1 || len(text)==0 {
+							hwnd, text = win32.FindWindowWithTitleText(" ‎- Microsoft Edge"); // NOTE: The "-" is actually "â€Ž-" for some reason
+							if (hwnd < 1 || len(text)==0) {
 								// If not, find any Internet Explorer window
-								hwnd, text = win32.FindWindowWithTitleText(" - Internet Explorer")
-								if hwnd < 1 || len(text)==0 {
+								hwnd, text = win32.FindWindowWithTitleText(" - Internet Explorer");
+								if (hwnd < 1 || len(text)==0) {
 									// If not, find the Desktop window
-									hwnd = win32.GetDesktopWindow()
-									text = "Desktop"
+									hwnd = win32.GetDesktopWindow();
+									text = "Desktop";
 								}
 							}
 						}
 					}
 				}
 			}
-			if hwnd < 1 || len(text)==0 {
-				panic("Failed to find any Firefox, Chrome, Opera, Edge, Internet Explorer, or the Desktop window to put the Folder Dialog on top of.\r\n")
+			if (hwnd < 1 || len(text)==0) {
+				panic("Failed to find any Firefox, Chrome, Opera, Edge, Internet Explorer, or the Desktop window to put the Folder Dialog on top of.\r\n");
 			}
 
 			// FIXME: How do we pass the string to display?
-			browse_info := win32.BROWSEINFO {
+			win32.BROWSEINFO browse_info = {
 				hwnd,
 				null, //desktop_pidl,
 				null,
@@ -976,19 +977,19 @@ func webSocketCB(ws *websocket.Conn) {
 				0,
 				0,
 				0,
-			}
-			pidl := win32.SHBrowseForFolder(&browse_info)
-			if pidl > 0 {
-				message_map["directory_name"] = win32.SHGetPathFromIDList(pidl)
-				go taskSetGameDirectory(message_map)
+			};
+			pidl = win32.SHBrowseForFolder(&browse_info);
+			if (pidl > 0) {
+				message_map["directory_name"] = win32.SHGetPathFromIDList(pidl);
+				// FIXME: go taskSetGameDirectory(message_map);
 			}
 		// Unknown message from the client
 		} else {
-			panic(fmt.Sprintf("Unknown action from client: %s\r\n", message_map["action"]))
+			panic(fmt.Sprintf("Unknown action from client: %s\r\n", message_map["action"]));
 		}
 	}
-	g_websocket_needs_restart = false
-	http.Handle("/ws", websocket.Handler(webSocketCB))
+	g_websocket_needs_restart = false;
+	http.Handle("/ws", websocket.Handler(webSocketCB));
 }
 
 func uncompress7Zip() {
