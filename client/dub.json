@@ -1,0 +1,20 @@
+{
+	"name": "emulators_online_client",
+	"description": "Client for Emulators Online",
+	"authors": [
+		"Matthew Brennan Jones <matthew.brennan.jones@gmail.com>",
+	],
+	"homepage": "http://github.com/workhorsy/MalwareForay",
+	"copyright": "Copyright (c) 2017 Matthew Brennan Jones",
+	"license": "AGPL",
+	"targetType": "executable",
+	"mainSourceFile": "src/emulators_online_client.d",
+
+	"dependencies": {
+		"vibe-d": "~>0.7.30",
+		"cbor-d": "~>0.5.4"
+	},
+	"sourceFiles": [
+		"generated/generated_files.d"
+	],
+}

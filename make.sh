@@ -22,32 +22,11 @@ function build {
 	echo "Generating files ..."
 	dmd -g \
 	client/generate/generate_included_files.d \
-	client/cbor.d \
-	client/compress.d \
+	client/src/cbor.d \
+	client/src/compress.d \
 	-of=generate_included_files
 	./generate_included_files
 	rm generate_included_files
-
-<<"COMMENT"
-	mkdir build
-	cd build
-
-	echo "Building uWebSockets ..."
-	g++ \
-	-std=c++11 -g -O3 -c -fPIC \
-	../uWebSockets/src/Extensions.cpp \
-	../uWebSockets/src/Group.cpp \
-	../uWebSockets/src/WebSocketImpl.cpp \
-	../uWebSockets/src/Networking.cpp \
-	../uWebSockets/src/Hub.cpp \
-	../uWebSockets/src/Node.cpp \
-	../uWebSockets/src/WebSocket.cpp \
-	../uWebSockets/src/HTTPSocket.cpp \
-	../uWebSockets/src/Socket.cpp \
-	../uWebSockets/src/Epoll.cpp \
-	../uWebSockets/src/web_socket.cpp
-	cd ..
-COMMENT
 
 	# Remove the exes
 	rm -f emulators_online_client.exe
@@ -56,17 +35,9 @@ COMMENT
 
 	# Build the client exe
 	echo "Building emulators_online_client ..."
-	dmd -g \
-	client/emulators_online_client.d \
-	client/generated/generated_files.d \
-	client/cbor.d \
-	client/compress.d \
-	../uWebSockets/web_socket.d \
-	build/*.o \
-	-L-lstdc++ /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a \
-	-of=client/emulators_online_client
-
-	#rm -f -rf build
+	cd client
+	dub build
+	cd ..
 
 	echo "Running ..."
 	./client/emulators_online_client 9090 local
@@ -78,7 +49,6 @@ function clean {
 	rm -f *.a
 	rm -f *.so
 	rm -f *.dylib
-	#rm -f -rf build
 }
 
 # If there are no arguments, print the correct usage

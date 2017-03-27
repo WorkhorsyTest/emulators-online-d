@@ -23,7 +23,6 @@ import std.string;
 import core.thread;
 import compress;
 import Generated;
-import WebSocket;
 
 bool g_websocket_needs_restart;
 
@@ -1200,7 +1199,7 @@ void main() {
 }
 */
 
-
+/*
 int main(string[] args) {
 	// Set what game consoles to support
 	const string[] consoles = [
@@ -1241,4 +1240,44 @@ int main(string[] args) {
 	}
 
 	return 0;
+}
+*/
+
+import vibe.vibe;
+import std.stdio;
+
+// http://vibed.org/blog/posts/a-scalable-chat-room-service-in-d
+
+void main(string[] args) {
+	auto router = new URLRouter;
+	router.get("/", staticRedirect("/index.html"));
+	router.get("/index.html", &handleHTTP);
+	router.get("/ws", handleWebSockets(&handleWebSocket));
+
+	auto settings = new HTTPServerSettings;
+	settings.port = 8080;
+	settings.bindAddresses = ["::1", "127.0.0.1"];
+	listenHTTP(settings, router);
+
+	logInfo("Please open http://127.0.0.1:8080/ in your browser.");
+	logInfo("Please open ws://127.0.0.1:8080/ws in your browser.");
+	runApplication();
+}
+
+void handleHTTP(HTTPServerRequest req, HTTPServerResponse res) {
+	stdout.writefln("req: %s", req);
+	res.writeBody("Hello, World!");
+}
+
+void handleWebSocket(scope WebSocket sock) {
+	stdout.writefln("WebSocket connected ...");
+
+	// simple echo server
+	while (sock.connected) {
+		auto msg = sock.receiveText();
+		stdout.writefln("WebSocket msg: %s", msg);
+		sock.send(msg);
+	}
+
+	stdout.writefln("WebSocket disconnectedZ ...");
 }
