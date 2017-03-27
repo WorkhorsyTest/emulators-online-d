@@ -30,7 +30,7 @@ int main() {
 
 	// Get a list of all the files to store
 	const string[] file_names = [
-		"unrar.exe",
+		"tools/unrar.exe",
 		"index.html",
 		"static/default.css",
 		"static/emulators_online.js",
@@ -79,7 +79,7 @@ int main() {
 	output.write(";\r\n");
 
 	// Read 7zip into an array
-	ubyte[] file_data = cast(ubyte[]) std.file.read(Exe7Zip);
+	ubyte[] file_data = cast(ubyte[]) std.file.read("tools/" ~Exe7Zip);
 
 	// Convert the 7zip array to a blob
 	base64ed_data = ToCompressedBase64(file_data, CompressionType.Zlib);

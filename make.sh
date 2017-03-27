@@ -33,10 +33,11 @@ function build {
 	# Build the client exe
 	echo "Building emulators_online_client ..."
 	dub build
+	mv emulators_online_client ../emulators_online_client
+	cd ..
 
 	echo "Running ..."
 	./emulators_online_client
-	cd ..
 }
 
 function clean {
