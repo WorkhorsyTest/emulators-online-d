@@ -20,6 +20,7 @@
 import std.stdio;
 import std.conv;
 import core.thread;
+import compress;
 import Generated;
 import WebSocket;
 
@@ -38,53 +39,6 @@ LongRunningTask[string] long_running_tasks;
 //helpers.PCSX2 pcsx2;
 
 string[] consoles;
-
-version (linux) {
-	immutable string Exe7Zip = "7za";
-}
-version (Windows) {
-	immutable string Exe7Zip = "7za.exe";
-}
-
-enum CompressionType {
-	Zlib,
-	Lzma,
-}
-
-
-byte[] FromCompressed(byte[] data, CompressionType compression_type) {
-	final switch (compression_type) {
-		case CompressionType.Lzma:
-			return [];
-		case CompressionType.Zlib:
-			import std.zlib;
-			byte[] blob = cast(byte[]) std.zlib.uncompress(data);
-			return blob;
-	}
-}
-
-byte[] FromCompressedBase64(byte[] data, CompressionType compression_type) {
-	import std.array : appender;
-	import std.base64;
-
-	// UnBase64 the blob
-	byte[] compressed_blob = cast(byte[]) Base64.decode(data);
-
-	// Uncompress the blob
-	byte[] blob = FromCompressed(compressed_blob, compression_type);
-	return blob;
-}
-
-T FromCompressedBase64(T)(byte[] data, CompressionType compression_type) {
-	import cbor;
-
-	// Uncompress the blob
-	byte[] blob = FromCompressedBase64(compressed_blob, compression_type);
-
-	// Convert the blob to the thing
-	T thing = decodeCborSingle!T(blob);
-	return thing;
-}
 
 /*
 string CleanPath(string file_path) {

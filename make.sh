@@ -20,7 +20,13 @@ function build {
 
 	# Put everything inside the generated D file
 	echo "Generating files ..."
-	rdmd -g client/generate/generate_included_files.d
+	dmd -g \
+	client/generate/generate_included_files.d \
+	client/cbor.d \
+	client/compress.d \
+	-of=generate_included_files
+	./generate_included_files
+	rm generate_included_files
 
 <<"COMMENT"
 	mkdir build
@@ -53,6 +59,8 @@ COMMENT
 	dmd -g \
 	client/emulators_online_client.d \
 	client/generated/generated_files.d \
+	client/cbor.d \
+	client/compress.d \
 	../uWebSockets/web_socket.d \
 	build/*.o \
 	-L-lstdc++ /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a \
