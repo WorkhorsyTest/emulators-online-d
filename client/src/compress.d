@@ -54,7 +54,7 @@ ubyte[] ToCompressed(ubyte[] blob, CompressionType compression_type) {
 
 			// Get the command and arguments
 			const string[] command = [
-				Exe7Zip,
+				"tools/" ~ Exe7Zip,
 				"a",
 				"-t7z",
 				"-m0=lzma2",
