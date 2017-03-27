@@ -1259,20 +1259,55 @@ void handleHTTP(HTTPServerRequest req, HTTPServerResponse res) {
 void handleWebSocket(scope WebSocket sock) {
 	stdout.writefln("WebSocket connected ...");
 
-	// simple echo server
+	// Handle all requests
 	while (sock.connected) {
 		string msg = sock.receiveText();
 
+		JSONValue message_map;
 		try {
-			JSONValue j = DecodeWebSocketRequest(msg);
-			stdout.writefln("WebSocket j: %s", j);
+			message_map = DecodeWebSocketRequest(msg);
+			stdout.writefln("WebSocket message_map: %s", message_map);
+		// If we can't decode the request, just echo it back
 		} catch (Throwable err) {
 			stdout.writefln("WebSocket msg: %s", msg);
+			sock.send(msg);
+			continue;
 		}
 
-		sock.send(msg);
+		string action = message_map["action"].str;
+		switch (action) {
+			// Client wants to play a game
+			case "play":
+				break;
+			// Client wants to download a file
+			case "download":
+				break;
+			// Client wants to know if a file is installed
+			case "is_installed":
+				break;
+			// Client wants to install a program
+			case "install":
+				break;
+			case "uninstall":
+				break;
+			case "set_button_map":
+				break;
+			case "get_button_map":
+				break;
+			case "set_bios":
+				break;
+			case "get_db":
+				break;
+			case "set_db":
+				break;
+			case "get_directx_version":
+				break;
+			case "set_game_directory":
+				break;
+			default:
+				stderr.writefln("Unknown action:\"%s\"", action);
+		}
 	}
-
 	stdout.writefln("WebSocket disconnected ...");
 }
 
