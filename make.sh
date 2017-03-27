@@ -52,6 +52,7 @@ COMMENT
 	echo "Building emulators_online_client ..."
 	dmd -g \
 	client/emulators_online_client.d \
+	client/generated/generated_files.d \
 	../uWebSockets/web_socket.d \
 	build/*.o \
 	-L-lstdc++ /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a \

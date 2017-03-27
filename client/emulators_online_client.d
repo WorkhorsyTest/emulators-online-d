@@ -20,6 +20,7 @@
 import std.stdio;
 import std.conv;
 import core.thread;
+import Generated;
 import WebSocket;
 
 bool g_websocket_needs_restart;
@@ -37,6 +38,53 @@ LongRunningTask[string] long_running_tasks;
 //helpers.PCSX2 pcsx2;
 
 string[] consoles;
+
+version (linux) {
+	immutable string Exe7Zip = "7za";
+}
+version (Windows) {
+	immutable string Exe7Zip = "7za.exe";
+}
+
+enum CompressionType {
+	Zlib,
+	Lzma,
+}
+
+
+byte[] FromCompressed(byte[] data, CompressionType compression_type) {
+	final switch (compression_type) {
+		case CompressionType.Lzma:
+			return [];
+		case CompressionType.Zlib:
+			import std.zlib;
+			byte[] blob = cast(byte[]) std.zlib.uncompress(data);
+			return blob;
+	}
+}
+
+byte[] FromCompressedBase64(byte[] data, CompressionType compression_type) {
+	import std.array : appender;
+	import std.base64;
+
+	// UnBase64 the blob
+	byte[] compressed_blob = cast(byte[]) Base64.decode(data);
+
+	// Uncompress the blob
+	byte[] blob = FromCompressed(compressed_blob, compression_type);
+	return blob;
+}
+
+T FromCompressedBase64(T)(byte[] data, CompressionType compression_type) {
+	import cbor;
+
+	// Uncompress the blob
+	byte[] blob = FromCompressedBase64(compressed_blob, compression_type);
+
+	// Convert the blob to the thing
+	T thing = decodeCborSingle!T(blob);
+	return thing;
+}
 
 /*
 string CleanPath(string file_path) {
@@ -990,56 +1038,23 @@ void webSocketCB(websocket.Conn* ws) {
 	g_websocket_needs_restart = false;
 	http.Handle("/ws", websocket.Handler(webSocketCB));
 }
+*/
+void uncompress7Zip() {
+	import std.file;
 
-func uncompress7Zip() {
 	// Just return if 7zip already exists
-	if helpers.IsFile("7za.exe") {
-		return
+	if (std.file.exists(Exe7Zip)) {
+		return;
 	}
 
 	// Get a blob of 7zip
-	blob := generated.GetCompressed7zip()
-	debug.FreeOSMemory()
+	byte[] blob = cast(byte[]) Generated.GetCompressed7zip;
 
-	// Un Base64 the compressed gob
-	zlibed_data, err := base64.StdEncoding.DecodeString(blob)
-	blob = ""
-	if (err != null) {
-		panic(err)
-	}
-	zlibed_buffer := bytes.NewBuffer([]byte(zlibed_data))
-	zlibed_data = zlibed_data[:0]
-	debug.FreeOSMemory()
+	byte[] data = FromCompressedBase64(blob, CompressionType.Zlib);
 
-	// Un compress the gob
-	var gob_buffer bytes.Buffer
-	reader, err := zlib.NewReader(zlibed_buffer)
-	if (err != null) {
-		panic(err)
-	}
-	io.Copy(&gob_buffer, reader)
-	reader.Close()
-	zlibed_buffer.Reset()
-	debug.FreeOSMemory()
-
-	// Convert the gob to an array
-	var file_data []byte
-	decoder := gob.NewDecoder(&gob_buffer)
-	err = decoder.Decode(&file_data)
-	if (err != null) {
-		panic(err)
-	}
-	gob_buffer.Reset()
-	debug.FreeOSMemory()
-
-	// Copy the file_data to an exe
-	err = ioutil.WriteFile("7za.exe", file_data, std.conv.octal!(644))
-	if (err != null) {
-		panic(err)
-	}
-	debug.FreeOSMemory()
+	std.file.write(Exe7Zip, data);
 }
-
+/*
 func UncompressWith7zip(in_file string) {
 	// Get the command and arguments
 	command := "7za.exe"
@@ -1239,9 +1254,9 @@ int main(string[] args) {
 	];
 
 	// If "local" use the static files in the current directory
-	if (args.length >= 3 || args[2] == "local") {
+	if (args.length >= 3 && args[2] == "local") {
 		// Make 7za.exe
-		//uncompress7Zip();
+		uncompress7Zip();
 	// If not use the static files in AppData
 	} else {
 		//useAppDataForStaticFiles();

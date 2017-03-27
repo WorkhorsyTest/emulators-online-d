@@ -159,11 +159,9 @@ int main() {
 	ubyte[] base64ed_data = ToCompressedBase64(file_map, CompressionType.Lzma);
 
 	// Write the files generating function
-	output.write("string GetCompressedFiles() {\r\n");
-	output.write("    return \"");
+	output.write("immutable byte[] GetCompressedFiles = \r\n");
 	output.write(base64ed_data);
-	output.write("\"\r\n");
-	output.write("}\r\n");
+	output.write(";\r\n");
 
 	// Read 7zip into an array
 	ubyte[] file_data = cast(ubyte[]) std.file.read(Exe7Zip);
@@ -172,11 +170,9 @@ int main() {
 	base64ed_data = ToCompressedBase64(file_data, CompressionType.Zlib);
 
 	// Write the 7zip generating function
-	output.write("string GetCompressed7zip() {\r\n");
-	output.write("    return \"");
+	output.write("immutable byte[] GetCompressed7zip = \r\n");
 	output.write(base64ed_data);
-	output.write("\"\r\n");
-	output.write("}\r\n");
+	output.write(";\r\n");
 
 	// Close the file
 	output.close();
