@@ -34,6 +34,13 @@ function build {
 	echo "Building emulators_online_client ..."
 	dub build
 	mv emulators_online_client ../emulators_online_client
+	OS=`uname -o`
+	if [ "$OS" = "Msys" ]; then
+		mv libeay32.dll ../libeay32.dll
+		mv libevent.dll ../libevent.dll
+		mv ssleay32.dll ../ssleay32.dll
+	fi
+
 	cd ..
 
 	echo "Running ..."
@@ -41,7 +48,8 @@ function build {
 }
 
 function clean {
-	rm -f emulators_online_client
+	rm -f *.exe
+	rm -f *.dll
 	rm -f *.o
 	rm -f *.a
 	rm -f *.so

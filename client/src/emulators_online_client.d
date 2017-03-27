@@ -1262,6 +1262,7 @@ void handleWebSocket(scope WebSocket sock) {
 	// Handle all requests
 	while (sock.connected) {
 		string msg = sock.receiveText();
+		stdout.writefln("msg: %s", msg);
 
 		JSONValue message_map;
 		try {
@@ -1274,6 +1275,7 @@ void handleWebSocket(scope WebSocket sock) {
 			continue;
 		}
 
+		stdout.writefln("message_map: %s", message_map);
 		string action = message_map["action"].str;
 		switch (action) {
 			// Client wants to play a game
