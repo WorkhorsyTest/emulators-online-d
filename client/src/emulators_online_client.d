@@ -20,6 +20,8 @@
 import std.stdio;
 import std.conv;
 import std.string;
+import std.base64;
+import std.json;
 import core.thread;
 import vibe.vibe;
 import compress;
@@ -1259,10 +1261,35 @@ void handleWebSocket(scope WebSocket sock) {
 
 	// simple echo server
 	while (sock.connected) {
-		auto msg = sock.receiveText();
-		stdout.writefln("WebSocket msg: %s", msg);
+		string msg = sock.receiveText();
+
+		try {
+			JSONValue j = DecodeWebSocketRequest(msg);
+			stdout.writefln("WebSocket j: %s", j);
+		} catch (Throwable err) {
+			stdout.writefln("WebSocket msg: %s", msg);
+		}
+
 		sock.send(msg);
 	}
 
-	stdout.writefln("WebSocket disconnectedZ ...");
+	stdout.writefln("WebSocket disconnected ...");
+}
+
+JSONValue DecodeWebSocketRequest(string buffer) {
+	JSONValue j;
+
+	try {
+		// Get the message length and encoded message
+		string[] chunks = buffer.split(":");
+		long length = chunks[0].to!long;
+		string base64ed_message = chunks[1];
+
+		byte[] jsoned_blob = cast(byte[]) Base64.decode(base64ed_message);
+		j = parseJSON(jsoned_blob);
+	} catch (Throwable err) {
+		throw new Exception("Failed to decode request.");
+	}
+
+	return j;
 }
