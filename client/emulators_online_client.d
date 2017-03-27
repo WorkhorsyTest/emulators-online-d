@@ -991,7 +991,7 @@ void webSocketCB(websocket.Conn* ws) {
 	g_websocket_needs_restart = false;
 	http.Handle("/ws", websocket.Handler(webSocketCB));
 }
-
+/*
 func uncompress7Zip() {
 	// Just return if 7zip already exists
 	if helpers.IsFile("7za.exe") {
@@ -1059,23 +1059,23 @@ func UncompressWith7zip(in_file string) {
 		fmt.Printf("Failed to run command: %s\r\n", err)
 	}
 }
-
-func useAppDataForStaticFiles() {
+*/
+void useAppDataForStaticFiles() {
 	// Make the AppData/Local/emulators-online directory
-	app_data := filepath.Join(os.Getenv("USERPROFILE"), "AppData", "Local", "emulators-online")
-	fmt.Printf("Storing static files in: %v\r\n", app_data)
-	if ! helpers.IsDir(app_data) {
-		os.Mkdir(app_data, os.ModeDir)
+	string app_data = filepath.Join(os.Getenv("USERPROFILE"), "AppData", "Local", "emulators-online");
+	fmt.Printf("Storing static files in: %v\r\n", app_data);
+	if (! helpers.IsDir(app_data)) {
+		os.Mkdir(app_data, os.ModeDir);
 	}
 
 	// Change to the AppData directory
-	os.Chdir(app_data)
+	os.Chdir(app_data);
 
 	// Make 7za.exe
-	uncompress7Zip()
+	uncompress7Zip();
 
 	// Make any directories if they don't exists
-	dirs := []string {
+	const string[] dirs = [
 		"cache",
 		"client",
 		"config",
@@ -1086,155 +1086,146 @@ func useAppDataForStaticFiles() {
 		"static",
 		"client/identify_games",
 		"client/identify_dreamcast_games",
-	}
-	for _, dir_name := range dirs {
-		if ! helpers.IsDir(dir_name) {
-			os.Mkdir(dir_name, os.ModeDir)
+	];
+	foreach(dir_name ; dirs) {
+		if (! helpers.IsDir(dir_name)) {
+			os.Mkdir(dir_name, os.ModeDir);
 		}
 	}
 
 	// Get a blob of all the static files
-	blob := generated.GetCompressedFiles()
-	debug.FreeOSMemory()
+	byte[] blob = generated.GetCompressedFiles();
+	debug.FreeOSMemory();
 
 	// Un Base64 the compressed gob map
-	zlibed_data, err := base64.StdEncoding.DecodeString(blob)
-	blob = ""
+	byte[] zlibed_data = base64.StdEncoding.DecodeString(blob);
+	blob = [];
 	if (err != null) {
-		panic(err)
+		panic(err);
 	}
-	debug.FreeOSMemory()
+	debug.FreeOSMemory();
 
 	// Write the gob to file
-	err = ioutil.WriteFile("gob.7z", zlibed_data, std.conv.octal!(644))
+	err = ioutil.WriteFile("gob.7z", zlibed_data, std.conv.octal!(644));
 	if (err != null) {
-		panic(err)
+		panic(err);
 	}
 
 	// Uncompress the gob to file
-	UncompressWith7zip("gob.7z")
+	UncompressWith7zip("gob.7z");
 
 	// Read the gob from file
-	file_data, err := ioutil.ReadFile("gob")
+	byte[] file_data = ioutil.ReadFile("gob");
 	if (err != null) {
-		panic(err)
+		panic(err);
 	}
-	debug.FreeOSMemory()
+	debug.FreeOSMemory();
 
 	// Convert the gob to the file map
-	var file_map map[string][]byte
-	buffer := bytes.NewBuffer([]byte(file_data))
-	decoder := gob.NewDecoder(buffer)
-	err = decoder.Decode(&file_map)
+	byte[][string] file_map;
+	byte[] buffer = bytes.NewBuffer(file_data);
+	byte[] decoder = gob.NewDecoder(buffer);
+	err = decoder.Decode(&file_map);
 	if (err != null) {
-		panic(err)
+		panic(err);
 	}
-	buffer.Reset()
-	debug.FreeOSMemory()
+	buffer.Reset();
+	debug.FreeOSMemory();
 
 	// Copy the file_map to files
 	// FIXME: This copies the files for each run. Even if they are already there!
 	// We need a way to quickly check if the files in the exe are different
-    for file_name, data := range file_map {
-		//if ! helpers.IsFile(file_name) {
-			err := ioutil.WriteFile(file_name, data, std.conv.octal!(644))
+    foreach (file_name, data ; file_map) {
+		//if (! helpers.IsFile(file_name)) {
+			err = ioutil.WriteFile(file_name, data, std.conv.octal!(644));
 			if (err != null) {
-				panic(err)
+				panic(err);
 			}
 		//}
     }
 
 	// Remove the temp files
-	os.Remove("gob")
-	os.Remove("gob.7z")
+	os.Remove("gob");
+	os.Remove("gob.7z");
 
-	debug.FreeOSMemory()
+	debug.FreeOSMemory();
 }
 
-func loadFileModifyDates() {
+void loadFileModifyDates() {
 	// Load the file modify dates
-	for _, console := range consoles {
-		file_modify_dates[console] = map[string]int64{}
-		file_name := fmt.Sprintf("cache/file_modify_dates_%s.json", console)
-		if helpers.IsFile(file_name) {
-			file_data, err := ioutil.ReadFile(file_name)
+	foreach (console ; consoles) {
+		file_modify_dates[console] = [];//{map[string]int64{}}
+		string file_name = fmt.Sprintf("cache/file_modify_dates_%s.json", console);
+		if (helpers.IsFile(file_name)) {
+			file_data = ioutil.ReadFile(file_name);
 			if (err != null) {
-				panic(err)
+				panic(err);
 			}
-			console_dates := file_modify_dates[console]
-			err = json.Unmarshal(file_data, &console_dates)
+			console_dates = file_modify_dates[console];
+			err = json.Unmarshal(file_data, &console_dates);
 			if (err != null) {
-				panic(err)
+				panic(err);
 			}
 
 			// Remove any non existent files from the modify db
-			keys := []string{}
-			for k := range file_modify_dates[console] {
-				keys = append(keys, k)
+			string[] keys;
+			foreach (k ; file_modify_dates[console]) {
+				keys ~= k;
 			}
 
-			for _, entry := range keys {
-				if ! helpers.IsFile(entry) {
-					delete(file_modify_dates[console], entry)
+			foreach(entry ; keys) {
+				if (! helpers.IsFile(entry)) {
+					delete(file_modify_dates[console], entry);
 				}
 			}
 		}
 	}
 }
 
-func main() {
-	// Catch any panics to show to user
-	defer helpers.RecoverPanicTo(func(message string) {
-		fmt.Fprintf(os.Stderr, "%v\n", message)
-	})
-
+void main() {
 	// Set what game consoles to support
-	consoles = []string{
+	const string[] consoles = [
 		"dreamcast",
 		"playstation2",
-	}
+	];
 
 	// Initialize the globals
-	db = make(map[string]map[string]map[string]object)
-	file_modify_dates = map[string]map[string]int64{}
-	long_running_tasks = map[string]LongRunningTask{}
+	//db = make(map[string]map[string]map[string]object);
+	//file_modify_dates = map[string]map[string]int64{};
+	//long_running_tasks = map[string]LongRunningTask{};
 
-	for _, console := range consoles {
-		db[console] = make(map[string]map[string]object)
-		file_modify_dates[console] = map[string]int64{}
+	foreach (console ; consoles) {
+		//db[console] = make(map[string]map[string]object);
+		//file_modify_dates[console] = map[string]int64{};
 	}
 
-	demul = helpers.NewDemul()
-	pcsx2 = helpers.NewPCSX2()
+	demul = new helpers.NewDemul();
+	pcsx2 = new helpers.NewPCSX2();
 
 	// Get the websocket port from the args
-	var ws_port int64 = 9090
-	var err error
-	if len(os.Args) >= 2 {
-		ws_port, err = strconv.ParseInt(os.Args[1], 10, 0)
-		if (err != null) {
-			panic(err)
-		}
+	long ws_port = 9090;
+	if (os.Args.length >= 2) {
+		ws_port = strconv.ParseInt(os.Args[1], 10, 0);
 	}
 
 	// If "local" use the static files in the current directory
 	// If not use the static files in AppData
-	if len(os.Args) < 3 || os.Args[2] != "local" {
-		useAppDataForStaticFiles()
+	if (len(os.Args) < 3 || os.Args[2] != "local") {
+		useAppDataForStaticFiles();
 	} else {
 		// Make 7za.exe
-		uncompress7Zip()
+		uncompress7Zip();
 	}
 
 	// Get the DirectX Version
-	helpers.StartBackgroundSearchForDirectXVersion()
+	helpers.StartBackgroundSearchForDirectXVersion();
 
-	server_address := fmt.Sprintf("127.0.0.1:%v", ws_port)
-	http.Handle("/ws", websocket.Handler(webSocketCB))
-	http.HandleFunc("/", httpCB)
-	fmt.Printf("Server running at: http://%s\r\n",  server_address)
-	err = http.ListenAndServe(server_address, null)
+	string server_address = fmt.Sprintf("127.0.0.1:%v", ws_port);
+	http.Handle("/ws", websocket.Handler(webSocketCB));
+	http.HandleFunc("/", httpCB);
+	fmt.Printf("Server running at: http://%s\r\n",  server_address);
+	err = http.ListenAndServe(server_address, null);
 	if (err != null) {
-		panic(err)
+		panic(err);
 	}
 }
