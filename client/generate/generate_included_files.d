@@ -22,6 +22,8 @@ import compress;
 
 
 int main() {
+	std.file.chdir("../..");
+
 	// Generate a file that will generate everything
 	auto output = std.stdio.File("client/generated/generated_files.d", "w");
 	output.write("module Generated;\r\n\r\n");

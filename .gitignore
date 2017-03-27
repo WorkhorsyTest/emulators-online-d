@@ -1,4 +1,7 @@
 
+client/generate/.dub
+client/generate/dub.selections.json
+
 client/.dub
 client/dub.selections.json
 

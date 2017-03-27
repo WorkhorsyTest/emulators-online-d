@@ -1,0 +1,19 @@
+{
+	"name": "generate_included_files",
+	"description": "Client for Emulators Online",
+	"authors": [
+		"Matthew Brennan Jones <matthew.brennan.jones@gmail.com>",
+	],
+	"homepage": "http://github.com/workhorsy/MalwareForay",
+	"copyright": "Copyright (c) 2017 Matthew Brennan Jones",
+	"license": "AGPL",
+	"targetType": "executable",
+	"mainSourceFile": "generate_included_files.d",
+
+	"dependencies": {
+		"cbor-d": "~>0.5.4"
+	},
+	"sourceFiles": [
+		"../src/compress.d"
+	],
+}

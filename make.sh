@@ -20,13 +20,10 @@ function build {
 
 	# Put everything inside the generated D file
 	echo "Generating files ..."
-	dmd -g \
-	client/generate/generate_included_files.d \
-	client/src/cbor.d \
-	client/src/compress.d \
-	-of=generate_included_files
-	./generate_included_files
-	rm generate_included_files
+	cd client/generate
+	dub run
+	rm -f generate_included_files
+	cd ..
 
 	# Remove the exes
 	rm -f emulators_online_client.exe
@@ -35,7 +32,6 @@ function build {
 
 	# Build the client exe
 	echo "Building emulators_online_client ..."
-	cd client
 	dub build
 
 	echo "Running ..."
