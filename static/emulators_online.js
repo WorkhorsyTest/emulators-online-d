@@ -38,11 +38,6 @@ function assert_os_and_browser_requirements() {
 	// Get the user agent
 	var agent = navigator.userAgent.toLowerCase();
 
-	// Show an alert if not on Windows
-	if (agent.indexOf('windows') == -1) {
-		errors.push('It only works on Windows.');
-	}
-
 	// Show an alert if not on a good browser
 	if (agent.indexOf('firefox') == -1 && agent.indexOf('chrome') == -1) {
 		errors.push('It only works in Firefox, Chrome, Opera or Edge browsers.');
