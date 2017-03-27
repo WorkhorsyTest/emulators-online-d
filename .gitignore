@@ -1,4 +1,6 @@
 
+client/.dub
+client/.dub.selections.json
 
 build
 cache/*
