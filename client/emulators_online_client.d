@@ -19,6 +19,7 @@
 
 import std.stdio;
 import std.conv;
+import std.string;
 import core.thread;
 import compress;
 import Generated;
@@ -1222,6 +1223,11 @@ int main(string[] args) {
 		ws_port = args[1].to!int;
 	}
 
+	// Get the DirectX Version
+	//helpers.StartBackgroundSearchForDirectXVersion();
+
+	string server_address = "127.0.0.1:%s".format(ws_port);
+	stdout.writefln("Server running at: http://%s", server_address);
 	WebSocket.start(ws_port, function(string message) {
 		stdout.writefln("message:\"%s\"", message);
 	});
