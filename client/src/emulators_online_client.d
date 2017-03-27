@@ -17,7 +17,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import std.stdio;
 import std.conv;
 import std.string;
 import std.base64;
@@ -1244,38 +1243,38 @@ int main() {
 	listenHTTP(settings, router);
 
 	string server_address = "127.0.0.1:%s".format(ws_port);
-	stdout.writefln("Server running at: http://%s", server_address);
-	stdout.writefln("WebSocket running at: ws://%s/ws", server_address);
+	logInfo("Server running at: http://%s", server_address);
+	logInfo("WebSocket running at: ws://%s/ws", server_address);
 	runApplication();
 
 	return 0;
 }
 
 void handleHTTP(HTTPServerRequest req, HTTPServerResponse res) {
-	stdout.writefln("req: %s", req);
+	logInfo("req: %s", req);
 	res.writeBody("Hello, World!");
 }
 
 void handleWebSocket(scope WebSocket sock) {
-	stdout.writefln("WebSocket connected ...");
+	logInfo("WebSocket connected ...");
 
 	// Handle all requests
 	while (sock.connected) {
 		string msg = sock.receiveText();
-		stdout.writefln("msg: %s", msg);
+		logInfo("msg: %s", msg);
 
 		JSONValue message_map;
 		try {
 			message_map = DecodeWebSocketRequest(msg);
-			stdout.writefln("WebSocket message_map: %s", message_map);
+			logInfo("WebSocket message_map: %s", message_map);
 		// If we can't decode the request, just echo it back
 		} catch (Throwable err) {
-			stdout.writefln("WebSocket msg: %s", msg);
+			logInfo("WebSocket msg: %s", msg);
 			sock.send(msg);
 			continue;
 		}
 
-		stdout.writefln("message_map: %s", message_map);
+		logInfo("message_map: %s", message_map);
 		string action = message_map["action"].str;
 		switch (action) {
 			// Client wants to play a game
@@ -1307,10 +1306,10 @@ void handleWebSocket(scope WebSocket sock) {
 			case "set_game_directory":
 				break;
 			default:
-				stderr.writefln("Unknown action:\"%s\"", action);
+				logWarn("Unknown action:\"%s\"", action);
 		}
 	}
-	stdout.writefln("WebSocket disconnected ...");
+	logInfo("WebSocket disconnected ...");
 }
 
 JSONValue DecodeWebSocketRequest(string buffer) {
