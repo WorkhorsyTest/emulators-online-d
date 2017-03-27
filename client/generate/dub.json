@@ -1,10 +1,10 @@
 {
 	"name": "generate_included_files",
-	"description": "Client for Emulators Online",
+	"description": "Code generator for Emulators Online",
 	"authors": [
 		"Matthew Brennan Jones <matthew.brennan.jones@gmail.com>",
 	],
-	"homepage": "http://github.com/workhorsy/MalwareForay",
+	"homepage": "https://github.com/workhorsy/emulators-online-d",
 	"copyright": "Copyright (c) 2017 Matthew Brennan Jones",
 	"license": "AGPL",
 	"targetType": "executable",
