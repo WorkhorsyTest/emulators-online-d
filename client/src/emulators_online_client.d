@@ -1232,7 +1232,8 @@ int main() {
 
 	auto router = new URLRouter();
 	router.get("/", staticRedirect("/index.html"));
-	router.get("/index.html", &handleHTTP);
+	router.get("*", serveStaticFiles("static/"));
+	router.get("/hello.html", &handleHTTP);
 	router.get("/ws", handleWebSockets(&handleWebSocket));
 
 	auto settings = new HTTPServerSettings();
