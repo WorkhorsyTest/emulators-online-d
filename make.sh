@@ -5,6 +5,8 @@
 
 set -e
 
+WRAP_BINARY=false
+
 function build {
 	# Make sure G++ is installed
 	if ! type g++ >/dev/null 2>&1; then
@@ -18,6 +20,12 @@ function build {
 		return
 	fi
 
+	rm -f emulators_online_client.exe
+	rm -f emulators_online_client
+	#rm -f client/identify_games/identify_games.exe
+	rm -f client/emulators_online_client
+	rm -f client/wrap_binary/wrapper_generator
+
 	# Put everything inside the generated D file
 	echo "!!! Generating files ..."
 	cd client/generate
@@ -25,40 +33,39 @@ function build {
 	rm -f generate_included_files
 	cd ..
 
-	# Remove the exes
-	rm -f emulators_online_client.exe
-	rm -f emulators_online_client
-	#rm -f client/identify_games/identify_games.exe
-
 	# Build the client exe
 	echo "!!! Building emulators_online_client ..."
 	dub build #--build=release
-	mv emulators_online_client ../emulators_online_client
+	rm -f generate/generated_files.d
 	OS=`uname -o`
 	if [ "$OS" = "Msys" ]; then
 		mv libeay32.dll ../libeay32.dll
 		mv libevent.dll ../libevent.dll
 		mv ssleay32.dll ../ssleay32.dll
 	fi
+	mv emulators_online_client ../emulators_online_client
 
-	cd ..
+	if [ "$WRAP_BINARY" = true ]; then
+		echo "!!! Copying binary into wrapper source code ..."
+		cd wrap_binary
+		dub build
+		./wrapper_generator
+		rm -f wrapper_generator
+		cd ..
 
-	echo "!!! Running ..."
-	./emulators_online_client
-
-<<"TURN_CODE_OFF"
-	echo "!!! Copying binary into wrapper source code ..."
-	cd client/wrap_binary
-	dub run
-	rm -f wrapper_generator
-
-	echo "!!! Building binary wrapper ..."
-	cd ../wrapped_client/
-	dub build #--build=release
-	rm -f wrapped.d
-
+		echo "!!! Building binary wrapper ..."
+		cd wrapped_client/
+		dub build #--build=release
+		rm -f wrapped.d
+		cd ..
+		rm -f ../emulators_online_client
+		mv wrapped_client/emulators_online_client ../emulators_online_client
+		cd ../..
+	fi
 	echo "!!! Done!"
-TURN_CODE_OFF
+
+	#echo "!!! Running ..."
+	#./emulators_online_client
 }
 
 function clean {

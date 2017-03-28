@@ -15,6 +15,6 @@
 		"cbor-d": "~>0.5.4"
 	},
 	"sourceFiles": [
-		"generated/generated_files.d"
+		"generate/generated_files.d"
 	],
 }
