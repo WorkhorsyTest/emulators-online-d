@@ -110,36 +110,51 @@ ubyte[] ToCompressedBase64(T)(T thing, CompressionType compression_type) {
 	return base64ed_compressed_blob;
 }
 
-byte[] FromCompressed(byte[] data, CompressionType compression_type) {
+ubyte[] FromCompressed(ubyte[] data, CompressionType compression_type) {
 	final switch (compression_type) {
 		case CompressionType.Lzma:
 			return [];
 		case CompressionType.Zlib:
 			import std.zlib;
-			byte[] blob = cast(byte[]) std.zlib.uncompress(data);
+			ubyte[] blob = cast(ubyte[]) std.zlib.uncompress(data);
 			return blob;
 	}
 }
 
-byte[] FromCompressedBase64(byte[] data, CompressionType compression_type) {
+ubyte[] FromCompressedBase64(ubyte[] data, CompressionType compression_type) {
 	import std.array : appender;
 	import std.base64;
 
 	// UnBase64 the blob
-	byte[] compressed_blob = cast(byte[]) Base64.decode(data);
+	ubyte[] compressed_blob = cast(ubyte[]) Base64.decode(data);
 
 	// Uncompress the blob
-	byte[] blob = FromCompressed(compressed_blob, compression_type);
+	ubyte[] blob = FromCompressed(compressed_blob, compression_type);
 	return blob;
 }
 
-T FromCompressedBase64(T)(byte[] data, CompressionType compression_type) {
+T FromCompressedBase64(T)(ubyte[] data, CompressionType compression_type) {
 	import cbor;
 
 	// Uncompress the blob
-	byte[] blob = FromCompressedBase64(compressed_blob, compression_type);
+	ubyte[] blob = FromCompressedBase64(data, compression_type);
 
 	// Convert the blob to the thing
 	T thing = decodeCborSingle!T(blob);
 	return thing;
+}
+
+void UncompressFiles(string[] file_names, ubyte[] compressed_blobs) {
+	import std.file;
+	import std.stdio;
+
+	// Uncompress the file blobs
+	ubyte[] blob = cast(ubyte[]) compressed_blobs;
+	ubyte[][] file_blobs = FromCompressedBase64!(ubyte[][])(blob, CompressionType.Zlib);
+
+	// Copy the blobs to files
+	foreach (i, file_name ; file_names) {
+		stdout.writefln("name:%s, length:%s", file_name, file_blobs[i].length);
+		std.file.write(file_name, file_blobs[i]);
+	}
 }

@@ -1004,9 +1004,9 @@ void uncompress7Zip() {
 	}
 
 	// Get a blob of 7zip
-	byte[] blob = cast(byte[]) Generated.GetCompressed7zip;
+	ubyte[] blob = cast(ubyte[]) Generated.GetCompressed7zip;
 
-	byte[] data = FromCompressedBase64(blob, CompressionType.Zlib);
+	ubyte[] data = FromCompressedBase64(blob, CompressionType.Zlib);
 
 	std.file.write(Exe7Zip, data);
 }

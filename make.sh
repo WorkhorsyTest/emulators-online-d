@@ -19,7 +19,7 @@ function build {
 	fi
 
 	# Put everything inside the generated D file
-	echo "Generating files ..."
+	echo "!!! Generating files ..."
 	cd client/generate
 	dub run
 	rm -f generate_included_files
@@ -31,7 +31,7 @@ function build {
 	#rm -f client/identify_games/identify_games.exe
 
 	# Build the client exe
-	echo "Building emulators_online_client ..."
+	echo "!!! Building emulators_online_client ..."
 	dub build
 	mv emulators_online_client ../emulators_online_client
 	OS=`uname -o`
@@ -43,8 +43,18 @@ function build {
 
 	cd ..
 
-	echo "Running ..."
-	./emulators_online_client
+	#echo "Running ..."
+	#./emulators_online_client
+
+	echo "!!! Copying binary into wrapper source code ..."
+	cd client/wrap_binary
+	dub run
+
+	echo "!!! Building binary wrapper ..."
+	cd ../wrapped_client/
+	dub build
+
+	echo "!!! Done!"
 }
 
 function clean {

@@ -1,0 +1,19 @@
+{
+	"name": "wrapper_generator",
+	"description": "Code generator for Emulators Online",
+	"authors": [
+		"Matthew Brennan Jones <matthew.brennan.jones@gmail.com>",
+	],
+	"homepage": "https://github.com/workhorsy/emulators-online-d",
+	"copyright": "Copyright (c) 2017 Matthew Brennan Jones",
+	"license": "AGPL",
+	"targetType": "executable",
+	"mainSourceFile": "wrapper_generator.d",
+
+	"dependencies": {
+		"cbor-d": "~>0.5.4"
+	},
+	"sourceFiles": [
+		"../src/compress.d"
+	],
+}
