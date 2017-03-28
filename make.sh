@@ -49,10 +49,12 @@ function build {
 	echo "!!! Copying binary into wrapper source code ..."
 	cd client/wrap_binary
 	dub run
+	rm -f wrapper_generator
 
 	echo "!!! Building binary wrapper ..."
 	cd ../wrapped_client/
 	dub build
+	rm -f wrapped.d
 
 	echo "!!! Done!"
 }

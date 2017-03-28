@@ -2,6 +2,12 @@
 client/generate/.dub
 client/generate/dub.selections.json
 
+client/wrap_binary/.dub
+client/wrap_binary/dub.selections.json
+
+client/wrapped_client/.dub
+client/wrapped_client/dub.selections.json
+
 client/.dub
 client/dub.selections.json
 
