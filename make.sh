@@ -32,7 +32,7 @@ function build {
 
 	# Build the client exe
 	echo "!!! Building emulators_online_client ..."
-	dub build
+	dub build #--build=release
 	mv emulators_online_client ../emulators_online_client
 	OS=`uname -o`
 	if [ "$OS" = "Msys" ]; then
@@ -43,9 +43,10 @@ function build {
 
 	cd ..
 
-	#echo "Running ..."
-	#./emulators_online_client
+	echo "!!! Running ..."
+	./emulators_online_client
 
+<<"TURN_CODE_OFF"
 	echo "!!! Copying binary into wrapper source code ..."
 	cd client/wrap_binary
 	dub run
@@ -53,10 +54,11 @@ function build {
 
 	echo "!!! Building binary wrapper ..."
 	cd ../wrapped_client/
-	dub build
+	dub build #--build=release
 	rm -f wrapped.d
 
 	echo "!!! Done!"
+TURN_CODE_OFF
 }
 
 function clean {
