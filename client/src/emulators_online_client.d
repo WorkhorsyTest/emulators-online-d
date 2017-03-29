@@ -808,6 +808,8 @@ string[] Glob(string path, string pattern) {
 
 
 void isInstalled(ref WebSocket sock, JSONValue data) {
+	import std.file;
+
 	string program = data["program"].str;
 
 	switch (program) {
