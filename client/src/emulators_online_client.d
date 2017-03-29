@@ -273,15 +273,46 @@ void setDB(object[string][string][string] console_data) {
 		}
 	}
 }
+*/
 
-void getDirectXVersion() {
-	object[string] message = [
-		"action" : "get_directx_version",
-		"value" : helpers.GetDirectXVersion(),
+int GetDirectxVersion() {
+	import std.process;
+	import std.file;
+
+	const string[] command = [
+		"dxdiag.exe",
+		"/t",
+		"directx_info.txt",
 	];
-	WebSocketSend(message);
+
+	// Run the command and wait for it to complete
+	auto pipes = pipeProcess(command, Redirect.stdout | Redirect.stderr);
+	int status = wait(pipes.pid);
+
+	if (status != 0) {
+		logWarn("Failed to determine DirectX version");
+	}
+
+	string string_data = cast(string) std.file.read("directx_info.txt");
+	string raw_version = string_data.split("DirectX Version: ")[1].split("\r\n")[0];
+
+	// Get the DirectX version
+	int int_version = -1;
+	if (raw_version.indexOf("12") != -1) {
+		int_version = 12;
+	} else if (raw_version.indexOf("11") != -1) {
+		int_version = 11;
+	} else if (raw_version.indexOf("10") != -1) {
+		int_version = 10;
+	} else if (raw_version.indexOf("9") != -1) {
+		int_version = 9;
+	} else {
+		logWarn("Failed to determine DirectX version");
+	}
+	return int_version;
 }
 
+/*
 void setBios(object[string] data) {
 	string console = cast(string) data["console"];
 	string type_name = cast(string) data["type"];
@@ -1334,10 +1365,10 @@ void handleWebSocket(scope WebSocket sock) {
 				case "set_db":
 					break;
 				case "get_directx_version":
-					// FIXME: This is hard coded to return 10
+					int dx_version = GetDirectxVersion();
 					JSONValue message;
 					message["action"] = "get_directx_version";
-					message["value"] = 10;
+					message["value"] = dx_version;
 					string response = EncodeWebSocketResponse(message);
 					sock.send(response);
 					break;
