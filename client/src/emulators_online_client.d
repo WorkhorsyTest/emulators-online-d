@@ -795,72 +795,83 @@ void uninstall(object[string] data) {
 			break;
 	}
 }
+*/
 
-void isInstalled(object[string] data) {
-	string program = cast(string) data["program"];
+// FIXME: Make this work
+string[] Glob(string path, string pattern) {
+	import std.file;
+	import std.array;
+	import std.algorithm;
 
-	final switch (program) {
-	case "DirectX End User Runtime":
-		// Paths on Windows 8.1 X86_32 and X86_64
-		check_64_dx10 = filepath.Glob("C:/Windows/SysWOW64/d3dx10_*.dll");
-		check_64_dx11 = filepath.Glob("C:/Windows/SysWOW64/d3dx11_*.dll");
-		check_32_dx10 = filepath.Glob("C:/Windows/System32/d3dx10_*.dll");
-		check_32_dx11 = filepath.Glob("C:/Windows/System32/d3dx11_*.dll");
-		bool exist = (check_64_dx10.length > 0 && check_64_dx11.length > 0) ||
-				(check_32_dx10.length > 0 && check_32_dx11.length > 0);
-		object[string] message = [
-			"action" : "is_installed",
-			"value" : exist,
-			"name" : "DirectX End User Runtime",
-		];
-		WebSocketSend(&message);
-		break;
-	case "Visual C++ 2010 redist": // msvcr100.dll
-		// Paths on Windows 8.1 X86_32 and X86_64
-		bool exist = helpers.PathExists("C:/Windows/SysWOW64/msvcr100.dll") ||
-				helpers.PathExists("C:/Windows/System32/msvcr100.dll");
-		object[string] message = [
-			"action" : "is_installed",
-			"value" : exist,
-			"name" : "Visual C++ 2010 redist",
-		];
-		WebSocketSend(&message);
-		break;
-	case "Visual C++ 2013 redist": // msvcr120.dll
-		// Paths on Windows 8.1 X86_32 and X86_64
-		bool exist = helpers.PathExists("C:/Windows/SysWOW64/msvcr120.dll") ||
-				helpers.PathExists("C:/Windows/System32/msvcr120.dll");
-		object[string] message = [
-			"action" : "is_installed",
-			"value" : exist,
-			"name" : "Visual C++ 2013 redist",
-		];
-		WebSocketSend(&message);
-		break;
-	case "Demul":
-		bool exist = helpers.PathExists("emulators/Demul/demul.exe");
-		object[string] message = [
-			"action" : "is_installed",
-			"value" : exist,
-			"name" : "Demul",
-		];
-		WebSocketSend(&message);
-		break;
-	case "PCSX2":
-		bool exist = helpers.PathExists("emulators/pcsx2/pcsx2.exe");
-		object[string] message = [
-			"action" : "is_installed",
-			"value" : exist,
-			"name" : "PCSX2",
-		];
-		WebSocketSend(&message);
-		break;
-	default:
-		fmt.Printf("Unknown program to check if installed: %s\r\n", program);
-		break;
-	}
+	return [];//dirEntries(path, pattern, SpanMode.depth, true).map!(n => n.name).array();
 }
 
+
+void isInstalled(ref WebSocket sock, JSONValue data) {
+	string program = data["program"].str;
+
+	switch (program) {
+		case "DirectX End User Runtime":
+			// Paths on Windows 8.1 X86_32 and X86_64
+			bool check_64_dx10 = Glob("C:/Windows/SysWOW64/", "d3dx10_*.dll").length > 0;
+			bool check_64_dx11 = Glob("C:/Windows/SysWOW64/", "d3dx11_*.dll").length > 0;
+			bool check_32_dx10 = Glob("C:/Windows/System32/", "d3dx10_*.dll").length > 0;
+			bool check_32_dx11 = Glob("C:/Windows/System32/", "d3dx11_*.dll").length > 0;
+			bool exist = (check_64_dx10 && check_64_dx11) ||
+					(check_32_dx10 && check_32_dx11);
+			JSONValue message;
+			message["action"] = "is_installed";
+			message["value"] = exist;
+			message["name"] = "DirectX End User Runtime";
+			ubyte[] response = EncodeWebSocketResponse(message);
+			sock.send(response);
+			break;
+		case "Visual C++ 2010 redist": // msvcr100.dll
+			// Paths on Windows 8.1 X86_32 and X86_64
+			bool is_installed = std.file.exists("C:/Windows/SysWOW64/msvcr100.dll") ||
+					std.file.exists("C:/Windows/System32/msvcr100.dll");
+			JSONValue message;
+			message["action"] = "is_installed";
+			message["value"] = is_installed;
+			message["name"] = "Visual C++ 2010 redist";
+			ubyte[] response = EncodeWebSocketResponse(message);
+			sock.send(response);
+			break;
+		case "Visual C++ 2013 redist": // msvcr120.dll
+			// Paths on Windows 8.1 X86_32 and X86_64
+			bool is_installed = std.file.exists("C:/Windows/SysWOW64/msvcr120.dll") ||
+					std.file.exists("C:/Windows/System32/msvcr120.dll");
+			JSONValue message;
+			message["action"] = "is_installed";
+			message["value"] = is_installed;
+			message["name"] = "Visual C++ 2013 redist";
+			ubyte[] response = EncodeWebSocketResponse(message);
+			sock.send(response);
+			break;
+		case "Demul":
+			bool is_installed = std.file.exists("emulators/Demul/demul.exe");
+			JSONValue message;
+			message["action"] = "is_installed";
+			message["value"] = is_installed;
+			message["name"] = "Demul";
+			ubyte[] response = EncodeWebSocketResponse(message);
+			sock.send(response);
+			break;
+		case "PCSX2":
+			bool is_installed = std.file.exists("emulators/pcsx2/pcsx2.exe");
+			JSONValue message;
+			message["action"] = "is_installed";
+			message["value"] = is_installed;
+			message["name"] = "PCSX2";
+			ubyte[] response = EncodeWebSocketResponse(message);
+			sock.send(response);
+			break;
+		default:
+			logWarn("Unknown program to check if installed: %s", program);
+			break;
+	}
+}
+/*
 void httpCB(http.ResponseWriter w, http.Request* r) {
 	http.ServeFile(w, r, r.URL.Path[1 .. $]);
 }
@@ -1258,55 +1269,60 @@ void handleWebSocket(scope WebSocket sock) {
 
 	// Handle all requests
 	while (sock.connected) {
-		string msg = sock.receiveText();
-		logInfo("msg: %s", msg);
-
-		JSONValue message_map;
 		try {
-			message_map = DecodeWebSocketRequest(msg);
-			logInfo("WebSocket message_map: %s", message_map);
-		// If we can't decode the request, just echo it back
-		} catch (Throwable err) {
-			logInfo("WebSocket msg: %s", msg);
-			sock.send(msg);
-			continue;
-		}
+			string msg = sock.receiveText();
+			//logInfo("msg: %s", msg);
 
-		logInfo("message_map: %s", message_map);
-		string action = message_map["action"].str;
-		switch (action) {
-			// Client wants to play a game
-			case "play":
-				break;
-			// Client wants to download a file
-			case "download":
-				break;
-			// Client wants to know if a file is installed
-			case "is_installed":
-				break;
-			// Client wants to install a program
-			case "install":
-				break;
-			case "uninstall":
-				break;
-			case "set_button_map":
-				break;
-			case "get_button_map":
-				break;
-			case "set_bios":
-				break;
-			case "get_db":
-				break;
-			case "set_db":
-				break;
-			case "get_directx_version":
-				break;
-			case "set_game_directory":
-				break;
-			default:
-				logWarn("Unknown action:\"%s\"", action);
+			JSONValue message_map;
+			try {
+				message_map = DecodeWebSocketRequest(msg);
+				//logInfo("WebSocket message_map: %s", message_map);
+			// If we can't decode the request, just echo it back
+			} catch (Throwable err) {
+				logInfo("WebSocket msg: %s", msg);
+				sock.send(msg);
+				continue;
+			}
+
+			string action = message_map["action"].str;
+			switch (action) {
+				// Client wants to play a game
+				case "play":
+					break;
+				// Client wants to download a file
+				case "download":
+					break;
+				// Client wants to know if a file is installed
+				case "is_installed":
+					isInstalled(sock, message_map);
+					break;
+				// Client wants to install a program
+				case "install":
+					break;
+				case "uninstall":
+					break;
+				case "set_button_map":
+					break;
+				case "get_button_map":
+					break;
+				case "set_bios":
+					break;
+				case "get_db":
+					break;
+				case "set_db":
+					break;
+				case "get_directx_version":
+					break;
+				case "set_game_directory":
+					break;
+				default:
+					logWarn("Unknown action:\"%s\"", action);
+			}
+		} catch (Throwable err) {
+			logWarn("err: %s", err);
 		}
 	}
+
 	logInfo("WebSocket disconnected ...");
 }
 
@@ -1323,6 +1339,7 @@ JSONValue DecodeWebSocketRequest(string buffer) {
 		byte[] jsoned_blob = cast(byte[]) Base64.decode(base64ed_message);
 		j = parseJSON(jsoned_blob);
 		is_valid = true;
+		logInfo(">>>> request: %s", j);
 	} catch (Throwable err) {
 
 	}
@@ -1332,4 +1349,15 @@ JSONValue DecodeWebSocketRequest(string buffer) {
 	}
 
 	return j;
+}
+
+ubyte[] EncodeWebSocketResponse(JSONValue message) {
+	logInfo("<<<< response: %s", message);
+	//logInfo("message: %s", message);
+	ubyte[] response = cast(ubyte[]) "%s".format(message);
+	ubyte[] base64ed = cast(ubyte[]) Base64.encode(response);
+	string encoded = "%d:%s".format(base64ed.length, cast(string) base64ed);
+	//logInfo("Response: %s", encoded);
+
+	return cast(ubyte[]) encoded;
 }
