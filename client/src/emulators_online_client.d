@@ -24,7 +24,9 @@ import std.json;
 import core.thread;
 import vibe.vibe;
 import compress;
+import encoder;
 import Generated;
+import helpers;
 
 bool g_websocket_needs_restart;
 
@@ -274,43 +276,6 @@ void setDB(object[string][string][string] console_data) {
 	}
 }
 */
-
-int GetDirectxVersion() {
-	import std.process;
-	import std.file;
-
-	const string[] command = [
-		"dxdiag.exe",
-		"/t",
-		"directx_info.txt",
-	];
-
-	// Run the command and wait for it to complete
-	auto pipes = pipeProcess(command, Redirect.stdout | Redirect.stderr);
-	int status = wait(pipes.pid);
-
-	if (status != 0) {
-		logWarn("Failed to determine DirectX version");
-	}
-
-	string string_data = cast(string) std.file.read("directx_info.txt");
-	string raw_version = string_data.split("DirectX Version: ")[1].split("\r\n")[0];
-
-	// Get the DirectX version
-	int int_version = -1;
-	if (raw_version.indexOf("12") != -1) {
-		int_version = 12;
-	} else if (raw_version.indexOf("11") != -1) {
-		int_version = 11;
-	} else if (raw_version.indexOf("10") != -1) {
-		int_version = 10;
-	} else if (raw_version.indexOf("9") != -1) {
-		int_version = 9;
-	} else {
-		logWarn("Failed to determine DirectX version");
-	}
-	return int_version;
-}
 
 /*
 void setBios(object[string] data) {
@@ -831,12 +796,13 @@ void uninstall(object[string] data) {
 string[] glob(string path, string pattern) {
 	import std.file;
 	import std.path;
+	import std.range.primitives;
 
 	string[] matches;
 	string[] to_search = [path];
 	while (to_search.length > 0) {
 		string current = to_search[0];
-		to_search.popFront();
+		std.range.primitives.popFront(to_search);
 		try {
 			auto entries = std.file.dirEntries(current, SpanMode.shallow);
 			foreach (entry ; entries) {
@@ -1290,8 +1256,8 @@ int main() {
 		//useAppDataForStaticFiles();
 	}
 
-	// Get the DirectX Version
-	//helpers.StartBackgroundSearchForDirectXVersion();
+	// Start the background thread
+	//helpers.StartBackgroundSearchThread();
 
 	auto router = new URLRouter();
 	router.get("/", staticRedirect("/index.html"));
@@ -1365,7 +1331,7 @@ void handleWebSocket(scope WebSocket sock) {
 				case "set_db":
 					break;
 				case "get_directx_version":
-					int dx_version = GetDirectxVersion();
+					int dx_version = helpers.g_direct_x_version;
 					JSONValue message;
 					message["action"] = "get_directx_version";
 					message["value"] = dx_version;
@@ -1383,40 +1349,4 @@ void handleWebSocket(scope WebSocket sock) {
 	}
 
 	logInfo("WebSocket disconnected ...");
-}
-
-JSONValue DecodeWebSocketRequest(string buffer) {
-	JSONValue j;
-	bool is_valid = false;
-
-	try {
-		// Get the message length and encoded message
-		string[] chunks = buffer.split(":");
-		long length = chunks[0].to!long;
-		string base64ed_message = chunks[1];
-
-		byte[] jsoned_blob = cast(byte[]) Base64.decode(base64ed_message);
-		j = parseJSON(jsoned_blob);
-		is_valid = true;
-		logInfo(">>>> request: %s", j);
-	} catch (Throwable err) {
-
-	}
-
-	if (! is_valid) {
-		throw new Exception("Failed to decode request.");
-	}
-
-	return j;
-}
-
-string EncodeWebSocketResponse(JSONValue message) {
-	logInfo("<<<< response: %s", message);
-	//logInfo("message: %s", message);
-	ubyte[] response = cast(ubyte[]) "%s".format(message);
-	ubyte[] base64ed = cast(ubyte[]) Base64.encode(response);
-	string encoded = "%d:%s".format(base64ed.length, cast(string) base64ed);
-	//logInfo("Response: %s", encoded);
-
-	return encoded;
 }
