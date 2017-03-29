@@ -60,12 +60,13 @@ function build {
 		cd ..
 		rm -f ../emulators_online_client
 		mv wrapped_client/emulators_online_client ../emulators_online_client
-		cd ../..
+		cd ..
 	fi
+	cd ..
 	echo "!!! Done!"
 
-	#echo "!!! Running ..."
-	#./emulators_online_client
+	echo "!!! Running ..."
+	./emulators_online_client
 }
 
 function clean {

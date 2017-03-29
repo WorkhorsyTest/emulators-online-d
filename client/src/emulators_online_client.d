@@ -1314,6 +1314,7 @@ void handleWebSocket(scope WebSocket sock) {
 
 JSONValue DecodeWebSocketRequest(string buffer) {
 	JSONValue j;
+	bool is_valid = false;
 
 	try {
 		// Get the message length and encoded message
@@ -1323,7 +1324,12 @@ JSONValue DecodeWebSocketRequest(string buffer) {
 
 		byte[] jsoned_blob = cast(byte[]) Base64.decode(base64ed_message);
 		j = parseJSON(jsoned_blob);
+		is_valid = true;
 	} catch (Throwable err) {
+
+	}
+
+	if (! is_valid) {
 		throw new Exception("Failed to decode request.");
 	}
 
