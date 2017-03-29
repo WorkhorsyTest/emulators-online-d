@@ -825,7 +825,7 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = exist;
 			message["name"] = "DirectX End User Runtime";
-			ubyte[] response = EncodeWebSocketResponse(message);
+			string response = EncodeWebSocketResponse(message);
 			sock.send(response);
 			break;
 		case "Visual C++ 2010 redist": // msvcr100.dll
@@ -836,7 +836,7 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "Visual C++ 2010 redist";
-			ubyte[] response = EncodeWebSocketResponse(message);
+			string response = EncodeWebSocketResponse(message);
 			sock.send(response);
 			break;
 		case "Visual C++ 2013 redist": // msvcr120.dll
@@ -847,7 +847,7 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "Visual C++ 2013 redist";
-			ubyte[] response = EncodeWebSocketResponse(message);
+			string response = EncodeWebSocketResponse(message);
 			sock.send(response);
 			break;
 		case "Demul":
@@ -856,7 +856,7 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "Demul";
-			ubyte[] response = EncodeWebSocketResponse(message);
+			string response = EncodeWebSocketResponse(message);
 			sock.send(response);
 			break;
 		case "PCSX2":
@@ -865,7 +865,7 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "PCSX2";
-			ubyte[] response = EncodeWebSocketResponse(message);
+			string response = EncodeWebSocketResponse(message);
 			sock.send(response);
 			break;
 		default:
@@ -1353,7 +1353,7 @@ JSONValue DecodeWebSocketRequest(string buffer) {
 	return j;
 }
 
-ubyte[] EncodeWebSocketResponse(JSONValue message) {
+string EncodeWebSocketResponse(JSONValue message) {
 	logInfo("<<<< response: %s", message);
 	//logInfo("message: %s", message);
 	ubyte[] response = cast(ubyte[]) "%s".format(message);
@@ -1361,5 +1361,5 @@ ubyte[] EncodeWebSocketResponse(JSONValue message) {
 	string encoded = "%d:%s".format(base64ed.length, cast(string) base64ed);
 	//logInfo("Response: %s", encoded);
 
-	return cast(ubyte[]) encoded;
+	return encoded;
 }
