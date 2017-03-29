@@ -114,6 +114,7 @@ function make_game_icon(console_name, name, data, i) {
 	document.getElementById('game_selector').appendChild(d);
 
 	var btn = $("#preview_" + console_name + "_" + i);
+	btn.off('click');
 	btn.on('click', function() {
 		// Create the dialog
 		var text = "" +
@@ -142,6 +143,7 @@ function make_game_icon(console_name, name, data, i) {
 
 		// Have the dialog play button launch the game
 		var btn = $("#btn_" + console_name + "_" + i);
+		btn.off('click');
 		btn.on('click', function() {
 			var message = {
 				'action' : 'play',
@@ -490,7 +492,6 @@ function browser_set_game_db(value) {
 	value = JSON.parse(value);
 
 	g_db = value;
-	$('#search_text').on('input propertychange paste', on_search);
 
 	// Show the default search
 	on_search();
@@ -551,150 +552,6 @@ function show_menu(menu_name) {
 }
 
 function show_config_ui() {
-	var text = $("#text_user_id");
-	text.val(g_user_id);
-
-	var btn = $("#btn_clear_game_db");
-	btn.on('click', function() {
-		// Remove the game db from js
-		g_db = {};
-
-		// Remove the game db from localStorage
-		if (localStorage.getItem("game_db") != null) {
-			localStorage.removeItem("game_db");
-		}
-		console.log("Removed game db from the browser's localStorage");
-
-		// Remove the game db from the client
-		message = {
-			'action' : 'set_db',
-			'value' : null
-		};
-		web_socket_send_data(message);
-		console.log("Removed game db from the client");
-
-		// Remove the game db from emulators-online.com
-		$.ajax({
-			type: "POST",
-			url: "http://emulators-online.com/data/index.php",
-			dataType: 'json',
-			data: {
-				action: "set_value",
-				id: g_user_id,
-				key: "game_db",
-				value: null
-			}
-		})
-		.done(function(value) {
-			console.log("Removed game db from http://emulators-online.com");
-			alert("Cleared the game database.");
-		})
-		.fail(function() {
-			console.log("Failed to remove game db from http://emulators-online.com");
-			alert("Cleared the game database.");
-		});
-	});
-
-	btn = $("#btn_install_demul");
-	btn.on('click', function() {
-		if(g_is_demul_installed) {
-			action_uninstall('Demul');
-		} else {
-			// Download the compressed program
-			action_download('demul0582.rar', 'http://demul.emulation64.com/files/demul0582.rar', 'Demul', '');
-
-			// Uncompress the program
-			action_install('demul0582.rar');
-		}
-
-		// Figure out if it is installed
-		action_is_installed('Demul');
-	});
-
-	btn = $("#btn_install_pcsx2");
-	btn.on('click', function() {
-		if(g_is_pcsx2_installed) {
-			action_uninstall('PCSX2');
-		} else {
-			// Download the compressed program
-			action_download('pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z', 'http://buildbot.orphis.net/pcsx2/index.php?m=get&rev=v1.3.1-93-g1aebca3&platform=windows-x86', 'PCSX2', "http://buildbot.orphis.net/pcsx2/index.php?m=detail&rev=v1.3.1-93-g1aebca3&platform=windows-x86");
-
-			// Uncompress the program
-			action_install('pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z');
-		}
-
-		// Figure out if it is installed
-		action_is_installed('PCSX2');
-	});
-
-	btn = $('#btn_controls_demul');
-	btn.on('click', function() {
-		$('#config_buttons_demul').show();
-		$('#config_programs').hide();
-
-		// Load the button map
-		action_get_button_map('dreamcast', g_button_map_demul);
-	});
-
-	btn = $('#btn_dc_folder');
-	btn.on('click', function() {
-		// Have the server create a win32 folder selection dialog
-		var message = {
-			'action' : 'set_game_directory',
-			'console' : 'dreamcast'
-		};
-		web_socket_send_data(message);
-		console.log('set_game_directory');
-	});
-
-	btn = $('#btn_ps2_folder');
-	btn.on('click', function() {
-		// Have the server create a win32 folder selection dialog
-		var message = {
-			'action' : 'set_game_directory',
-			'console' : 'playstation2'
-		};
-		web_socket_send_data(message);
-		console.log('set_game_directory');
-	});
-
-	btn = $('#btn_done_button_config_demul');
-	btn.on('click', function() {
-		$('#config_buttons_demul').hide();
-		$('#config_programs').show();
-
-		// Save the button map
-		action_set_button_map('dreamcast', g_button_map_demul);
-	});
-
-	FileUploader('btn_bios_pcsx2_us', 'generic_progress', function(file_name, file_data) {
-		action_set_bios('playstation2', file_name, file_data, true);
-	});
-
-	FileUploader('btn_bios_pcsx2_jp', 'generic_progress', function(file_name, file_data) {
-		action_set_bios('playstation2', file_name, file_data, false);
-	});
-
-	FileUploader('btn_bios_pcsx2_eu', 'generic_progress', function(file_name, file_data) {
-		action_set_bios('playstation2', file_name, file_data, false);
-	});
-
-	FileUploader('btn_bios_demul_dc', 'generic_progress', function(file_name, file_data) {
-		action_set_bios('dreamcast', 'dc.zip', file_data, false);
-	});
-
-	FileUploader('btn_bios_demul_aw', 'generic_progress', function(file_name, file_data) {
-		action_set_bios('dreamcast', 'awbios.zip', file_data, false);
-	});
-
-	FileUploader('btn_bios_demul_naomi', 'generic_progress', function(file_name, file_data) {
-		action_set_bios('dreamcast', 'naomi.zip', file_data, false);
-	});
-
-	FileUploader('btn_bios_demul_naomi2', 'generic_progress', function(file_name, file_data) {
-		action_set_bios('dreamcast', 'naomi2.zip', file_data, false);
-	});
-
 	// Show the config, and hide the message to run the client
 	$('#install_client').hide();
 	$('#config_programs').show();
@@ -784,7 +641,7 @@ function action_set_bios(console_name, type_name, file_data, is_default) {
 
 function on_websocket_data(data) {
 	console.log(">>> in ", data["action"], data);
-	console.trace();
+	//console.trace();
 
 	switch (data['action']) {
 	case 'log':
@@ -792,7 +649,6 @@ function on_websocket_data(data) {
 		break;
 	case 'get_db':
 		g_db = data['value'];
-		$('#search_text').on('input propertychange paste', on_search);
 
 		// Show the default search
 		on_search();
@@ -1032,4 +888,150 @@ function main() {
 		};
 		web_socket_send_data(message);
 	}, 300);
+
+	var text = $("#text_user_id");
+	text.val(g_user_id);
+
+	var btn = $("#btn_clear_game_db");
+	btn.on('click', function() {
+		// Remove the game db from js
+		g_db = {};
+
+		// Remove the game db from localStorage
+		if (localStorage.getItem("game_db") != null) {
+			localStorage.removeItem("game_db");
+		}
+		console.log("Removed game db from the browser's localStorage");
+
+		// Remove the game db from the client
+		message = {
+			'action' : 'set_db',
+			'value' : null
+		};
+		web_socket_send_data(message);
+		console.log("Removed game db from the client");
+
+		// Remove the game db from emulators-online.com
+		$.ajax({
+			type: "POST",
+			url: "http://emulators-online.com/data/index.php",
+			dataType: 'json',
+			data: {
+				action: "set_value",
+				id: g_user_id,
+				key: "game_db",
+				value: null
+			}
+		})
+		.done(function(value) {
+			console.log("Removed game db from http://emulators-online.com");
+			alert("Cleared the game database.");
+		})
+		.fail(function() {
+			console.log("Failed to remove game db from http://emulators-online.com");
+			alert("Cleared the game database.");
+		});
+	});
+
+	btn = $("#btn_install_demul");
+	btn.on('click', function() {
+		if(g_is_demul_installed) {
+			action_uninstall('Demul');
+		} else {
+			// Download the compressed program
+			action_download('demul0582.rar', 'http://demul.emulation64.com/files/demul0582.rar', 'Demul', '');
+
+			// Uncompress the program
+			action_install('demul0582.rar');
+		}
+
+		// Figure out if it is installed
+		action_is_installed('Demul');
+	});
+
+	btn = $("#btn_install_pcsx2");
+	btn.on('click', function() {
+		if(g_is_pcsx2_installed) {
+			action_uninstall('PCSX2');
+		} else {
+			// Download the compressed program
+			action_download('pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z', 'http://buildbot.orphis.net/pcsx2/index.php?m=get&rev=v1.3.1-93-g1aebca3&platform=windows-x86', 'PCSX2', "http://buildbot.orphis.net/pcsx2/index.php?m=detail&rev=v1.3.1-93-g1aebca3&platform=windows-x86");
+
+			// Uncompress the program
+			action_install('pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z');
+		}
+
+		// Figure out if it is installed
+		action_is_installed('PCSX2');
+	});
+
+	btn = $('#btn_controls_demul');
+	btn.on('click', function() {
+		$('#config_buttons_demul').show();
+		$('#config_programs').hide();
+
+		// Load the button map
+		action_get_button_map('dreamcast', g_button_map_demul);
+	});
+
+	btn = $('#btn_dc_folder');
+	btn.on('click', function() {
+		// Have the server create a win32 folder selection dialog
+		var message = {
+			'action' : 'set_game_directory',
+			'console' : 'dreamcast'
+		};
+		web_socket_send_data(message);
+		console.log('set_game_directory');
+	});
+
+	btn = $('#btn_ps2_folder');
+	btn.on('click', function() {
+		// Have the server create a win32 folder selection dialog
+		var message = {
+			'action' : 'set_game_directory',
+			'console' : 'playstation2'
+		};
+		web_socket_send_data(message);
+		console.log('set_game_directory');
+	});
+
+	btn = $('#btn_done_button_config_demul');
+	btn.on('click', function() {
+		$('#config_buttons_demul').hide();
+		$('#config_programs').show();
+
+		// Save the button map
+		action_set_button_map('dreamcast', g_button_map_demul);
+	});
+
+	FileUploader('btn_bios_pcsx2_us', 'generic_progress', function(file_name, file_data) {
+		action_set_bios('playstation2', file_name, file_data, true);
+	});
+
+	FileUploader('btn_bios_pcsx2_jp', 'generic_progress', function(file_name, file_data) {
+		action_set_bios('playstation2', file_name, file_data, false);
+	});
+
+	FileUploader('btn_bios_pcsx2_eu', 'generic_progress', function(file_name, file_data) {
+		action_set_bios('playstation2', file_name, file_data, false);
+	});
+
+	FileUploader('btn_bios_demul_dc', 'generic_progress', function(file_name, file_data) {
+		action_set_bios('dreamcast', 'dc.zip', file_data, false);
+	});
+
+	FileUploader('btn_bios_demul_aw', 'generic_progress', function(file_name, file_data) {
+		action_set_bios('dreamcast', 'awbios.zip', file_data, false);
+	});
+
+	FileUploader('btn_bios_demul_naomi', 'generic_progress', function(file_name, file_data) {
+		action_set_bios('dreamcast', 'naomi.zip', file_data, false);
+	});
+
+	FileUploader('btn_bios_demul_naomi2', 'generic_progress', function(file_name, file_data) {
+		action_set_bios('dreamcast', 'naomi2.zip', file_data, false);
+	});
+
+	$('#search_text').on('input propertychange paste', on_search);
 }

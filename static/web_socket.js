@@ -21,7 +21,7 @@ var g_socket = null;
 
 function web_socket_send_data(message) {
 	console.log("<<< out ", message["action"], message);
-	console.trace();
+	//console.trace();
 	// Convert message to json
 	message = JSON.stringify(message);
 
