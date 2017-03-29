@@ -1314,6 +1314,12 @@ void handleWebSocket(scope WebSocket sock) {
 				case "set_db":
 					break;
 				case "get_directx_version":
+					// FIXME: This is hard coded to return 10
+					JSONValue message;
+					message["action"] = "get_directx_version";
+					message["value"] = 10;
+					string response = EncodeWebSocketResponse(message);
+					sock.send(response);
 					break;
 				case "set_game_directory":
 					break;
