@@ -824,6 +824,21 @@ string[] glob(string path, string pattern) {
 	return matches;
 }
 
+
+void isLinux(ref WebSocket sock) {
+	bool is_linux = false;
+
+	version (linux) {
+		is_linux = true;
+	}
+
+	JSONValue message;
+	message["action"] = "is_linux";
+	message["value"] = is_linux;
+	string response = EncodeWebSocketResponse(message);
+	sock.send(response);
+}
+
 void isInstalled(ref WebSocket sock, JSONValue data) {
 	import std.file;
 
@@ -1312,6 +1327,9 @@ void handleWebSocket(scope WebSocket sock) {
 
 			string action = message_map["action"].str;
 			switch (action) {
+				case "is_linux":
+					isLinux(sock);
+					break;
 				// Client wants to play a game
 				case "play":
 					break;

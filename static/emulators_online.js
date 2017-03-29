@@ -21,6 +21,7 @@ var g_is_web_socket_setup = false;
 var g_is_game_db_downloaded = false;
 var g_button_map_demul = {};
 
+var g_is_linux = false;
 var g_is_directx_end_user_runtime_installed = false;
 var g_is_vcpp_2010_redist_installed = false;
 var g_is_vcpp_2013_redist_installed = false;
@@ -564,6 +565,13 @@ function action_get_directx_version() {
 	web_socket_send_data(message);
 }
 
+function action_is_linux() {
+	var message = {
+		'action' : 'is_linux'
+	};
+	web_socket_send_data(message);
+}
+
 function action_is_installed(program_name) {
 	var message = {
 		'action' : 'is_installed',
@@ -749,6 +757,9 @@ function on_websocket_data(data) {
 		g_directx_version = data['value'];
 		$('#select_directx_version').val(g_directx_version);
 		break;
+	case 'is_linux':
+		g_is_linux = data['value'];
+		break;
 	case 'is_installed':
 		if (data['name'] == 'DirectX End User Runtime') {
 			g_is_directx_end_user_runtime_installed = data['value'];
@@ -758,7 +769,7 @@ function on_websocket_data(data) {
 			g_is_vcpp_2013_redist_installed = data['value'];
 		} else if (data['name'] == 'Demul') {
 			g_is_demul_installed = data['value'];
-			if (g_is_directx_end_user_runtime_installed && g_is_vcpp_2010_redist_installed) {
+			if ((g_is_directx_end_user_runtime_installed && g_is_vcpp_2010_redist_installed) || g_is_linux) {
 				if(g_is_demul_installed) {
 					$('#btn_install_demul').val('Uninstall');
 
@@ -784,14 +795,14 @@ function on_websocket_data(data) {
 				$('#demul_requirements_installed').show();
 			}
 
-			if (!g_is_directx_end_user_runtime_installed) {
+			if (!g_is_directx_end_user_runtime_installed && ! g_is_linux) {
 				$('#demul_directx_end_user_runtime_not_installed').show();
 				$('#demul_requirements_installed').hide();
 			} else {
 				$('#demul_directx_end_user_runtime_not_installed').hide();
 			}
 
-			if (!g_is_vcpp_2010_redist_installed) {
+			if (!g_is_vcpp_2010_redist_installed && ! g_is_linux) {
 				$('#demul_vcpp_2010_redist_not_installed').show();
 				$('#demul_requirements_installed').hide();
 			} else {
@@ -799,7 +810,7 @@ function on_websocket_data(data) {
 			}
 		} else if (data['name'] == 'PCSX2') {
 			g_is_pcsx2_installed = data['value'];
-			if (g_is_vcpp_2013_redist_installed) {
+			if (g_is_vcpp_2013_redist_installed || g_is_linux) {
 				if(g_is_pcsx2_installed) {
 					$('#btn_install_pcsx2').val('Uninstall');
 					$('#btn_ps2_folder').prop('disabled', false);
@@ -862,6 +873,7 @@ function main() {
 		});
 
 		// Figure out if programs are installed
+		action_is_linux();
 		action_is_installed('DirectX End User Runtime');
 		action_is_installed('Visual C++ 2010 redist');
 		action_is_installed('Visual C++ 2013 redist');
