@@ -1257,7 +1257,14 @@ int main() {
 	}
 
 	// Start the background thread
-	//helpers.StartBackgroundSearchThread();
+	auto val = async({
+		//helpers.StartBackgroundSearchThread();
+		return 0;
+	});
+
+
+	// Get the DirectX version while blocking
+	helpers.g_direct_x_version = helpers.GetDirectxVersion();
 
 	auto router = new URLRouter();
 	router.get("/", staticRedirect("/index.html"));

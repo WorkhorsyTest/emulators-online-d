@@ -43,7 +43,7 @@ private void backgroundThread(Tid ownerTid) {
 	send(ownerTid, response);
 }
 
-private int GetDirectxVersion() {
+int GetDirectxVersion() {
 	import std.process;
 	import std.file;
 	import std.stdio;
