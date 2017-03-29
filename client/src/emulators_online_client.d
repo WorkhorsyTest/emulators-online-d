@@ -797,15 +797,35 @@ void uninstall(object[string] data) {
 }
 */
 
-// FIXME: Make this work
-string[] Glob(string path, string pattern) {
+string[] glob(string path, string pattern) {
 	import std.file;
-	import std.array;
-	import std.algorithm;
+	import std.path;
 
-	return [];//dirEntries(path, pattern, SpanMode.depth, true).map!(n => n.name).array();
+	string[] matches;
+	string[] to_search = [path];
+	while (to_search.length > 0) {
+		string current = to_search[0];
+		to_search.popFront();
+		try {
+			auto entries = std.file.dirEntries(current, SpanMode.shallow);
+			foreach (entry ; entries) {
+				if (std.file.isDir(entry.name)) {
+					to_search ~= entry.name;
+				} else {
+					string base_name = std.path.baseName(entry.name);
+					if (std.path.globMatch(base_name, pattern)) {
+						matches ~= entry.name;
+					}
+				}
+			}
+		} catch (Throwable err) {
+
+		}
+	}
+
+
+	return matches;
 }
-
 
 void isInstalled(ref WebSocket sock, JSONValue data) {
 	import std.file;
@@ -815,15 +835,15 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 	switch (program) {
 		case "DirectX End User Runtime":
 			// Paths on Windows 8.1 X86_32 and X86_64
-			bool check_64_dx10 = Glob("C:/Windows/SysWOW64/", "d3dx10_*.dll").length > 0;
-			bool check_64_dx11 = Glob("C:/Windows/SysWOW64/", "d3dx11_*.dll").length > 0;
-			bool check_32_dx10 = Glob("C:/Windows/System32/", "d3dx10_*.dll").length > 0;
-			bool check_32_dx11 = Glob("C:/Windows/System32/", "d3dx11_*.dll").length > 0;
-			bool exist = (check_64_dx10 && check_64_dx11) ||
+			bool check_64_dx10 = glob("C:/Windows/SysWOW64/", "d3dx10_*.dll").length > 0;
+			bool check_64_dx11 = glob("C:/Windows/SysWOW64/", "d3dx11_*.dll").length > 0;
+			bool check_32_dx10 = glob("C:/Windows/System32/", "d3dx10_*.dll").length > 0;
+			bool check_32_dx11 = glob("C:/Windows/System32/", "d3dx11_*.dll").length > 0;
+			bool is_installed = (check_64_dx10 && check_64_dx11) ||
 					(check_32_dx10 && check_32_dx11);
 			JSONValue message;
 			message["action"] = "is_installed";
-			message["value"] = exist;
+			message["value"] = is_installed;
 			message["name"] = "DirectX End User Runtime";
 			string response = EncodeWebSocketResponse(message);
 			sock.send(response);
