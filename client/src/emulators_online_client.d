@@ -1207,6 +1207,10 @@ int main() {
 	// FIXME: Vibe breaks when we pass our args in. So just hard code them for now.
 	string[] args = ["emulators_online_client", "9090", "local"];
 
+	// Get port and if local
+	bool is_local = (args.length >= 3 && args[2] == "local");
+	ushort port = (args.length >= 2 ? args[1].to!ushort : 990);
+
 	// Set what game consoles to support
 	const string[] consoles = [
 		"dreamcast",
@@ -1214,18 +1218,12 @@ int main() {
 	];
 
 	// If "local" use the static files in the current directory
-	if (args.length >= 3 && args[2] == "local") {
+	if (is_local) {
 		// Make 7za.exe
 		uncompress7Zip();
 	// If not use the static files in AppData
 	} else {
 		//useAppDataForStaticFiles();
-	}
-
-	// Get the websocket port from the args
-	ushort ws_port = 9090;
-	if (args.length >= 2) {
-		ws_port = args[1].to!ushort;
 	}
 
 	// Get the DirectX Version
@@ -1238,11 +1236,11 @@ int main() {
 	router.get("/ws", handleWebSockets(&handleWebSocket));
 
 	auto settings = new HTTPServerSettings();
-	settings.port = ws_port;
+	settings.port = port;
 	settings.bindAddresses = ["::1", "127.0.0.1"];
 	listenHTTP(settings, router);
 
-	string server_address = "127.0.0.1:%s".format(ws_port);
+	string server_address = "127.0.0.1:%s".format(port);
 	logInfo("Server running at: http://%s", server_address);
 	logInfo("WebSocket running at: ws://%s/ws", server_address);
 	runApplication();
