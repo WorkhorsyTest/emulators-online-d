@@ -780,19 +780,6 @@ void install(object[string] data) {
 	WebSocketSend(&message);
 }
 
-
-
-// FIXME: Update to kill the process first
-void uninstall(object[string] data) {
-	final switch (cast(string) data["program"]) {
-		case "Demul":
-			os.RemoveAll("emulators/Demul");
-			break;
-		case "PCSX2":
-			os.RemoveAll("emulators/pcsx2");
-			break;
-	}
-}
 */
 
 string[] glob(string path, string pattern) {
@@ -945,6 +932,24 @@ void installProgram(ref WebSocket sock, JSONValue data) {
 	message["name"] = file;
 	response = EncodeWebSocketResponse(message);
 	sock.send(response);
+}
+
+// FIXME: Update to kill the process first
+void uninstallProgram(ref WebSocket sock, JSONValue data) {
+	import std.file;
+	import std.stdio;
+
+	string name = data["name"].str;
+	switch (name) {
+		case "Demul":
+			rmdirRecurse("emulators/Demul");
+			break;
+		case "PCSX2":
+			rmdirRecurse("emulators/pcsx2");
+			break;
+		default:
+			throw new Exception("Unknown program to uninstall: %s".format(name));
+	}
 }
 
 void downloadFile(ref WebSocket sock, JSONValue data) {
@@ -1436,6 +1441,7 @@ void handleWebSocket(scope WebSocket sock) {
 					installProgram(sock, message_map);
 					break;
 				case "uninstall":
+					uninstallProgram(sock, message_map);
 					break;
 				case "set_button_map":
 					break;

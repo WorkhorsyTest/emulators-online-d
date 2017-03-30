@@ -592,7 +592,7 @@ function action_install(file_name) {
 function action_uninstall(program_name) {
 	var message = {
 		'action' : 'uninstall',
-		'program' : program_name
+		'name' : program_name
 	};
 	web_socket_send_data(message);
 }
