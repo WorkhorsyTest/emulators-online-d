@@ -35,14 +35,14 @@ class LongRunningTask {
 	float percentage;
 }
 
-// db is accessed like db[console][game][binary_name]
-string[string][string][string] db;
+// g_db is accessed like g_db[console][game][binary_name]
+string[string][string][string] g_db;
 long[string][string] file_modify_dates;
 LongRunningTask[string] long_running_tasks;
 //helpers.Demul demul;
 //helpers.PCSX2 pcsx2;
 
-string[] consoles;
+string[] g_consoles;
 
 /*
 string CleanPath(string file_path) {
@@ -234,46 +234,6 @@ void getDB() {
 		"value" : db,
 	];
 	WebSocketSend(message);
-}
-
-void setDB(object[string][string][string] console_data) {
-	// Just return if we are running any long running tasks
-	if (long_running_tasks.length > 0) {
-		return;
-	}
-
-	// Loading existing game database
-	if (console_data != null) {
-		// Load the game database
-		db = console_data;
-
-		foreach (console ; consoles) {
-			// Get the names of all the games
-			string[] keys;
-			foreach (k ; db[console]) {
-				keys ~= k;
-			}
-
-			// Remove any games if there is no game file
-			foreach (name ; keys) {
-				auto data = db[console][name];
-				auto binary = cast(string) data["binary"];
-				if (! helpers.IsFile(binary)) {
-					delete(db[console], name);
-				}
-			}
-		}
-	// Loading blank game database
-	} else {
-		// Re Initialize the globals
-		db = {};//FIXME: new object[string][string][string];
-		file_modify_dates = {};//FIXME: long[string][string];
-
-		foreach (console ; consoles) {
-			db[console] = {};//FIXME: new object[string][string];
-			file_modify_dates[console] = {};//FIXME: long[string];
-		}
-	}
 }
 */
 
@@ -813,6 +773,49 @@ string[] glob(string path, string pattern) {
 	return matches;
 }
 
+void setDB(string[string][string][string] console_data) {
+/*
+	import std.file;
+
+	// Just return if we are running any long running tasks
+	if (long_running_tasks.length > 0) {
+		return;
+	}
+
+	// Loading existing game database
+	if (console_data.length > 0) {
+		// Load the game database
+		g_db = console_data;
+
+		foreach (string console ; g_consoles) {
+			// Get the names of all the games
+			string[string][] keys;
+			foreach (string[string] k ; g_db[console]) {
+				keys ~= k;
+			}
+
+			// Remove any games if there is no game file
+			foreach (string[string] name ; keys) {
+				string[string] data = g_db[console][name];
+				string binary = cast(string) data["binary"];
+				if (! std.file.isFile(binary)) {
+					g_db[console].remove(name);
+				}
+			}
+		}
+	// Loading blank game database
+	} else {
+		// Re Initialize the globals
+		g_db.clear();//FIXME: new object[string][string][string];
+		file_modify_dates.clear();//FIXME: long[string][string];
+
+		foreach (console ; g_consoles) {
+			g_db[console].clear();//FIXME: new object[string][string];
+			file_modify_dates[console].clear();//FIXME: long[string];
+		}
+	}
+*/
+}
 
 void isLinux(ref WebSocket sock) {
 	bool is_linux = false;
@@ -1351,7 +1354,7 @@ int main() {
 	ushort port = (args.length >= 2 ? args[1].to!ushort : 990);
 
 	// Set what game consoles to support
-	const string[] consoles = [
+	g_consoles = [
 		"dreamcast",
 		"playstation2",
 	];
@@ -1451,6 +1454,17 @@ void handleWebSocket(scope WebSocket sock) {
 				case "get_db":
 					break;
 				case "set_db":
+/*
+					string[string][string][string] value;
+
+					if (message_map["value"].type != JSON_TYPE.NULL) {
+						string str_value = message_map["value"].str;
+						value = FromCompressedBase64!(string[string][string][string])(str_value, CompressionType.Zlib);
+						setDB(value);
+					} else {
+						setDB(value);
+					}
+*/
 					break;
 				case "get_directx_version":
 					int dx_version = helpers.g_direct_x_version;
