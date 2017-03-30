@@ -12,7 +12,8 @@
 
 	"dependencies": {
 		"vibe-d": "~>0.7.30",
-		"cbor-d": "~>0.5.4"
+		"cbor-d": "~>0.5.4",
+		"requests": "~>0.4.0",
 	},
 	"sourceFiles": [
 		"generate/generated_files.d"

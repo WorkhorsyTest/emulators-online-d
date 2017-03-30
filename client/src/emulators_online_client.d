@@ -780,6 +780,8 @@ void install(object[string] data) {
 	WebSocketSend(&message);
 }
 
+
+
 // FIXME: Update to kill the process first
 void uninstall(object[string] data) {
 	final switch (cast(string) data["program"]) {
@@ -905,6 +907,154 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 			break;
 	}
 }
+
+void installProgram(ref WebSocket sock, JSONValue data) {
+	import std.file;
+	import std.path;
+
+	string dir = data["dir"].str;
+	string file = data["file"].str;
+
+	// Start uncompressing
+	JSONValue message;
+	message["action"] = "uncompress";
+	message["is_start"] = true;
+	message["name"] = file;
+	string response = EncodeWebSocketResponse(message);
+	sock.send(response);
+
+	final switch (file) {
+		case "demul0582.rar":
+			std.file.mkdir("emulators/Demul");
+			string full_path = [dir, "demul0582.rar"].join(std.path.dirSeparator);
+			compress.UncompressFile(full_path, "emulators/Demul");
+			break;
+		case "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z":
+			string full_path = [dir, "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z"].join(std.path.dirSeparator);
+			compress.UncompressFile(full_path, "emulators");
+			std.file.rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2");
+			break;
+	}
+
+	// End uncompressing
+	message = JSONValue();
+	message["action"] = "uncompress";
+	message["is_start"] = false;
+	message["name"] = file;
+	response = EncodeWebSocketResponse(message);
+	sock.send(response);
+}
+
+void downloadFile(ref WebSocket sock, JSONValue data) {
+	import requests;
+	import std.stdio;
+	import std.algorithm;
+	import std.path;
+
+	// Get all the info we need
+	string file_name = data["file"].str;
+	string url = data["url"].str;
+	string directory = data["dir"].str;
+	string name = data["name"].str;
+	string referer = data["referer"].str;
+
+	// Create the HTTP header
+	string[string] headers = [
+		"Referer" : referer,
+		"User-Agent" : "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36",
+	];
+
+	// Download the file one chunk at a time
+	float total_length = 0.0f;
+	auto output = File([directory, file_name].join(std.path.dirSeparator), "wb");
+	auto rq = Request();
+	rq.useStreaming = true;
+	rq.verbosity = 2;
+	rq.addHeaders(headers);
+	auto rs = rq.get(url);
+	auto stream = rs.receiveAsRange();
+	while(! stream.empty) {
+		stdout.writefln("Received %d bytes, total received %d from document legth %d", stream.front.length, rq.contentReceived, rq.contentLength);
+		stdout.flush();
+		output.rawWrite(stream.front);
+		stream.popFront();
+		total_length += stream.front.length;
+		float progress = ((total_length / rq.contentLength) * 100.0f);
+		stdout.writefln("!!! progress %s", progress);
+		stdout.flush();
+	}
+	output.close();
+
+/*
+	// Download the file header
+	auto client = new http.Client();
+	auto req = http.NewRequest("GET", url, null);
+	req.Header.Set("Referer", referer);
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
+	auto resp = client.Do(req);
+	if (err != null) {
+		fmt.Printf("Download failed: %s\r\n", err);
+		return;
+	}
+	if (resp.StatusCode != 200) {
+		fmt.Printf("Download failed with response code: %s\r\n", resp.Status);
+		return;
+	}
+	float content_length = cast(float) resp.ContentLength;
+	total_length = 0.0f;
+
+	// Create the out file
+	buffer := make([]byte, 32 * 1024)
+	out, err := os.Create(filepath.Join(directory, file_name))
+	if (err != null) {
+		fmt.Printf("Failed to create output file: %s\r\n", err)
+		return
+	}
+
+	// Close the files when we exit
+	defer out.Close()
+	defer resp.Body.Close()
+
+	// Download the file one chunk at a time
+	EOF := false
+	for {
+		// Read the next chunk
+		read_len, err := resp.Body.Read(buffer)
+		if (err != null) {
+			if err.Error() == "EOF" {
+				EOF = true
+			} else {
+				fmt.Printf("Download next chunk failed: %s\r\n", err)
+				return
+			}
+		}
+
+		// Write the next chunk to file
+		write_len, err := out.Write(buffer[0 : read_len])
+		if (err != null) {
+			fmt.Printf("Writing chunk to file failed: %s\r\n", err)
+			return
+		}
+
+		// Make sure everything read was written
+		if read_len != write_len {
+			fmt.Printf("Write and read length were different\r\n")
+			return
+		}
+
+		// Fire the progress callback
+		total_length += float64(read_len)
+		progress := helpers.RoundPlus((total_length / content_length) * 100.0, 2)
+		progressCB(name, progress)
+
+		// Exit the loop if the file is done
+		if EOF || total_length == content_length {
+			break
+		}
+	}
+*/
+}
+
 /*
 void httpCB(http.ResponseWriter w, http.Request* r) {
 	http.ServeFile(w, r, r.URL.Path[1 .. $]);
@@ -1335,6 +1485,7 @@ void handleWebSocket(scope WebSocket sock) {
 					break;
 				// Client wants to download a file
 				case "download":
+					downloadFile(sock, message_map);
 					break;
 				// Client wants to know if a file is installed
 				case "is_installed":
@@ -1342,6 +1493,7 @@ void handleWebSocket(scope WebSocket sock) {
 					break;
 				// Client wants to install a program
 				case "install":
+					//installProgram(sock, message_map);
 					break;
 				case "uninstall":
 					break;

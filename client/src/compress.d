@@ -158,3 +158,46 @@ void UncompressFiles(string[] file_names, ubyte[] compressed_blobs) {
 		std.file.write(file_name, file_blobs[i]);
 	}
 }
+
+void UncompressFile(string compressed_file, string out_dir) {
+	import std.algorithm;
+	import std.string;
+	import std.process;
+
+	//fmt.Printf("!!!!!!!!!!!!!! uncomressing!\r\n")
+	string[] command;
+
+	if (compressed_file.endsWith(".7z") || compressed_file.endsWith(".zip")) {
+		// Get the command and arguments
+		command = [
+			Exe7Zip,
+			"x",
+			"-y",
+			`%s`.format(compressed_file),
+			"-o%s".format(out_dir),
+		];
+	} else if (compressed_file.endsWith(".rar")) {
+		// Get the command and arguments
+		command = [
+			"unrar.exe",
+			"x",
+			"-y",
+			`%s`.format(compressed_file),
+			"%s".format(out_dir),
+		];
+	}
+
+	// Run the command and wait for it to complete
+	// Run the command and wait for it to complete
+	auto pipes = pipeProcess(command, Redirect.stdout | Redirect.stderr);
+	int status = wait(pipes.pid);
+/*
+	string[] result_stdout = pipes.stdout.byLine.map!(l => l.idup).array();
+	string[] result_stderr = pipes.stderr.byLine.map!(l => l.idup).array();
+	stdout.writefln("!!! stdout:%s", result_stdout);
+	stdout.writefln("!!! stderr:%s", result_stderr);
+*/
+	if (status != 0) {
+		stderr.writefln("Failed to run command: %s\r\n", Exe7Zip);
+	}
+}
