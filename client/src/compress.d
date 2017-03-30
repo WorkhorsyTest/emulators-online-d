@@ -121,7 +121,8 @@ ubyte[] FromCompressed(ubyte[] data, CompressionType compression_type) {
 	}
 }
 
-ubyte[] FromCompressedBase64(ubyte[] data, CompressionType compression_type) {
+T FromCompressedBase64(T)(ubyte[] data, CompressionType compression_type) {
+	import cbor;
 	import std.array : appender;
 	import std.base64;
 
@@ -130,14 +131,6 @@ ubyte[] FromCompressedBase64(ubyte[] data, CompressionType compression_type) {
 
 	// Uncompress the blob
 	ubyte[] blob = FromCompressed(compressed_blob, compression_type);
-	return blob;
-}
-
-T FromCompressedBase64(T)(ubyte[] data, CompressionType compression_type) {
-	import cbor;
-
-	// Uncompress the blob
-	ubyte[] blob = FromCompressedBase64(data, compression_type);
 
 	// Convert the blob to the thing
 	T thing = decodeCborSingle!T(blob);

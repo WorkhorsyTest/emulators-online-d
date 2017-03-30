@@ -1146,8 +1146,7 @@ void uncompress7Zip() {
 	// Get a blob of 7zip
 	ubyte[] blob = cast(ubyte[]) Generated.GetCompressed7zip;
 
-	ubyte[] data = FromCompressedBase64(blob, CompressionType.Zlib);
-
+	ubyte[] data = FromCompressedBase64!(ubyte[])(blob, CompressionType.Zlib);
 	std.file.write(Exe7Zip, data);
 }
 /*
