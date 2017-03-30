@@ -923,7 +923,7 @@ void installProgram(ref WebSocket sock, JSONValue data) {
 	string response = EncodeWebSocketResponse(message);
 	sock.send(response);
 
-	final switch (file) {
+	switch (file) {
 		case "demul0582.rar":
 			std.file.mkdir("emulators/Demul");
 			string full_path = [dir, "demul0582.rar"].join(std.path.dirSeparator);
@@ -934,6 +934,8 @@ void installProgram(ref WebSocket sock, JSONValue data) {
 			compress.UncompressFile(full_path, "emulators");
 			std.file.rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2");
 			break;
+		default:
+			throw new Exception("Unknown program to install: %s".format(file));
 	}
 
 	// End uncompressing
@@ -982,77 +984,15 @@ void downloadFile(ref WebSocket sock, JSONValue data) {
 		float progress = ((total_length / rq.contentLength) * 100.0f);
 		stdout.writefln("!!! progress %s", progress);
 		stdout.flush();
+
+		JSONValue message;
+		message["action"] = "progress";
+		message["value"] = progress;
+		message["name"] = name;
+		string response = EncodeWebSocketResponse(message);
+		sock.send(response);
 	}
 	output.close();
-
-/*
-	// Download the file header
-	auto client = new http.Client();
-	auto req = http.NewRequest("GET", url, null);
-	req.Header.Set("Referer", referer);
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
-	auto resp = client.Do(req);
-	if (err != null) {
-		fmt.Printf("Download failed: %s\r\n", err);
-		return;
-	}
-	if (resp.StatusCode != 200) {
-		fmt.Printf("Download failed with response code: %s\r\n", resp.Status);
-		return;
-	}
-	float content_length = cast(float) resp.ContentLength;
-	total_length = 0.0f;
-
-	// Create the out file
-	buffer := make([]byte, 32 * 1024)
-	out, err := os.Create(filepath.Join(directory, file_name))
-	if (err != null) {
-		fmt.Printf("Failed to create output file: %s\r\n", err)
-		return
-	}
-
-	// Close the files when we exit
-	defer out.Close()
-	defer resp.Body.Close()
-
-	// Download the file one chunk at a time
-	EOF := false
-	for {
-		// Read the next chunk
-		read_len, err := resp.Body.Read(buffer)
-		if (err != null) {
-			if err.Error() == "EOF" {
-				EOF = true
-			} else {
-				fmt.Printf("Download next chunk failed: %s\r\n", err)
-				return
-			}
-		}
-
-		// Write the next chunk to file
-		write_len, err := out.Write(buffer[0 : read_len])
-		if (err != null) {
-			fmt.Printf("Writing chunk to file failed: %s\r\n", err)
-			return
-		}
-
-		// Make sure everything read was written
-		if read_len != write_len {
-			fmt.Printf("Write and read length were different\r\n")
-			return
-		}
-
-		// Fire the progress callback
-		total_length += float64(read_len)
-		progress := helpers.RoundPlus((total_length / content_length) * 100.0, 2)
-		progressCB(name, progress)
-
-		// Exit the loop if the file is done
-		if EOF || total_length == content_length {
-			break
-		}
-	}
-*/
 }
 
 /*
@@ -1493,7 +1433,7 @@ void handleWebSocket(scope WebSocket sock) {
 					break;
 				// Client wants to install a program
 				case "install":
-					//installProgram(sock, message_map);
+					installProgram(sock, message_map);
 					break;
 				case "uninstall":
 					break;

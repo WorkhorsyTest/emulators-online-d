@@ -64,8 +64,8 @@ ubyte[] ToCompressed(ubyte[] blob, CompressionType compression_type) {
 			];
 
 			// Run the command and wait for it to complete
-			auto pipes = pipeProcess(command, Redirect.stdout | Redirect.stderr);
-			int status = wait(pipes.pid);
+			auto pid = spawnProcess(command);
+			int status = wait(pid);
 		/*
 			string[] result_stdout = pipes.stdout.byLine.map!(l => l.idup).array();
 			string[] result_stderr = pipes.stderr.byLine.map!(l => l.idup).array();
@@ -163,8 +163,8 @@ void UncompressFile(string compressed_file, string out_dir) {
 	import std.algorithm;
 	import std.string;
 	import std.process;
+	import std.array;
 
-	//fmt.Printf("!!!!!!!!!!!!!! uncomressing!\r\n")
 	string[] command;
 
 	if (compressed_file.endsWith(".7z") || compressed_file.endsWith(".zip")) {
@@ -185,17 +185,20 @@ void UncompressFile(string compressed_file, string out_dir) {
 			`%s`.format(compressed_file),
 			"%s".format(out_dir),
 		];
+	} else {
+		throw new Exception("Uknown file type to uncompress: %s".format(compressed_file));
 	}
 
 	// Run the command and wait for it to complete
-	// Run the command and wait for it to complete
-	auto pipes = pipeProcess(command, Redirect.stdout | Redirect.stderr);
-	int status = wait(pipes.pid);
+	auto pid = spawnProcess(command);
+	int status = wait(pid);
 /*
 	string[] result_stdout = pipes.stdout.byLine.map!(l => l.idup).array();
 	string[] result_stderr = pipes.stderr.byLine.map!(l => l.idup).array();
 	stdout.writefln("!!! stdout:%s", result_stdout);
+	stdout.flush();
 	stdout.writefln("!!! stderr:%s", result_stderr);
+	stdout.flush();
 */
 	if (status != 0) {
 		stderr.writefln("Failed to run command: %s\r\n", Exe7Zip);
