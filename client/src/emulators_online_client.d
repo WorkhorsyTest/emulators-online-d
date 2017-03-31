@@ -957,103 +957,28 @@ void actionUninstallProgram(ref WebSocket sock, ref JSONValue data) {
 	}
 }
 
-import win32.winuser;
 
-HWND[] g_herps;
-
-string FindWindowWithTitleText(string text, ref HWND hwnd) {
-	import win32.winuser;
-	import std.stdio;
-
-	//import core.sys.windows.windows;
-	extern (Windows) int enum_cb(HWND hWnd, LPARAM lParam) {
-		stdout.writefln("??? hWnd: %s", hWnd);
-		stdout.flush();
-		g_herps ~= hWnd;
-		return 1;
-	}
-
-	stdout.writefln("??? g_herps: %s", g_herps);
-	stdout.flush();
-
-	LPARAM      lParam = 0;
-	//WNDENUMPROC hwnd_cb = &enum_cb;
-	EnumWindows(&enum_cb, lParam);
-	return "";
-}
 
 void actionSelectDirectoryDialogWindows(ref WebSocket sock, ref JSONValue data) {
-	import std.algorithm.searching;
-	import std.conv;
-	import std.string;
-	import std.stdio;
-	import win32.winuser;
-	import win32.shlobj;
+	import win32.winuser : HWND;
+	import win32_helpers;
 
-	// First try checking if the browser is the foreground window
-	HWND hwnd = GetForegroundWindow();
-	char[255] chr_text;
-	int ret = GetWindowText(hwnd, chr_text.ptr, chr_text.length);
-	string text = chr_text.ptr.fromStringz.to!string;
-	stdout.writefln("??? text: %s", text);
-	stdout.flush();
+	// Grab the browser window
+	HWND hwnd = GetBrowserWindow();
 
-	// If the focused window is not a known browser, find them manually
-	if (text.length == 0 ||
-		! text.canFind(" - Mozilla Firefox") &&
-		! text.canFind(" - Google Chrome") &&
-		! text.canFind(" - Opera") &&
-		! text.canFind(" ‎- Microsoft Edge") && // NOTE: The "-" is actually "â€Ž-" for some reason
-		! text.canFind(" - Internet Explorer")) {
-		// If not, find any Firefox window
-		text = FindWindowWithTitleText(" - Mozilla Firefox", hwnd);
-		if (hwnd == null || text.length==0) {
-			// If not, find any Chrome window
-			text = FindWindowWithTitleText(" - Google Chrome", hwnd);
-			if (hwnd == null || text.length==0) {
-				// If not, find any Opera window
-				text = FindWindowWithTitleText(" - Opera", hwnd);
-				if (hwnd == null || text.length==0) {
-					// If not, find any Microsoft Edge window
-					text = FindWindowWithTitleText(" ‎- Microsoft Edge", hwnd); // NOTE: The "-" is actually "â€Ž-" for some reason
-					if (hwnd == null || text.length==0) {
-						// If not, find any Internet Explorer window
-						text = FindWindowWithTitleText(" - Internet Explorer", hwnd);
-						if (hwnd == null || text.length==0) {
-							// If not, find the Desktop window
-							hwnd = GetDesktopWindow();
-							text = "Desktop";
-						}
-					}
-				}
-			}
-		}
+	// If no browser was found, grab the desktop
+	if (hwnd == null) {
+		hwnd = GetDesktopWindow();
 	}
-	stdout.writefln("??? found text: %s", text);
-	stdout.flush();
-	if (hwnd == null || text.length==0) {
+
+	// Throw an error if none were found
+	if (hwnd == null) {
 		throw new Exception("Failed to find any Firefox, Chrome, Opera, Edge, Internet Explorer, or the Desktop window to put the Folder Dialog on top of.");
 	}
 
-	// FIXME: How do we pass the string to display?
-	BROWSEINFO browse_info = {
-		hwnd,
-		null, //desktop_pidl,
-		null,
-		null, // "Select a folder search for games"
-		0,
-		null,
-		0,
-		0,
-	};
-	ITEMIDLIST* pidl = SHBrowseForFolder(&browse_info);
-	if (pidl != null) {
-		char[255] chr_dir_name;
-		ret = SHGetPathFromIDList(pidl, chr_dir_name.ptr);
-		string dir_name = chr_dir_name.ptr.fromStringz.to!string;
-		//stdout.writefln("??????????????? ret: %s", ret);
-		//stdout.writefln("??????????????? dir_name: %s", dir_name);
-
+	// Get the directory name from a Directory Dialog Box
+	string dir_name = DialogDirectorySelect(hwnd);
+	if (dir_name != null) {
 		JSONValue message;
 		message["action"] = "set_game_directory";
 		message["directory_name"] = dir_name;
