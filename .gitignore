@@ -8,8 +8,8 @@ client/wrap_binary/dub.selections.json
 client/wrapped_client/.dub
 client/wrapped_client/dub.selections.json
 
-client/.dub
-client/dub.selections.json
+client/src/.dub
+client/src/dub.selections.json
 
 build
 cache/*
