@@ -742,10 +742,11 @@ void install(object[string] data) {
 
 */
 
-string[] glob(string path, string pattern) {
+string[] glob(string path, string pattern, bool is_shallow) {
 	import std.file;
 	import std.path;
 	import std.range.primitives;
+	import std.stdio;
 
 	string[] matches;
 	string[] to_search = [path];
@@ -755,7 +756,7 @@ string[] glob(string path, string pattern) {
 		try {
 			auto entries = std.file.dirEntries(current, SpanMode.shallow);
 			foreach (entry ; entries) {
-				if (std.file.isDir(entry.name)) {
+				if (! is_shallow && std.file.isDir(entry.name)) {
 					to_search ~= entry.name;
 				} else {
 					string base_name = std.path.baseName(entry.name);
@@ -839,10 +840,10 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 	switch (program) {
 		case "DirectX End User Runtime":
 			// Paths on Windows 8.1 X86_32 and X86_64
-			bool check_64_dx10 = glob("C:/Windows/SysWOW64/", "d3dx10_*.dll").length > 0;
-			bool check_64_dx11 = glob("C:/Windows/SysWOW64/", "d3dx11_*.dll").length > 0;
-			bool check_32_dx10 = glob("C:/Windows/System32/", "d3dx10_*.dll").length > 0;
-			bool check_32_dx11 = glob("C:/Windows/System32/", "d3dx11_*.dll").length > 0;
+			bool check_64_dx10 = glob("C:/Windows/SysWOW64/", "d3dx10_*.dll", true).length > 0;
+			bool check_64_dx11 = glob("C:/Windows/SysWOW64/", "d3dx11_*.dll", true).length > 0;
+			bool check_32_dx10 = glob("C:/Windows/System32/", "d3dx10_*.dll", true).length > 0;
+			bool check_32_dx11 = glob("C:/Windows/System32/", "d3dx11_*.dll", true).length > 0;
 			bool is_installed = (check_64_dx10 && check_64_dx11) ||
 					(check_32_dx10 && check_32_dx11);
 			JSONValue message;
