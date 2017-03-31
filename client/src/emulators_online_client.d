@@ -959,14 +959,26 @@ void actionUninstallProgram(ref WebSocket sock, ref JSONValue data) {
 
 import win32.winuser;
 
+HWND[] g_herps;
+
 string FindWindowWithTitleText(string text, ref HWND hwnd) {
 	import win32.winuser;
+	import std.stdio;
 
-	void cb() {
-
+	//import core.sys.windows.windows;
+	extern (Windows) int enum_cb(HWND hWnd, LPARAM lParam) {
+		stdout.writefln("??? hWnd: %s", hWnd);
+		stdout.flush();
+		g_herps ~= hWnd;
+		return 1;
 	}
 
-	//EnumWindows(cb, 0);
+	stdout.writefln("??? g_herps: %s", g_herps);
+	stdout.flush();
+
+	LPARAM      lParam = 0;
+	//WNDENUMPROC hwnd_cb = &enum_cb;
+	EnumWindows(&enum_cb, lParam);
 	return "";
 }
 
@@ -982,7 +994,9 @@ void actionSelectDirectoryDialogWindows(ref WebSocket sock, ref JSONValue data) 
 	HWND hwnd = GetForegroundWindow();
 	char[255] chr_text;
 	int ret = GetWindowText(hwnd, chr_text.ptr, chr_text.length);
-	string text = chr_text.to!string;
+	string text = chr_text.ptr.fromStringz.to!string;
+	stdout.writefln("??? text: %s", text);
+	stdout.flush();
 
 	// If the focused window is not a known browser, find them manually
 	if (text.length == 0 ||
@@ -1015,6 +1029,8 @@ void actionSelectDirectoryDialogWindows(ref WebSocket sock, ref JSONValue data) 
 			}
 		}
 	}
+	stdout.writefln("??? found text: %s", text);
+	stdout.flush();
 	if (hwnd == null || text.length==0) {
 		throw new Exception("Failed to find any Firefox, Chrome, Opera, Edge, Internet Explorer, or the Desktop window to put the Folder Dialog on top of.");
 	}
