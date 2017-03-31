@@ -43,6 +43,18 @@ private void backgroundThread(Tid ownerTid) {
 	send(ownerTid, response);
 }
 
+void TryRemovingFileOnExit(string file_name) {
+	import std.file;
+
+	if (std.file.exists(file_name)) {
+		try {
+			std.file.remove(file_name);
+		} catch (FileException err) {
+			// Ignore any error
+		}
+	}
+};
+
 int GetDirectxVersion() {
 	int int_version = -1;
 
@@ -51,6 +63,9 @@ int GetDirectxVersion() {
 		import std.file;
 		import std.stdio;
 		import std.string;
+
+		// Try to remove any generated files when the function exists
+		scope (exit) TryRemovingFileOnExit("directx_info.txt");
 
 		const string[] command = [
 			"dxdiag.exe",
