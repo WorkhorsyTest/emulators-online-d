@@ -955,6 +955,34 @@ void uninstallProgram(ref WebSocket sock, JSONValue data) {
 	}
 }
 
+void actionSelectDirectoryDialog(ref WebSocket sock, JSONValue data) {
+	import std.process;
+	import std.stdio;
+	import std.algorithm;
+	import std.array;
+	import core.thread;
+
+	string console = data["console"].str;
+	const string[] command = [
+		"zenity",
+		"--title=\"Select game directory\"",
+		"--file-selection",
+		"--directory",
+	];
+
+	Thread.sleep(1.seconds);
+	// Run the command and wait for it to complete
+	auto pipes = pipeProcess(command, Redirect.stdout | Redirect.stderr);
+	int status = wait(pipes.pid);
+	string[] result_stdout = pipes.stdout.byLine.map!(l => l.idup).array();
+	string[] result_stderr = pipes.stderr.byLine.map!(l => l.idup).array();
+	string target_directory = result_stdout.join("");
+
+	if (status != 0) {
+		stderr.writefln("Failed to run zenity.");
+	}
+}
+
 void downloadFile(ref WebSocket sock, JSONValue data) {
 	import requests;
 	import std.stdio;
@@ -1475,6 +1503,7 @@ void handleWebSocket(scope WebSocket sock) {
 					sock.send(response);
 					break;
 				case "set_game_directory":
+					actionSelectDirectoryDialog(sock, message_map);
 					break;
 				default:
 					logWarn("Unknown action:\"%s\"", action);
