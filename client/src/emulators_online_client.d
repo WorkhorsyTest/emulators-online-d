@@ -832,7 +832,7 @@ void actionIsLinux(ref WebSocket sock) {
 	sock.send(response);
 }
 
-void actionIsInstalled(ref WebSocket sock, JSONValue data) {
+void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 	import std.file;
 
 	string program = data["program"].str;
@@ -899,7 +899,7 @@ void actionIsInstalled(ref WebSocket sock, JSONValue data) {
 	}
 }
 
-void actionInstallProgram(ref WebSocket sock, JSONValue data) {
+void actionInstallProgram(ref WebSocket sock, ref JSONValue data) {
 	import std.file;
 	import std.path;
 
@@ -913,6 +913,7 @@ void actionInstallProgram(ref WebSocket sock, JSONValue data) {
 	message["name"] = file;
 	string response = EncodeWebSocketResponse(message);
 	sock.send(response);
+
 
 	switch (file) {
 		case "demul0582.rar":
@@ -939,7 +940,7 @@ void actionInstallProgram(ref WebSocket sock, JSONValue data) {
 }
 
 // FIXME: Update to kill the process first
-void actionUninstallProgram(ref WebSocket sock, JSONValue data) {
+void actionUninstallProgram(ref WebSocket sock, ref JSONValue data) {
 	import std.file;
 	import std.stdio;
 
@@ -956,7 +957,7 @@ void actionUninstallProgram(ref WebSocket sock, JSONValue data) {
 	}
 }
 
-void actionSelectDirectoryDialogWindows(ref WebSocket sock, JSONValue data) {
+void actionSelectDirectoryDialogWindows(ref WebSocket sock, ref JSONValue data) {
 	//import win32.winuser;
 
 	// First try checking if the browser is the foreground window
@@ -1017,7 +1018,7 @@ void actionSelectDirectoryDialogWindows(ref WebSocket sock, JSONValue data) {
 */
 }
 
-void actionSelectDirectoryDialogLinux(ref WebSocket sock, JSONValue data) {
+void actionSelectDirectoryDialogLinux(ref WebSocket sock, ref JSONValue data) {
 	import std.process;
 	import std.stdio;
 	import std.algorithm;
@@ -1045,7 +1046,7 @@ void actionSelectDirectoryDialogLinux(ref WebSocket sock, JSONValue data) {
 	}
 }
 
-void actionDownloadFile(ref WebSocket sock, JSONValue data) {
+void actionDownloadFile(ref WebSocket sock, ref JSONValue data) {
 	import requests;
 	import std.stdio;
 	import std.algorithm;
