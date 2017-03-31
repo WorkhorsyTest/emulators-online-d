@@ -818,7 +818,7 @@ void setDB(string[string][string][string] console_data) {
 */
 }
 
-void isLinux(ref WebSocket sock) {
+void actionIsLinux(ref WebSocket sock) {
 	bool is_linux = false;
 
 	version (linux) {
@@ -832,7 +832,7 @@ void isLinux(ref WebSocket sock) {
 	sock.send(response);
 }
 
-void isInstalled(ref WebSocket sock, JSONValue data) {
+void actionIsInstalled(ref WebSocket sock, JSONValue data) {
 	import std.file;
 
 	string program = data["program"].str;
@@ -899,7 +899,7 @@ void isInstalled(ref WebSocket sock, JSONValue data) {
 	}
 }
 
-void installProgram(ref WebSocket sock, JSONValue data) {
+void actionInstallProgram(ref WebSocket sock, JSONValue data) {
 	import std.file;
 	import std.path;
 
@@ -939,7 +939,7 @@ void installProgram(ref WebSocket sock, JSONValue data) {
 }
 
 // FIXME: Update to kill the process first
-void uninstallProgram(ref WebSocket sock, JSONValue data) {
+void actionUninstallProgram(ref WebSocket sock, JSONValue data) {
 	import std.file;
 	import std.stdio;
 
@@ -984,7 +984,7 @@ void actionSelectDirectoryDialog(ref WebSocket sock, JSONValue data) {
 	}
 }
 
-void downloadFile(ref WebSocket sock, JSONValue data) {
+void actionDownloadFile(ref WebSocket sock, JSONValue data) {
 	import requests;
 	import std.stdio;
 	import std.algorithm;
@@ -1454,25 +1454,25 @@ void handleWebSocket(scope WebSocket sock) {
 			string action = message_map["action"].str;
 			switch (action) {
 				case "is_linux":
-					isLinux(sock);
+					actionIsLinux(sock);
 					break;
 				// Client wants to play a game
 				case "play":
 					break;
 				// Client wants to download a file
 				case "download":
-					downloadFile(sock, message_map);
+					actionDownloadFile(sock, message_map);
 					break;
 				// Client wants to know if a file is installed
 				case "is_installed":
-					isInstalled(sock, message_map);
+					actionIsInstalled(sock, message_map);
 					break;
 				// Client wants to install a program
 				case "install":
-					installProgram(sock, message_map);
+					actionInstallProgram(sock, message_map);
 					break;
 				case "uninstall":
-					uninstallProgram(sock, message_map);
+					actionUninstallProgram(sock, message_map);
 					break;
 				case "set_button_map":
 					break;
