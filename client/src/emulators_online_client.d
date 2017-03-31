@@ -957,37 +957,57 @@ void actionUninstallProgram(ref WebSocket sock, ref JSONValue data) {
 	}
 }
 
+import win32.winuser;
+
+string FindWindowWithTitleText(string text, ref HWND hwnd) {
+	import win32.winuser;
+
+	void cb() {
+
+	}
+
+	//EnumWindows(cb, 0);
+	return "";
+}
+
 void actionSelectDirectoryDialogWindows(ref WebSocket sock, ref JSONValue data) {
-	//import win32.winuser;
+	import std.algorithm.searching;
+	import std.conv;
+	import std.string;
+	import std.stdio;
+	import win32.winuser;
+	import win32.shlobj;
 
 	// First try checking if the browser is the foreground window
-	//auto hwnd = GetForegroundWindow();
-	//string text = GetWindowText(hwnd);
-/*
+	HWND hwnd = GetForegroundWindow();
+	char[255] chr_text;
+	int ret = GetWindowText(hwnd, chr_text.ptr, chr_text.length);
+	string text = chr_text.to!string;
+
 	// If the focused window is not a known browser, find them manually
 	if (text.length == 0 ||
-		! strings.Contains(text, " - Mozilla Firefox") &&
-		! strings.Contains(text, " - Google Chrome") &&
-		! strings.Contains(text, " - Opera") &&
-		! strings.Contains(text, " ‎- Microsoft Edge") && // NOTE: The "-" is actually "â€Ž-" for some reason
-		! strings.Contains(text, " - Internet Explorer")) {
+		! text.canFind(" - Mozilla Firefox") &&
+		! text.canFind(" - Google Chrome") &&
+		! text.canFind(" - Opera") &&
+		! text.canFind(" ‎- Microsoft Edge") && // NOTE: The "-" is actually "â€Ž-" for some reason
+		! text.canFind(" - Internet Explorer")) {
 		// If not, find any Firefox window
-		hwnd, text = win32.FindWindowWithTitleText(" - Mozilla Firefox");
-		if (hwnd < 1 || len(text)==0) {
+		text = FindWindowWithTitleText(" - Mozilla Firefox", hwnd);
+		if (hwnd == null || text.length==0) {
 			// If not, find any Chrome window
-			hwnd, text = win32.FindWindowWithTitleText(" - Google Chrome");
-			if (hwnd < 1 || len(text)==0) {
+			text = FindWindowWithTitleText(" - Google Chrome", hwnd);
+			if (hwnd == null || text.length==0) {
 				// If not, find any Opera window
-				hwnd, text = win32.FindWindowWithTitleText(" - Opera");
-				if (hwnd < 1 || len(text)==0) {
+				text = FindWindowWithTitleText(" - Opera", hwnd);
+				if (hwnd == null || text.length==0) {
 					// If not, find any Microsoft Edge window
-					hwnd, text = win32.FindWindowWithTitleText(" ‎- Microsoft Edge"); // NOTE: The "-" is actually "â€Ž-" for some reason
-					if (hwnd < 1 || len(text)==0) {
+					text = FindWindowWithTitleText(" ‎- Microsoft Edge", hwnd); // NOTE: The "-" is actually "â€Ž-" for some reason
+					if (hwnd == null || text.length==0) {
 						// If not, find any Internet Explorer window
-						hwnd, text = win32.FindWindowWithTitleText(" - Internet Explorer");
-						if (hwnd < 1 || len(text)==0) {
+						text = FindWindowWithTitleText(" - Internet Explorer", hwnd);
+						if (hwnd == null || text.length==0) {
 							// If not, find the Desktop window
-							hwnd = win32.GetDesktopWindow();
+							hwnd = GetDesktopWindow();
 							text = "Desktop";
 						}
 					}
@@ -995,27 +1015,36 @@ void actionSelectDirectoryDialogWindows(ref WebSocket sock, ref JSONValue data) 
 			}
 		}
 	}
-	if (hwnd < 1 || len(text)==0) {
-		panic("Failed to find any Firefox, Chrome, Opera, Edge, Internet Explorer, or the Desktop window to put the Folder Dialog on top of.\r\n");
+	if (hwnd == null || text.length==0) {
+		throw new Exception("Failed to find any Firefox, Chrome, Opera, Edge, Internet Explorer, or the Desktop window to put the Folder Dialog on top of.");
 	}
 
 	// FIXME: How do we pass the string to display?
-	win32.BROWSEINFO browse_info = {
+	BROWSEINFO browse_info = {
 		hwnd,
 		null, //desktop_pidl,
 		null,
 		null, // "Select a folder search for games"
 		0,
-		0,
+		null,
 		0,
 		0,
 	};
-	pidl = win32.SHBrowseForFolder(&browse_info);
-	if (pidl > 0) {
-		message_map["directory_name"] = win32.SHGetPathFromIDList(pidl);
+	ITEMIDLIST* pidl = SHBrowseForFolder(&browse_info);
+	if (pidl != null) {
+		char[255] chr_dir_name;
+		ret = SHGetPathFromIDList(pidl, chr_dir_name.ptr);
+		string dir_name = chr_dir_name.ptr.fromStringz.to!string;
+		//stdout.writefln("??????????????? ret: %s", ret);
+		//stdout.writefln("??????????????? dir_name: %s", dir_name);
+
+		JSONValue message;
+		message["action"] = "set_game_directory";
+		message["directory_name"] = dir_name;
+		string response = EncodeWebSocketResponse(message);
+		sock.send(response);
 		// FIXME: go taskSetGameDirectory(message_map);
 	}
-*/
 }
 
 void actionSelectDirectoryDialogLinux(ref WebSocket sock, ref JSONValue data) {
