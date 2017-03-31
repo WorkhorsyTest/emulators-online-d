@@ -35,15 +35,17 @@ function build {
 
 	# Build the client exe
 	echo "!!! Building emulators_online_client ..."
+	cd src
 	dub build #--build=release
-	rm -f generate/generated_files.d
+	rm -f ../generate/generated_files.d
 	OS=`uname -o`
 	if [ "$OS" = "Msys" ]; then
-		mv libeay32.dll ../libeay32.dll
-		mv libevent.dll ../libevent.dll
-		mv ssleay32.dll ../ssleay32.dll
+		mv libeay32.dll ../../libeay32.dll
+		mv libevent.dll ../../libevent.dll
+		mv ssleay32.dll ../../ssleay32.dll
 	fi
-	mv emulators_online_client ../emulators_online_client
+	mv emulators_online_client ../../emulators_online_client
+	cd ..
 
 	if [ "$WRAP_BINARY" = true ]; then
 		echo "!!! Copying binary into wrapper source code ..."

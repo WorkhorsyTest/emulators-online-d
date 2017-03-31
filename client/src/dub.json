@@ -8,7 +8,7 @@
 	"copyright": "Copyright (c) 2017 Matthew Brennan Jones",
 	"license": "AGPL-3.0",
 	"targetType": "executable",
-	"mainSourceFile": "src/emulators_online_client.d",
+	"mainSourceFile": "emulators_online_client.d",
 
 	"dependencies": {
 		"vibe-d": "~>0.7.30",
@@ -16,6 +16,9 @@
 		"requests": "~>0.4.0",
 	},
 	"sourceFiles": [
-		"generate/generated_files.d"
+		"compress.d",
+		"encoder.d",
+		"helpers.d",
+		"../generate/generated_files.d",
 	],
 }

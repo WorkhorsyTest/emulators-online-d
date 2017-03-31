@@ -956,7 +956,68 @@ void actionUninstallProgram(ref WebSocket sock, JSONValue data) {
 	}
 }
 
-void actionSelectDirectoryDialog(ref WebSocket sock, JSONValue data) {
+void actionSelectDirectoryDialogWindows(ref WebSocket sock, JSONValue data) {
+	//import win32.winuser;
+
+	// First try checking if the browser is the foreground window
+	//auto hwnd = GetForegroundWindow();
+	//string text = GetWindowText(hwnd);
+/*
+	// If the focused window is not a known browser, find them manually
+	if (text.length == 0 ||
+		! strings.Contains(text, " - Mozilla Firefox") &&
+		! strings.Contains(text, " - Google Chrome") &&
+		! strings.Contains(text, " - Opera") &&
+		! strings.Contains(text, " ‎- Microsoft Edge") && // NOTE: The "-" is actually "â€Ž-" for some reason
+		! strings.Contains(text, " - Internet Explorer")) {
+		// If not, find any Firefox window
+		hwnd, text = win32.FindWindowWithTitleText(" - Mozilla Firefox");
+		if (hwnd < 1 || len(text)==0) {
+			// If not, find any Chrome window
+			hwnd, text = win32.FindWindowWithTitleText(" - Google Chrome");
+			if (hwnd < 1 || len(text)==0) {
+				// If not, find any Opera window
+				hwnd, text = win32.FindWindowWithTitleText(" - Opera");
+				if (hwnd < 1 || len(text)==0) {
+					// If not, find any Microsoft Edge window
+					hwnd, text = win32.FindWindowWithTitleText(" ‎- Microsoft Edge"); // NOTE: The "-" is actually "â€Ž-" for some reason
+					if (hwnd < 1 || len(text)==0) {
+						// If not, find any Internet Explorer window
+						hwnd, text = win32.FindWindowWithTitleText(" - Internet Explorer");
+						if (hwnd < 1 || len(text)==0) {
+							// If not, find the Desktop window
+							hwnd = win32.GetDesktopWindow();
+							text = "Desktop";
+						}
+					}
+				}
+			}
+		}
+	}
+	if (hwnd < 1 || len(text)==0) {
+		panic("Failed to find any Firefox, Chrome, Opera, Edge, Internet Explorer, or the Desktop window to put the Folder Dialog on top of.\r\n");
+	}
+
+	// FIXME: How do we pass the string to display?
+	win32.BROWSEINFO browse_info = {
+		hwnd,
+		null, //desktop_pidl,
+		null,
+		null, // "Select a folder search for games"
+		0,
+		0,
+		0,
+		0,
+	};
+	pidl = win32.SHBrowseForFolder(&browse_info);
+	if (pidl > 0) {
+		message_map["directory_name"] = win32.SHGetPathFromIDList(pidl);
+		// FIXME: go taskSetGameDirectory(message_map);
+	}
+*/
+}
+
+void actionSelectDirectoryDialogLinux(ref WebSocket sock, JSONValue data) {
 	import std.process;
 	import std.stdio;
 	import std.algorithm;
@@ -1374,7 +1435,49 @@ void main() {
 
 // http://vibed.org/blog/posts/a-scalable-chat-room-service-in-d
 
-int main() {
+version (Windows) {
+	import core.runtime;
+	import std.utf;
+
+	auto toUTF16z(S)(S s) {
+	    return toUTFz!(const(wchar)*)(s);
+	}
+
+	import win32.windef;
+	import win32.winuser;
+
+	extern (Windows)
+	int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
+	    int result;
+	    void exceptionHandler(Throwable e) { throw e; }
+
+	    try {
+	        Runtime.initialize(/*&exceptionHandler*/);
+	        result = myWinMain(hInstance, hPrevInstance, lpCmdLine, iCmdShow);
+	        Runtime.terminate(/*&exceptionHandler*/);
+	    } catch (Throwable o) {
+	        //MessageBox(NULL, o.toString().toUTF16z, "Error", MB_OK | MB_ICONEXCLAMATION);
+	        result = 0;
+	    }
+
+	    return result;
+	}
+
+	int myWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
+		MessageBox(NULL, "Hello, Windows!", "Your Application", 0);
+		return actualMain();
+	}
+}
+
+
+version (linux) {
+	int main() {
+		return actualMain();
+	}
+}
+
+
+int actualMain() {
 	// FIXME: Vibe breaks when we pass our args in. So just hard code them for now.
 	string[] args = ["emulators_online_client", "9090", "local"];
 
@@ -1504,7 +1607,12 @@ void handleWebSocket(scope WebSocket sock) {
 					sock.send(response);
 					break;
 				case "set_game_directory":
-					actionSelectDirectoryDialog(sock, message_map);
+					version (linux) {
+						actionSelectDirectoryDialogLinux(sock, message_map);
+					}
+					version (Windows) {
+						actionSelectDirectoryDialogWindows(sock, message_map);
+					}
 					break;
 				default:
 					logWarn("Unknown action:\"%s\"", action);
