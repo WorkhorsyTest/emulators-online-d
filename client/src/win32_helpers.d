@@ -100,3 +100,14 @@ string DialogDirectorySelect(win32.winuser.HWND hwnd) {
 		return null;
 	}
 }
+
+void MessageBox(string text, string title) {
+	import std.string;
+	int flags = win32.winuser.MB_OK | win32.winuser.MB_ICONEXCLAMATION;
+	win32.winuser.MessageBox(null, title.toStringz, text.toStringz, flags);
+}
+
+auto toUTF16z(S)(S s) {
+	import std.utf;
+	return toUTFz!(const(wchar)*)(s);
+}

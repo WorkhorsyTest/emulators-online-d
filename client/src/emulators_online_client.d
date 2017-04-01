@@ -988,43 +988,24 @@ void main() {
 }
 */
 
-// http://vibed.org/blog/posts/a-scalable-chat-room-service-in-d
-
 version (Windows) {
-	import core.runtime;
-	import std.utf;
-
-	auto toUTF16z(S)(S s) {
-	    return toUTFz!(const(wchar)*)(s);
-	}
-
 	import win32.windef;
 	import win32.winuser;
 
-	extern (Windows)
-	int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
-	    int result;
-	    void exceptionHandler(Throwable e) { throw e; }
-
-	    try {
-	        Runtime.initialize(/*&exceptionHandler*/);
-	        result = myWinMain(hInstance, hPrevInstance, lpCmdLine, iCmdShow);
-	        Runtime.terminate(/*&exceptionHandler*/);
-	    } catch (Throwable o) {
-	        //MessageBox(NULL, o.toString().toUTF16z, "Error", MB_OK | MB_ICONEXCLAMATION);
-	        result = 0;
-	    }
-
-	    return result;
-	}
-
-	int myWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
-		MessageBox(NULL, "Hello, Windows!", "Your Application", 0);
-		return actualMain();
+	extern (Windows) int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
+		import core.runtime;
+		import win32_helpers;
+		try {
+			Runtime.initialize();
+			MessageBox("Win32 in D!", "The runtime has started ...");
+			int result = actualMain();
+			Runtime.terminate();
+			return result;
+		} catch (Throwable err) {
+			return 1;
+		}
 	}
 }
-
-
 version (linux) {
 	int main() {
 		return actualMain();
