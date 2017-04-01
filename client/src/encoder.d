@@ -16,7 +16,7 @@ JSONValue DecodeWebSocketRequest(string buffer) {
 		byte[] jsoned_blob = cast(byte[]) Base64.decode(base64ed_message);
 		j = parseJSON(jsoned_blob);
 		is_valid = true;
-		logInfo(">>>> request: %s", j);
+		logInfo(">>> in: %s", j);
 	} catch (Throwable err) {
 
 	}
@@ -29,7 +29,7 @@ JSONValue DecodeWebSocketRequest(string buffer) {
 }
 
 string EncodeWebSocketResponse(JSONValue message) {
-	logInfo("<<<< response: %s", message);
+	logInfo("<<< out: %s", message);
 	//logInfo("message: %s", message);
 	ubyte[] response = cast(ubyte[]) "%s".format(message);
 	ubyte[] base64ed = cast(ubyte[]) Base64.encode(response);
