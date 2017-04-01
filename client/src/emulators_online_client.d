@@ -991,22 +991,12 @@ void main() {
 version (Windows) {
 	import win32.windef;
 	import win32.winuser;
+	import win32_helpers;
 
 	extern (Windows) int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
-		import core.runtime;
-		import win32_helpers;
-		try {
-			Runtime.initialize();
-			MessageBox("Win32 in D!", "The runtime has started ...");
-			int result = actualMain();
-			Runtime.terminate();
-			return result;
-		} catch (Throwable err) {
-			return 1;
-		}
+		return runWinMain(&actualMain);
 	}
-}
-version (linux) {
+} else {
 	int main() {
 		return actualMain();
 	}

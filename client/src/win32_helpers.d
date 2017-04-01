@@ -111,3 +111,16 @@ auto toUTF16z(S)(S s) {
 	import std.utf;
 	return toUTFz!(const(wchar)*)(s);
 }
+
+int runWinMain(int function() actualMain) {
+	import core.runtime;
+	try {
+		Runtime.initialize();
+		//MessageBox("Win32 in D!", "The runtime has started ...");
+		int result = actualMain();
+		Runtime.terminate();
+		return result;
+	} catch (Throwable err) {
+		return 1;
+	}
+}
