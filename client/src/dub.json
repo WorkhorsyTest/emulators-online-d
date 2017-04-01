@@ -21,6 +21,7 @@
 		"helpers.d",
 		"win32_helpers.d",
 		"gui.d",
+		"worker.d",
 		"../generate/generated_files.d",
 	],
 }

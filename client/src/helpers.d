@@ -2,46 +2,9 @@
 
 module helpers;
 
-import std.concurrency;
-//import vibe.vibe;
 import std.stdio;
-import std.json;
-import encoder;
 
 int g_direct_x_version = -1;
-
-void StartBackgroundSearchThread() {
-	import core.time;
-
-	auto childTid = spawn(&backgroundThread, thisTid);
-
-	Duration dur = 1.seconds;
-	while (true) {
-		receiveTimeout(dur,
-			(string m) { stdout.writefln("!!! Got message:%s", m); stdout.flush(); },
-			(Variant v) { stderr.writefln("Received some other type."); stderr.flush(); }
-		);
-	}
-}
-
-private void backgroundThread(Tid ownerTid) {
-	stdout.writefln("!!!!!! backgroundThread");
-	stdout.flush();
-
-	receive((string msg) {
-		JSONValue message_map;
-		message_map = DecodeMessage(msg);
-		string action = message_map["action"].str;
-		if (action == "get_directx_version") {
-			g_direct_x_version = GetDirectxVersion();
-		}
-		stdout.writefln("Received the message %s", msg);
-		stdout.flush();
-	});
-
-	string response = "FIXME: the response goes here";
-	send(ownerTid, response);
-}
 
 void TryRemovingFileOnExit(string file_name) {
 	import std.file;

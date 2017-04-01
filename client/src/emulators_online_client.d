@@ -26,9 +26,11 @@ import vibe.vibe;
 import compress;
 import encoder;
 import Generated;
+import worker;
 import helpers;
 
 bool g_websocket_needs_restart;
+Tid g_worker_tid;
 
 class LongRunningTask {
 	string name;
@@ -683,13 +685,21 @@ void actionSelectDirectoryDialog(ref WebSocket sock, ref JSONValue data) {
 	string dir_name = gui.DialogDirectorySelect();
 
 	if (dir_name != null) {
+		// Tell the browser that the game directory is set
 		JSONValue message;
 		message["action"] = "set_game_directory";
 		message["console"] = console;
 		message["directory_name"] = dir_name;
 		string response = EncodeMessage(message);
 		sock.send(response);
-		// FIXME: go taskSetGameDirectory(message_map);
+
+		// Tell the worker to start searchig the directory for games
+		message = JSONValue();
+		message["action"] = "search_game_directory";
+		message["console"] = console;
+		message["directory_name"] = dir_name;
+		response = EncodeMessage(message);
+		worker.Send(g_worker_tid, response);
 	}
 }
 
@@ -970,7 +980,6 @@ version (linux) {
 	}
 }
 
-
 int actualMain() {
 	// FIXME: Vibe breaks when we pass our args in. So just hard code them for now.
 	string[] args = ["emulators_online_client", "9090", "local"];
@@ -994,12 +1003,8 @@ int actualMain() {
 		//useAppDataForStaticFiles();
 	}
 
-	// Start the background thread
-	auto val = async({
-		//helpers.StartBackgroundSearchThread();
-		return 0;
-	});
-
+	// Start the worker thread
+	g_worker_tid = worker.Start();
 
 	// Get the DirectX version while blocking
 	helpers.g_direct_x_version = helpers.GetDirectxVersion();
