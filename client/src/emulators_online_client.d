@@ -741,6 +741,15 @@ void actionDownloadFile(ref WebSocket sock, ref JSONValue data) {
 	output.close();
 }
 
+void actionGetDirectxVersion(ref WebSocket sock, ref JSONValue data) {
+	int dx_version = helpers.g_direct_x_version;
+	JSONValue message;
+	message["action"] = "get_directx_version";
+	message["value"] = dx_version;
+	string response = EncodeWebSocketResponse(message);
+	sock.send(response);
+}
+
 void uncompress7Zip() {
 	import std.file;
 
@@ -1084,12 +1093,7 @@ void handleWebSocket(scope WebSocket sock) {
 */
 					break;
 				case "get_directx_version":
-					int dx_version = helpers.g_direct_x_version;
-					JSONValue message;
-					message["action"] = "get_directx_version";
-					message["value"] = dx_version;
-					string response = EncodeWebSocketResponse(message);
-					sock.send(response);
+					actionGetDirectxVersion(sock, message_map);
 					break;
 				case "set_game_directory":
 					actionSelectDirectoryDialog(sock, message_map);
