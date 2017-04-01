@@ -676,62 +676,20 @@ void actionUninstallProgram(ref WebSocket sock, ref JSONValue data) {
 	}
 }
 
+void actionSelectDirectoryDialog(ref WebSocket sock, ref JSONValue data) {
+	import gui;
 
+	string console = data["console"].str;
+	string dir_name = gui.DialogDirectorySelect();
 
-void actionSelectDirectoryDialogWindows(ref WebSocket sock, ref JSONValue data) {
-	import win32.winuser : HWND;
-	import win32_helpers;
-
-	// Grab the browser window
-	HWND hwnd = GetBrowserWindow();
-
-	// If no browser was found, grab the desktop
-	if (hwnd == null) {
-		hwnd = GetDesktopWindow();
-	}
-
-	// Throw an error if none were found
-	if (hwnd == null) {
-		throw new Exception("Failed to find any Firefox, Chrome, Opera, Edge, Internet Explorer, or the Desktop window to put the Folder Dialog on top of.");
-	}
-
-	// Get the directory name from a Directory Dialog Box
-	string dir_name = DialogDirectorySelect(hwnd);
 	if (dir_name != null) {
 		JSONValue message;
 		message["action"] = "set_game_directory";
+		message["console"] = console;
 		message["directory_name"] = dir_name;
 		string response = EncodeWebSocketResponse(message);
 		sock.send(response);
 		// FIXME: go taskSetGameDirectory(message_map);
-	}
-}
-
-void actionSelectDirectoryDialogLinux(ref WebSocket sock, ref JSONValue data) {
-	import std.process;
-	import std.stdio;
-	import std.algorithm;
-	import std.array;
-	import core.thread;
-
-	string console = data["console"].str;
-	const string[] command = [
-		"zenity",
-		"--title=\"Select game directory\"",
-		"--file-selection",
-		"--directory",
-	];
-
-	Thread.sleep(1.seconds);
-	// Run the command and wait for it to complete
-	auto pipes = pipeProcess(command, Redirect.stdout | Redirect.stderr);
-	int status = wait(pipes.pid);
-	string[] result_stdout = pipes.stdout.byLine.map!(l => l.idup).array();
-	string[] result_stderr = pipes.stderr.byLine.map!(l => l.idup).array();
-	string target_directory = result_stdout.join("");
-
-	if (status != 0) {
-		stderr.writefln("Failed to run zenity.");
 	}
 }
 
@@ -996,7 +954,8 @@ version (Windows) {
 	extern (Windows) int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
 		return runWinMain(&actualMain);
 	}
-} else {
+}
+version (linux) {
 	int main() {
 		return actualMain();
 	}
@@ -1133,12 +1092,7 @@ void handleWebSocket(scope WebSocket sock) {
 					sock.send(response);
 					break;
 				case "set_game_directory":
-					version (linux) {
-						actionSelectDirectoryDialogLinux(sock, message_map);
-					}
-					version (Windows) {
-						actionSelectDirectoryDialogWindows(sock, message_map);
-					}
+					actionSelectDirectoryDialog(sock, message_map);
 					break;
 				default:
 					logWarn("Unknown action:\"%s\"", action);

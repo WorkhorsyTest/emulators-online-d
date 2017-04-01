@@ -2,6 +2,8 @@
 
 module win32_helpers;
 
+version (Windows) {
+
 static import win32.windef;
 static import win32.winuser;
 static import win32.shlobj;
@@ -123,4 +125,6 @@ int runWinMain(int function() actualMain) {
 	} catch (Throwable err) {
 		return 1;
 	}
+}
+
 }

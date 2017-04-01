@@ -20,6 +20,7 @@
 		"encoder.d",
 		"helpers.d",
 		"win32_helpers.d",
+		"gui.d",
 		"../generate/generated_files.d",
 	],
 }
