@@ -4,15 +4,15 @@ module gui;
 
 
 version (Windows) string DialogDirectorySelect() {
-	import win32.winuser : HWND;
-	import win32_helpers;
+	static import win32.winuser;
+	static import win32_helpers;
 
 	// Grab the browser window
-	HWND hwnd = GetBrowserWindow();
+	win32.winuser.HWND hwnd = win32_helpers.GetBrowserWindow();
 
 	// If no browser was found, grab the desktop
 	if (hwnd == null) {
-		hwnd = GetDesktopWindow();
+		hwnd = win32.winuser.GetDesktopWindow();
 	}
 
 	// Throw an error if none were found
@@ -21,7 +21,7 @@ version (Windows) string DialogDirectorySelect() {
 	}
 
 	// Get the directory name from a Directory Dialog Box
-	return DialogDirectorySelect(hwnd);
+	return win32_helpers.DialogDirectorySelect(hwnd);
 }
 
 version (linux) string DialogDirectorySelect() {
