@@ -30,7 +30,7 @@ private void backgroundThread(Tid ownerTid) {
 
 	receive((string msg) {
 		JSONValue message_map;
-		message_map = DecodeWebSocketRequest(msg);
+		message_map = DecodeMessage(msg);
 		string action = message_map["action"].str;
 		if (action == "get_directx_version") {
 			g_direct_x_version = GetDirectxVersion();

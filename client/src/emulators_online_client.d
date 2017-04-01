@@ -547,7 +547,7 @@ void actionIsLinux(ref WebSocket sock) {
 	JSONValue message;
 	message["action"] = "is_linux";
 	message["value"] = is_linux;
-	string response = EncodeWebSocketResponse(message);
+	string response = EncodeMessage(message);
 	sock.send(response);
 }
 
@@ -569,7 +569,7 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "DirectX End User Runtime";
-			string response = EncodeWebSocketResponse(message);
+			string response = EncodeMessage(message);
 			sock.send(response);
 			break;
 		case "Visual C++ 2010 redist": // msvcr100.dll
@@ -580,7 +580,7 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "Visual C++ 2010 redist";
-			string response = EncodeWebSocketResponse(message);
+			string response = EncodeMessage(message);
 			sock.send(response);
 			break;
 		case "Visual C++ 2013 redist": // msvcr120.dll
@@ -591,7 +591,7 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "Visual C++ 2013 redist";
-			string response = EncodeWebSocketResponse(message);
+			string response = EncodeMessage(message);
 			sock.send(response);
 			break;
 		case "Demul":
@@ -600,7 +600,7 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "Demul";
-			string response = EncodeWebSocketResponse(message);
+			string response = EncodeMessage(message);
 			sock.send(response);
 			break;
 		case "PCSX2":
@@ -609,7 +609,7 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
 			message["name"] = "PCSX2";
-			string response = EncodeWebSocketResponse(message);
+			string response = EncodeMessage(message);
 			sock.send(response);
 			break;
 		default:
@@ -630,7 +630,7 @@ void actionInstallProgram(ref WebSocket sock, ref JSONValue data) {
 	message["action"] = "uncompress";
 	message["is_start"] = true;
 	message["name"] = file;
-	string response = EncodeWebSocketResponse(message);
+	string response = EncodeMessage(message);
 	sock.send(response);
 
 
@@ -654,7 +654,7 @@ void actionInstallProgram(ref WebSocket sock, ref JSONValue data) {
 	message["action"] = "uncompress";
 	message["is_start"] = false;
 	message["name"] = file;
-	response = EncodeWebSocketResponse(message);
+	response = EncodeMessage(message);
 	sock.send(response);
 }
 
@@ -687,7 +687,7 @@ void actionSelectDirectoryDialog(ref WebSocket sock, ref JSONValue data) {
 		message["action"] = "set_game_directory";
 		message["console"] = console;
 		message["directory_name"] = dir_name;
-		string response = EncodeWebSocketResponse(message);
+		string response = EncodeMessage(message);
 		sock.send(response);
 		// FIXME: go taskSetGameDirectory(message_map);
 	}
@@ -735,7 +735,7 @@ void actionDownloadFile(ref WebSocket sock, ref JSONValue data) {
 		message["action"] = "progress";
 		message["value"] = progress;
 		message["name"] = name;
-		string response = EncodeWebSocketResponse(message);
+		string response = EncodeMessage(message);
 		sock.send(response);
 	}
 	output.close();
@@ -746,7 +746,7 @@ void actionGetDirectxVersion(ref WebSocket sock, ref JSONValue data) {
 	JSONValue message;
 	message["action"] = "get_directx_version";
 	message["value"] = dx_version;
-	string response = EncodeWebSocketResponse(message);
+	string response = EncodeMessage(message);
 	sock.send(response);
 }
 
@@ -1039,7 +1039,7 @@ void handleWebSocket(scope WebSocket sock) {
 
 			JSONValue message_map;
 			try {
-				message_map = DecodeWebSocketRequest(msg);
+				message_map = DecodeMessage(msg);
 				//logInfo("WebSocket message_map: %s", message_map);
 			// If we can't decode the request, just echo it back
 			} catch (Throwable err) {

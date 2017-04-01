@@ -3,7 +3,7 @@ import vibe.vibe;
 import std.base64;
 import std.json;
 
-JSONValue DecodeWebSocketRequest(string buffer) {
+JSONValue DecodeMessage(string buffer) {
 	JSONValue j;
 	bool is_valid = false;
 
@@ -28,7 +28,7 @@ JSONValue DecodeWebSocketRequest(string buffer) {
 	return j;
 }
 
-string EncodeWebSocketResponse(JSONValue message) {
+string EncodeMessage(JSONValue message) {
 	logInfo("<<< out: %s", message);
 	//logInfo("message: %s", message);
 	ubyte[] response = cast(ubyte[]) "%s".format(message);
