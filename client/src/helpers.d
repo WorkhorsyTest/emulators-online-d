@@ -23,6 +23,51 @@ import std.stdio;
 
 int g_direct_x_version = -1;
 
+string SanitizeFileName(string name) {
+	import std.string;
+
+	// Replace all the chars with the safe equiv
+	const string[string] sanitize_map = [
+		"/" : "+",
+		"\\" : "+",
+		": " : " - ",
+		"*" : "+",
+		"?" : "",
+		"\"" : "'",
+		"<" : "[",
+		">" : "]",
+		"|" : "+",
+	];
+	foreach (before, after ; sanitize_map) {
+		name = name.replace(before, after);
+	}
+
+	// Remove any trailing periods
+	name = std.string.strip(name, ".");
+
+	return name;
+}
+
+string CleanPath(string file_path) {
+	import std.string;
+	import std.algorithm;
+
+	// Fix the backward slashes from Windows
+	string new_path = file_path.replace("\\", "/");
+
+	// Strip off the Disc number
+	if (new_path.canFind(" [Disc")) {
+		new_path = strings.Split(new_path, " [Disc")[0];
+	}
+
+	// Make sure it ends with a slash
+	if (! new_path.endsWith("/")) {
+		new_path ~= "/";
+	}
+
+	return new_path;
+}
+
 string[] glob(string path, string pattern, bool is_shallow) {
 	import std.file;
 	import std.path;
