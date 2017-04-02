@@ -25,6 +25,7 @@ int g_direct_x_version = -1;
 
 string SanitizeFileName(string name) {
 	import std.string;
+	import std.algorithm.mutation;
 
 	// Replace all the chars with the safe equiv
 	const string[string] sanitize_map = [
@@ -43,7 +44,7 @@ string SanitizeFileName(string name) {
 	}
 
 	// Remove any trailing periods
-	name = std.string.strip(name, ".");
+	name = std.algorithm.mutation.strip(name, '.');
 
 	return name;
 }
@@ -57,7 +58,7 @@ string CleanPath(string file_path) {
 
 	// Strip off the Disc number
 	if (new_path.canFind(" [Disc")) {
-		new_path = strings.Split(new_path, " [Disc")[0];
+		new_path = new_path.split(" [Disc")[0];
 	}
 
 	// Make sure it ends with a slash

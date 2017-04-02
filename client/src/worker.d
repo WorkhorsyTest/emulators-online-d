@@ -26,7 +26,7 @@ import std.json;
 import encoder;
 
 // g_db is accessed like g_db[console][game][binary_name]
-string[string][string][string] g_db;
+Variant[string][string][string] g_db;
 long[string][string] g_file_modify_dates;
 
 void Send(Tid tid, string message) {
@@ -78,10 +78,13 @@ private void backgroundThread(Tid ownerTid) {
 
 private void actionSearchGameDirectory(ref JSONValue message_map) {
 	import std.file;
+	import std.string;
 	import std.path;
 	import std.datetime;
 	import std.array;
+	import std.stdio;
 	import helpers;
+	import compress;
 
 	string directory_name = message_map["directory_name"].str;
 	string console = message_map["console"].str;
@@ -185,12 +188,12 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 
 			// Initialize the db for this console if needed
 			if ((console in g_db) == null) {
-				g_db[console].empty();//FIXME: make(map[string]map[string]object);
+				g_db[console].clear();//FIXME: make(map[string]map[string]object);
 			}
 
 			g_db[console][title] = [
 				"path" : "%s/%s/".format(path_prefix, clean_title).CleanPath(),
-				"binary" : AbsPath(cast(string) info["file"]),
+				"binary" : absolutePath(info["file"]),
 				"bios" : "",
 				"images" : [],
 				"developer" : "",
@@ -214,10 +217,10 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 			string image_dir = "%s/%s/".format(path_prefix, title);
 			string[] expected_images = ["title_big.png", "title_small.png"];
 			foreach (img ; expected_images) {
-				if (! helpers.IsDir(image_dir)) {
+				if (! std.file.isDir(image_dir)) {
 					string image_file = "%s%s".format(image_dir, img);
-					if (helpers.IsFile(image_file)) {
-						string[] images = cast(string[]) g_db[console][title]["images"];
+					if (std.file.isFile(image_file)) {
+						string[] images = g_db[console][title]["images"].get!(string[]);
 						images ~= image_file;
 						g_db[console][title]["images"] = images;
 					}
@@ -227,7 +230,7 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 	}
 
 	// Send the updated game db to the browser
-	string value = ToCompressedBase64Json(g_db);
+	ubyte[] value = compress.ToCompressedBase64(g_db, CompressionType.Zlib);
 
 	object[string] message = [
 		"action" : "set_db",
@@ -250,12 +253,14 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 	//f.Write(jsoned_data)
 
 	// Write the modify dates cache file
-	auto f = os.Create(fmt.Sprintf("cache/file_modify_dates_%s.json", console));
-	// FIXME: defer f.Close();
+	auto f = File("cache/file_modify_dates_%s.json".format(console), "w");
+	scope (exit) f.close();
+/*
 	if (err != null) {
 		fmt.Printf("Failed to open file modify dates file: %s\r\n", err);
 		return err;
 	}
+
 	string jsoned_data = json.MarshalIndent(g_file_modify_dates[console], "", "\t");
 	if (err != null) {
 		fmt.Printf("Failed to convert file_modify_dates to json: %s\r\n", err);
@@ -263,12 +268,12 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 	}
 	f.Write(jsoned_data);
 
-	fmt.Printf("Done getting games from directory.\r\n");
+	fmt.Printf("Done getting games from directory.");
 
 	a_task.percentage = 100.0f;
 	// FIXME: channel_task_progress <- a_task;
 
 	// Signal that we are done
 	// FIXME: channel_is_done <- true;
-	return null;
+*/
 }
