@@ -26,7 +26,7 @@ import std.json;
 import encoder;
 
 // g_db is accessed like g_db[console][game][binary_name]
-Variant[string][string][string] g_db;
+string[string][string][string] g_db;
 long[string][string] g_file_modify_dates;
 
 void Send(Tid tid, string message) {
@@ -34,7 +34,7 @@ void Send(Tid tid, string message) {
 }
 
 Tid Start() {
-	Tid tid = spawn(&backgroundThread, thisTid);
+	Tid tid = spawn(&workerThread, thisTid);
 
 	auto val = vibe.vibe.async({
 		run();
@@ -55,7 +55,7 @@ private void run() {
 	}
 }
 
-private void backgroundThread(Tid ownerTid) {
+private void workerThread(Tid ownerTid) {
 	while (true) {
 		receive((string msg) {
 			JSONValue message_map;
@@ -137,7 +137,7 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 		if ((entry in g_file_modify_dates[console]) != null) {
 			old_modify_date = g_file_modify_dates[console][entry];
 		}
-		auto modify_date = std.datetime.stdTimeToUnixTime(timeLastModified(entry));
+		auto modify_date = entry.timeLastModified().toUnixTime();
 		if (modify_date == old_modify_date) {
 			continue;
 		} else {
@@ -187,7 +187,7 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 			string clean_title = helpers.SanitizeFileName(title);
 
 			// Initialize the db for this console if needed
-			if ((console in g_db) == null) {
+			if ((console in g_db) != null) {
 				g_db[console].clear();//FIXME: make(map[string]map[string]object);
 			}
 
@@ -195,7 +195,8 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 				"path" : "%s/%s/".format(path_prefix, clean_title).CleanPath(),
 				"binary" : absolutePath(info["file"]),
 				"bios" : "",
-				"images" : [],
+				"image_big" : "",
+				"image_small" : "",
 				"developer" : "",
 				"publisher" : "",
 				"genre" : ""
@@ -214,22 +215,25 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 			}
 
 			// Get the images
+/*
 			string image_dir = "%s/%s/".format(path_prefix, title);
-			string[] expected_images = ["title_big.png", "title_small.png"];
+			string[] expected_images = ["big", "small"];
 			foreach (img ; expected_images) {
 				if (! std.file.isDir(image_dir)) {
-					string image_file = "%s%s".format(image_dir, img);
+					string image_file = "%simage_%s.png".format(image_dir, img);
 					if (std.file.isFile(image_file)) {
-						string[] images = g_db[console][title]["images"].get!(string[]);
+						string[] images = g_db[console][title]["image_%s".format(img)].get!(string[]);
 						images ~= image_file;
 						g_db[console][title]["images"] = images;
 					}
 				}
 			}
+*/
 		}
 	}
 
 	// Send the updated game db to the browser
+/*
 	ubyte[] value = compress.ToCompressedBase64(g_db, CompressionType.Zlib);
 
 	object[string] message = [
@@ -237,7 +241,7 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 		"value" : value,
 	];
 	WebSocketSend(&message);
-
+*/
 	//// Write the db cache file
 	//f, err := os.Create(fmt.Sprintf("cache/game_db_%s.json", console))
 	//defer f.Close()
