@@ -16,8 +16,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package identify_dreamcast_games
-
+module identify_dreamcast_games;
+/*
 import (
 	"fmt"
 	//"archive/zip"
@@ -32,39 +32,39 @@ import (
 	"encoding/json"
 	"strconv"
 )
+*/
+
+const ulong BUFFER_SIZE = 1024 * 1024 * 10;
+string[string][string] unofficial_db;
+string[string][string] official_us_db;
+string[string][string] official_eu_db;
+string[string][string] official_jp_db;
 
 
-const BUFFER_SIZE uint64 = 1024 * 1024 * 10
-var unofficial_db map[string] map[string]string
-var official_us_db map[string] map[string]string
-var official_eu_db map[string] map[string]string
-var official_jp_db map[string] map[string]string
+string _strip_comments(string data) {
+	import std.string;
+	import std.array;
+	import std.algorithm.searching;
 
-
-func _strip_comments(data string) string {
-	var lines []string = strings.Split(data, "\r\n")
-	var new_data []string
-	for _, line := range lines {
-		if !strings.Contains(line, "/*") && !strings.Contains(line, "*/") {
-			new_data = append(new_data, line)
+	string[] lines = strings.Split(data, "\r\n");
+	string[] new_data;
+	foreach (line ; lines) {
+		if (! line.canFind("/*") && ! line.canFind("*/")) {
+			new_data ~= line;
 		}
 	}
 
-	return strings.Join(new_data, "\r\n")
+	return new_data.join("\r\n");
 }
 
-func _read_blob_at(file *os.File, start_address int64, buffer []byte, size int) (string, error) {
-	file.Seek(start_address, 0)
-	length, err := file.Read(buffer)
+string _read_blob_at(file File, ulong start_address, byte[] buffer, ulong size) {
+	file.Seek(start_address, 0);
+	ulong length = file.read(buffer);
 
-	if err != nil {
-		return "", err
+	if (size < length) {
+		throw new Exception("Read size was less than the desired size.");
 	}
-
-	if size < length {
-		return "", errors.New("Read size was less than the desired size.")
-	}
-	return string(buffer[0 : size]), nil
+	return cast(string) buffer[0 .. size];
 }
 
 func _load_json(file_name string, load_into *map[string] map[string]string) {

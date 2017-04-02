@@ -27,7 +27,7 @@ import encoder;
 
 // g_db is accessed like g_db[console][game][binary_name]
 string[string][string][string] g_db;
-long[string][string] g_file_modify_dates;
+//long[string][string] g_file_modify_dates;
 
 void Send(Tid tid, string message) {
 	send(tid, message);
@@ -85,6 +85,7 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 	import std.stdio;
 	import helpers;
 	import compress;
+	static import identify_dreamcast_games;
 
 	string directory_name = message_map["directory_name"].str;
 	string console = message_map["console"].str;
@@ -121,17 +122,15 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 		entry = absolutePath(entry);
 		entry = entry.replace("\\", "/");
 
-		// Get the percentage of the progress looping through files
-		float percentage = (done_files / total_files) * 100.0f;
-		//a_task.percentage = percentage;
-		//FIXME: channel_task_progress <- a_task;
-		done_files += 1.0f;
-
 		// Skip if the the entry is not a file
 		if (! std.file.isFile(entry)) {
 			continue;
 		}
 
+		// Get the percentage of the progress looping through files
+		float percentage = (done_files / total_files) * 100.0f;
+		done_files += 1.0f;
+/*
 		// Skip if the game file has not been modified
 		long old_modify_date = 0;
 		if ((entry in g_file_modify_dates[console]) != null) {
@@ -143,9 +142,11 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 		} else {
 			g_file_modify_dates[console][entry] = modify_date;
 		}
-
+*/
 		// Get the game info
 		string[string] info;
+
+		info["file"] = identify_dreamcast_games.getGameInfoFromFile(entry);
 /*
 		exec.Cmd cmd;
 		if (console == "dreamcast") {
@@ -182,8 +183,8 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 		info["file"] = entry;
 */
 		// Save the info in the db
-		if (info != null) {
-			string title = cast(string) info["title"];
+		if (info.length > 0) {
+			string title = info["title"];
 			string clean_title = helpers.SanitizeFileName(title);
 
 			// Initialize the db for this console if needed
