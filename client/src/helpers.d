@@ -6,6 +6,38 @@ import std.stdio;
 
 int g_direct_x_version = -1;
 
+string[] glob(string path, string pattern, bool is_shallow) {
+	import std.file;
+	import std.path;
+	import std.range.primitives;
+	import std.stdio;
+
+	string[] matches;
+	string[] to_search = [path];
+	while (to_search.length > 0) {
+		string current = to_search[0];
+		std.range.primitives.popFront(to_search);
+		try {
+			auto entries = std.file.dirEntries(current, SpanMode.shallow);
+			foreach (entry ; entries) {
+				if (! is_shallow && std.file.isDir(entry.name)) {
+					to_search ~= entry.name;
+				} else {
+					string base_name = std.path.baseName(entry.name);
+					if (std.path.globMatch(base_name, pattern)) {
+						matches ~= entry.name;
+					}
+				}
+			}
+		} catch (Throwable err) {
+
+		}
+	}
+
+
+	return matches;
+}
+
 void TryRemovingFileOnExit(string file_name) {
 	import std.file;
 
