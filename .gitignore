@@ -11,6 +11,15 @@ client/wrapped_client/dub.selections.json
 client/src/.dub
 client/src/dub.selections.json
 
+# Temporary files
+client/generate/generated_files.d
+client/generate/generate_included_files
+client/generate/generate_included_files.exe
+client/wrap_binary/wrapper_generator
+client/wrapped_client/wrapped.d
+client/emulators_online_client
+client/emulators_online_client.exe
+
 build
 cache/*
 db/*
