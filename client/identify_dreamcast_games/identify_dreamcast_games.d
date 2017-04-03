@@ -21,7 +21,7 @@ module identify_dreamcast_games;
 import std.stdio;
 
 
-private const long BUFFER_SIZE = 1024 * 1024 * 10;
+private const long BUFFER_SIZE = 1024 * 1024 * 5;
 private ubyte[BUFFER_SIZE] g_big_buffer;
 private bool g_is_db_loaded = false;
 private string[string][string] g_unofficial_db;
