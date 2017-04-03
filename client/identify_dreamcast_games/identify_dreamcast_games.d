@@ -19,8 +19,6 @@
 module identify_dreamcast_games;
 
 import std.stdio;
-import std.typecons;
-import std.stdio;
 
 
 const long BUFFER_SIZE = 1024 * 1024 * 10;
@@ -31,7 +29,7 @@ string[string][string] g_official_eu_db;
 string[string][string] g_official_jp_db;
 
 
-string _strip_comments(string data) {
+private string stripComments(string data) {
 	import std.string;
 	import std.array;
 	import std.algorithm.searching;
@@ -47,7 +45,7 @@ string _strip_comments(string data) {
 	return new_data.join("\r\n");
 }
 
-string _read_blob_at(File file, long start_address, ubyte[] buffer, size_t size) {
+private string readBlobAt(File file, long start_address, ubyte[] buffer, size_t size) {
 	file.seek(start_address, 0);
 
 	ubyte[] buffer_to_use = buffer[0 .. size];
@@ -59,7 +57,7 @@ string _read_blob_at(File file, long start_address, ubyte[] buffer, size_t size)
 	return cast(string) buffer[0 .. size];
 }
 
-string[string][string] _load_json(string file_name) {
+private string[string][string] loadJson(string file_name) {
 	import std.file;
 	import std.json;
 
@@ -67,9 +65,7 @@ string[string][string] _load_json(string file_name) {
 	ubyte[] data = cast(ubyte[]) std.file.read(file_name);
 
 	// Strip the comments and load the json into the map
-	//var retval map[string]string
-	data = cast(ubyte[]) _strip_comments(cast(string) data);
-	//fmt.Printf("!!! data: %s\n", data)
+	data = cast(ubyte[]) stripComments(cast(string) data);
 	auto j = parseJSON(data);
 
 	// Copy the data from json to an associative array
@@ -83,7 +79,7 @@ string[string][string] _load_json(string file_name) {
 	return load_into;
 }
 
-void _fix_games_with_same_serial_number(File f, ref string title, ref string serial_number) {
+private void fixGamesWithSameSerialNumber(File f, ref string title, ref string serial_number) {
 	if (serial_number == "T-8111D-50") {
 		if (title == "ECW HARDCORE REVOLUTION") { // EU ECW Hardcore Revolution
 			title = "ECW Hardcore Revolution";
@@ -126,93 +122,110 @@ void _fix_games_with_same_serial_number(File f, ref string title, ref string ser
 	*/
 }
 
-string[] _fix_games_that_are_mislabeled(File f, string title, string serial_number) {
+private string[] fixGamesThatAreMislabeled(File f, string title, string serial_number) {
 	ubyte[30] buffer;
-	if (serial_number == "T1402N") { // Mr. Driller
-		if (_read_blob_at(f, 0x159208, buffer, 12) == "DYNAMITE COP") {
-			return ["Dynamite Cop!", "MK-51013"];
-		}
-	} else if (serial_number == "MK-51035") { // Crazy Taxi
-		if (_read_blob_at(f, 0x1617E652, buffer, 9) == "Half-Life") {
-			return ["Half-Life", "T0000M"];
-		} else if (_read_blob_at(f, 0x1EA78B5, buffer, 10) == "Shadow Man") {
-			return ["Shadow Man", "T8106N"];
-		}
-	} else if (serial_number == "T43903M") { // Culdcept II
-		if (_read_blob_at(f, 0x264E1E5D, buffer, 10) == "CHAOSFIELD") {
-			return ["Chaos Field", "T47801M"];
-		}
-	} else if (serial_number == "T0000M") { // Unnamed
-		if (_read_blob_at(f, 0x557CAB0, buffer, 13) == "BALL BREAKERS") {
-			return ["Ball Breakers", "T0000M"];
-		} else if (_read_blob_at(f, 0x4BD5EE5, buffer, 6) == "TOEJAM") {
-			return ["ToeJam and Earl 3", "T0000M"];
-		}
-	} else if (serial_number == "T0000") { // Unnamed
-		if (_read_blob_at(f, 0x162E20, buffer, 15) == "Art of Fighting") {
-			return ["Art of Fighting", "T0000"];
-		} else if (_read_blob_at(f, 0x29E898B0, buffer, 17) == "Art of Fighting 2") {
-			return ["Art of Fighting 2", "T0000"];
-		} else if (_read_blob_at(f, 0x26D5BCA4, buffer, 17) == "Art of Fighting 3") {
-			return ["Art of Fighting 3", "T0000"];
-		} else if (_read_blob_at(f, 0x295301F0, buffer, 5) == "Redux") {
-			return ["Redux: Dark Matters", "T0000"];
-		}
-	} else if (serial_number == "MK-51025") { // NHL 2K1
-		if (_read_blob_at(f, 0x410CA8, buffer, 14) == "READY 2 RUMBLE") {
-			return ["Ready 2 Rumble Boxing", "T9704N"];
-		}
-	} else if (serial_number == "T36804N") { // Walt Disney World Quest: Magical Racing Tour
-		if (_read_blob_at(f, 0x245884, buffer, 6) == "MakenX") {
-			return ["Maken X", "MK-51050"];
-		}
-	} else if (serial_number == "RDC-0117") { // The king of Fighters '96 Collection (NEO4ALL RC4)
-		if (_read_blob_at(f, 0x159208, buffer, 16) == "BOMBERMAN ONLINE") {
-			return ["Bomberman Online", "RDC-0120"];
-		}
-	} else if (serial_number == "RDC-0140") { // Dead or Alive 2
-		if (_read_blob_at(f, 0x15639268, buffer, 13) == "CHUCHU ROCKET") {
-			return ["ChuChu Rocket!", "RDC-0139"];
-		}
-	} else if (serial_number == "T19724M") { // Pizzicato Polka: Suisei Genya
-		if (_read_blob_at(f, 0x3CA16B8, buffer, 7) == "DAYTONA") {
-			return ["Daytona USA", "MK-51037"];
-		}
-	} else if (serial_number == "MK-51049") { // ChuChu Rocket!
-		if (_read_blob_at(f, 0xC913DDC, buffer, 13) == "HYDRO THUNDER") {
-			return ["Hydro Thunder", "T9702N"];
-		} else if (_read_blob_at(f, 0x2D096802, buffer, 17) == "MARVEL VS. CAPCOM") {
-			return ["Marvel vs. Capcom 2", "T1212N"];
-		} else if (_read_blob_at(f, 0x1480A730, buffer, 13) == "POWER STONE 2") {
-			return ["Power Stone 2", "T-1211N"];
-		}
-	} else if (serial_number == "T44304N") { // Sports Jam
-		string name = _read_blob_at(f, 0x157FA8, buffer, 9);
-		if (name == "OUTRIGGER") {
-			return ["OutTrigger: International Counter Terrorism Special Force", "MK-51102"];
-		}
-	} else if (serial_number == "MK-51028") { // Virtua Striker 2
-		if (_read_blob_at(f, 0x1623B0, buffer, 12) == "zerogunner 2") {
-			return ["Zero Gunner 2", "MK-51028"];
-			//return "OutTrigger: International Counter Terrorism Special Force", "MK-51102"
-		}
-	} else if (serial_number == "T1240M") { // BioHazard Code: Veronica Complete
-		string name = _read_blob_at(f, 0x157FAD, buffer, 14);
-		if (name == "BASS FISHING 2") {
-			return ["Sega Bass Fishing 2", "MK-51166"];
-		}
-	} else if (serial_number == "MK-51100") { // Phantasy Star Online
-		string name = _read_blob_at(f, 0x52F28A8, buffer, 26);
-		if (name == "Phantasy Star Online Ver.2") {
-			return ["Phantasy Star Online Ver. 2", "MK-51166"];
-		}
+	switch (serial_number) {
+		case "T1402N": // Mr. Driller
+			if (readBlobAt(f, 0x159208, buffer, 12) == "DYNAMITE COP") {
+				return ["Dynamite Cop!", "MK-51013"];
+			}
+			break;
+		case "MK-51035": // Crazy Taxi
+			if (readBlobAt(f, 0x1617E652, buffer, 9) == "Half-Life") {
+				return ["Half-Life", "T0000M"];
+			} else if (readBlobAt(f, 0x1EA78B5, buffer, 10) == "Shadow Man") {
+				return ["Shadow Man", "T8106N"];
+			}
+			break;
+		case "T43903M": // Culdcept II
+			if (readBlobAt(f, 0x264E1E5D, buffer, 10) == "CHAOSFIELD") {
+				return ["Chaos Field", "T47801M"];
+			}
+			break;
+		case "T0000M": // Unnamed
+			if (readBlobAt(f, 0x557CAB0, buffer, 13) == "BALL BREAKERS") {
+				return ["Ball Breakers", "T0000M"];
+			} else if (readBlobAt(f, 0x4BD5EE5, buffer, 6) == "TOEJAM") {
+				return ["ToeJam and Earl 3", "T0000M"];
+			}
+			break;
+		case "T0000": // Unnamed
+			if (readBlobAt(f, 0x162E20, buffer, 15) == "Art of Fighting") {
+				return ["Art of Fighting", "T0000"];
+			} else if (readBlobAt(f, 0x29E898B0, buffer, 17) == "Art of Fighting 2") {
+				return ["Art of Fighting 2", "T0000"];
+			} else if (readBlobAt(f, 0x26D5BCA4, buffer, 17) == "Art of Fighting 3") {
+				return ["Art of Fighting 3", "T0000"];
+			} else if (readBlobAt(f, 0x295301F0, buffer, 5) == "Redux") {
+				return ["Redux: Dark Matters", "T0000"];
+			}
+			break;
+		case "MK-51025": // NHL 2K1
+			if (readBlobAt(f, 0x410CA8, buffer, 14) == "READY 2 RUMBLE") {
+				return ["Ready 2 Rumble Boxing", "T9704N"];
+			}
+			break;
+		case "T36804N": // Walt Disney World Quest: Magical Racing Tour
+			if (readBlobAt(f, 0x245884, buffer, 6) == "MakenX") {
+				return ["Maken X", "MK-51050"];
+			}
+			break;
+		case "RDC-0117": // The king of Fighters '96 Collection (NEO4ALL RC4)
+			if (readBlobAt(f, 0x159208, buffer, 16) == "BOMBERMAN ONLINE") {
+				return ["Bomberman Online", "RDC-0120"];
+			}
+			break;
+		case "RDC-0140": // Dead or Alive 2
+			if (readBlobAt(f, 0x15639268, buffer, 13) == "CHUCHU ROCKET") {
+				return ["ChuChu Rocket!", "RDC-0139"];
+			}
+			break;
+		case "T19724M": // Pizzicato Polka: Suisei Genya
+			if (readBlobAt(f, 0x3CA16B8, buffer, 7) == "DAYTONA") {
+				return ["Daytona USA", "MK-51037"];
+			}
+			break;
+		case "MK-51049": // ChuChu Rocket!
+			if (readBlobAt(f, 0xC913DDC, buffer, 13) == "HYDRO THUNDER") {
+				return ["Hydro Thunder", "T9702N"];
+			} else if (readBlobAt(f, 0x2D096802, buffer, 17) == "MARVEL VS. CAPCOM") {
+				return ["Marvel vs. Capcom 2", "T1212N"];
+			} else if (readBlobAt(f, 0x1480A730, buffer, 13) == "POWER STONE 2") {
+				return ["Power Stone 2", "T-1211N"];
+			}
+			break;
+		case "T44304N": // Sports Jam
+			string name = readBlobAt(f, 0x157FA8, buffer, 9);
+			if (name == "OUTRIGGER") {
+				return ["OutTrigger: International Counter Terrorism Special Force", "MK-51102"];
+			}
+			break;
+		case "MK-51028": // Virtua Striker 2
+			if (readBlobAt(f, 0x1623B0, buffer, 12) == "zerogunner 2") {
+				return ["Zero Gunner 2", "MK-51028"];
+				//return "OutTrigger: International Counter Terrorism Special Force", "MK-51102"
+			}
+			break;
+		case "T1240M": // BioHazard Code: Veronica Complete
+			string name = readBlobAt(f, 0x157FAD, buffer, 14);
+			if (name == "BASS FISHING 2") {
+				return ["Sega Bass Fishing 2", "MK-51166"];
+			}
+			break;
+		case "MK-51100": // Phantasy Star Online
+			string name = readBlobAt(f, 0x52F28A8, buffer, 26);
+			if (name == "Phantasy Star Online Ver.2") {
+				return ["Phantasy Star Online Ver. 2", "MK-51166"];
+			}
+			break;
+		default:
+			break;
 	}
 
 	return [title, serial_number];
 }
 
-
-long _locate_string_in_file(File f, long file_size, ubyte[] buffer, string string_to_find) {
+private long locateStringInFile(File f, long file_size, ubyte[] buffer, string string_to_find) {
 	import std.string;
 	import std.algorithm.searching;
 
@@ -251,7 +264,7 @@ long _locate_string_in_file(File f, long file_size, ubyte[] buffer, string strin
 	return -1;
 }
 
-string  _get_track_01_from_gdi_file(string file_name, ubyte[] buffer) {
+private string getTrack01FromGdiFile(string file_name, ubyte[] buffer) {
 	import std.string;
 	import std.path;
 	import std.stdio;
@@ -305,7 +318,7 @@ string[string] GetDreamcastGameInfo(string game_file) {
 	// If it's a GDI file read track 01
 	ubyte[256] small_buffer;
 	if (std.uni.toLower(std.path.extension(full_entry)) == ".gdi") {
-		full_entry = _get_track_01_from_gdi_file(full_entry, small_buffer);
+		full_entry = getTrack01FromGdiFile(full_entry, small_buffer);
 	}
 
 	// Open the game file
@@ -317,7 +330,7 @@ string[string] GetDreamcastGameInfo(string game_file) {
 
 	// Get the location of the header
 	const string header_text = "SEGA SEGAKATANA SEGA ENTERPRISES";
-	long index = _locate_string_in_file(f, file_size, g_big_buffer, header_text);
+	long index = locateStringInFile(f, file_size, g_big_buffer, header_text);
 	// Throw if index not found
 	if (index == -1) {
 		throw new Exception("Failed to find Sega Dreamcast Header.");
@@ -387,10 +400,10 @@ string[string] GetDreamcastGameInfo(string game_file) {
 	}
 
 	// Check for games with the same serial number
-	_fix_games_with_same_serial_number(f, title, serial_number);
+	fixGamesWithSameSerialNumber(f, title, serial_number);
 
 	// Check for mislabeled releases
-	_fix_games_that_are_mislabeled(f, title, serial_number);
+	fixGamesThatAreMislabeled(f, title, serial_number);
 
 	// Throw if the title is not found in the database
 	if (title.length == 0) {
@@ -425,11 +438,11 @@ int main(string[] args) {
 	// Get the path of the current exe
 	string root = dirName(args[0]);
 
-	g_unofficial_db = _load_json([root, "db_dreamcast_unofficial.json"].join(std.path.dirSeparator));
-	g_official_us_db = _load_json([root, "db_dreamcast_official_us.json"].join(std.path.dirSeparator));
-	g_official_jp_db = _load_json([root, "db_dreamcast_official_jp.json"].join(std.path.dirSeparator));
-	g_official_eu_db = _load_json([root, "db_dreamcast_official_eu.json"].join(std.path.dirSeparator));
-///*
+	g_unofficial_db = loadJson([root, "db_dreamcast_unofficial.json"].join(std.path.dirSeparator));
+	g_official_us_db = loadJson([root, "db_dreamcast_official_us.json"].join(std.path.dirSeparator));
+	g_official_jp_db = loadJson([root, "db_dreamcast_official_jp.json"].join(std.path.dirSeparator));
+	g_official_eu_db = loadJson([root, "db_dreamcast_official_eu.json"].join(std.path.dirSeparator));
+/*
 	string games_root = "C:/Users/bob/Desktop/Dreamcast/";
 	auto entries = std.file.dirEntries(games_root, SpanMode.depth);
 	foreach (entry ; entries) {
@@ -439,40 +452,31 @@ int main(string[] args) {
 		}
 
 		string[string] info = GetDreamcastGameInfo(entry);
-/*
-		if err != nil {
-			fmt.Printf("Failed to find: %s\r\n", path);
-			return nil;
-		}
-*/
+
 		stdout.writefln("info: %s", info);
 		stdout.flush();
 	}
 
-//*/
-/*
-	path := "C:/Users/matt/Desktop/Dreamcast/Sonic Adventure 2/sonic_adventure_2.cdi"
-	path = "C:/Users/matt/Desktop/Dreamcast/18 Wheeler - American Pro Trucker/18 Wheeler - American Pro Trucker v1.500 (2001)(Sega)(NTSC)(US)[!].gdi"
-	info, err := GetDreamcastGameInfo(path)
-	if err != nil {
-		fmt.Printf("err: %s\r\n", err)
-		return
-	}
-
-	fmt.Printf("path: %s\r\n", path)
-	fmt.Printf("title: %s\r\n", info["title"])
-	fmt.Printf("disc_info: %s\r\n", info["disc_info"])
-	fmt.Printf("region: %s\r\n", info["region"])
-	fmt.Printf("serial_number: %s\r\n", info["serial_number"])
-	fmt.Printf("version: %s\r\n", info["version"])
-	fmt.Printf("boot: %s\r\n", info["boot"])
-	fmt.Printf("maker: %s\r\n", info["maker"])
-	fmt.Printf("developer: %s\r\n", info["developer"])
-	fmt.Printf("genre: %s\r\n", info["genre"])
-	fmt.Printf("publisher: %s\r\n", info["publisher"])
-	fmt.Printf("release_date: %s\r\n", info["release_date"])
-	fmt.Printf("sloppy_title: %s\r\n", info["sloppy_title"])
-	fmt.Printf("header_index: %s\r\n", info["header_index"])
 */
+///*
+	string path = "C:/Users/bob/Desktop/Dreamcast/Sonic Adventure 2/sonic_adventure_2.cdi";
+	//path = "C:/Users/matt/Desktop/Dreamcast/18 Wheeler - American Pro Trucker/18 Wheeler - American Pro Trucker v1.500 (2001)(Sega)(NTSC)(US)[!].gdi"
+	auto info = GetDreamcastGameInfo(path);
+
+	stdout.writefln("path: %s", path);
+	stdout.writefln("title: %s", info["title"]);
+	stdout.writefln("disc_info: %s", info["disc_info"]);
+	stdout.writefln("region: %s", info["region"]);
+	stdout.writefln("serial_number: %s", info["serial_number"]);
+	stdout.writefln("version: %s", info["version"]);
+	stdout.writefln("boot: %s", info["boot"]);
+	stdout.writefln("maker: %s", info["maker"]);
+	stdout.writefln("developer: %s", info["developer"]);
+	stdout.writefln("genre: %s", info["genre"]);
+	stdout.writefln("publisher: %s", info["publisher"]);
+	stdout.writefln("release_date: %s", info["release_date"]);
+	stdout.writefln("sloppy_title: %s", info["sloppy_title"]);
+	stdout.writefln("header_index: %s", info["header_index"]);
+//*/
 	return 0;
 }
