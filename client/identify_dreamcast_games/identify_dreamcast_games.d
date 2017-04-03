@@ -283,6 +283,24 @@ private string getTrack01FromGdiFile(string file_name, ubyte[] buffer) {
 	return track_01_file;
 }
 
+void printInfo(string path, string[string] info) {
+	stdout.writefln("path: %s", path);
+	stdout.writefln("title: %s", info["title"]);
+	stdout.writefln("disc_info: %s", info["disc_info"]);
+	stdout.writefln("region: %s", info["region"]);
+	stdout.writefln("serial_number: %s", info["serial_number"]);
+	stdout.writefln("version: %s", info["version"]);
+	stdout.writefln("boot: %s", info["boot"]);
+	stdout.writefln("maker: %s", info["maker"]);
+	stdout.writefln("developer: %s", info["developer"]);
+	stdout.writefln("genre: %s", info["genre"]);
+	stdout.writefln("publisher: %s", info["publisher"]);
+	stdout.writefln("release_date: %s", info["release_date"]);
+	stdout.writefln("sloppy_title: %s", info["sloppy_title"]);
+	stdout.writefln("header_index: %s", info["header_index"]);
+	stdout.flush();
+}
+
 bool IsDreamcastFile(string game_file) {
 	import std.uni;
 	import std.path;
@@ -365,15 +383,15 @@ string[string] GetDreamcastGameInfo(string game_file) {
 	serial_number = serial_number.replace("-", "").replace(" ", "").strip();
 
 /*
-	fmt.Printf("offset: %v\n", offset)
-	fmt.Printf("disc_info: %v\n", disc_info)
-	fmt.Printf("region: %v\n", region)
-	fmt.Printf("serial_number: %v\n", serial_number)
-	fmt.Printf("version: %v\n", version_string)
-	fmt.Printf("boot: %v\n", boot)
-	fmt.Printf("marker: %v\n", maker)
-	fmt.Printf("sloppy_title: %v\n", sloppy_title)
-	fmt.Printf("index: %s\n", strconv.FormatInt(index, 10))
+	stdout.writefln("offset: %s", offset);
+	stdout.writefln("disc_info: %s", disc_info);
+	stdout.writefln("region: %s", region);
+	stdout.writefln("serial_number: %s", serial_number);
+	stdout.writefln("version: %s", version_string);
+	stdout.writefln("boot: %s", boot);
+	stdout.writefln("marker: %s", maker);
+	stdout.writefln("sloppy_title: %s", sloppy_title);
+	stdout.writefln("index: %s", index);
 */
 	// Check for different types of releases
 
@@ -424,7 +442,7 @@ string[string] GetDreamcastGameInfo(string game_file) {
 		"publisher" : publisher,
 		"release_date" : release_date,
 		"sloppy_title" : sloppy_title,
-		"header_index" : "%d".format(index),//strconv.FormatInt(index, 10),
+		"header_index" : "%d".format(index),
 	];
 
 	return retval;
@@ -443,7 +461,7 @@ int main(string[] args) {
 	g_official_us_db = loadJson([root, "db_dreamcast_official_us.json"].join(std.path.dirSeparator));
 	g_official_jp_db = loadJson([root, "db_dreamcast_official_jp.json"].join(std.path.dirSeparator));
 	g_official_eu_db = loadJson([root, "db_dreamcast_official_eu.json"].join(std.path.dirSeparator));
-/*
+///*
 	string games_root = "C:/Users/bob/Desktop/Dreamcast/";
 	auto entries = std.file.dirEntries(games_root, SpanMode.depth);
 	foreach (entry ; entries) {
@@ -453,31 +471,16 @@ int main(string[] args) {
 		}
 
 		string[string] info = GetDreamcastGameInfo(entry);
-
-		stdout.writefln("info: %s", info);
-		stdout.flush();
+		printInfo(entry, info);
 	}
 
-*/
-///*
+//*/
+/*
 	string path = "C:/Users/bob/Desktop/Dreamcast/Sonic Adventure 2/sonic_adventure_2.cdi";
 	//path = "C:/Users/matt/Desktop/Dreamcast/18 Wheeler - American Pro Trucker/18 Wheeler - American Pro Trucker v1.500 (2001)(Sega)(NTSC)(US)[!].gdi"
 	auto info = GetDreamcastGameInfo(path);
 
-	stdout.writefln("path: %s", path);
-	stdout.writefln("title: %s", info["title"]);
-	stdout.writefln("disc_info: %s", info["disc_info"]);
-	stdout.writefln("region: %s", info["region"]);
-	stdout.writefln("serial_number: %s", info["serial_number"]);
-	stdout.writefln("version: %s", info["version"]);
-	stdout.writefln("boot: %s", info["boot"]);
-	stdout.writefln("maker: %s", info["maker"]);
-	stdout.writefln("developer: %s", info["developer"]);
-	stdout.writefln("genre: %s", info["genre"]);
-	stdout.writefln("publisher: %s", info["publisher"]);
-	stdout.writefln("release_date: %s", info["release_date"]);
-	stdout.writefln("sloppy_title: %s", info["sloppy_title"]);
-	stdout.writefln("header_index: %s", info["header_index"]);
-//*/
+
+*/
 	return 0;
 }
