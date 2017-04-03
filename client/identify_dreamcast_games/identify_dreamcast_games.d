@@ -122,107 +122,127 @@ private void fixGamesWithSameSerialNumber(File f, ref string title, ref string s
 	*/
 }
 
-private string[] fixGamesThatAreMislabeled(File f, string title, string serial_number) {
+private void fixGamesThatAreMislabeled(File f, ref string title, ref string serial_number) {
 	ubyte[30] buffer;
 	switch (serial_number) {
 		case "T1402N": // Mr. Driller
 			if (readBlobAt(f, 0x159208, buffer, 12) == "DYNAMITE COP") {
-				return ["Dynamite Cop!", "MK-51013"];
+				title = "Dynamite Cop!";
+				serial_number = "MK-51013";
 			}
 			break;
 		case "MK-51035": // Crazy Taxi
 			if (readBlobAt(f, 0x1617E652, buffer, 9) == "Half-Life") {
-				return ["Half-Life", "T0000M"];
+				title = "Half-Life";
+				serial_number = "T0000M";
 			} else if (readBlobAt(f, 0x1EA78B5, buffer, 10) == "Shadow Man") {
-				return ["Shadow Man", "T8106N"];
+				title = "Shadow Man";
+				serial_number = "T8106N";
 			}
 			break;
 		case "T43903M": // Culdcept II
 			if (readBlobAt(f, 0x264E1E5D, buffer, 10) == "CHAOSFIELD") {
-				return ["Chaos Field", "T47801M"];
+				title = "Chaos Field";
+				serial_number = "T47801M";
 			}
 			break;
 		case "T0000M": // Unnamed
 			if (readBlobAt(f, 0x557CAB0, buffer, 13) == "BALL BREAKERS") {
-				return ["Ball Breakers", "T0000M"];
+				title = "Ball Breakers";
+				serial_number = "T0000M";
 			} else if (readBlobAt(f, 0x4BD5EE5, buffer, 6) == "TOEJAM") {
-				return ["ToeJam and Earl 3", "T0000M"];
+				title = "ToeJam and Earl 3";
+				serial_number = "T0000M";
 			}
 			break;
 		case "T0000": // Unnamed
 			if (readBlobAt(f, 0x162E20, buffer, 15) == "Art of Fighting") {
-				return ["Art of Fighting", "T0000"];
+				title = "Art of Fighting";
+				serial_number = "T0000";
 			} else if (readBlobAt(f, 0x29E898B0, buffer, 17) == "Art of Fighting 2") {
-				return ["Art of Fighting 2", "T0000"];
+				title = "Art of Fighting 2";
+				serial_number = "T0000";
 			} else if (readBlobAt(f, 0x26D5BCA4, buffer, 17) == "Art of Fighting 3") {
-				return ["Art of Fighting 3", "T0000"];
+				title = "Art of Fighting 3";
+				serial_number = "T0000";
 			} else if (readBlobAt(f, 0x295301F0, buffer, 5) == "Redux") {
-				return ["Redux: Dark Matters", "T0000"];
+				title = "Redux: Dark Matters";
+				serial_number = "T0000";
 			}
 			break;
 		case "MK-51025": // NHL 2K1
 			if (readBlobAt(f, 0x410CA8, buffer, 14) == "READY 2 RUMBLE") {
-				return ["Ready 2 Rumble Boxing", "T9704N"];
+				title = "Ready 2 Rumble Boxing";
+				serial_number = "T9704N";
 			}
 			break;
 		case "T36804N": // Walt Disney World Quest: Magical Racing Tour
 			if (readBlobAt(f, 0x245884, buffer, 6) == "MakenX") {
-				return ["Maken X", "MK-51050"];
+				title = "Maken X";
+				serial_number = "MK-51050";
 			}
 			break;
 		case "RDC-0117": // The king of Fighters '96 Collection (NEO4ALL RC4)
 			if (readBlobAt(f, 0x159208, buffer, 16) == "BOMBERMAN ONLINE") {
-				return ["Bomberman Online", "RDC-0120"];
+				title = "Bomberman Online";
+				serial_number = "RDC-0120";
 			}
 			break;
 		case "RDC-0140": // Dead or Alive 2
 			if (readBlobAt(f, 0x15639268, buffer, 13) == "CHUCHU ROCKET") {
-				return ["ChuChu Rocket!", "RDC-0139"];
+				title = "ChuChu Rocket!";
+				serial_number = "RDC-0139";
 			}
 			break;
 		case "T19724M": // Pizzicato Polka: Suisei Genya
 			if (readBlobAt(f, 0x3CA16B8, buffer, 7) == "DAYTONA") {
-				return ["Daytona USA", "MK-51037"];
+				title = "Daytona USA";
+				serial_number = "MK-51037";
 			}
 			break;
 		case "MK-51049": // ChuChu Rocket!
 			if (readBlobAt(f, 0xC913DDC, buffer, 13) == "HYDRO THUNDER") {
-				return ["Hydro Thunder", "T9702N"];
+				title = "Hydro Thunder";
+				serial_number = "T9702N";
 			} else if (readBlobAt(f, 0x2D096802, buffer, 17) == "MARVEL VS. CAPCOM") {
-				return ["Marvel vs. Capcom 2", "T1212N"];
+				title = "Marvel vs. Capcom 2";
+				serial_number = "T1212N";
 			} else if (readBlobAt(f, 0x1480A730, buffer, 13) == "POWER STONE 2") {
-				return ["Power Stone 2", "T-1211N"];
+				title = "Power Stone 2";
+				serial_number = "T-1211N";
 			}
 			break;
 		case "T44304N": // Sports Jam
 			string name = readBlobAt(f, 0x157FA8, buffer, 9);
 			if (name == "OUTRIGGER") {
-				return ["OutTrigger: International Counter Terrorism Special Force", "MK-51102"];
+				title = "OutTrigger: International Counter Terrorism Special Force";
+				serial_number = "MK-51102";
 			}
 			break;
 		case "MK-51028": // Virtua Striker 2
 			if (readBlobAt(f, 0x1623B0, buffer, 12) == "zerogunner 2") {
-				return ["Zero Gunner 2", "MK-51028"];
+				title = "Zero Gunner 2";
+				serial_number = "MK-51028";
 				//return "OutTrigger: International Counter Terrorism Special Force", "MK-51102"
 			}
 			break;
 		case "T1240M": // BioHazard Code: Veronica Complete
 			string name = readBlobAt(f, 0x157FAD, buffer, 14);
 			if (name == "BASS FISHING 2") {
-				return ["Sega Bass Fishing 2", "MK-51166"];
+				title = "Sega Bass Fishing 2";
+				serial_number = "MK-51166";
 			}
 			break;
 		case "MK-51100": // Phantasy Star Online
 			string name = readBlobAt(f, 0x52F28A8, buffer, 26);
 			if (name == "Phantasy Star Online Ver.2") {
-				return ["Phantasy Star Online Ver. 2", "MK-51166"];
+				title = "Phantasy Star Online Ver. 2";
+				serial_number = "MK-51166";
 			}
 			break;
 		default:
 			break;
 	}
-
-	return [title, serial_number];
 }
 
 private long locateStringInFile(File f, long file_size, ubyte[] buffer, string string_to_find) {
