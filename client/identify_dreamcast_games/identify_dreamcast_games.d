@@ -19,9 +19,12 @@
 module identify_dreamcast_games;
 
 import std.stdio;
+import std.typecons;
+import std.stdio;
 
 
 const long BUFFER_SIZE = 1024 * 1024 * 10;
+ubyte[BUFFER_SIZE] g_big_buffer;
 string[string][string] g_unofficial_db;
 string[string][string] g_official_us_db;
 string[string][string] g_official_eu_db;
@@ -56,7 +59,7 @@ string _read_blob_at(File file, long start_address, ubyte[] buffer, size_t size)
 	return cast(string) buffer[0 .. size];
 }
 
-string[string] _load_json(string file_name) {
+string[string][string] _load_json(string file_name) {
 	import std.file;
 	import std.json;
 
@@ -68,22 +71,34 @@ string[string] _load_json(string file_name) {
 	data = cast(ubyte[]) _strip_comments(cast(string) data);
 	//fmt.Printf("!!! data: %s\n", data)
 	auto j = parseJSON(data);
-	string[string] load_into;
+
+	// Copy the data from json to an associative array
+	string[string][string] load_into;
+	foreach (serial_number, info ; j.object) {
+		foreach (field, value ; info.object) {
+			load_into[serial_number][field] = value.str;
+		}
+	}
+
 	return load_into;
 }
 
-string[] _fix_games_with_same_serial_number(File f, string title, string serial_number) {
+void _fix_games_with_same_serial_number(File f, ref string title, ref string serial_number) {
 	if (serial_number == "T-8111D-50") {
 		if (title == "ECW HARDCORE REVOLUTION") { // EU ECW Hardcore Revolution
-			return ["ECW Hardcore Revolution", "T-8111D-50"];
+			title = "ECW Hardcore Revolution";
+			serial_number = "T-8111D-50";
 		} else if (title == "DEAD OR ALIVE 2") { // EU Dead or Alive 2
-			return ["Dead or Alive 2", "T-8111D-50"];
+			title = "Dead or Alive 2";
+			serial_number = "T-8111D-50";
 		}
 	} else if (serial_number == "T-8101N") {
 		if (title == "QUARTERBACK CLUB 2000") { //US NFL Quarterback Club 2000
-			return ["NFL Quarterback Club 2000", "T-8101N"];
+			title = "NFL Quarterback Club 2000";
+			serial_number = "T-8101N";
 		} else if (title == "JEREMY MCGRATH SUPERCROSS 2000") { //US Jeremy McGrath Supercross 2000
-			return ["Jeremy McGrath Supercross 2000", "T-8101N"];
+			title = "Jeremy McGrath Supercross 2000";
+			serial_number = "T-8101N";
 		}
 	}
 	/*
@@ -109,7 +124,6 @@ string[] _fix_games_with_same_serial_number(File f, string title, string serial_
 		EU Sega WorldWide Soccer 2000 Euro Edition
 		EU Zombie Revenge
 	*/
-	return [title, serial_number];
 }
 
 string[] _fix_games_that_are_mislabeled(File f, string title, string serial_number) {
@@ -242,7 +256,7 @@ string  _get_track_01_from_gdi_file(string file_name, ubyte[] buffer) {
 	import std.path;
 	import std.stdio;
 
-	string path = baseName(file_name);
+	string path = dirName(file_name);
 
 	auto f = File(file_name, "r");
 	scope (exit) f.close();
@@ -303,8 +317,7 @@ string[string] GetDreamcastGameInfo(string game_file) {
 
 	// Get the location of the header
 	const string header_text = "SEGA SEGAKATANA SEGA ENTERPRISES";
-	ubyte[BUFFER_SIZE] buffer;
-	long index = _locate_string_in_file(f, file_size, buffer, header_text);
+	long index = _locate_string_in_file(f, file_size, g_big_buffer, header_text);
 	// Throw if index not found
 	if (index == -1) {
 		throw new Exception("Failed to find Sega Dreamcast Header.");
@@ -352,16 +365,16 @@ string[string] GetDreamcastGameInfo(string game_file) {
 
 	// Unofficial
 	string[string] info;
-	if (g_unofficial_db[serial_number] != null) {
+	if ((serial_number in g_unofficial_db) != null) {
 		info = g_unofficial_db[serial_number];
 	// US
-	} else if (g_official_us_db[serial_number] != null) {
+	} else if ((serial_number in g_official_us_db) != null) {
 		info = g_official_us_db[serial_number];
 	// Europe
-	} else if (g_official_eu_db[serial_number] != null) {
+	} else if ((serial_number in g_official_eu_db) != null) {
 		info = g_official_eu_db[serial_number];
 	// Japan
-	} else if (g_official_jp_db[serial_number] != null) {
+	} else if ((serial_number in g_official_jp_db) != null) {
 		info = g_official_jp_db[serial_number];
 	}
 
@@ -374,10 +387,10 @@ string[string] GetDreamcastGameInfo(string game_file) {
 	}
 
 	// Check for games with the same serial number
-	title, serial_number = _fix_games_with_same_serial_number(f, title, serial_number);
+	_fix_games_with_same_serial_number(f, title, serial_number);
 
 	// Check for mislabeled releases
-	title, serial_number = _fix_games_that_are_mislabeled(f, title, serial_number);
+	_fix_games_that_are_mislabeled(f, title, serial_number);
 
 	// Throw if the title is not found in the database
 	if (title.length == 0) {
@@ -397,7 +410,7 @@ string[string] GetDreamcastGameInfo(string game_file) {
 		"publisher" : publisher,
 		"release_date" : release_date,
 		"sloppy_title" : sloppy_title,
-		"header_index" : strconv.FormatInt(index, 10),
+		"header_index" : "%d".format(index),//strconv.FormatInt(index, 10),
 	];
 
 	return retval;
@@ -407,22 +420,22 @@ int main(string[] args) {
 	import std.file;
 	import std.path;
 	import std.stdio;
+	import std.array;
 
-	// Get the path of the current file
-	string root = args[0];
-	root = filepath.Dir(root);
+	// Get the path of the current exe
+	string root = dirName(args[0]);
 
 	g_unofficial_db = _load_json([root, "db_dreamcast_unofficial.json"].join(std.path.dirSeparator));
 	g_official_us_db = _load_json([root, "db_dreamcast_official_us.json"].join(std.path.dirSeparator));
 	g_official_jp_db = _load_json([root, "db_dreamcast_official_jp.json"].join(std.path.dirSeparator));
 	g_official_eu_db = _load_json([root, "db_dreamcast_official_eu.json"].join(std.path.dirSeparator));
 ///*
-	string games_root = "C:/Users/matt/Desktop/Dreamcast";
+	string games_root = "C:/Users/bob/Desktop/Dreamcast/";
 	auto entries = std.file.dirEntries(games_root, SpanMode.depth);
 	foreach (entry ; entries) {
 		// Skip if not a Dreamcast game
 		if (! IsDreamcastFile(entry)) {
-			return -1;
+			continue;
 		}
 
 		string[string] info = GetDreamcastGameInfo(entry);
@@ -432,8 +445,8 @@ int main(string[] args) {
 			return nil;
 		}
 */
-		stdout.writefln("title: %s", info["title"]);
-		return -1;
+		stdout.writefln("info: %s", info);
+		stdout.flush();
 	}
 
 //*/
