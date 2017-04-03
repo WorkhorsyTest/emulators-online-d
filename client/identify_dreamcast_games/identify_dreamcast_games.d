@@ -17,28 +17,15 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module identify_dreamcast_games;
-/*
-import (
-	"fmt"
-	//"archive/zip"
-	//"time"
-	"./helpers"
-	"strings"
-	"io/ioutil"
-	"path/filepath"
-	"os"
-	"errors"
-	"runtime"
-	"encoding/json"
-	"strconv"
-)
-*/
 
-const ulong BUFFER_SIZE = 1024 * 1024 * 10;
-string[string][string] unofficial_db;
-string[string][string] official_us_db;
-string[string][string] official_eu_db;
-string[string][string] official_jp_db;
+import std.stdio;
+
+
+const long BUFFER_SIZE = 1024 * 1024 * 10;
+string[string][string] g_unofficial_db;
+string[string][string] g_official_us_db;
+string[string][string] g_official_eu_db;
+string[string][string] g_official_jp_db;
 
 
 string _strip_comments(string data) {
@@ -46,7 +33,7 @@ string _strip_comments(string data) {
 	import std.array;
 	import std.algorithm.searching;
 
-	string[] lines = strings.Split(data, "\r\n");
+	string[] lines = data.split("\r\n");
 	string[] new_data;
 	foreach (line ; lines) {
 		if (! line.canFind("/*") && ! line.canFind("*/")) {
@@ -57,45 +44,46 @@ string _strip_comments(string data) {
 	return new_data.join("\r\n");
 }
 
-string _read_blob_at(file File, ulong start_address, byte[] buffer, ulong size) {
-	file.Seek(start_address, 0);
-	ulong length = file.read(buffer);
+string _read_blob_at(File file, long start_address, ubyte[] buffer, size_t size) {
+	file.seek(start_address, 0);
 
-	if (size < length) {
+	ubyte[] buffer_to_use = buffer[0 .. size];
+	ubyte[] used_buffer = file.rawRead(buffer_to_use);
+
+	if (size < used_buffer.length) {
 		throw new Exception("Read size was less than the desired size.");
 	}
 	return cast(string) buffer[0 .. size];
 }
 
-func _load_json(file_name string, load_into *map[string] map[string]string) {
+string[string] _load_json(string file_name) {
+	import std.file;
+	import std.json;
+
 	// Read the json file
-	data, err := ioutil.ReadFile(file_name)
-	if err != nil {
-		panic(err)
-	}
+	ubyte[] data = cast(ubyte[]) std.file.read(file_name);
 
 	// Strip the comments and load the json into the map
 	//var retval map[string]string
-	data = []byte(_strip_comments(string(data)))
+	data = cast(ubyte[]) _strip_comments(cast(string) data);
 	//fmt.Printf("!!! data: %s\n", data)
-	err = json.Unmarshal(data, &load_into)
-	if err != nil {
-		panic(err)
-	}
+	auto j = parseJSON(data);
+	string[string] load_into;
+	return load_into;
 }
 
-func _fix_games_with_same_serial_number(f *os.File, title string, serial_number string) (string, string) {
-	if serial_number == "T-8111D-50" {
-		if title == "ECW HARDCORE REVOLUTION" { // EU ECW Hardcore Revolution
-			return "ECW Hardcore Revolution", "T-8111D-50"
-		} else if title == "DEAD OR ALIVE 2" { // EU Dead or Alive 2
-			return "Dead or Alive 2", "T-8111D-50"
+string[] _fix_games_with_same_serial_number(File f, string title, string serial_number) {
+	if (serial_number == "T-8111D-50") {
+		if (title == "ECW HARDCORE REVOLUTION") { // EU ECW Hardcore Revolution
+			return ["ECW Hardcore Revolution", "T-8111D-50"];
+		} else if (title == "DEAD OR ALIVE 2") { // EU Dead or Alive 2
+			return ["Dead or Alive 2", "T-8111D-50"];
 		}
-	} else if serial_number == "T-8101N" {
-		if title == "QUARTERBACK CLUB 2000" { //US NFL Quarterback Club 2000
-			return "NFL Quarterback Club 2000", "T-8101N"
-		} else if title == "JEREMY MCGRATH SUPERCROSS 2000" { //US Jeremy McGrath Supercross 2000
-			return "Jeremy McGrath Supercross 2000", "T-8101N"
+	} else if (serial_number == "T-8101N") {
+		if (title == "QUARTERBACK CLUB 2000") { //US NFL Quarterback Club 2000
+			return ["NFL Quarterback Club 2000", "T-8101N"];
+		} else if (title == "JEREMY MCGRATH SUPERCROSS 2000") { //US Jeremy McGrath Supercross 2000
+			return ["Jeremy McGrath Supercross 2000", "T-8101N"];
 		}
 	}
 	/*
@@ -121,258 +109,240 @@ func _fix_games_with_same_serial_number(f *os.File, title string, serial_number 
 		EU Sega WorldWide Soccer 2000 Euro Edition
 		EU Zombie Revenge
 	*/
-	return title, serial_number
+	return [title, serial_number];
 }
 
-func _fix_games_that_are_mislabeled(f *os.File, title string, serial_number string) (string, string) {
-	buffer := make([]byte, 30)
-	if serial_number == "T1402N" { // Mr. Driller
-		if name, _ := _read_blob_at(f, 0x159208, buffer, 12); name == "DYNAMITE COP" {
-			return "Dynamite Cop!", "MK-51013"
+string[] _fix_games_that_are_mislabeled(File f, string title, string serial_number) {
+	ubyte[30] buffer;
+	if (serial_number == "T1402N") { // Mr. Driller
+		if (_read_blob_at(f, 0x159208, buffer, 12) == "DYNAMITE COP") {
+			return ["Dynamite Cop!", "MK-51013"];
 		}
-	} else if serial_number == "MK-51035" { // Crazy Taxi
-		if name, _ := _read_blob_at(f, 0x1617E652, buffer, 9); name == "Half-Life" {
-			return "Half-Life", "T0000M"
-		} else if name, _ := _read_blob_at(f, 0x1EA78B5, buffer, 10); name == "Shadow Man" {
-			return "Shadow Man", "T8106N"
+	} else if (serial_number == "MK-51035") { // Crazy Taxi
+		if (_read_blob_at(f, 0x1617E652, buffer, 9) == "Half-Life") {
+			return ["Half-Life", "T0000M"];
+		} else if (_read_blob_at(f, 0x1EA78B5, buffer, 10) == "Shadow Man") {
+			return ["Shadow Man", "T8106N"];
 		}
-	} else if serial_number == "T43903M" { // Culdcept II
-		if name, _ := _read_blob_at(f, 0x264E1E5D, buffer, 10); name == "CHAOSFIELD" {
-			return "Chaos Field", "T47801M"
+	} else if (serial_number == "T43903M") { // Culdcept II
+		if (_read_blob_at(f, 0x264E1E5D, buffer, 10) == "CHAOSFIELD") {
+			return ["Chaos Field", "T47801M"];
 		}
-	} else if serial_number == "T0000M" { // Unnamed
-		if name, _ := _read_blob_at(f, 0x557CAB0, buffer, 13); name == "BALL BREAKERS" {
-			return "Ball Breakers", "T0000M"
-		} else if name, _ := _read_blob_at(f, 0x4BD5EE5, buffer, 6); name == "TOEJAM" {
-			return "ToeJam and Earl 3", "T0000M"
+	} else if (serial_number == "T0000M") { // Unnamed
+		if (_read_blob_at(f, 0x557CAB0, buffer, 13) == "BALL BREAKERS") {
+			return ["Ball Breakers", "T0000M"];
+		} else if (_read_blob_at(f, 0x4BD5EE5, buffer, 6) == "TOEJAM") {
+			return ["ToeJam and Earl 3", "T0000M"];
 		}
-	} else if serial_number == "T0000" { // Unnamed
-		if name, _ := _read_blob_at(f, 0x162E20, buffer, 15); name == "Art of Fighting" {
-			return "Art of Fighting", "T0000"
-		} else if name, _ := _read_blob_at(f, 0x29E898B0, buffer, 17); name == "Art of Fighting 2" {
-			return "Art of Fighting 2", "T0000"
-		} else if name, _ := _read_blob_at(f, 0x26D5BCA4, buffer, 17); name == "Art of Fighting 3" {
-			return "Art of Fighting 3", "T0000"
-		} else if name, _ := _read_blob_at(f, 0x295301F0, buffer, 5); name == "Redux" {
-			return "Redux: Dark Matters", "T0000"
+	} else if (serial_number == "T0000") { // Unnamed
+		if (_read_blob_at(f, 0x162E20, buffer, 15) == "Art of Fighting") {
+			return ["Art of Fighting", "T0000"];
+		} else if (_read_blob_at(f, 0x29E898B0, buffer, 17) == "Art of Fighting 2") {
+			return ["Art of Fighting 2", "T0000"];
+		} else if (_read_blob_at(f, 0x26D5BCA4, buffer, 17) == "Art of Fighting 3") {
+			return ["Art of Fighting 3", "T0000"];
+		} else if (_read_blob_at(f, 0x295301F0, buffer, 5) == "Redux") {
+			return ["Redux: Dark Matters", "T0000"];
 		}
-	} else if serial_number == "MK-51025" { // NHL 2K1
-		if name, _ := _read_blob_at(f, 0x410CA8, buffer, 14); name == "READY 2 RUMBLE" {
-			return "Ready 2 Rumble Boxing", "T9704N"
+	} else if (serial_number == "MK-51025") { // NHL 2K1
+		if (_read_blob_at(f, 0x410CA8, buffer, 14) == "READY 2 RUMBLE") {
+			return ["Ready 2 Rumble Boxing", "T9704N"];
 		}
-	} else if serial_number == "T36804N" { // Walt Disney World Quest: Magical Racing Tour
-		if name, _ := _read_blob_at(f, 0x245884, buffer, 6); name == "MakenX" {
-			return "Maken X", "MK-51050"
+	} else if (serial_number == "T36804N") { // Walt Disney World Quest: Magical Racing Tour
+		if (_read_blob_at(f, 0x245884, buffer, 6) == "MakenX") {
+			return ["Maken X", "MK-51050"];
 		}
-	} else if serial_number == "RDC-0117" { // The king of Fighters '96 Collection (NEO4ALL RC4)
-		if name, _ := _read_blob_at(f, 0x159208, buffer, 16); name == "BOMBERMAN ONLINE" {
-			return "Bomberman Online", "RDC-0120"
+	} else if (serial_number == "RDC-0117") { // The king of Fighters '96 Collection (NEO4ALL RC4)
+		if (_read_blob_at(f, 0x159208, buffer, 16) == "BOMBERMAN ONLINE") {
+			return ["Bomberman Online", "RDC-0120"];
 		}
-	} else if serial_number == "RDC-0140" { // Dead or Alive 2
-		if name, _ := _read_blob_at(f, 0x15639268, buffer, 13); name == "CHUCHU ROCKET" {
-			return "ChuChu Rocket!", "RDC-0139"
+	} else if (serial_number == "RDC-0140") { // Dead or Alive 2
+		if (_read_blob_at(f, 0x15639268, buffer, 13) == "CHUCHU ROCKET") {
+			return ["ChuChu Rocket!", "RDC-0139"];
 		}
-	} else if serial_number == "T19724M" { // Pizzicato Polka: Suisei Genya
-		if name, _ := _read_blob_at(f, 0x3CA16B8, buffer, 7); name == "DAYTONA" {
-			return "Daytona USA", "MK-51037"
+	} else if (serial_number == "T19724M") { // Pizzicato Polka: Suisei Genya
+		if (_read_blob_at(f, 0x3CA16B8, buffer, 7) == "DAYTONA") {
+			return ["Daytona USA", "MK-51037"];
 		}
-	} else if serial_number == "MK-51049" { // ChuChu Rocket!
-		if name, _ := _read_blob_at(f, 0xC913DDC, buffer, 13); name == "HYDRO THUNDER" {
-			return "Hydro Thunder", "T9702N"
-		} else if name, _ := _read_blob_at(f, 0x2D096802, buffer, 17); name == "MARVEL VS. CAPCOM" {
-			return "Marvel vs. Capcom 2", "T1212N"
-		} else if name, _ := _read_blob_at(f, 0x1480A730, buffer, 13); name == "POWER STONE 2" {
-			return "Power Stone 2", "T-1211N"
+	} else if (serial_number == "MK-51049") { // ChuChu Rocket!
+		if (_read_blob_at(f, 0xC913DDC, buffer, 13) == "HYDRO THUNDER") {
+			return ["Hydro Thunder", "T9702N"];
+		} else if (_read_blob_at(f, 0x2D096802, buffer, 17) == "MARVEL VS. CAPCOM") {
+			return ["Marvel vs. Capcom 2", "T1212N"];
+		} else if (_read_blob_at(f, 0x1480A730, buffer, 13) == "POWER STONE 2") {
+			return ["Power Stone 2", "T-1211N"];
 		}
-	} else if serial_number == "T44304N" { // Sports Jam
-		if name, _ := _read_blob_at(f, 0x157FA8, buffer, 9); name == "OUTRIGGER" {
-			return "OutTrigger: International Counter Terrorism Special Force", "MK-51102"
+	} else if (serial_number == "T44304N") { // Sports Jam
+		string name = _read_blob_at(f, 0x157FA8, buffer, 9);
+		if (name == "OUTRIGGER") {
+			return ["OutTrigger: International Counter Terrorism Special Force", "MK-51102"];
 		}
-	} else if serial_number == "MK-51028" { // Virtua Striker 2
-		if name, _ := _read_blob_at(f, 0x1623B0, buffer, 12); name == "zerogunner 2" {
-			return "Zero Gunner 2", "MK-51028"
+	} else if (serial_number == "MK-51028") { // Virtua Striker 2
+		if (_read_blob_at(f, 0x1623B0, buffer, 12) == "zerogunner 2") {
+			return ["Zero Gunner 2", "MK-51028"];
 			//return "OutTrigger: International Counter Terrorism Special Force", "MK-51102"
 		}
-	} else if serial_number == "T1240M" { // BioHazard Code: Veronica Complete
-		if name, _ := _read_blob_at(f, 0x157FAD, buffer, 14); name == "BASS FISHING 2" {
-			return "Sega Bass Fishing 2", "MK-51166"
+	} else if (serial_number == "T1240M") { // BioHazard Code: Veronica Complete
+		string name = _read_blob_at(f, 0x157FAD, buffer, 14);
+		if (name == "BASS FISHING 2") {
+			return ["Sega Bass Fishing 2", "MK-51166"];
 		}
-	} else if serial_number == "MK-51100" { // Phantasy Star Online
-		if name, _ := _read_blob_at(f, 0x52F28A8, buffer, 26); name == "Phantasy Star Online Ver.2" {
-			return "Phantasy Star Online Ver. 2", "MK-51166"
+	} else if (serial_number == "MK-51100") { // Phantasy Star Online
+		string name = _read_blob_at(f, 0x52F28A8, buffer, 26);
+		if (name == "Phantasy Star Online Ver.2") {
+			return ["Phantasy Star Online Ver. 2", "MK-51166"];
 		}
 	}
 
-	return title, serial_number
+	return [title, serial_number];
 }
 
 
-func _locate_string_in_file(f *os.File, file_size int64, buffer []byte, string_to_find string) (int64, error) {
-	var string_length int64 = int64(len(string_to_find))
-	f.Seek(0, 0)
-	pos := 0
-	for {
+long _locate_string_in_file(File f, long file_size, ubyte[] buffer, string string_to_find) {
+	import std.string;
+	import std.algorithm.searching;
+
+	long string_length = string_to_find.length;
+	f.seek(0, 0);
+	while (true) {
 		// Read into the buffer
-		data_length, err := f.Read(buffer)
-		if err != nil {
-			return -1, err
-		}
-		pos += data_length
-		rom_data := string(buffer[0 : data_length])
+		ubyte[] rom_data = cast(ubyte[]) f.rawRead(buffer);
 
 		// Check for the end of the file
-		if len(rom_data) < 1 {
-			break
+		if (rom_data.length < 1) {
+			break;
 		}
 
 		// Figure out if we need an offset
-		var file_pos int64 = int64(pos)
-		use_offset := false
-		if file_pos > string_length && file_pos < file_size {
-			use_offset = true
+		long file_pos = f.tell();
+		bool use_offset = false;
+		if (file_pos > string_length && file_pos < file_size) {
+			use_offset = true;
 		}
 
 		// Get the string to find location
-		index := strings.Index(rom_data, string_to_find)
-		if index > -1 {
-			string_file_location := (file_pos - int64(len(rom_data))) + int64(index)
-			return string_file_location, nil
+		long index = std.algorithm.searching.countUntil(rom_data, string_to_find);
+		if (index > -1) {
+			long string_file_location = (file_pos - rom_data.length) + index;
+			return string_file_location;
 		}
 
 		// Move back the length of the string to find
 		// This is done to stop the string to find from being spread over multiple buffers
-		if use_offset {
-			f.Seek(file_pos - string_length, 0)
+		if (use_offset) {
+			f.seek(file_pos - string_length, 0);
 		}
 	}
 
-	return -1, nil
+	return -1;
 }
 
-func _get_track_01_from_gdi_file(file_name string, buffer []byte) (string, error) {
-	path := filepath.Dir(file_name)
+string  _get_track_01_from_gdi_file(string file_name, ubyte[] buffer) {
+	import std.string;
+	import std.path;
+	import std.stdio;
 
-	f, err := os.Open(file_name)
-	if err != nil {
-		return "", err
-	}
-	defer f.Close()
+	string path = baseName(file_name);
 
-	length, err := f.Read(buffer)
-	if err != nil {
-		return "", err
-	}
-	track := string(buffer[0 : length])
-	track_01_line := strings.Split(track, "\r\n")[1]
-	track_01_file := strings.Split(track_01_line, " ")[4]
-	track_01_file = filepath.Join(path, track_01_file)
-	return track_01_file, nil
+	auto f = File(file_name, "r");
+	scope (exit) f.close();
+
+	ubyte[] used_buffer = f.rawRead(buffer);
+
+	string track = cast(string) used_buffer;
+	string track_01_line = track.split("\r\n")[1];
+	string track_01_file = track_01_line.split(" ")[4];
+	track_01_file = [path, track_01_file].join(std.path.dirSeparator);
+	return track_01_file;
 }
 
-func IsDreamcastFile(game_file string) bool {
+bool IsDreamcastFile(string game_file) {
+	import std.uni;
+	import std.path;
+	import std.file;
+
 	// Skip if not file
-	if ! helpers.IsFile(game_file) {
-		return false
+	if (! std.file.isFile(game_file)) {
+		return false;
 	}
 
 	// FIXME: Make it work with .mdf/.mds, .nrg, and .ccd/.img
 	// Skip if not a usable file
-	good_exts := [...]string {".cdi", ".gdi", ".iso"}
-	ext := strings.ToLower(filepath.Ext(game_file))
-	for _, good_ext := range good_exts {
-		if ext == good_ext {
-			return true
+	const string[] good_exts = [".cdi", ".gdi", ".iso"];
+	string ext = std.uni.toLower(std.path.extension(game_file));
+	foreach(good_ext ; good_exts) {
+		if (ext == good_ext) {
+			return true;
 		}
 	}
 
-	return false
+	return false;
 }
 
-func GetDreamcastGameInfo(game_file string) (map[string]string, error) {
+string[string] GetDreamcastGameInfo(string game_file) {
+	import std.uni;
+	import std.path;
+	import std.string;
+	import std.algorithm.mutation;
+
 	// Get the full file name
-	full_entry, err := filepath.Abs(game_file)
-	if err != nil {
-		return nil, err
-	}
+	string full_entry = absolutePath(game_file);
 
 	// If it's a GDI file read track 01
-	small_buffer := make([]byte, 256)
-	if strings.ToLower(filepath.Ext(full_entry)) == ".gdi" {
-		full_entry, err = _get_track_01_from_gdi_file(full_entry, small_buffer)
-		if err != nil {
-			return nil, err
-		}
+	ubyte[256] small_buffer;
+	if (std.uni.toLower(std.path.extension(full_entry)) == ".gdi") {
+		full_entry = _get_track_01_from_gdi_file(full_entry, small_buffer);
 	}
 
 	// Open the game file
-	f, err := os.Open(full_entry)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
+	auto f = File(full_entry, "r");
+	scope (exit) f.close();
 
 	// Get the file size
-	file_info, err := f.Stat()
-	if err != nil {
-		return nil, err
-	}
-	file_size := file_info.Size()
+	long file_size = f.size();
 
 	// Get the location of the header
-	header_text := "SEGA SEGAKATANA SEGA ENTERPRISES"
-	buffer := make([]byte, BUFFER_SIZE)
-	index, err := _locate_string_in_file(f, file_size, buffer, header_text)
-	if err != nil {
-		return nil, err
-	}
+	const string header_text = "SEGA SEGAKATANA SEGA ENTERPRISES";
+	ubyte[BUFFER_SIZE] buffer;
+	long index = _locate_string_in_file(f, file_size, buffer, header_text);
 	// Throw if index not found
-	if index == -1 {
-		return nil, errors.New("Failed to find Sega Dreamcast Header.")
+	if (index == -1) {
+		throw new Exception("Failed to find Sega Dreamcast Header.");
 	}
 
 	// Read the header
-	_, err = f.Seek(index, 0)
-	if err != nil {
-		return nil, err
-	}
-	length, err := f.Read(small_buffer)
-	if err != nil {
-		return nil, err
-	}
-	header := string(small_buffer[0 : length])
+	f.seek(index, 0);
+	string header = cast(string) f.rawRead(small_buffer);
 
 	// Parse the header info
-	offset := len(header_text)
-	disc_info := strings.TrimSpace(header[offset + 5 : offset + 5 + 11])
-	region := strings.TrimSpace(header[offset + 14 : offset + 14 + 10])
-	serial_number := strings.TrimSpace(header[offset + 32 : offset + 32 + 10])
-	version := strings.TrimSpace(header[offset + 42 : offset + 42 + 22])
-	boot := strings.TrimSpace(header[offset + 64 : offset + 64 + 16])
-	maker := strings.TrimSpace(header[offset + 80 : offset + 80 + 16])
-	sloppy_title := strings.TrimSpace(header[offset + 96 : ])
-	var title string
-	var developer string
-	var genre string
-	var publisher string
-	var release_date string
+	size_t offset = header_text.length;
+	string disc_info = header[offset + 5 .. offset + 5 + 11].strip();
+	string region = header[offset + 14 .. offset + 14 + 10].strip();
+	string serial_number = header[offset + 32 .. offset + 32 + 10].strip();
+	string version_string = header[offset + 42 .. offset + 42 + 22].strip();
+	string boot = header[offset + 64 .. offset + 64 + 16].strip();
+	string maker = header[offset + 80 .. offset + 80 + 16].strip();
+	string sloppy_title = header[offset + 96 .. $].strip();
+	string title;
+	string developer;
+	string genre;
+	string publisher;
+	string release_date;
 
 	// Remove trailing zeros
-	if strings.HasSuffix(serial_number, " 00") {
-		serial_number = strings.TrimRight(serial_number, " 00")
-		serial_number = strings.TrimSpace(serial_number)
+	if (serial_number.endsWith(" 00")) {
+		serial_number = serial_number[0 .. -3].strip();
 	}
 
 	// Remove any spaces and dashes
-	serial_number = strings.Replace(serial_number, "-", "", -1)
-	serial_number = strings.Replace(serial_number, " ", "", -1)
-	serial_number = strings.TrimSpace(serial_number)
+	serial_number = serial_number.replace("-", "").replace(" ", "").strip();
 
 /*
 	fmt.Printf("offset: %v\n", offset)
 	fmt.Printf("disc_info: %v\n", disc_info)
 	fmt.Printf("region: %v\n", region)
 	fmt.Printf("serial_number: %v\n", serial_number)
-	fmt.Printf("version: %v\n", version)
+	fmt.Printf("version: %v\n", version_string)
 	fmt.Printf("boot: %v\n", boot)
 	fmt.Printf("marker: %v\n", maker)
 	fmt.Printf("sloppy_title: %v\n", sloppy_title)
@@ -381,45 +351,45 @@ func GetDreamcastGameInfo(game_file string) (map[string]string, error) {
 	// Check for different types of releases
 
 	// Unofficial
-	var info map[string]string
-	if value, ok := unofficial_db[serial_number]; ok {
-		info = value
+	string[string] info;
+	if (g_unofficial_db[serial_number] != null) {
+		info = g_unofficial_db[serial_number];
 	// US
-	} else if value, ok := official_us_db[serial_number]; ok {
-		info = value
+	} else if (g_official_us_db[serial_number] != null) {
+		info = g_official_us_db[serial_number];
 	// Europe
-	} else if value, ok := official_eu_db[serial_number]; ok {
-		info = value
+	} else if (g_official_eu_db[serial_number] != null) {
+		info = g_official_eu_db[serial_number];
 	// Japan
-	} else if value, ok := official_jp_db[serial_number]; ok {
-		info = value
+	} else if (g_official_jp_db[serial_number] != null) {
+		info = g_official_jp_db[serial_number];
 	}
 
-	if len(info) > 0 {
-		title = info["title"]
-		developer = info["developer"]
-		genre = info["genre"]
-		publisher = info["publisher"]
-		release_date = info["release_date"]
+	if (info.length > 0) {
+		title = info["title"];
+		developer = info["developer"];
+		genre = info["genre"];
+		publisher = info["publisher"];
+		release_date = info["release_date"];
 	}
 
 	// Check for games with the same serial number
-	title, serial_number = _fix_games_with_same_serial_number(f, title, serial_number)
+	title, serial_number = _fix_games_with_same_serial_number(f, title, serial_number);
 
 	// Check for mislabeled releases
-	title, serial_number = _fix_games_that_are_mislabeled(f, title, serial_number)
+	title, serial_number = _fix_games_that_are_mislabeled(f, title, serial_number);
 
 	// Throw if the title is not found in the database
-	if len(title) == 0 {
-		return nil, errors.New("Failed to find game in database.")
+	if (title.length == 0) {
+		throw new Exception("Failed to find game in database.");
 	}
 
-	retval := map[string]string {
+	string[string] retval = [
 		"title" : title,
 		"disc_info" : disc_info,
 		"region" : region,
 		"serial_number" : serial_number,
-		"version" : version,
+		"version" : version_string,
 		"boot" : boot,
 		"maker" : maker,
 		"developer" : developer,
@@ -428,44 +398,44 @@ func GetDreamcastGameInfo(game_file string) (map[string]string, error) {
 		"release_date" : release_date,
 		"sloppy_title" : sloppy_title,
 		"header_index" : strconv.FormatInt(index, 10),
-	}
+	];
 
-	return retval, nil
+	return retval;
 }
 
-func mainXXX() {
-	// Catch any panics to show to user
-	/*
-	defer helpers.RecoverPanicTo(func(message string) {
-		fmt.Fprintf(os.Stderr, "%v\n", message)
-	})
-	*/
+int main(string[] args) {
+	import std.file;
+	import std.path;
+	import std.stdio;
 
 	// Get the path of the current file
-	_, root, _, _ := runtime.Caller(0)
-	root = filepath.Dir(root)
+	string root = args[0];
+	root = filepath.Dir(root);
 
-	_load_json(filepath.Join(root, "db_dreamcast_unofficial.json"), &unofficial_db)
-	_load_json(filepath.Join(root, "db_dreamcast_official_us.json"), &official_us_db)
-	_load_json(filepath.Join(root, "db_dreamcast_official_jp.json"), &official_jp_db)
-	_load_json(filepath.Join(root, "db_dreamcast_official_eu.json"), &official_eu_db)
+	g_unofficial_db = _load_json([root, "db_dreamcast_unofficial.json"].join(std.path.dirSeparator));
+	g_official_us_db = _load_json([root, "db_dreamcast_official_us.json"].join(std.path.dirSeparator));
+	g_official_jp_db = _load_json([root, "db_dreamcast_official_jp.json"].join(std.path.dirSeparator));
+	g_official_eu_db = _load_json([root, "db_dreamcast_official_eu.json"].join(std.path.dirSeparator));
 ///*
-	games_root := "C:/Users/matt/Desktop/Dreamcast"
-	filepath.Walk(games_root, func(path string, _ os.FileInfo, _ error) error {
+	string games_root = "C:/Users/matt/Desktop/Dreamcast";
+	auto entries = std.file.dirEntries(games_root, SpanMode.depth);
+	foreach (entry ; entries) {
 		// Skip if not a Dreamcast game
-		if ! IsDreamcastFile(path) {
-			return nil
+		if (! IsDreamcastFile(entry)) {
+			return -1;
 		}
 
-		info, err := GetDreamcastGameInfo(path)
+		string[string] info = GetDreamcastGameInfo(entry);
+/*
 		if err != nil {
-			fmt.Printf("Failed to find: %s\r\n", path)
-			return nil
+			fmt.Printf("Failed to find: %s\r\n", path);
+			return nil;
 		}
+*/
+		stdout.writefln("title: %s", info["title"]);
+		return -1;
+	}
 
-		fmt.Printf("title: %s\r\n", info["title"])
-		return nil
-	})
 //*/
 /*
 	path := "C:/Users/matt/Desktop/Dreamcast/Sonic Adventure 2/sonic_adventure_2.cdi"
@@ -491,4 +461,5 @@ func mainXXX() {
 	fmt.Printf("sloppy_title: %s\r\n", info["sloppy_title"])
 	fmt.Printf("header_index: %s\r\n", info["header_index"])
 */
+	return 0;
 }
