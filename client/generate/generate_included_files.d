@@ -30,7 +30,6 @@ int main() {
 
 	// Get a list of all the files to store
 	const string[] file_names = [
-		"tools/unrar.exe",
 		"static/index.html",
 		"static/default.css",
 		"static/emulators_online.js",

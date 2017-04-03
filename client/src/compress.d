@@ -174,7 +174,7 @@ void UncompressFile(string compressed_file, string out_dir) {
 	} else if (compressed_file.endsWith(".rar")) {
 		// Get the command and arguments
 		command = [
-			"unrar.exe",
+			ExeUnrar,
 			"x",
 			"-y",
 			`%s`.format(compressed_file),
