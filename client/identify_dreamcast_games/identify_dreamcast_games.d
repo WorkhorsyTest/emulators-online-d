@@ -21,12 +21,13 @@ module identify_dreamcast_games;
 import std.stdio;
 
 
-const long BUFFER_SIZE = 1024 * 1024 * 10;
-ubyte[BUFFER_SIZE] g_big_buffer;
-string[string][string] g_unofficial_db;
-string[string][string] g_official_us_db;
-string[string][string] g_official_eu_db;
-string[string][string] g_official_jp_db;
+private const long BUFFER_SIZE = 1024 * 1024 * 10;
+private ubyte[BUFFER_SIZE] g_big_buffer;
+private bool g_is_db_loaded = false;
+private string[string][string] g_unofficial_db;
+private string[string][string] g_official_us_db;
+private string[string][string] g_official_eu_db;
+private string[string][string] g_official_jp_db;
 
 
 private string stripComments(string data) {
@@ -347,8 +348,18 @@ bool IsDreamcastFile(string game_file) {
 string[string] GetDreamcastGameInfo(string game_file) {
 	import std.uni;
 	import std.path;
+	import std.array;
 	import std.string;
 	import std.algorithm.mutation;
+
+	// Make sure the database is loaded
+	if (! g_is_db_loaded) {
+		g_unofficial_db = loadJson("db_dreamcast_unofficial.json");
+		g_official_us_db = loadJson("db_dreamcast_official_us.json");
+		g_official_jp_db = loadJson("db_dreamcast_official_jp.json");
+		g_official_eu_db = loadJson("db_dreamcast_official_eu.json");
+		g_is_db_loaded = true;
+	}
 
 	// Get the full file name
 	string full_entry = absolutePath(game_file);
@@ -468,19 +479,16 @@ string[string] GetDreamcastGameInfo(string game_file) {
 	return retval;
 }
 
-int main(string[] args) {
+int mainXXX(string[] args) {
 	import std.file;
 	import std.path;
 	import std.stdio;
 	import std.array;
 
 	// Get the path of the current exe
-	string root = dirName(args[0]);
+	//string root = dirName(args[0]);
 
-	g_unofficial_db = loadJson([root, "db_dreamcast_unofficial.json"].join(std.path.dirSeparator));
-	g_official_us_db = loadJson([root, "db_dreamcast_official_us.json"].join(std.path.dirSeparator));
-	g_official_jp_db = loadJson([root, "db_dreamcast_official_jp.json"].join(std.path.dirSeparator));
-	g_official_eu_db = loadJson([root, "db_dreamcast_official_eu.json"].join(std.path.dirSeparator));
+
 ///*
 	string games_root = "C:/Users/bob/Desktop/Dreamcast/";
 	auto entries = std.file.dirEntries(games_root, SpanMode.depth);

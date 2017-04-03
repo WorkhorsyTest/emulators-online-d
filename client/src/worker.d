@@ -146,7 +146,21 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 		// Get the game info
 		string[string] info;
 
-		info["file"] = identify_dreamcast_games.getGameInfoFromFile(entry);
+		if (console == "dreamcast") {
+			//try {
+				info["file"] = entry;
+				auto game_data = identify_dreamcast_games.GetDreamcastGameInfo(entry);
+				foreach (key, value ; game_data) {
+					info[key] = value;
+				}
+			//} catch (Throwable err) {
+
+			//}
+		} else if (console == "playstation2") {
+			// FIXME:
+		} else {
+			throw new Exception("Unexpected console: %s".format(console));
+		}
 /*
 		exec.Cmd cmd;
 		if (console == "dreamcast") {
