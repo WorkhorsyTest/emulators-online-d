@@ -497,6 +497,21 @@ void uncompress7Zip() {
 	ubyte[] data = FromCompressedBase64!(ubyte[])(blob, CompressionType.Zlib);
 	std.file.write(Exe7Zip, data);
 }
+
+void uncompressUnrar() {
+	import std.file;
+
+	// Just return if Unrar already exists
+	if (std.file.exists(ExeUnrar)) {
+		return;
+	}
+
+	// Get a blob of Unrar
+	ubyte[] blob = cast(ubyte[]) Generated.GetCompressedUnrar;
+
+	ubyte[] data = FromCompressedBase64!(ubyte[])(blob, CompressionType.Zlib);
+	std.file.write(ExeUnrar, data);
+}
 /*
 func UncompressWith7zip(in_file string) {
 	// Get the command and arguments
@@ -719,8 +734,9 @@ int actualMain() {
 
 	// If "local" use the static files in the current directory
 	if (is_local) {
-		// Make 7za.exe
+		// Make 7za.exe and unrar.exe
 		uncompress7Zip();
+		uncompressUnrar();
 	// If not use the static files in AppData
 	} else {
 		//useAppDataForStaticFiles();

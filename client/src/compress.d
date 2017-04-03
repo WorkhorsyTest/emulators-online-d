@@ -23,9 +23,11 @@ import std.file;
 
 version (linux) {
 	immutable string Exe7Zip = "7za";
+	immutable string ExeUnrar = "unrar";
 }
 version (Windows) {
 	immutable string Exe7Zip = "7za.exe";
+	immutable string ExeUnrar = "unrar.exe";
 }
 
 enum CompressionType {
@@ -194,6 +196,6 @@ void UncompressFile(string compressed_file, string out_dir) {
 	stdout.flush();
 */
 	if (status != 0) {
-		stderr.writefln("Failed to run command: %s\r\n", Exe7Zip);
+		stderr.writefln("Failed to run command: %s", command);
 	}
 }

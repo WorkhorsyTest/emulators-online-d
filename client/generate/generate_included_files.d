@@ -79,13 +79,24 @@ int main() {
 	output.write(";\r\n");
 
 	// Read 7zip into an array
-	ubyte[] file_data = cast(ubyte[]) std.file.read("tools/" ~Exe7Zip);
+	ubyte[] file_data = cast(ubyte[]) std.file.read("tools/" ~ Exe7Zip);
 
 	// Convert the 7zip array to a blob
 	base64ed_data = ToCompressedBase64(file_data, CompressionType.Zlib);
 
 	// Write the 7zip generating function
 	output.write("immutable byte[] GetCompressed7zip = \r\n");
+	output.write(base64ed_data);
+	output.write(";\r\n");
+
+	// Read Unrar into an array
+	file_data = cast(ubyte[]) std.file.read("tools/" ~ ExeUnrar);
+
+	// Convert the Unrar array to a blob
+	base64ed_data = ToCompressedBase64(file_data, CompressionType.Zlib);
+
+	// Write the Unrar generating function
+	output.write("immutable byte[] GetCompressedUnrar = \r\n");
 	output.write(base64ed_data);
 	output.write(";\r\n");
 
