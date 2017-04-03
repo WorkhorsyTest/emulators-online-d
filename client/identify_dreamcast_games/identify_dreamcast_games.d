@@ -331,6 +331,7 @@ string[string] GetDreamcastGameInfo(string game_file) {
 	// Get the location of the header
 	const string header_text = "SEGA SEGAKATANA SEGA ENTERPRISES";
 	long index = locateStringInFile(f, file_size, g_big_buffer, header_text);
+
 	// Throw if index not found
 	if (index == -1) {
 		throw new Exception("Failed to find Sega Dreamcast Header.");
@@ -338,7 +339,7 @@ string[string] GetDreamcastGameInfo(string game_file) {
 
 	// Read the header
 	f.seek(index, 0);
-	string header = cast(string) f.rawRead(small_buffer);
+	string header = cast(string) f.rawRead(small_buffer).dup;
 
 	// Parse the header info
 	size_t offset = header_text.length;
