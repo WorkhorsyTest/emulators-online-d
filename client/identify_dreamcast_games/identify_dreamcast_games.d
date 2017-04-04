@@ -354,11 +354,16 @@ string[string] GetDreamcastGameInfo(string game_file) {
 
 	// Make sure the database is loaded
 	if (! g_is_db_loaded) {
-		g_unofficial_db = loadJson("db_dreamcast_unofficial.json");
-		g_official_us_db = loadJson("db_dreamcast_official_us.json");
-		g_official_jp_db = loadJson("db_dreamcast_official_jp.json");
-		g_official_eu_db = loadJson("db_dreamcast_official_eu.json");
+		g_unofficial_db = loadJson("client/identify_dreamcast_games/db_dreamcast_unofficial.json");
+		g_official_us_db = loadJson("client/identify_dreamcast_games/db_dreamcast_official_us.json");
+		g_official_jp_db = loadJson("client/identify_dreamcast_games/db_dreamcast_official_jp.json");
+		g_official_eu_db = loadJson("client/identify_dreamcast_games/db_dreamcast_official_eu.json");
 		g_is_db_loaded = true;
+	}
+
+	// Make sure the file is a Dreamcast game
+	if (! IsDreamcastFile(game_file)) {
+		throw new Exception("Not a known Dreamcast file type.");
 	}
 
 	// Get the full file name

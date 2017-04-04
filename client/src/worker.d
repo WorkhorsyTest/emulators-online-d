@@ -64,7 +64,11 @@ private void workerThread(Tid ownerTid) {
 
 			switch (action) {
 				case "search_game_directory":
-					actionSearchGameDirectory(message_map);
+					try {
+						actionSearchGameDirectory(message_map);
+					} catch (Throwable err) {
+						stdout.writefln("!!! err:%s", err); stdout.flush();
+					}
 					break;
 				default:
 					break;
@@ -147,55 +151,22 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 		string[string] info;
 
 		if (console == "dreamcast") {
-			//try {
-				info["file"] = entry;
+			try {
 				auto game_data = identify_dreamcast_games.GetDreamcastGameInfo(entry);
 				foreach (key, value ; game_data) {
 					info[key] = value;
 				}
-			//} catch (Throwable err) {
+				info["file"] = entry;
+			} catch (Throwable err) {
 
-			//}
+			}
 		} else if (console == "playstation2") {
 			// FIXME:
 		} else {
 			throw new Exception("Unexpected console: %s".format(console));
 		}
-/*
-		exec.Cmd cmd;
-		if (console == "dreamcast") {
-			cmd = exec.Command("client/identify_games/identify_games.exe", console, entry);
-		} else if (console == "playstation2") {
-			cmd = exec.Command("client/identify_games/identify_games.exe", console, entry);
-		} else {
-			throw new Exception("Unexpected console: %s".format(console));
-		}
 
-		// Run the command and get the info for this game
-		bytes.Buffer out_buffer;
-		cmd.Stdout = &out_buffer;
-		err = cmd.Run();
-		if (err != null) {
-			fmt.Printf("Failed to get game info for file: %s\r\n", entry);
-			return null;
-		}
-		byte[] out_bytes = out_buffer.Bytes();
-		if (out_bytes.length > 0) {
-			err = json.Unmarshal(out_bytes, &info);
-			if (err != null) {
-				fmt.Printf("Failed to convert json to map: %s\r\n%s\r\n", err, string(out_bytes));
-				return null;
-			}
-		} else {
-			return null;
-		}
-		if (err != null) {
-			fmt.Printf("Failed to find info for game \"%s\"\r\n%s\r\n", entry, err);
-			return null;
-		}
-		fmt.Printf("getting game info: %s\r\n", cast(string) info["title"]);
-		info["file"] = entry;
-*/
+		stdout.writefln("!!! info:%s", info); stdout.flush();
 		// Save the info in the db
 		if (info.length > 0) {
 			string title = info["title"];
@@ -203,7 +174,7 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 
 			// Initialize the db for this console if needed
 			if ((console in g_db) != null) {
-				g_db[console].clear();//FIXME: make(map[string]map[string]object);
+				g_db[console].clear();
 			}
 
 			g_db[console][title] = [
@@ -272,8 +243,8 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 	//f.Write(jsoned_data)
 
 	// Write the modify dates cache file
-	auto f = File("cache/file_modify_dates_%s.json".format(console), "w");
-	scope (exit) f.close();
+	//auto f = File("cache/file_modify_dates_%s.json".format(console), "w");
+	//scope (exit) f.close();
 /*
 	if (err != null) {
 		fmt.Printf("Failed to open file modify dates file: %s\r\n", err);
