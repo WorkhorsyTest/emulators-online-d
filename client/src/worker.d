@@ -28,44 +28,50 @@ import encoder;
 // g_db is accessed like g_db[console][game][binary_name]
 string[string][string][string] g_db;
 //long[string][string] g_file_modify_dates;
+bool g_is_worker_running;
 
 void Send(Tid tid, string message) {
-	send(tid, message);
+	std.concurrency.send(tid, message);
 }
 
 Tid Start() {
-	Tid tid = spawn(&workerThread, thisTid);
+	import core.time;
+
+	g_is_worker_running = true;
+	Tid tid = std.concurrency.spawn(&workerThread, thisTid);
+	stdout.writefln("!!! thisTid:%s", thisTid); stdout.flush();
+	stdout.writefln("!!! thisTid:%s", thisTid); stdout.flush();
+	stdout.writefln("!!! tid:%s", tid); stdout.flush();
 
 	auto val = vibe.vibe.async({
-		run();
+		stdout.writefln("!!! thisTid:%s", thisTid); stdout.flush();
+		while (g_is_worker_running) {
+			std.concurrency.receiveTimeout(1.seconds,
+				(string msg) {
+					stdout.writefln("!!! receiveTimeout msg:%s", msg); stdout.flush();
+					//vibe.vibe.logInfo("!!! Got message:%s", msg);
+					//JSONValue in_message = DecodeMessage(msg);
+					//vibe.vibe.logInfo("!!! in_message:%s", in_message);
+				}
+			);
+		}
 		return 0;
 	});
 
 	return tid;
 }
 
-private void run() {
-	import core.time;
-
+private void workerThread(Tid workerTid) {
+	stdout.writefln("!!! workerTid:%s", workerTid); stdout.flush();
 	while (true) {
-		receiveTimeout(1.seconds,
-			(string m) { vibe.vibe.logInfo("FIXME: Got message:%s", m); },
-			(Variant v) { vibe.vibe.logWarn("Received some other type."); }
-		);
-	}
-}
-
-private void workerThread(Tid ownerTid) {
-	while (true) {
-		receive((string msg) {
-			JSONValue message_map;
-			message_map = DecodeMessage(msg);
+		std.concurrency.receive((string msg) {
+			JSONValue message_map = DecodeMessage(msg);
 			string action = message_map["action"].str;
 
 			switch (action) {
 				case "search_game_directory":
 					try {
-						actionSearchGameDirectory(message_map);
+						actionSearchGameDirectory(workerTid, message_map);
 					} catch (Throwable err) {
 						stdout.writefln("!!! err:%s", err); stdout.flush();
 					}
@@ -75,12 +81,9 @@ private void workerThread(Tid ownerTid) {
 			}
 		});
 	}
-
-	//string response = "FIXME: the response goes here";
-	//send(ownerTid, response);
 }
 
-private void actionSearchGameDirectory(ref JSONValue message_map) {
+private void actionSearchGameDirectory(ref Tid workerTid, ref JSONValue message_map) {
 	import std.file;
 	import std.string;
 	import std.path;
@@ -201,33 +204,28 @@ private void actionSearchGameDirectory(ref JSONValue message_map) {
 			}
 
 			// Get the images
-/*
 			string image_dir = "%s/%s/".format(path_prefix, title);
-			string[] expected_images = ["big", "small"];
+			const string[] expected_images = ["big", "small"];
 			foreach (img ; expected_images) {
-				if (! std.file.isDir(image_dir)) {
-					string image_file = "%simage_%s.png".format(image_dir, img);
-					if (std.file.isFile(image_file)) {
-						string[] images = g_db[console][title]["image_%s".format(img)].get!(string[]);
-						images ~= image_file;
-						g_db[console][title]["images"] = images;
+				if (std.file.exists(image_dir)) {
+					string image_name = "image_%s".format(img);
+					string image_file = "%s%s.png".format(image_dir, image_name);
+					if (std.file.exists(image_file)) {
+						g_db[console][title][image_name] = image_file;
 					}
 				}
 			}
-*/
 		}
 	}
 
-	// Send the updated game db to the browser
-/*
-	ubyte[] value = compress.ToCompressedBase64(g_db, CompressionType.Zlib);
+	// Send the updated game db back to the main thread
+	JSONValue response_json;
+	response_json["action"] = "set_db";
+	response_json["value"] = cast(string) compress.ToCompressedBase64(g_db, CompressionType.Zlib);
+	string response = EncodeMessage(response_json);
+	stdout.writefln("!!! sending response:%s", response); stdout.flush();
+	std.concurrency.send(workerTid, response);
 
-	object[string] message = [
-		"action" : "set_db",
-		"value" : value,
-	];
-	WebSocketSend(&message);
-*/
 	//// Write the db cache file
 	//f, err := os.Create(fmt.Sprintf("cache/game_db_%s.json", console))
 	//defer f.Close()
