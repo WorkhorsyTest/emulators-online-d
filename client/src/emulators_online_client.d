@@ -30,7 +30,7 @@ import worker;
 import helpers;
 
 bool g_websocket_needs_restart;
-Tid g_worker_tid;
+
 /*
 class LongRunningTask {
 	string name;
@@ -417,12 +417,13 @@ void actionSelectDirectoryDialog(ref WebSocket sock, ref JSONValue data) {
 		sock.send(response);
 
 		// Tell the worker to start searchig the directory for games
-		message = JSONValue();
-		message["action"] = "search_game_directory";
-		message["console"] = console;
-		message["directory_name"] = dir_name;
-		response = EncodeMessage(message);
-		worker.Send(g_worker_tid, response);
+		auto t = runTask(delegate() {
+			try {
+				worker.SearchGameDirectory(sock, message);
+			} catch (Throwable err) {
+				logError("err: %s", err);
+			}
+		});
 	}
 }
 
@@ -741,9 +742,6 @@ int actualMain() {
 	} else {
 		//useAppDataForStaticFiles();
 	}
-
-	// Start the worker thread
-	g_worker_tid = worker.Start();
 
 	// Get the DirectX version while blocking
 	helpers.g_direct_x_version = helpers.GetDirectxVersion();

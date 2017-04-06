@@ -19,7 +19,6 @@
 
 module worker;
 
-import std.concurrency;
 static import vibe.vibe;
 import std.stdio;
 import std.json;
@@ -28,62 +27,8 @@ import encoder;
 // g_db is accessed like g_db[console][game][binary_name]
 string[string][string][string] g_db;
 //long[string][string] g_file_modify_dates;
-bool g_is_worker_running;
 
-void Send(Tid tid, string message) {
-	std.concurrency.send(tid, message);
-}
-
-Tid Start() {
-	import core.time;
-
-	g_is_worker_running = true;
-	Tid tid = std.concurrency.spawn(&workerThread, thisTid);
-	stdout.writefln("!!! thisTid:%s", thisTid); stdout.flush();
-	stdout.writefln("!!! thisTid:%s", thisTid); stdout.flush();
-	stdout.writefln("!!! tid:%s", tid); stdout.flush();
-
-	auto val = vibe.vibe.async({
-		stdout.writefln("!!! thisTid:%s", thisTid); stdout.flush();
-		while (g_is_worker_running) {
-			std.concurrency.receiveTimeout(1.seconds,
-				(string msg) {
-					stdout.writefln("!!! receiveTimeout msg:%s", msg); stdout.flush();
-					//vibe.vibe.logInfo("!!! Got message:%s", msg);
-					//JSONValue in_message = DecodeMessage(msg);
-					//vibe.vibe.logInfo("!!! in_message:%s", in_message);
-				}
-			);
-		}
-		return 0;
-	});
-
-	return tid;
-}
-
-private void workerThread(Tid workerTid) {
-	stdout.writefln("!!! workerTid:%s", workerTid); stdout.flush();
-	while (true) {
-		std.concurrency.receive((string msg) {
-			JSONValue message_map = DecodeMessage(msg);
-			string action = message_map["action"].str;
-
-			switch (action) {
-				case "search_game_directory":
-					try {
-						actionSearchGameDirectory(workerTid, message_map);
-					} catch (Throwable err) {
-						stdout.writefln("!!! err:%s", err); stdout.flush();
-					}
-					break;
-				default:
-					break;
-			}
-		});
-	}
-}
-
-private void actionSearchGameDirectory(ref Tid workerTid, ref JSONValue message_map) {
+void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 	import std.file;
 	import std.string;
 	import std.path;
@@ -94,8 +39,8 @@ private void actionSearchGameDirectory(ref Tid workerTid, ref JSONValue message_
 	import compress;
 	static import identify_dreamcast_games;
 
-	string directory_name = message_map["directory_name"].str;
-	string console = message_map["console"].str;
+	string directory_name = data["directory_name"].str;
+	string console = data["console"].str;
 
 	// Get the path for this console
 	string path_prefix;
@@ -224,7 +169,7 @@ private void actionSearchGameDirectory(ref Tid workerTid, ref JSONValue message_
 	response_json["value"] = cast(string) compress.ToCompressedBase64(g_db, CompressionType.Zlib);
 	string response = EncodeMessage(response_json);
 	stdout.writefln("!!! sending response:%s", response); stdout.flush();
-	std.concurrency.send(workerTid, response);
+	sock.send(response);
 
 	//// Write the db cache file
 	//f, err := os.Create(fmt.Sprintf("cache/game_db_%s.json", console))
