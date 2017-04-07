@@ -25,4 +25,4 @@ client/identify_games/*.exe
 cache/*
 downloads/*
 emulators/*
-images/*
+static/images/*

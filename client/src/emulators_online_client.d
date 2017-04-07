@@ -554,9 +554,9 @@ void useAppDataForStaticFiles() {
 		"config",
 		"downloads",
 		"emulators",
-		"images",
 		"licenses",
 		"static",
+		"static/images",
 		"client/identify_games",
 		"client/identify_dreamcast_games",
 	];

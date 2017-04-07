@@ -12,9 +12,9 @@ Checkout the code
 ~~~bash
 git clone http://github.com/workhorsy/emulators-online-d
 cd emulators-online-d
-git clone http://github.com/workhorsy/images_nintendo images/Nintendo
-git clone http://github.com/workhorsy/images_sega images/Sega
-git clone http://github.com/workhorsy/images_sony images/Sony
+git clone http://github.com/workhorsy/images_nintendo static/images/Nintendo
+git clone http://github.com/workhorsy/images_sega static/images/Sega
+git clone http://github.com/workhorsy/images_sony static/images/Sony
 ~~~
 
 
