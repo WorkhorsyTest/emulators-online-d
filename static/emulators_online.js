@@ -663,10 +663,26 @@ function on_websocket_data(data) {
 		break;
 	case 'set_db':
 		var value = data['value'];
+		//console.log('!!! value: ', value);
+
+		value = String.fromCharCode.apply(null, value);
+		//console.log('!!! value: ', value);
+
+		//value = atob(value);
+		//console.log('!!! value: ', value);
+
+		//value = pako.inflate(value);
+		//console.log('!!! value: ', value);
+
+		//value = String.fromCharCode.apply(null, value);
+		//console.log('!!! value: ', value);
+
+		//value = JSON.parse(value);
+		//console.log('!!! value: ', value);
 
 		// Save the game db in localStorage
 		localStorage.setItem("game_db", value);
-
+/*
 		// Save the game db on the web server
 		$.ajax({
 			type: "POST",
@@ -685,6 +701,7 @@ function on_websocket_data(data) {
 		.fail(function() {
 			console.log("sent game db to localStorage.");
 		});
+*/
 		break;
 	case 'long_running_tasks':
 		var notification_footer = $('#notification_footer');
@@ -834,7 +851,8 @@ function on_websocket_data(data) {
 		}
 		break;
 	default:
-		console.log('Data: ' + data);
+		console.log('Data: ' + String(data));
+		console.log('action: ' + data['action']);
 		break;
 	}
 }
@@ -850,6 +868,7 @@ function main() {
 		$("#error_header").hide();
 		g_is_web_socket_setup = true;
 
+/*
 		// Get the game database from the emulators-online.com
 		// If that fails try loading it from localStorage
 		$.ajax({
@@ -871,7 +890,7 @@ function main() {
 			console.log("Loaded game db from localStorage");
 			g_is_game_db_downloaded = true;
 		});
-
+*/
 		// Figure out if programs are installed
 		action_is_linux();
 		action_is_installed('DirectX End User Runtime');
@@ -923,6 +942,7 @@ function main() {
 		web_socket_send_data(message);
 		console.log("Removed game db from the client");
 
+/*
 		// Remove the game db from emulators-online.com
 		$.ajax({
 			type: "POST",
@@ -943,6 +963,7 @@ function main() {
 			console.log("Failed to remove game db from http://emulators-online.com");
 			alert("Cleared the game database.");
 		});
+*/
 	});
 
 	btn = $("#btn_install_demul");

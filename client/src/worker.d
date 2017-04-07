@@ -35,6 +35,7 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 	import std.datetime;
 	import std.array;
 	import std.stdio;
+	import jsonizer : toJSONString;
 	import helpers;
 	import compress;
 	static import identify_dreamcast_games;
@@ -120,11 +121,6 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 			string title = info["title"];
 			string clean_title = helpers.SanitizeFileName(title);
 
-			// Initialize the db for this console if needed
-			if ((console in g_db) != null) {
-				g_db[console].clear();
-			}
-
 			g_db[console][title] = [
 				"path" : "%s/%s/".format(path_prefix, clean_title).CleanPath(),
 				"binary" : absolutePath(info["file"]),
@@ -164,11 +160,14 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 	}
 
 	// Send the updated game db back to the main thread
+	ubyte[] compressed_db = (cast(ubyte[]) g_db.toJSONString()).ToCompressed(CompressionType.Zlib);
+	import std.base64;
+	compressed_db = cast(ubyte[]) Base64.encode(compressed_db);
+
 	JSONValue response_json;
 	response_json["action"] = "set_db";
-	response_json["value"] = cast(string) compress.ToCompressedBase64(g_db, CompressionType.Zlib);
+	response_json["value"] = compressed_db;
 	string response = EncodeMessage(response_json);
-	stdout.writefln("!!! sending response:%s", response); stdout.flush();
 	sock.send(response);
 
 	//// Write the db cache file
