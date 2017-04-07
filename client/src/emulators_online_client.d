@@ -747,7 +747,7 @@ int actualMain() {
 	helpers.g_direct_x_version = helpers.GetDirectxVersion();
 
 	auto router = new URLRouter();
-	router.get("/", staticRedirect("/index.html"));
+	router.get("/index.html", staticRedirect("/"));
 	router.get("*", serveStaticFiles("static/"));
 	router.get("/hello.html", &handleHTTP);
 	router.get("/ws", handleWebSockets(&handleWebSocket));
