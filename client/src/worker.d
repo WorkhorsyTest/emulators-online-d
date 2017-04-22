@@ -110,7 +110,15 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 
 			}
 		} else if (console == "playstation2") {
-			// FIXME:
+			try {
+				auto game_data = identify_playstation_2_games.GetPlaystation2GameInfo(entry);
+				foreach (key, value ; game_data) {
+					info[key] = value;
+				}
+				info["file"] = entry;
+			} catch (Throwable err) {
+
+			}
 		} else {
 			throw new Exception("Unexpected console: %s".format(console));
 		}
