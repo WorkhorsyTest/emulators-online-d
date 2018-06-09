@@ -11,11 +11,17 @@
 	"mainSourceFile": "emulators_online_client.d",
 
 	"dependencies": {
-		"vibe-d": "~>0.7.30",
-		"cbor-d": "~>0.5.4",
-		"requests": "~>0.4.0",
-		"jsonizer": "~>0.7.3",
+		"vibe-d": "~>0.8.4",
+		"vibe-d:tls": "*",
+		"requests": "~>0.8.0",
+		"jsonizer": "~>0.7.5",
+		"cbor-d": "~>0.5.5",
 	},
+
+	"subConfigurations": {
+		"vibe-d:tls": "botan"
+	},
+
 	"sourceFiles": [
 		"compress.d",
 		"encoder.d",

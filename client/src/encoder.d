@@ -31,7 +31,7 @@ JSONValue DecodeMessage(string buffer) {
 		string base64ed_message = chunks[1];
 
 		byte[] jsoned_blob = cast(byte[]) Base64.decode(base64ed_message);
-		j = parseJSON(jsoned_blob);
+		j = parseJSON(cast(char[])jsoned_blob);
 		is_valid = true;
 		logInfo(">>> in: %s", j);
 	} catch (Throwable err) {

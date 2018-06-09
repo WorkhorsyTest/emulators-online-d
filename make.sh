@@ -6,6 +6,7 @@
 set -e
 
 WRAP_BINARY=false
+ARCH=x86_64
 
 function build {
 	# Make sure G++ is installed
@@ -29,35 +30,35 @@ function build {
 	# Put everything inside the generated D file
 	echo "!!! Generating files ..."
 	cd client/generate
-	dub run
+	dub run --arch=$ARCH
 	rm -f generate_included_files
 	cd ..
 
 	# Build the client exe
 	echo "!!! Building emulators_online_client ..."
 	cd src
-	dub build #--build=release
+	dub build --arch=$ARCH #--build=release
 	rm -f ../generate/generated_files.d
-	OS=`uname -o`
-	if [ "$OS" = "Msys" ]; then
-		mv libeay32.dll ../../libeay32.dll
-		mv libevent.dll ../../libevent.dll
-		mv ssleay32.dll ../../ssleay32.dll
-	fi
+	#OS=`uname -o`
+	#if [ "$OS" = "Msys" ]; then
+	#	mv libeay32.dll ../../libeay32.dll
+	#	mv libevent.dll ../../libevent.dll
+	#	mv ssleay32.dll ../../ssleay32.dll
+	#fi
 	mv emulators_online_client ../../emulators_online_client
 	cd ..
 
 	if [ "$WRAP_BINARY" = true ]; then
 		echo "!!! Copying binary into wrapper source code ..."
 		cd wrap_binary
-		dub build
+		dub build --arch=$ARCH
 		./wrapper_generator
 		rm -f wrapper_generator
 		cd ..
 
 		echo "!!! Building binary wrapper ..."
 		cd wrapped_client/
-		dub build #--build=release
+		dub build --arch=$ARCH #--build=release
 		rm -f wrapped.d
 		cd ..
 		rm -f ../emulators_online_client

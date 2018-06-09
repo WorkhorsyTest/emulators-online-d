@@ -67,7 +67,7 @@ private string[string][string] loadJson(string file_name) {
 
 	// Strip the comments and load the json into the map
 	data = cast(ubyte[]) stripComments(cast(string) data);
-	auto j = parseJSON(data);
+	auto j = parseJSON(cast(char[])data);
 
 	// Copy the data from json to an associative array
 	string[string][string] load_into;
