@@ -17,14 +17,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import std.conv;
-import std.string;
-import std.base64;
-import std.json;
-import core.thread;
+
+import std.json : JSONValue;
 import vibe.vibe;
-import compress;
-import encoder;
 import Generated;
 import worker;
 import helpers;
@@ -263,6 +258,8 @@ void setDB(string[string][string][string] console_data) {
 }
 
 void actionIsLinux(ref WebSocket sock) {
+	import encoder : EncodeMessage;
+
 	bool is_linux = false;
 
 	version (linux) {
@@ -278,6 +275,7 @@ void actionIsLinux(ref WebSocket sock) {
 
 void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 	import std.file;
+	import encoder : EncodeMessage;
 
 	string program = data["program"].str;
 
@@ -346,6 +344,8 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 void actionInstallProgram(ref WebSocket sock, ref JSONValue data) {
 	import std.file;
 	import std.path;
+	import encoder : EncodeMessage;
+	import compress : UncompressFile;
 
 	string dir = data["dir"].str;
 	string file = data["file"].str;
@@ -363,11 +363,11 @@ void actionInstallProgram(ref WebSocket sock, ref JSONValue data) {
 		case "demul0582.rar":
 			std.file.mkdir("emulators/Demul");
 			string full_path = [dir, "demul0582.rar"].join(std.path.dirSeparator);
-			compress.UncompressFile(full_path, "emulators/Demul");
+			UncompressFile(full_path, "emulators/Demul");
 			break;
 		case "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z":
 			string full_path = [dir, "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z"].join(std.path.dirSeparator);
-			compress.UncompressFile(full_path, "emulators");
+			UncompressFile(full_path, "emulators");
 			std.file.rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2");
 			break;
 		default:
@@ -403,6 +403,7 @@ void actionUninstallProgram(ref WebSocket sock, ref JSONValue data) {
 
 void actionSelectDirectoryDialog(ref WebSocket sock, ref JSONValue data) {
 	import gui;
+	import encoder : EncodeMessage;
 
 	string console = data["console"].str;
 	string dir_name = gui.DialogDirectorySelect();
@@ -432,6 +433,7 @@ void actionDownloadFile(ref WebSocket sock, ref JSONValue data) {
 	import std.stdio;
 	import std.algorithm;
 	import std.path;
+	import encoder : EncodeMessage;
 
 	// Get all the info we need
 	string file_name = data["file"].str;
@@ -476,6 +478,8 @@ void actionDownloadFile(ref WebSocket sock, ref JSONValue data) {
 }
 
 void actionGetDirectxVersion(ref WebSocket sock, ref JSONValue data) {
+	import encoder : EncodeMessage;
+
 	int dx_version = helpers.g_direct_x_version;
 	JSONValue message;
 	message["action"] = "get_directx_version";
@@ -485,10 +489,11 @@ void actionGetDirectxVersion(ref WebSocket sock, ref JSONValue data) {
 }
 
 void uncompress7Zip() {
-	import std.file;
+	import std.file : exists, write;
+	import compress : FromCompressedBase64, CompressionType, Exe7Zip;
 
 	// Just return if 7zip already exists
-	if (std.file.exists(Exe7Zip)) {
+	if (exists(Exe7Zip)) {
 		return;
 	}
 
@@ -496,14 +501,15 @@ void uncompress7Zip() {
 	ubyte[] blob = cast(ubyte[]) Generated.GetCompressed7zip;
 
 	ubyte[] data = FromCompressedBase64!(ubyte[])(blob, CompressionType.Zlib);
-	std.file.write(Exe7Zip, data);
+	write(Exe7Zip, data);
 }
 
 void uncompressUnrar() {
-	import std.file;
+	import std.file : exists, write;
+	import compress : FromCompressedBase64, CompressionType, ExeUnrar;
 
 	// Just return if Unrar already exists
-	if (std.file.exists(ExeUnrar)) {
+	if (exists(ExeUnrar)) {
 		return;
 	}
 
@@ -511,7 +517,7 @@ void uncompressUnrar() {
 	ubyte[] blob = cast(ubyte[]) Generated.GetCompressedUnrar;
 
 	ubyte[] data = FromCompressedBase64!(ubyte[])(blob, CompressionType.Zlib);
-	std.file.write(ExeUnrar, data);
+	write(ExeUnrar, data);
 }
 /*
 func UncompressWith7zip(in_file string) {
@@ -720,6 +726,8 @@ version (linux) {
 }
 
 int actualMain() {
+	import std.conv : to;
+
 	// FIXME: Vibe breaks when we pass our args in. So just hard code them for now.
 	string[] args = ["emulators_online_client", "9090", "local"];
 
@@ -771,6 +779,8 @@ void handleHTTP(HTTPServerRequest req, HTTPServerResponse res) {
 }
 
 void handleWebSocket(scope WebSocket sock) {
+	import encoder : DecodeMessage;
+
 	logInfo("WebSocket connected ...");
 
 	// Handle all requests

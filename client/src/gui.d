@@ -42,9 +42,9 @@ version (Windows) string DialogDirectorySelect() {
 }
 
 version (linux) string DialogDirectorySelect() {
-	import std.process;
-	import std.algorithm;
-	import std.array;
+	import std.process : pipeProcess, wait;
+	import std.algorithm : byLine, map;
+	import std.array : array;
 
 	const string[] command = [
 		"zenity",

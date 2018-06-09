@@ -19,7 +19,7 @@
 
 module helpers;
 
-import std.stdio;
+//import std.stdio;
 
 int g_direct_x_version = -1;
 
@@ -70,24 +70,24 @@ string CleanPath(string file_path) {
 }
 
 string[] glob(string path, string pattern, bool is_shallow) {
-	import std.file;
-	import std.path;
-	import std.range.primitives;
-	import std.stdio;
+	import std.file : dirEntries, isDir, SpanMode;
+	import std.path : baseName, globMatch;
+	import std.range.primitives : popFront;
+	//import std.stdio;
 
 	string[] matches;
 	string[] to_search = [path];
 	while (to_search.length > 0) {
 		string current = to_search[0];
-		std.range.primitives.popFront(to_search);
+		popFront(to_search);
 		try {
-			auto entries = std.file.dirEntries(current, SpanMode.shallow);
+			auto entries = dirEntries(current, SpanMode.shallow);
 			foreach (entry ; entries) {
-				if (! is_shallow && std.file.isDir(entry.name)) {
+				if (! is_shallow && isDir(entry.name)) {
 					to_search ~= entry.name;
 				} else {
-					string base_name = std.path.baseName(entry.name);
-					if (std.path.globMatch(base_name, pattern)) {
+					string base_name = baseName(entry.name);
+					if (globMatch(base_name, pattern)) {
 						matches ~= entry.name;
 					}
 				}
@@ -102,11 +102,11 @@ string[] glob(string path, string pattern, bool is_shallow) {
 }
 
 void TryRemovingFileOnExit(string file_name) {
-	import std.file;
+	import std.file : exists, remove, FileException;
 
-	if (std.file.exists(file_name)) {
+	if (exists(file_name)) {
 		try {
-			std.file.remove(file_name);
+			remove(file_name);
 		} catch (FileException err) {
 			// Ignore any error
 		}
@@ -117,10 +117,10 @@ int GetDirectxVersion() {
 	int int_version = -1;
 
 	version (Windows) {
-		import std.process;
-		import std.file;
-		import std.stdio;
-		import std.string;
+		import std.process : pipeProcess, wait, Redirect;
+		import std.file : read;
+		import std.stdio : stderr;
+		import std.string : split, indexOf;
 
 		// Try to remove any generated files when the function exists
 		scope (exit) TryRemovingFileOnExit("directx_info.txt");
@@ -139,7 +139,7 @@ int GetDirectxVersion() {
 			stderr.writefln("Failed to determine DirectX version"); stderr.flush();
 		}
 
-		string string_data = cast(string) std.file.read("directx_info.txt");
+		string string_data = cast(string) read("directx_info.txt");
 		string raw_version = string_data.split("DirectX Version: ")[1].split("\r\n")[0];
 
 		// Get the DirectX version

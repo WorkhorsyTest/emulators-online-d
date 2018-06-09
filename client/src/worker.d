@@ -20,24 +20,25 @@
 module worker;
 
 static import vibe.vibe;
-import std.stdio;
-import std.json;
-import encoder;
+//import std.stdio;
+import std.json : JSONValue;
 
 // g_db is accessed like g_db[console][game][binary_name]
 string[string][string][string] g_db;
 //long[string][string] g_file_modify_dates;
 
 void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
-	import std.file;
-	import std.string;
-	import std.path;
-	import std.datetime;
-	import std.array;
+	import std.file : dirEntries, isFile, SpanMode, exists;
+	import std.string : format;
+	import std.path : absolutePath;
+	//import std.datetime;
+	import std.array : replace;
+	import std.base64 : Base64;
 	import std.stdio;
 	import jsonizer : toJSONString;
 	import helpers;
-	import compress;
+	import compress : ToCompressed, CompressionType;
+	import encoder : EncodeMessage;
 	static import identify_dreamcast_games;
 
 	string directory_name = data["directory_name"].str;
@@ -59,16 +60,16 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 
 	// Get the total number of files
 	float total_files = 0.0f;
-	auto entries = std.file.dirEntries(directory_name, SpanMode.breadth);
+	auto entries = dirEntries(directory_name, SpanMode.breadth);
 	foreach (entry ; entries) {
-		if (std.file.isFile(entry)) {
+		if (isFile(entry)) {
 			total_files++;
 		}
 	}
 
 	// Walk through all the directories
 	float done_files = 0.0f;
-	entries = std.file.dirEntries(directory_name, SpanMode.breadth);
+	entries = dirEntries(directory_name, SpanMode.breadth);
 	foreach (file_info ; entries) {
 		// Get the full path
 		string entry = file_info;
@@ -76,7 +77,7 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 		entry = entry.replace("\\", "/");
 
 		// Skip if the the entry is not a file
-		if (! std.file.isFile(entry)) {
+		if (! isFile(entry)) {
 			continue;
 		}
 
@@ -148,10 +149,10 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 			string image_dir = "%s/%s/".format(path_prefix, title);
 			const string[] expected_images = ["big", "small"];
 			foreach (img ; expected_images) {
-				if (std.file.exists(image_dir)) {
+				if (exists(image_dir)) {
 					string image_name = "image_%s".format(img);
 					string image_file = "%s%s.png".format(image_dir, image_name);
-					if (std.file.exists(image_file)) {
+					if (exists(image_file)) {
 						g_db[console][title][image_name] = image_file;
 					}
 				}
@@ -161,7 +162,6 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 
 	// Send the updated game db back to the main thread
 	ubyte[] compressed_db = (cast(ubyte[]) g_db.toJSONString()).ToCompressed(CompressionType.Zlib);
-	import std.base64;
 	compressed_db = cast(ubyte[]) Base64.encode(compressed_db);
 
 	JSONValue response_json;

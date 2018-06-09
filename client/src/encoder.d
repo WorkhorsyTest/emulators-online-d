@@ -22,7 +22,7 @@ import std.json : JSONValue;
 
 JSONValue DecodeMessage(string buffer) {
 	import std.base64 : Base64;
-	import std.json : JSONValue, parseJSON;
+	import std.json : parseJSON;
 	import std.string : split;
 	import std.conv : to;
 
