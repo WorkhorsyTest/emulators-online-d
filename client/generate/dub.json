@@ -5,13 +5,13 @@
 		"Matthew Brennan Jones <matthew.brennan.jones@gmail.com>",
 	],
 	"homepage": "https://github.com/workhorsy/emulators-online-d",
-	"copyright": "Copyright (c) 2017 Matthew Brennan Jones",
+	"copyright": "Copyright (c) 2015-2018 Matthew Brennan Jones",
 	"license": "AGPL-3.0",
 	"targetType": "executable",
 	"mainSourceFile": "generate_included_files.d",
 
 	"dependencies": {
-		"cbor-d": "~>0.5.4"
+		"cbor-d": "~>0.5.5",
 	},
 	"sourceFiles": [
 		"../src/compress.d"

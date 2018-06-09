@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2017 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
+// Copyright (c) 2015-2018 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
 // emulators-online is a HTML based front end for video game console emulators
 // It uses the GNU AGPL 3 license
 // It is hosted at: https://github.com/workhorsy/emulators-online-d

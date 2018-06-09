@@ -5,7 +5,7 @@
 		"Matthew Brennan Jones <matthew.brennan.jones@gmail.com>",
 	],
 	"homepage": "https://github.com/workhorsy/emulators-online-d",
-	"copyright": "Copyright (c) 2017 Matthew Brennan Jones",
+	"copyright": "Copyright (c) 2015-2018 Matthew Brennan Jones",
 	"license": "AGPL-3.0",
 	"targetType": "executable",
 	"mainSourceFile": "emulators_online_client.d",

@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2017 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
+// Copyright (c) 2015-2018 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
 // emulators-online is a HTML based front end for video game console emulators
 // It uses the GNU AGPL 3 license
 // It is hosted at: https://github.com/workhorsy/emulators-online-d
@@ -89,7 +89,7 @@ KEYBOARD_JS_CODE_MAP = {
 	120 : 'F9',
 	121 : 'F10',
 	144 : 'NUMLOCK',
-	145 : 'SCROLL',	
+	145 : 'SCROLL',
 	103 : 'NUMPAD7',
 	104 : 'NUMPAD8',
 	105 : 'NUMPAD9',
@@ -135,7 +135,7 @@ KEYBOARD_JS_CODE_MAP = {
 	*/
 	18 : 'RMENU', // Right Menu/Alt
 	//'FUNCTION',
-	19 : 'PAUSE', 
+	19 : 'PAUSE',
 	36 : 'HOME',
 	38 : 'UP',
 	33 : 'PRIOR', // Page Up

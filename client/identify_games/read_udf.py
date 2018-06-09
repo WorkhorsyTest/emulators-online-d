@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# Copyright (c) 2015-2017 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
+# Copyright (c) 2015-2018 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
 # Copyright (c) 2008-2011, Kenneth Bell https://discutils.codeplex.com
 # A module for reading DVD ISOs (Universal Disk Format) with Python 2 & 3
 # It uses a MIT style license
@@ -12,7 +12,7 @@
 # https://sites.google.com/site/udfintro/
 # http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-167.pdf
 # http://www.osta.org/specs/pdf/udf260.pdf
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
@@ -20,10 +20,10 @@
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -876,10 +876,10 @@ def read_udf_file(file_name):
 	if not tag.tag_identifier == TagIdentifier.AnchorVolumeDescriptorPointer:
 		raise Exception("The last sector was supposed to be an Archive Volume Descriptor, but was not.")
 	avdp = AnchorVolumeDescriptorPointer(buffer)
-	
+
 	# Get the location of the primary volume descriptor
 	pvd_sector = avdp.main_volume_descriptor_sequence_extent.extent_location
-		
+
 	# Look through all the sectors and find the partition descriptor
 	logical_volume_descriptor = None
 	terminating_descriptor = None
@@ -955,7 +955,3 @@ def read_udf_file(file_name):
 	file_set_descriptor = FileSetDescriptor(fsd_buffer)
 	root_directory = File.from_descriptor(context, file_set_descriptor.root_directory_icb)
 	return root_directory
-
-
-
-

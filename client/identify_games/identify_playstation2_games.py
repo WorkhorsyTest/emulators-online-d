@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# Copyright (c) 2015-2017 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
+# Copyright (c) 2015-2018 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
 # A module for identifying Sony Playstation 2 games with Python 2 & 3
 # It uses a MIT style license
 # It is hosted at: https://github.com/workhorsy/identify_playstation2_games
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
@@ -13,10 +13,10 @@
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -201,7 +201,7 @@ def get_playstation2_game_info(game_file):
 
 	try:
 		root_directory = read_udf.read_udf_file(game_file)
-		
+
 		for sub_entry in root_directory.all_entries:
 			entries.append(sub_entry.file_identifier)
 		disc_type = 'DVD'
@@ -302,4 +302,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
