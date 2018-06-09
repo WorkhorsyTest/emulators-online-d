@@ -709,7 +709,7 @@ void main() {
 	}
 }
 */
-
+/*
 version (Windows) {
 	import win32.windef;
 	import win32.winuser;
@@ -723,6 +723,11 @@ version (linux) {
 	int main() {
 		return actualMain();
 	}
+}
+*/
+
+shared static this() {
+	actualMain();
 }
 
 int actualMain() {

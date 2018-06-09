@@ -22,6 +22,8 @@
 		"vibe-d:tls": "botan"
 	},
 
+	"versions": ["VibeDefaultMain"],
+
 	"sourceFiles": [
 		"compress.d",
 		"encoder.d",
