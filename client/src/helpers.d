@@ -24,8 +24,8 @@ import std.stdio;
 int g_direct_x_version = -1;
 
 string SanitizeFileName(string name) {
-	import std.string;
-	import std.algorithm.mutation;
+	import std.string : replace;
+	import std.algorithm.mutation : strip;
 
 	// Replace all the chars with the safe equiv
 	const string[string] sanitize_map = [
@@ -44,14 +44,14 @@ string SanitizeFileName(string name) {
 	}
 
 	// Remove any trailing periods
-	name = std.algorithm.mutation.strip(name, '.');
+	name = strip(name, '.');
 
 	return name;
 }
 
 string CleanPath(string file_path) {
-	import std.string;
-	import std.algorithm;
+	import std.string : replace, endsWith, split;
+	import std.algorithm : canFind;
 
 	// Fix the backward slashes from Windows
 	string new_path = file_path.replace("\\", "/");

@@ -16,16 +16,17 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import std.stdio;
-import std.file;
-import compress;
-
 
 int main() {
-	std.file.chdir("../..");
+	import compress : ToCompressedBase64, CompressionType, Exe7Zip, ExeUnrar;
+
+	import std.stdio : File;
+	import std.file : chdir, read;
+
+	chdir("../..");
 
 	// Generate a file that will generate everything
-	auto output = std.stdio.File("client/generate/generated_files.d", "w");
+	auto output = File("client/generate/generated_files.d", "w");
 	output.write("module Generated;\r\n\r\n");
 
 	// Get a list of all the files to store
@@ -63,7 +64,7 @@ int main() {
 	byte[][string] file_map;
 	foreach (file_name ; file_names) {
 		// Read the file to a string
-		byte[] data = cast(byte[]) std.file.read(file_name);
+		byte[] data = cast(byte[]) read(file_name);
 
 		// Put the file string into the array
 		file_map[file_name] = data;
@@ -78,7 +79,7 @@ int main() {
 	output.write(";\r\n");
 
 	// Read 7zip into an array
-	ubyte[] file_data = cast(ubyte[]) std.file.read("tools/" ~ Exe7Zip);
+	ubyte[] file_data = cast(ubyte[]) read("tools/" ~ Exe7Zip);
 
 	// Convert the 7zip array to a blob
 	base64ed_data = ToCompressedBase64(file_data, CompressionType.Zlib);
@@ -89,7 +90,7 @@ int main() {
 	output.write(";\r\n");
 
 	// Read Unrar into an array
-	file_data = cast(ubyte[]) std.file.read("tools/" ~ ExeUnrar);
+	file_data = cast(ubyte[]) read("tools/" ~ ExeUnrar);
 
 	// Convert the Unrar array to a blob
 	base64ed_data = ToCompressedBase64(file_data, CompressionType.Zlib);
