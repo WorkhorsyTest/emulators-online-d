@@ -1,4 +1,10 @@
 
+
+* Make sure it works on Linux and Windows
+* Make ctrl+c exit the program
+* Make all imports local and specific
+* Git rid of the win main
+
 * cleanup css
 * use let not var
 * dump jquery
