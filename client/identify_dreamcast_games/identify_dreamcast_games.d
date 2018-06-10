@@ -18,7 +18,7 @@
 
 module identify_dreamcast_games;
 
-import std.stdio;
+import std.stdio : File, stdout;
 
 
 private const long BUFFER_SIZE = 1024 * 1024 * 5;
@@ -31,9 +31,9 @@ private string[string][string] g_official_jp_db;
 
 
 private string stripComments(string data) {
-	import std.string;
-	import std.array;
-	import std.algorithm.searching;
+	import std.string : split;
+	import std.array : join;
+	import std.algorithm.searching : canFind;
 
 	string[] lines = data.split("\r\n");
 	string[] new_data;
@@ -59,11 +59,11 @@ private string readBlobAt(File file, long start_address, ubyte[] buffer, size_t 
 }
 
 private string[string][string] loadJson(string file_name) {
-	import std.file;
-	import std.json;
+	import std.file : read;
+	import std.json : parseJSON;
 
 	// Read the json file
-	ubyte[] data = cast(ubyte[]) std.file.read(file_name);
+	ubyte[] data = cast(ubyte[]) read(file_name);
 
 	// Strip the comments and load the json into the map
 	data = cast(ubyte[]) stripComments(cast(string) data);
@@ -247,8 +247,7 @@ private void fixGamesThatAreMislabeled(File f, ref string title, ref string seri
 }
 
 private long locateStringInFile(File f, long file_size, ubyte[] buffer, string string_to_find) {
-	import std.string;
-	import std.algorithm.searching;
+	import std.algorithm.searching : countUntil;
 
 	long string_length = string_to_find.length;
 	f.seek(0, 0);
@@ -269,7 +268,7 @@ private long locateStringInFile(File f, long file_size, ubyte[] buffer, string s
 		}
 
 		// Get the string to find location
-		long index = std.algorithm.searching.countUntil(rom_data, string_to_find);
+		long index = countUntil(rom_data, string_to_find);
 		if (index > -1) {
 			long string_file_location = (file_pos - rom_data.length) + index;
 			return string_file_location;
@@ -286,9 +285,10 @@ private long locateStringInFile(File f, long file_size, ubyte[] buffer, string s
 }
 
 private string getTrack01FromGdiFile(string file_name, ubyte[] buffer) {
-	import std.string;
-	import std.path;
-	import std.stdio;
+	import std.string : split;
+	import std.path : dirSeparator, dirName;
+	import std.stdio : File;
+	import std.array : join;
 
 	string path = dirName(file_name);
 
@@ -300,7 +300,7 @@ private string getTrack01FromGdiFile(string file_name, ubyte[] buffer) {
 	string track = cast(string) used_buffer;
 	string track_01_line = track.split("\r\n")[1];
 	string track_01_file = track_01_line.split(" ")[4];
-	track_01_file = [path, track_01_file].join(std.path.dirSeparator);
+	track_01_file = [path, track_01_file].join(dirSeparator);
 	return track_01_file;
 }
 
@@ -323,19 +323,19 @@ void printInfo(string path, string[string] info) {
 }
 
 bool IsDreamcastFile(string game_file) {
-	import std.uni;
-	import std.path;
-	import std.file;
+	import std.uni : toLower;
+	import std.path : extension;
+	import std.file : isFile;
 
 	// Skip if not file
-	if (! std.file.isFile(game_file)) {
+	if (! isFile(game_file)) {
 		return false;
 	}
 
 	// FIXME: Make it work with .mdf/.mds, .nrg, and .ccd/.img
 	// Skip if not a usable file
 	const string[] good_exts = [".cdi", ".gdi", ".iso"];
-	string ext = std.uni.toLower(std.path.extension(game_file));
+	string ext = toLower(extension(game_file));
 	foreach(good_ext ; good_exts) {
 		if (ext == good_ext) {
 			return true;
@@ -485,10 +485,10 @@ string[string] GetDreamcastGameInfo(string game_file) {
 }
 
 int mainXXX(string[] args) {
-	import std.file;
-	import std.path;
-	import std.stdio;
-	import std.array;
+	import std.file : dirEntries, SpanMode;
+	//import std.path;
+	//import std.stdio;
+	//import std.array;
 
 	// Get the path of the current exe
 	//string root = dirName(args[0]);
@@ -496,7 +496,7 @@ int mainXXX(string[] args) {
 
 ///*
 	string games_root = "C:/Users/bob/Desktop/Dreamcast/";
-	auto entries = std.file.dirEntries(games_root, SpanMode.depth);
+	auto entries = dirEntries(games_root, SpanMode.depth);
 	foreach (entry ; entries) {
 		// Skip if not a Dreamcast game
 		if (! IsDreamcastFile(entry)) {

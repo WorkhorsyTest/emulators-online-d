@@ -19,10 +19,9 @@
 
 
 import std.json : JSONValue;
-import vibe.vibe;
+import vibe.vibe : WebSocket, HTTPServerRequest, HTTPServerResponse;
 import Generated;
-import worker;
-import helpers;
+//import helpers;
 
 bool g_websocket_needs_restart;
 
@@ -274,8 +273,10 @@ void actionIsLinux(ref WebSocket sock) {
 }
 
 void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
-	import std.file;
+	import vibe.vibe : logWarn;
+	import std.file : exists;
 	import encoder : EncodeMessage;
+	import helpers : glob;
 
 	string program = data["program"].str;
 
@@ -297,8 +298,8 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			break;
 		case "Visual C++ 2010 redist": // msvcr100.dll
 			// Paths on Windows 8.1 X86_32 and X86_64
-			bool is_installed = std.file.exists("C:/Windows/SysWOW64/msvcr100.dll") ||
-					std.file.exists("C:/Windows/System32/msvcr100.dll");
+			bool is_installed = exists("C:/Windows/SysWOW64/msvcr100.dll") ||
+					exists("C:/Windows/System32/msvcr100.dll");
 			JSONValue message;
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
@@ -308,8 +309,8 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			break;
 		case "Visual C++ 2013 redist": // msvcr120.dll
 			// Paths on Windows 8.1 X86_32 and X86_64
-			bool is_installed = std.file.exists("C:/Windows/SysWOW64/msvcr120.dll") ||
-					std.file.exists("C:/Windows/System32/msvcr120.dll");
+			bool is_installed = exists("C:/Windows/SysWOW64/msvcr120.dll") ||
+					exists("C:/Windows/System32/msvcr120.dll");
 			JSONValue message;
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
@@ -318,7 +319,7 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			sock.send(response);
 			break;
 		case "Demul":
-			bool is_installed = std.file.exists("emulators/Demul/demul.exe");
+			bool is_installed = exists("emulators/Demul/demul.exe");
 			JSONValue message;
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
@@ -327,7 +328,7 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			sock.send(response);
 			break;
 		case "PCSX2":
-			bool is_installed = std.file.exists("emulators/pcsx2/pcsx2.exe");
+			bool is_installed = exists("emulators/pcsx2/pcsx2.exe");
 			JSONValue message;
 			message["action"] = "is_installed";
 			message["value"] = is_installed;
@@ -342,8 +343,10 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 }
 
 void actionInstallProgram(ref WebSocket sock, ref JSONValue data) {
-	import std.file;
-	import std.path;
+	import std.file : mkdir, rename;
+	import std.path : dirSeparator;
+	import std.array : join;
+	import std.string : format;
 	import encoder : EncodeMessage;
 	import compress : UncompressFile;
 
@@ -361,14 +364,14 @@ void actionInstallProgram(ref WebSocket sock, ref JSONValue data) {
 
 	switch (file) {
 		case "demul0582.rar":
-			std.file.mkdir("emulators/Demul");
-			string full_path = [dir, "demul0582.rar"].join(std.path.dirSeparator);
+			mkdir("emulators/Demul");
+			string full_path = [dir, "demul0582.rar"].join(dirSeparator);
 			UncompressFile(full_path, "emulators/Demul");
 			break;
 		case "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z":
-			string full_path = [dir, "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z"].join(std.path.dirSeparator);
+			string full_path = [dir, "pcsx2-v1.3.1-93-g1aebca3-windows-x86.7z"].join(dirSeparator);
 			UncompressFile(full_path, "emulators");
-			std.file.rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2");
+			rename("emulators/pcsx2-v1.3.1-93-g1aebca3-windows-x86", "emulators/pcsx2");
 			break;
 		default:
 			throw new Exception("Unknown program to install: %s".format(file));
@@ -385,8 +388,9 @@ void actionInstallProgram(ref WebSocket sock, ref JSONValue data) {
 
 // FIXME: Update to kill the process first
 void actionUninstallProgram(ref WebSocket sock, ref JSONValue data) {
-	import std.file;
-	import std.stdio;
+	import std.file : rmdirRecurse;
+	import std.string : format;
+	//import std.stdio;
 
 	string name = data["name"].str;
 	switch (name) {
@@ -404,6 +408,8 @@ void actionUninstallProgram(ref WebSocket sock, ref JSONValue data) {
 void actionSelectDirectoryDialog(ref WebSocket sock, ref JSONValue data) {
 	import gui;
 	import encoder : EncodeMessage;
+	import vibe.vibe : runTask, logError;
+	import worker : SearchGameDirectory;
 
 	string console = data["console"].str;
 	string dir_name = gui.DialogDirectorySelect();
@@ -420,7 +426,7 @@ void actionSelectDirectoryDialog(ref WebSocket sock, ref JSONValue data) {
 		// Tell the worker to start searchig the directory for games
 		auto t = runTask(delegate() {
 			try {
-				worker.SearchGameDirectory(sock, message);
+				SearchGameDirectory(sock, message);
 			} catch (Throwable err) {
 				logError("err: %s", err);
 			}
@@ -429,10 +435,10 @@ void actionSelectDirectoryDialog(ref WebSocket sock, ref JSONValue data) {
 }
 
 void actionDownloadFile(ref WebSocket sock, ref JSONValue data) {
-	import requests;
-	import std.stdio;
-	import std.algorithm;
-	import std.path;
+	import std.stdio : stdout, File;
+	import std.path : dirSeparator;
+	import std.array : join;
+	import requests : Request;
 	import encoder : EncodeMessage;
 
 	// Get all the info we need
@@ -450,7 +456,7 @@ void actionDownloadFile(ref WebSocket sock, ref JSONValue data) {
 
 	// Download the file one chunk at a time
 	float total_length = 0.0f;
-	auto output = File([directory, file_name].join(std.path.dirSeparator), "wb");
+	auto output = File([directory, file_name].join(dirSeparator), "wb");
 	auto rq = Request();
 	rq.useStreaming = true;
 	rq.verbosity = 2;
@@ -479,8 +485,9 @@ void actionDownloadFile(ref WebSocket sock, ref JSONValue data) {
 
 void actionGetDirectxVersion(ref WebSocket sock, ref JSONValue data) {
 	import encoder : EncodeMessage;
+	import helpers : g_direct_x_version;
 
-	int dx_version = helpers.g_direct_x_version;
+	int dx_version = g_direct_x_version;
 	JSONValue message;
 	message["action"] = "get_directx_version";
 	message["value"] = dx_version;
@@ -732,6 +739,10 @@ shared static this() {
 
 int actualMain() {
 	import std.conv : to;
+	import std.string : format;
+	import vibe.vibe : logInfo, URLRouter, HTTPServerSettings, runApplication,
+		listenHTTP, staticRedirect, serveStaticFiles, handleWebSockets;
+	import helpers : g_direct_x_version, GetDirectxVersion;
 
 	// FIXME: Vibe breaks when we pass our args in. So just hard code them for now.
 	string[] args = ["emulators_online_client", "9090", "local"];
@@ -757,7 +768,7 @@ int actualMain() {
 	}
 
 	// Get the DirectX version while blocking
-	helpers.g_direct_x_version = helpers.GetDirectxVersion();
+	g_direct_x_version = GetDirectxVersion();
 
 	auto router = new URLRouter();
 	router.get("/index.html", staticRedirect("/"));
@@ -779,11 +790,14 @@ int actualMain() {
 }
 
 void handleHTTP(HTTPServerRequest req, HTTPServerResponse res) {
+	import vibe.vibe : logInfo;
+
 	logInfo("req: %s", req);
 	res.writeBody("Hello, World!");
 }
 
 void handleWebSocket(scope WebSocket sock) {
+	import vibe.vibe : logWarn, logInfo;
 	import encoder : DecodeMessage;
 
 	logInfo("WebSocket connected ...");

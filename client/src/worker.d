@@ -19,24 +19,25 @@
 
 module worker;
 
-static import vibe.vibe;
-//import std.stdio;
+
 import std.json : JSONValue;
+import vibe.vibe : WebSocket;
 
 // g_db is accessed like g_db[console][game][binary_name]
 string[string][string][string] g_db;
 //long[string][string] g_file_modify_dates;
 
-void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
+void SearchGameDirectory(ref WebSocket sock, ref JSONValue data) {
 	import std.file : dirEntries, isFile, SpanMode, exists;
 	import std.string : format;
 	import std.path : absolutePath;
 	//import std.datetime;
 	import std.array : replace;
 	import std.base64 : Base64;
-	import std.stdio;
+	import std.stdio : stdout;
+	import vibe.vibe : logFatal;
 	import jsonizer : toJSONString;
-	import helpers;
+	import helpers : SanitizeFileName, CleanPath;
 	import compress : ToCompressed, CompressionType;
 	import encoder : EncodeMessage;
 	static import identify_dreamcast_games;
@@ -54,7 +55,7 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 			path_prefix = "images/Sony/Playstation2";
 			break;
 		default:
-			vibe.vibe.logFatal("Unknown console type: %s", console);
+			logFatal("Unknown console type: %s", console);
 			return;
 	}
 
@@ -120,7 +121,7 @@ void SearchGameDirectory(ref vibe.vibe.WebSocket sock, ref JSONValue data) {
 		// Save the info in the db
 		if (info.length > 0) {
 			string title = info["title"];
-			string clean_title = helpers.SanitizeFileName(title);
+			string clean_title = SanitizeFileName(title);
 
 			g_db[console][title] = [
 				"path" : "%s/%s/".format(path_prefix, clean_title).CleanPath(),

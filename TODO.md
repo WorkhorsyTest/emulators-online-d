@@ -1,5 +1,6 @@
 
 
+* Replace stdout, stderr with logger
 * Make sure it works on Linux and Windows
 * Make all imports local and specific
 * Git rid of the win main
