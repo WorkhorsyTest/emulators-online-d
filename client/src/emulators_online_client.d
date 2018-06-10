@@ -70,44 +70,47 @@ void getDB() {
 }
 */
 
-/*
-void setBios(object[string] data) {
-	string console = cast(string) data["console"];
-	string type_name = cast(string) data["type"];
-	string value = cast(string) data["value"];
-	bool is_default = cast(bool) data["is_default"];
-	string data_type = cast(string) data["type"];
+void actionSetBios(ref WebSocket sock, ref JSONValue data) {
+	import std.conv : to;
+	import std.file : exists, write, isDir, mkdir, FileException;
+	import std.array : join;
+	import std.path : dirSeparator;
+	import std.base64 : Base64;
+	import std.string : format;
+
+	string console = data["console"].str;
+	string type_name = data["type"].str;
+	string value = data["value"].str;
+	bool is_default = data["is_default"].str.to!bool;
+	string data_type = data["type"].str;
 
 	if (console == "playstation2") {
 		// Make the BIOS dir if missing
-		if (! helpers.IsDir("emulators/pcsx2/bios")) {
-			os.Mkdir("emulators/pcsx2/bios", os.ModeDir);
+		if (! exists("emulators/pcsx2/bios")) {
+			mkdir("emulators/pcsx2/bios");
 		}
 
 		// Convert the base64 data to BIOS and write to file
-		string file_name = filepath.Join("emulators/pcsx2/bios/", data_type);
-		f = os.Create(file_name);
-		if (err != null) {
-			throw new Exception("Failed to save BIOS file: %s".format(err));
+		string file_name = ["emulators/pcsx2/bios/", data_type].join(dirSeparator);
+		try {
+			write(file_name, Base64.decode(value));
+		} catch (FileException) {
+			throw new Exception("Failed to save BIOS file: %s".format(file_name));
 		}
-		string b642_data = base64.StdEncoding.DecodeString(value);
-		if (err != null) {
-			throw new Exception("Failed to un base64 BIOS file: %s\r\n".format(err));
-		}
-		f.Write(b642_data);
-		f.Close();
 
 		// If the default BIOS, write the name to file
 		if (is_default) {
-			err = ioutil.WriteFile("emulators/pcsx2/bios/default_bios", data_type, std.conv.octal!(644));
-			if (err != null) {
-				throw new Exception(err);
+			file_name = ["emulators/pcsx2/bios/default_bios", data_type].join(dirSeparator);
+			try {
+				write(file_name, value);
+			} catch (FileException) {
+				throw new Exception("Failed to save BIOS file: %s".format(file_name));
 			}
 		}
 	} else if (console == "dreamcast") {
 		// Make the BIOS dir if missing
-		if (! helpers.IsDir("emulators/Demul/roms")) {
-			os.Mkdir("emulators/Demul/roms", os.ModeDir);
+		if (! exists("emulators/Demul/roms")) {
+			mkdir("emulators/Demul/roms");
 		}
 
 		// Get the BIOS file name
@@ -128,21 +131,15 @@ void setBios(object[string] data) {
 		}
 
 		// Convert the base64 data to BIOS and write to file
-		File f = os.Create(file_name);
-		if (err != null) {
-			throw new Exception("Failed to save BIOS file: %s\r\n".format(err));
+		try {
+			write(file_name, Base64.decode(value));
+		} catch (FileException) {
+			throw new Exception("Failed to save BIOS file: %s".format(file_name));
 		}
-		string b642_data = base64.StdEncoding.DecodeString(value);
-		if (err != null) {
-			throw new Exception("Failed to un base64 BIOS file: %s\r\n".format(err));
-		}
-		f.Write(b642_data);
-		f.Close();
 	}
-
-	return null;
 }
 
+/*
 void setButtonMap(object[string] data)  {
 	// Convert the map[string]interface to map[string]string
 	string[string] button_map;
@@ -847,6 +844,7 @@ void handleWebSocket(scope WebSocket sock) {
 				case "get_button_map":
 					break;
 				case "set_bios":
+					actionSetBios(sock, message_map);
 					break;
 				case "get_db":
 					break;
