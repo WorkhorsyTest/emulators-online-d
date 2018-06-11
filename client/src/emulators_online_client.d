@@ -75,7 +75,7 @@ void actionSetBios(ref WebSocket sock, ref JSONValue data) {
 	import std.file : exists, write, isDir, mkdir, FileException;
 	import std.array : join;
 	import std.path : dirSeparator;
-	import std.base64 : Base64;
+	import std.base64 : Base64, Base64Exception;
 	import std.string : format;
 
 	string console = data["console"].str;
@@ -94,6 +94,8 @@ void actionSetBios(ref WebSocket sock, ref JSONValue data) {
 		string file_name = ["emulators/pcsx2/bios/", data_type].join(dirSeparator);
 		try {
 			write(file_name, Base64.decode(value));
+		} catch (Base64Exception) {
+			throw new Exception("Failed to un base64 BIOS file: %s".format(file_name));
 		} catch (FileException) {
 			throw new Exception("Failed to save BIOS file: %s".format(file_name));
 		}
@@ -133,6 +135,8 @@ void actionSetBios(ref WebSocket sock, ref JSONValue data) {
 		// Convert the base64 data to BIOS and write to file
 		try {
 			write(file_name, Base64.decode(value));
+		} catch (Base64Exception) {
+			throw new Exception("Failed to un base64 BIOS file: %s".format(file_name));
 		} catch (FileException) {
 			throw new Exception("Failed to save BIOS file: %s".format(file_name));
 		}

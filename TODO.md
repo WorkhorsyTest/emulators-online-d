@@ -1,5 +1,5 @@
 
-
+* port to use https://github.com/DiamondMVC/Diamond
 * Replace stdout, stderr with logger
 * Make sure it works on Linux and Windows
 * Make all imports local and specific
