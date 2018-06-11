@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import vibe.vibe : logInfo;
+
 import std.json : JSONValue;
 
 
@@ -25,6 +25,7 @@ JSONValue DecodeMessage(string buffer) {
 	import std.json : parseJSON;
 	import std.string : split;
 	import std.conv : to;
+	import vibe.vibe : logInfo;
 
 	JSONValue j;
 	bool is_valid = false;
@@ -53,6 +54,7 @@ JSONValue DecodeMessage(string buffer) {
 string EncodeMessage(JSONValue message) {
 	import std.base64 : Base64;
 	import std.string : format;
+	import vibe.vibe : logInfo;
 
 	logInfo("<<< out: %s", message);
 	//logInfo("message: %s", message);

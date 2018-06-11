@@ -24,9 +24,7 @@ version (Windows) {
 static import win32.windef;
 static import win32.winuser;
 static import win32.shlobj;
-import std.stdio;
-import std.string;
-import std.conv;
+
 
 private win32.winuser.HWND[] g_hwnds;
 
@@ -35,6 +33,9 @@ win32.winuser.HWND GetForegroundWindow() {
 }
 
 string GetWindowText(win32.winuser.HWND hwnd) {
+	import std.string : fromStringz;
+	import std.conv : to;
+
 	char[255] chr_text;
 	int ret = win32.winuser.GetWindowText(hwnd, chr_text.ptr, chr_text.length);
 	string text = chr_text.ptr.fromStringz.to!string;
@@ -64,7 +65,7 @@ win32.winuser.HWND GetWindowByText(string text) {
 }
 
 win32.winuser.HWND GetBrowserWindow() {
-	import std.algorithm.searching;
+	import std.algorithm.searching : canFind;
 
 	const string[] browser_texts = [
 		" - Mozilla Firefox",
@@ -96,6 +97,9 @@ win32.winuser.HWND GetBrowserWindow() {
 }
 
 string DialogDirectorySelect(win32.winuser.HWND hwnd) {
+	import std.string : fromStringz;
+	import std.conv : to;
+
 	// FIXME: How do we pass the string to display?
 	win32.shlobj.BROWSEINFO browse_info = {
 		hwnd,
@@ -121,18 +125,21 @@ string DialogDirectorySelect(win32.winuser.HWND hwnd) {
 }
 
 void MessageBox(string text, string title) {
-	import std.string;
+	import std.string : toStringz;
+
 	int flags = win32.winuser.MB_OK | win32.winuser.MB_ICONEXCLAMATION;
 	win32.winuser.MessageBox(null, title.toStringz, text.toStringz, flags);
 }
 
 auto toUTF16z(S)(S s) {
-	import std.utf;
+	import std.utf : toUTFz;
+
 	return toUTFz!(const(wchar)*)(s);
 }
 
 int runWinMain(int function() actualMain) {
-	import core.runtime;
+	import core.runtime : Runtime;
+
 	try {
 		Runtime.initialize();
 		//MessageBox("Win32 in D!", "The runtime has started ...");

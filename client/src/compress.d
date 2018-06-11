@@ -18,8 +18,6 @@
 
 module compress;
 
-import std.stdio : stdout, stderr;
-
 
 version (linux) {
 	immutable string Exe7Zip = "7za";
@@ -36,7 +34,7 @@ enum CompressionType {
 }
 
 ubyte[] ToCompressed(ubyte[] blob, CompressionType compression_type) {
-	//import std.algorithm;
+	import std.stdio : stdout, stderr;
 	import std.array : join;
 	import std.process : spawnProcess, wait;
 	import std.string : format;
@@ -160,6 +158,7 @@ void UncompressFile(string compressed_file, string out_dir) {
 	import std.algorithm : map;
 	import std.string : format, endsWith;
 	import std.process : spawnProcess, wait;
+	import std.stdio : stdout, stderr;
 	//import std.array;
 
 	string[] command;

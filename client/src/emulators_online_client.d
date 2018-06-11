@@ -21,7 +21,6 @@
 import std.json : JSONValue;
 import vibe.vibe : WebSocket, HTTPServerRequest, HTTPServerResponse;
 import Generated;
-//import helpers;
 
 bool g_websocket_needs_restart;
 
