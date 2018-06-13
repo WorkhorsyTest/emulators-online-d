@@ -8,7 +8,8 @@
 
 html {
 	box-sizing: border-box;
-	color: black;
+	color: white;
+	background-color: #333333;
 }
 
 body {
@@ -88,15 +89,15 @@ a {
 }
 
 #navigation a:hover, a:active {
-	background-color: #CCCCCC;
+	background-color: #666666;
 }
 
 #navigation .selected {
-	background-color: #DDDDDD;
+	background-color: #555555;
 }
 
 #navigation .not_selected {
-	background-color: #FFFFFF;
+	background-color: #444444;
 }
 
 .menu_selected {
@@ -190,7 +191,7 @@ a {
 	align: left;
 	width: 100%;
 	padding: 30px;
-    background-color: #DDDDDD;
+    background-color: #444444;
 }
 
 .config_table th {
