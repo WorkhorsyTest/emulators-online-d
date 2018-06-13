@@ -139,6 +139,8 @@ void actionSetBios(ref WebSocket sock, ref JSONValue data) {
 		} catch (FileException) {
 			throw new Exception("Failed to save BIOS file: %s".format(file_name));
 		}
+	} else if (console == "gamecube") {
+		// FIXME:
 	}
 }
 
@@ -755,6 +757,7 @@ int actualMain() {
 	g_consoles = [
 		"dreamcast",
 		"playstation2",
+		"gamecube",
 	];
 
 	// If "local" use the static files in the current directory

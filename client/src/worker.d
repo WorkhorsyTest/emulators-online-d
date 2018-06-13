@@ -41,6 +41,7 @@ void SearchGameDirectory(ref WebSocket sock, ref JSONValue data) {
 	import compress : ToCompressed, CompressionType;
 	import encoder : EncodeMessage;
 	static import identify_dreamcast_games;
+	import identify_gamecube_games : getGameCubeGameInfo;
 
 	string directory_name = data["directory_name"].str;
 	string console = data["console"].str;
@@ -53,6 +54,9 @@ void SearchGameDirectory(ref WebSocket sock, ref JSONValue data) {
 			break;
 		case "playstation2":
 			path_prefix = "images/Sony/Playstation2";
+			break;
+		case "gamecube":
+			path_prefix = "images/Nintendo/GameCube";
 			break;
 		default:
 			logFatal("Unknown console type: %s", console);
@@ -101,20 +105,34 @@ void SearchGameDirectory(ref WebSocket sock, ref JSONValue data) {
 		// Get the game info
 		string[string] info;
 
-		if (console == "dreamcast") {
-			try {
-				auto game_data = identify_dreamcast_games.GetDreamcastGameInfo(entry);
-				foreach (key, value ; game_data) {
-					info[key] = value;
-				}
-				info["file"] = entry;
-			} catch (Throwable err) {
+		switch (console) {
+			case "dreamcast":
+				try {
+					auto game_data = identify_dreamcast_games.GetDreamcastGameInfo(entry);
+					foreach (key, value ; game_data) {
+						info[key] = value;
+					}
+					info["file"] = entry;
+				} catch (Throwable err) {
 
-			}
-		} else if (console == "playstation2") {
-			// FIXME:
-		} else {
-			throw new Exception("Unexpected console: %s".format(console));
+				}
+				break;
+			case "playstation2":
+				// FIXME:
+				break;
+			case "gamecube":
+				try {
+					auto game_data = getGameCubeGameInfo(entry);
+					foreach (key, value ; game_data) {
+						info[key] = value;
+					}
+					info["file"] = entry;
+				} catch (Throwable err) {
+
+				}
+				break;
+			default:
+				throw new Exception("Unexpected console: %s".format(console));
 		}
 
 		stdout.writefln("!!! info:%s", info); stdout.flush();

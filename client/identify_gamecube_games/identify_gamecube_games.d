@@ -32,12 +32,12 @@ string[string] getGameCubeGameInfo(string game_file) {
 
 	// Make sure the database is loaded
 	if (! g_is_db_loaded) {
-		// client/identify_gamecube_games/
-		g_official_us_db = loadJson("db_gamecube_official_us.json");
-		g_official_au_db = loadJson("db_gamecube_official_au.json");
-		g_official_eu_db = loadJson("db_gamecube_official_eu.json");
-		g_official_jp_db = loadJson("db_gamecube_official_jp.json");
-		g_official_ko_db = loadJson("db_gamecube_official_ko.json");
+		string path = "client/identify_gamecube_games/";
+		g_official_us_db = loadJson(path ~ "db_gamecube_official_us.json");
+		g_official_au_db = loadJson(path ~ "db_gamecube_official_au.json");
+		g_official_eu_db = loadJson(path ~ "db_gamecube_official_eu.json");
+		g_official_jp_db = loadJson(path ~ "db_gamecube_official_jp.json");
+		g_official_ko_db = loadJson(path ~ "db_gamecube_official_ko.json");
 		g_is_db_loaded = true;
 	}
 
@@ -191,7 +191,7 @@ string[string] g_official_eu_db;
 string[string] g_official_jp_db;
 string[string] g_official_ko_db;
 
-
+/*
 void printInfo(string path, string[string] info) {
 	import std.stdio : stdout;
 
@@ -220,3 +220,4 @@ int main(string[] args) {
 
 	return 0;
 }
+*/

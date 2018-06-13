@@ -33,5 +33,6 @@
 		"worker.d",
 		"../generate/generated_files.d",
 		"../identify_dreamcast_games/identify_dreamcast_games.d",
+		"../identify_gamecube_games/identify_gamecube_games.d",
 	],
 }
