@@ -19,41 +19,16 @@
 
 module identify_gamecube_games;
 
-import std.stdint;
 
 
-private:
-
-bool g_is_db_loaded = false;
-string[string] g_official_us_db;
-string[string] g_official_au_db;
-string[string] g_official_eu_db;
-string[string] g_official_jp_db;
-string[string] g_official_ko_db;
-
-string stripComments(string data) {
-	import std.string : split;
-	import std.array : join;
-	import std.algorithm.searching : canFind;
-
-	string[] lines = data.split("\r\n");
-	string[] new_data;
-	foreach (line ; lines) {
-		if (! line.canFind("/*") && ! line.canFind("*/")) {
-			new_data ~= line;
-		}
-	}
-
-	return new_data.join("\r\n");
-}
-
-string[string] GetGameCubeGameInfo(string game_file) {
+string[string] getGameCubeGameInfo(string game_file) {
 	import std.stdio : File, stdout;
 	import std.uni : toLower;
 	import std.path : absolutePath;
 	import std.bitmanip : peek;
 	import std.system : Endian;
 	import std.string : format, strip, chomp;
+	import std.stdint : uint32_t;
 
 	// Make sure the database is loaded
 	if (! g_is_db_loaded) {
@@ -67,7 +42,7 @@ string[string] GetGameCubeGameInfo(string game_file) {
 	}
 
 	// Make sure the file is a GameCube game
-	if (! IsGameCubeFile(game_file)) {
+	if (! isGameCubeFile(game_file)) {
 		throw new Exception("Not a known GameCube file type.");
 	}
 
@@ -149,27 +124,9 @@ string[string] GetGameCubeGameInfo(string game_file) {
 	return retval;
 }
 
-string[string] loadJson(string file_name) {
-	import std.file : read;
-	import std.json : parseJSON;
+private:
 
-	// Read the json file
-	ubyte[] data = cast(ubyte[]) read(file_name);
-
-	// Strip the comments and load the json into the map
-	data = cast(ubyte[]) stripComments(cast(string) data);
-	auto j = parseJSON(cast(char[])data);
-
-	// Copy the data from json to an associative array
-	string[string] load_into;
-	foreach (serial_number, info ; j.object) {
-		load_into[serial_number] = info.str;
-	}
-
-	return load_into;
-}
-
-bool IsGameCubeFile(string game_file) {
+bool isGameCubeFile(string game_file) {
 	import std.uni : toLower;
 	import std.path : extension;
 	import std.file : isFile;
@@ -191,6 +148,50 @@ bool IsGameCubeFile(string game_file) {
 	return false;
 }
 
+string[string] loadJson(string file_name) {
+	import std.file : read;
+	import std.json : parseJSON;
+
+	// Read the json file
+	ubyte[] data = cast(ubyte[]) read(file_name);
+
+	// Strip the comments and load the json into the map
+	data = cast(ubyte[]) stripJsonComments(cast(string) data);
+	auto j = parseJSON(cast(char[])data);
+
+	// Copy the data from json to an associative array
+	string[string] load_into;
+	foreach (serial_number, info ; j.object) {
+		load_into[serial_number] = info.str;
+	}
+
+	return load_into;
+}
+
+string stripJsonComments(string data) {
+	import std.string : split;
+	import std.array : join;
+	import std.algorithm.searching : canFind;
+
+	string[] lines = data.split("\r\n");
+	string[] new_data;
+	foreach (line ; lines) {
+		if (! line.canFind("/*") && ! line.canFind("*/")) {
+			new_data ~= line;
+		}
+	}
+
+	return new_data.join("\r\n");
+}
+
+bool g_is_db_loaded = false;
+string[string] g_official_us_db;
+string[string] g_official_au_db;
+string[string] g_official_eu_db;
+string[string] g_official_jp_db;
+string[string] g_official_ko_db;
+
+
 void printInfo(string path, string[string] info) {
 	import std.stdio : stdout;
 
@@ -209,11 +210,11 @@ int main(string[] args) {
 	auto entries = dirEntries(games_root, SpanMode.depth);
 	foreach (entry ; entries) {
 		// Skip if not a GameCube game
-		if (! IsGameCubeFile(entry)) {
+		if (! isGameCubeFile(entry)) {
 			continue;
 		}
 
-		string[string] info = GetGameCubeGameInfo(entry);
+		string[string] info = getGameCubeGameInfo(entry);
 		printInfo(entry, info);
 	}
 
