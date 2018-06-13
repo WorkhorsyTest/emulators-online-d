@@ -22,15 +22,16 @@ module identify_gamecube_games;
 import std.stdint;
 
 
+private:
 
-private bool g_is_db_loaded = false;
-private string[string] g_official_us_db;
-private string[string] g_official_au_db;
-private string[string] g_official_eu_db;
-private string[string] g_official_jp_db;
-private string[string] g_official_ko_db;
+bool g_is_db_loaded = false;
+string[string] g_official_us_db;
+string[string] g_official_au_db;
+string[string] g_official_eu_db;
+string[string] g_official_jp_db;
+string[string] g_official_ko_db;
 
-private string stripComments(string data) {
+string stripComments(string data) {
 	import std.string : split;
 	import std.array : join;
 	import std.algorithm.searching : canFind;
@@ -148,7 +149,7 @@ string[string] GetGameCubeGameInfo(string game_file) {
 	return retval;
 }
 
-private string[string] loadJson(string file_name) {
+string[string] loadJson(string file_name) {
 	import std.file : read;
 	import std.json : parseJSON;
 
