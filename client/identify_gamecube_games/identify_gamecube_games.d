@@ -19,7 +19,6 @@
 
 module identify_gamecube_games;
 
-import std.stdio : File, stdout;
 import std.stdint;
 
 
@@ -48,15 +47,12 @@ private string stripComments(string data) {
 }
 
 string[string] GetGameCubeGameInfo(string game_file) {
-	import std.stdio : File;
+	import std.stdio : File, stdout;
 	import std.uni : toLower;
 	import std.path : absolutePath;
 	import std.bitmanip : peek;
 	import std.system : Endian;
-	//import std.array;
-	import std.string : format, strip;
-	//import std.algorithm.mutation;
-	//import std.conv : to;
+	import std.string : format, strip, chomp;
 
 	// Make sure the database is loaded
 	if (! g_is_db_loaded) {
@@ -95,8 +91,7 @@ string[string] GetGameCubeGameInfo(string game_file) {
 	}
 
 	string serial_number = header_str[0 .. 4].strip();
-	string sloppy_title = header_str[32 .. 32 + 32];
-//	sloppy_title = sloppy_title.strip('\0');
+	string sloppy_title = header_str[32 .. 32 + 32].chomp("\0");
 
 	// Get the region from the game code
 	char header_region = serial_number[3];
@@ -117,7 +112,7 @@ string[string] GetGameCubeGameInfo(string game_file) {
 			throw new Exception("Unknown region: %s".format(header_region));
 	}
 
-	serial_number = "DOL-{%s}-{%s}".format(serial_number, region);
+	serial_number = "DOL-%s-%s".format(serial_number, region);
 
 	// Look up the proper name and vague region
 	string title = null;
@@ -149,6 +144,7 @@ string[string] GetGameCubeGameInfo(string game_file) {
 		"region" : vague_region,
 		"title" : title,
 	];
+
 	return retval;
 }
 
@@ -195,7 +191,9 @@ bool IsGameCubeFile(string game_file) {
 }
 
 void printInfo(string path, string[string] info) {
-	stdout.writefln("path: %s", info["path"]);
+	import std.stdio : stdout;
+
+	stdout.writefln("path: %s", path);
 	stdout.writefln("title: %s", info["title"]);
 	stdout.writefln("region: %s", info["region"]);
 	stdout.writefln("serial_number: %s", info["serial_number"]);
@@ -203,17 +201,16 @@ void printInfo(string path, string[string] info) {
 }
 
 int main(string[] args) {
+	import std.stdio : stdout;
 	import std.file : dirEntries, SpanMode;
 
-	string games_root = "C:/GameCube";
+	string games_root = "C:/Users/matt/Desktop/GameCube";
 	auto entries = dirEntries(games_root, SpanMode.depth);
 	foreach (entry ; entries) {
-		// Skip if not a Dreamcast game
+		// Skip if not a GameCube game
 		if (! IsGameCubeFile(entry)) {
 			continue;
 		}
-
-		stdout.writefln("!!!!!!!!!!! entry: %s", entry); stdout.flush();
 
 		string[string] info = GetGameCubeGameInfo(entry);
 		printInfo(entry, info);
