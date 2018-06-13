@@ -338,6 +338,15 @@ void actionIsInstalled(ref WebSocket sock, ref JSONValue data) {
 			string response = EncodeMessage(message);
 			sock.send(response);
 			break;
+		case "Dolphin":
+			bool is_installed = exists("emulators/dolphin/dolphin.exe");
+			JSONValue message;
+			message["action"] = "is_installed";
+			message["value"] = is_installed;
+			message["name"] = "Dolphin";
+			string response = EncodeMessage(message);
+			sock.send(response);
+			break;
 		default:
 			logWarn("Unknown program to check if installed: %s", program);
 			break;

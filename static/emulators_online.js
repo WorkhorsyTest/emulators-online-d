@@ -27,6 +27,7 @@ var g_is_vcpp_2010_redist_installed = false;
 var g_is_vcpp_2013_redist_installed = false;
 var g_is_demul_installed = false;
 var g_is_pcsx2_installed = false;
+var g_is_dolphin_installed = false;
 var g_directx_version = 10;
 
 var g_db = {};
@@ -848,6 +849,16 @@ function on_websocket_data(data) {
 				$('#playstation2_requirements_installed').hide();
 				$('#playstation2_vcpp_2013_redist_not_installed').show();
 			}
+		} else if (data['name'] == 'Dolphin') {
+			//g_is_dolphin_installed = data['value'];
+			if (! g_is_linux) {
+				//if (g_is_dolphin_installed) {
+					$('#btn_gamecube_folder').prop('disabled', false);
+				//} else {
+				//	$('#btn_gamecube_folder').prop('disabled', true);
+				//}
+				$('#btn_install_dolphin').prop('disabled', false);
+			}
 		}
 		break;
 	default:
@@ -898,6 +909,7 @@ function main() {
 		action_is_installed('Visual C++ 2013 redist');
 		action_is_installed('Demul');
 		action_is_installed('PCSX2');
+		action_is_installed('Dolphin');
 		action_get_directx_version();
 	}, function() {
 		$("#error_header").show();
@@ -1024,6 +1036,17 @@ function main() {
 		var message = {
 			'action' : 'set_game_directory',
 			'console' : 'playstation2'
+		};
+		web_socket_send_data(message);
+		console.log('set_game_directory');
+	});
+
+	btn = $('#btn_gamecube_folder');
+	btn.on('click', function() {
+		// Have the server create a win32 folder selection dialog
+		var message = {
+			'action' : 'set_game_directory',
+			'console' : 'gamecube'
 		};
 		web_socket_send_data(message);
 		console.log('set_game_directory');
