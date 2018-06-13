@@ -850,13 +850,13 @@ function on_websocket_data(data) {
 				$('#playstation2_vcpp_2013_redist_not_installed').show();
 			}
 		} else if (data['name'] == 'Dolphin') {
-			//g_is_dolphin_installed = data['value'];
+			g_is_dolphin_installed = data['value'];
 			if (! g_is_linux) {
-				//if (g_is_dolphin_installed) {
+				if (g_is_dolphin_installed) {
 					$('#btn_gamecube_folder').prop('disabled', false);
-				//} else {
-				//	$('#btn_gamecube_folder').prop('disabled', true);
-				//}
+				} else {
+					$('#btn_gamecube_folder').prop('disabled', true);
+				}
 				$('#btn_install_dolphin').prop('disabled', false);
 			}
 		}
