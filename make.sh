@@ -9,12 +9,6 @@ WRAP_BINARY=false
 ARCH=x86_64
 
 function build {
-	# Make sure G++ is installed
-	if ! type g++ >/dev/null 2>&1; then
-		echo "G++ was not found. Please install G++ or MinGW." >&2
-		return
-	fi
-
 	# Make sure DMD is installed
 	if ! type dmd >/dev/null 2>&1; then
 		echo "DMD was not found. Please install DMD." >&2
