@@ -6,7 +6,7 @@
 set -e
 
 WRAP_BINARY=false
-ARCH=x86_64
+ARCH=x86
 
 function build {
 	# Make sure DMD is installed
